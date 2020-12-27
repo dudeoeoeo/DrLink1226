@@ -1,10 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html> 
 		<!-- 우편번호 API -->
 		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>		
+		
+		
+		<!-- jQuery -->
+		<script src="${path}/resources/assets/js/jquery.min.js"></script>
+		
+		<!-- Bootstrap Core JS -->
+		<script src="${path}/resources/assets/js/popper.min.js"></script>
+		<script src="${path}/resources/assets/js/bootstrap.min.js"></script>
+		
+		<!-- Sticky Sidebar JS -->
+        <script src="${path}/resources/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+        <script src="${path}/resources/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+		
+		<!-- Select2 JS -->
+		<script src="${path}/resources/assets/plugins/select2/js/select2.min.js"></script>
+		
+		<!-- Dropzone JS -->
+		<script src="${path}/resources/assets/plugins/dropzone/dropzone.min.js"></script>
+		
+		<!-- Bootstrap Tagsinput JS -->
+		<script src="${path}/resources/assets/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.js"></script>
+		
+		<!-- Profile Settings JS -->
+		<script src="${path}/resources/assets/js/profile-settings.js"></script>
+		
+		<!-- Custom JS -->
+		<script src="${path}/resources/assets/js/script.js"></script>
+		
+		
+		
+		
+		<!-- Favicons -->
+		<link href="${path}/resources/assets/img/favicon.png" rel="icon">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="${path}/resources/assets/css/bootstrap.min.css">
+		
+		<!-- Fontawesome CSS -->
+		<link rel="stylesheet" href="${path}/resources/assets/plugins/fontawesome/css/fontawesome.min.css">
+		<link rel="stylesheet" href="${path}/resources/assets/plugins/fontawesome/css/all.min.css">
+		
+		<!-- Select2 CSS -->
+		<link rel="stylesheet" href="${path}/resources/assets/plugins/select2/css/select2.min.css">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="${path}/resources/assets/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css">
+		
+		<link rel="stylesheet" href="${path}/resources/assets/plugins/dropzone/dropzone.min.css">
+		
+		<!-- Main CSS -->
+		<link rel="stylesheet" href="${path}/resources/assets/css/style.css">
+		
 		<script>
 
 		function execPostCode() {
@@ -395,40 +448,149 @@
 											</div>
 											<div class="col-6">
 												<div class="form-group">
-												<label class="">d_graduation<span class="text-danger"></span></label>
-												<input id="d_graduation" name="d_graduation" class="form-control" maxlength="50" size="40" value="" type="text" placeholder="미정">
-												<div class="check_font" id="d_graduation_check"></div>
-												</div>
-											</div>
-											<div class="col-6">
-												<div class="form-group">
-												<label class="">d_career<span class="text-danger"></span></label>
-												<input id="d_career" name="d_career" class="form-control" maxlength="50" size="40" value="" type="text" placeholder="미정">
-												<div class="check_font" id="d_career_check"></div>
-												</div>
-											</div>
-											<div class="col-6">
-												<div class="form-group">
-												<label class="">전공<span class="text-danger"></span></label>
+												<label class="">전공과목<span class="text-danger"></span></label>
 												<select id="d_licence" name="d_licence" class="form-control" >
 												    <option value="">전공선택</option>
+												    <option value="가정의학과">가정의학과</option>
+												    <option value="결핵과">결핵과</option>
 												    <option value="내과">내과</option>
-												    <option value="피부과">피부과</option>
+												    <option value="방사선종양학과">방사선종양학과</option>
+												    <option value="병리과">병리과</option>
+												    <option value="비뇨기과">비뇨기과</option>
+												    <option value="마취통증의학과">마취통증의학과</option>
+												    <option value="산부인과">산부인과</option>
+												    <option value="소아청소년외과">소아청소년외과</option>
+												    <option value="성형외과">성형외과</option>
+												    <option value="신경과">신경과</option>
+												    <option value="신경외과">신경외과</option>
 												    <option value="안과">안과</option>
-												    <option value="정신건강의학과">정신건강의학과</option>
-												    <option value="소아과">소아과</option>
+												    <option value="영상의학과">영상의학과</option>
+												    <option value="예방의학과">예방의학과</option>
+												    <option value="외과">외과</option>
+												    <option value="응급의학과">응급의학과</option>
 												    <option value="이비인후과">이비인후과</option>
+												    <option value="작업환경의학과">작업환경의학과</option>
+												    <option value="재활의학과">재활의학과</option>
+												    <option value="정신건강의학과">정신건강의학과</option>
+												    <option value="정형외과">정형외과</option>
+												    <option value="진단검사의학과">진단검사의학과</option>
+												    <option value="피부과">피부과</option>
+												    <option value="핵의학과">핵의학과</option>
+												    <option value="흉부외과">흉부외과</option>
+												    <option value="일반외과">일반외과</option>
 												    <option value="기타">기타</option>
 												</select>
 												</div>
 											</div>
-											<div class="col-6">
-												<div class="form-group">
-												<label class="">면허번호<span class="text-danger"></span></label>
-												<input id="d_licence_num" name="d_licence_num" class="form-control" maxlength="12" size="40" value="" type="text" placeholder="">
-												<div class="check_font" id="d_licence_check"></div>
+						 
+							<!-- Education -->
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">학력</h4>
+									<div class="education-info">
+										<div class="row form-row education-cont">
+											<div class="col-12 col-md-10 col-lg-11">
+												<div class="row form-row">
+												<c:set var="len" value="${fn:length(m[0])}"/> 
+													<div class="col-12 col-md-6 col-lg-4">
+														<div class="form-group">
+															<label>출신대학</label>
+															<input type="text" class="form-control" name="d_graduation" value="">
+														</div> 
+													</div>
+													<div class="col-12 col-md-6 col-lg-4">
+														<div class="form-group">
+															<label>학과</label>
+															<input type="text" class="form-control" name="d_graduation" value="">
+														</div> 
+													</div>
+													<div class="col-12 col-md-6 col-lg-4">
+														<div class="form-group">
+															<label>졸업년도</label>
+															<input type="text" class="form-control" name="d_graduation" value="">
+														</div> 
+													</div>
 												</div>
 											</div>
+										</div>
+									</div>
+									<div class="add-more">
+										<a href="javascript:void(0);" class="add-education"><i class="fa fa-plus-circle"></i> 추가하기</a>
+									</div>
+								</div>
+							</div>
+							<!-- /Education -->
+						
+							<!-- Experience -->
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">경력</h4>
+									<div class="experience-info">
+										<div class="row form-row experience-cont">
+											<div class="col-12 col-md-10 col-lg-11">
+												<div class="row form-row">
+													<div class="col-12 col-md-6 col-lg-4">
+														<div class="form-group">
+															<label>병원이름</label>
+															<input type="text" class="form-control" name="d_career"  value="">
+														</div> 
+													</div>
+													<div class="col-12 col-md-6 col-lg-4">
+														<div class="form-group">
+															<label>직함</label>
+															<input type="text" class="form-control" name="d_career" value="">
+														</div> 
+													</div>
+													<div class="col-12 col-md-6 col-lg-4">
+														<div class="form-group">
+															<label>활동년도</label>
+															<input type="text" class="form-control" name="d_career" value="">
+														</div> 
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="add-more">
+										<a href="javascript:void(0);" class="add-experience"><i class="fa fa-plus-circle"></i>추가하기</a>
+									</div>
+								</div>
+							</div>
+							<!-- /Experience -->
+							
+							
+							<!-- Registrations -->
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">면허내역</h4>
+									<div class="registrations-info">
+										<div class="row form-row reg-cont">
+											<div class="col-12 col-md-6 col-lg-4">
+												<div class="form-group">
+													<label>면허이름</label>
+													<input type="text" class="form-control" name="d_licence" value="">
+												</div> 
+											</div>
+											<div class="col-12 col-md-6 col-lg-4">
+												<div class="form-group">
+													<label>면허번호</label>
+													<input type="text" class="form-control" name="d_licence_num" value="">
+												</div> 
+											</div>
+											<div class="col-12 col-md-6 col-lg-4">
+												<div class="form-group">
+													<label>취득년도</label>
+													<input type="text" class="form-control">
+												</div> 
+											</div>
+										</div>
+									</div>
+									<div class="add-more">
+										<a href="javascript:void(0);" class="add-reg"><i class="fa fa-plus-circle"></i> 추가하기</a>
+									</div>
+								</div>
+							</div>
+							<!-- /Registrations -->
 											<div class="col-12 ">
 												<div class="form-inline">
 												<label class="">우편번호<span class="text-danger"></span></label>

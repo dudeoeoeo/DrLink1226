@@ -2,7 +2,6 @@ package dr_Link.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +26,6 @@ import dr_Link.doctor.DoctorDaoImp;
 import dr_Link.doctor.DoctorDaoInter;
 import dr_Link.doctor.DoctorServiceImpl;
 import dr_Link.doctorProfile.DoctorDTO;
-import dr_Link.doctorProfile.DoctorDaoInter;
 import dr_Link.dto.Hospital_boardDTO;
 import dr_Link.dto.PageDTO;
 import dr_Link.dto.PatientDTO;
@@ -242,6 +240,7 @@ public class MainController {
 		doctor_dao.insertDoctor(dto);
 		System.out.println("===> Mybatis add() 실행 성공인가?");
 		return mav;
+	}
 
 	// 의사 아이디 중복 검사(AJAX)
 	@RequestMapping(value = "doctor_check_id.do", method = RequestMethod.POST)

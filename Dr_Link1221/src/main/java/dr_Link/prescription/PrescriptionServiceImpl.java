@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import dr_Link.booking.BookingDAO;
 import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;

@@ -489,10 +489,10 @@ label{
 												<label class="">알레르기<span class="text-danger"></span></label>
 												
 												<div class="btn-group btn-group-toggle" data-toggle="buttons">
-													<label class="btn btn-primary">
+													<label class="btn btn-primary" style="width: 100px">
 														<input type="radio" name="allergy" id="allergy" value="0"> 있음
 													</label>
-													<label class="btn btn-primary">
+													<label class="btn btn-primary" style="width: 100px">
 														<input type="radio" name="allergy" id="allergy" value="1"> 없음
 													</label>
 												</div>
