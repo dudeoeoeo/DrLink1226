@@ -14,8 +14,7 @@ public class PageDTO {
 		private int cntPage = 5;
 		private String searchType,searchValue;
 		private String [] searchDoctor, searchDep_num;
-		
-		
+				
 		public String[] getSearchDoctor() {
 			return searchDoctor;
 		}

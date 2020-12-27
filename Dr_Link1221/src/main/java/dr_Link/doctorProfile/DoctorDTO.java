@@ -1,5 +1,8 @@
 package dr_Link.doctorProfile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import dr_Link.dto.DepartmentDTO;
@@ -32,16 +35,22 @@ public class DoctorDTO {
     
     private int doctor_num, dep_num;
 	private String d_id, d_pwd, d_name, d_jumin_num, d_phone_num, d_zipcode, d_address1, d_address2, d_email;
-	private String d_licence, d_licence_num, d_regdate, d_gender,d_content, d_photo;
+	private String d_licence, d_licence_num, d_regdate, d_gender,d_content, d_imgfile;
 	private String d_graduation,d_career,d_field;
 	private MultipartFile file;
 	private DepartmentDTO departmentDTO;
-	
-	public String getD_photo() {
-		return d_photo;
+	private List<String[]> d_fields;
+		
+	public List<String[]> getD_fields() {
+		  List<String[]> m = new ArrayList<String[]>();
+		  if(this.d_field!=null) {
+			  	String[] d_field = this.d_field.split(",");
+				m.add(d_field);
+		  }	
+		  return m;
 	}
-	public void setD_photo(String d_photo) {
-		this.d_photo = d_photo;
+	public void setD_fields(List<String[]> d_fields) {
+		this.d_fields = d_fields;
 	}
 	public DepartmentDTO getDepartmentDTO() {
 		return departmentDTO;
@@ -139,6 +148,13 @@ public class DoctorDTO {
 	}
 	public void setD_licence(String d_licence) {
 		this.d_licence = d_licence;
+	}
+	
+	public String getD_imgfile() {
+		return d_imgfile;
+	}
+	public void setD_imgfile(String d_imgfile) {
+		this.d_imgfile = d_imgfile;
 	}
 	public MultipartFile getFile() {
 		return file;

@@ -14,9 +14,9 @@ import dr_Link.review.ReviewService;
 
 @Controller
 public class DoctorProfileController {
-	
+
 	@Autowired
-	private DoctorDaoInter doctor_dao;
+	private DoctorDaoInter doctorDao;
 	
 	@Autowired
 	private ReviewService reviewService;
@@ -27,7 +27,7 @@ public class DoctorProfileController {
 	  try {
 		
 	 //의사번호를 던져서 가져온 값을 doctor_profile에 저장 후 model 에 담아 jsp 전송
-	  DoctorDTO doctor_profile = doctor_dao.doctor_info(Integer.parseInt(request.getParameter("doctor_num")));
+	  DoctorDTO doctor_profile = doctorDao.doctor_info(Integer.parseInt(request.getParameter("doctor_num")));
 	  model.addAttribute("doctor_profile",doctor_profile);
 	  
 	  //db에서 가져온 값이 "a,b,c,"로 되어 있어서 split 후 배열에 담아 model 로 보내는 처리
@@ -59,4 +59,8 @@ public class DoctorProfileController {
 		 
 		return "doctor_profile.page";
 	}
+	
+
+	
+
 }

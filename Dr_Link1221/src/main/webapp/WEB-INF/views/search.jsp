@@ -3,6 +3,9 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html> 
+<script>
+
+</script>
 			<!-- Breadcrumb -->
 			<div class="breadcrumb-bar">
 				<div class="container-fluid">
@@ -55,17 +58,24 @@
 										<input type="text" class="form-control datetimepicker" placeholder="Select Date">
 									</div>	 -->		
 								</div>
-								  <div class="filter-widget">
+								  <div class="filter-widget">								  
 									<h4>성별</h4>
 									<div>
 										<label class="custom_check">
-											<input type="checkbox" name="d_gender" value="남">
+											<input type="checkbox" name="d_gender" value="남"
+												<c:forEach var="gender" items="${d_genderList}">
+													<c:if test="${fn:trim(gender) eq '남' }">checked</c:if>
+												</c:forEach> selected>
 											<span class="checkmark"></span> 남자 의사
 										</label>
 									</div>
 									<div>
 										<label class="custom_check">
-											<input type="checkbox" name="d_gender" value="여">
+											<input type="checkbox" name="d_gender" value="여" 
+												<c:forEach var="gender" items="${d_genderList}">
+													<c:if test="${fn:trim(gender) eq '여' }">checked</c:if>
+												</c:forEach>
+											>
 											<span class="checkmark"></span> 여자 의사
 										</label>
 									</div>
@@ -74,19 +84,29 @@
 									<h4>전공별</h4>
 									<div>
 										<label class="custom_check">
-											<input type="checkbox" name="dep_num" value="20">
+											<input type="checkbox" name="dep_num" value="20"
+												<c:forEach var="dep_num" items="${dep_numList}">
+													<c:if test="${fn:trim(dep_num) eq '20' }">checked</c:if>
+												</c:forEach>
+											>
 											<span class="checkmark"></span> 피부과
 										</label>
 									</div>
 									<div>
 										<label class="custom_check">
-											<input type="checkbox" name="dep_num" value="30">
+											<input type="checkbox" name="dep_num" value="30"
+												<c:forEach var="dep_num" items="${dep_numList}">
+													<c:if test="${fn:trim(dep_num) eq '30' }">checked</c:if>
+												</c:forEach>>
 											<span class="checkmark"></span> 정신건강의학과
 										</label>
 									</div>
 									<div>
 										<label class="custom_check">
-											<input type="checkbox" name="dep_num" value="10">
+											<input type="checkbox" name="dep_num" value="10"
+												<c:forEach var="dep_num" items="${dep_numList}">
+													<c:if test="${fn:trim(dep_num) eq '10' }">checked</c:if>
+												</c:forEach>>
 											<span class="checkmark"></span> 안과
 										</label>
 									</div>
@@ -137,14 +157,14 @@
 												</div>
 												<div class="clinic-services">
 												 <c:choose>
-					                                <c:when test="${empty m[0]}">
+					                                <c:when test="${empty list.d_fields}">
 					                                    아직 정보가 입력되지 않았습니다.
 					                                </c:when> 
 					                                
 					                              <c:otherwise>
 					                              <c:set var="len" value="${fn:length(m[listStatus.index])}"/>
-					                              <c:forEach begin="0" end="${len-1}" varStatus="mmList">
-					                                 <span>${m[listStatus.index][mmList.index]}</span>
+					                              <c:forEach var="d_field" items="${list.d_fields }" >
+					                                 <span>${d_field}</span>
 					                              </c:forEach>
 					                              </c:otherwise>
 					                              
@@ -161,7 +181,7 @@
 											</div>
 											<div class="clinic-booking">
 												<a class="view-pro-btn" href="doctor-profile?doctor_num=${list.doctor_num }">프로필보기</a>
-												<a class="apt-btn" href="patients/booking">예약하기</a>
+												<a class="apt-btn" href="${path }/patients/booking?doctor_num=${list.doctor_num }">예약하기</a>
 											</div>
 										</div>
 									</div>
@@ -173,14 +193,6 @@
 							<!-- <div class="load-more text-center">
 								<a class="btn btn-primary btn-sm" href="javascript:void(0);">더 보기</a>	
 							</div>	 -->
-						<tfoot>
-						<tr>
-						<td colspan="4" id="pageTd">
-							<%-- page 처리  --%>
-							<%@include file="pageProcess.jsp" %>
-						</td>
-						
-						</tfoot>
 				</div>
 
 					</div>		

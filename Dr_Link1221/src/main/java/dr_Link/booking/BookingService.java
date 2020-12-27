@@ -16,4 +16,6 @@ public interface BookingService {
 	List<BookingDTO> getPatientBookingList(int patient_num);
 	
 	List<BookingDTO> getDoctorBookingList(int doctor_num);
+	
+	
 }

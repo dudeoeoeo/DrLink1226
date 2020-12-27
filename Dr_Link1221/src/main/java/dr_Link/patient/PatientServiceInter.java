@@ -13,19 +13,18 @@ public interface PatientServiceInter {
 	public void deletePatient(int patient_num);
 	
 	/* 김성민 */
-	// 아이디 중복검사(회원가입)
 	public void check_id(String p_id, HttpServletResponse response) throws Exception;
 	
-	// 이메일 중복검사(회원가입)
-	public void check_email(String p_email, HttpServletResponse response) throws Exception;
-	
-	// 아이디 찾기
 	public String find_id(HttpServletResponse response, String email) throws Exception;
 	
-	// 이메일 발송
 	public void send_mail(PatientDTO dto, String div) throws Exception;
 	
-	// 비밀번호 찾기
 	public void find_pw(HttpServletResponse response, PatientDTO dto) throws Exception;
+	
+//	//이메일발송
+//	public void sendEmail(PatientDTO dto, String div) throws Exception;
+//
+//	//비밀번호찾기
+//	public void findPw(HttpServletResponse resp, PatientDTO dto) throws Exception;
 
 }
