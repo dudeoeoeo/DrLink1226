@@ -92,7 +92,8 @@ public class PatientController {
 	@RequestMapping("profile-settings")
 	public String profile_setting(HttpSession session, Model model) {
 		PatientDTO result = (PatientDTO) session.getAttribute("user");
-		result = patientService.getPatientDTO(Integer.parseInt(result.getPatient_num()));
+		//result = patientService.getPatientDTO(Integer.parseInt(result.getPatient_num()));
+		result = patientService.getPatientDTO(result.getPatient_num());
 		model.addAttribute("patient", result);
 		return "/patients/profile-settings.page";
 	}
@@ -105,8 +106,11 @@ public class PatientController {
 		PatientDTO pt = (PatientDTO)session.getAttribute("user");
 		try {
 
+		//List<PrescriptionDTO> prescriptionRecord = prescriptionService.prescriptionRecord(Integer.parseInt(pt.getPatient_num()));
 		List<PrescriptionDTO> prescriptionRecord = prescriptionService.prescriptionRecord(pt.getPatient_num());
+		PatientDTO user_info = prescriptionService.patient_info(pt.getPatient_num());
 		model.addAttribute("prescriptionRecord", prescriptionRecord);
+		model.addAttribute("user_info", user_info);
 		} catch (NullPointerException e) {
 				  
 		}

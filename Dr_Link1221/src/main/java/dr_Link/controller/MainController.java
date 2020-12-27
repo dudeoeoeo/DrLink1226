@@ -82,6 +82,7 @@ public class MainController {
 			return "patient_login.page";
 		} else {
 			session.setAttribute("user", result);
+			session.setMaxInactiveInterval(30*60);
 		}
 		return "redirect:/";
 	}

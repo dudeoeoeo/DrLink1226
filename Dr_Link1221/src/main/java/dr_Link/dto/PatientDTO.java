@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class PatientDTO {
     
-    private String patient_num;
+    private int patient_num;
 	private String p_id, p_pwd, p_name;
 	private String p_jumin_num, p_phone_num, p_zipcode, p_address1, p_address2, p_email;
 	private String bloodtype, p_gender;
@@ -17,6 +17,7 @@ public class PatientDTO {
 	private MultipartFile file;
 	private String birth;
 	private String profileAddress;
+	
 	
 	public String getProfileAddress() {
 		String[] address = this.p_address1.split(" ");
@@ -57,10 +58,10 @@ public class PatientDTO {
 	public void setP_gender(String p_gender) {
 		this.p_gender = p_gender;
 	}
-	public String getPatient_num() {
+	public int getPatient_num() {
 		return patient_num;
 	}
-	public void setPatient_num(String patient_num) {
+	public void setPatient_num(int patient_num) {
 		this.patient_num = patient_num;
 	}
 	public String getP_id() {

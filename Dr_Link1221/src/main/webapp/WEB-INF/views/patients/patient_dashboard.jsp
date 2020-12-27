@@ -31,13 +31,13 @@
 								<div class="widget-profile pro-widget-content">
 									<div class="profile-info-widget">
 										<a href="#" class="booking-doc-img">
-											<img src="${path}/resources/assets/patient/profileImg/${patient.p_photo}">
+											<img src="${path}/resources/assets/patient/profileImg/${user_info.p_photo}">
 										</a>
 										<div class="profile-det-info">
-											<h3>${patient.p_name }</h3>
+											<h3>${user_info.p_name}</h3>
 											<div class="patient-details">
-												<h5><i class="fas fa-birthday-cake"></i> ${patient.birth}</h5>
-												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> ${patient.profileAddress }</h5>
+												<h5><i class="fas fa-birthday-cake"></i> ${user_info.birth}</h5>
+												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> ${user_info.profileAddress}</h5>
 											</div>
 										</div>
 									</div>

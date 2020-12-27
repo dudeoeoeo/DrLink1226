@@ -6,7 +6,7 @@ import dr_Link.dto.PatientDTO;
 public class Doc_ReviewDTO {	
 	private String review_num; 
 	private String doctor_num;
-	private String patient_num;
+	private int patient_num;
 	private String review_content;
 	private int review_rating;
 	private String review_date;
@@ -25,10 +25,10 @@ public class Doc_ReviewDTO {
 	public void setDoctor_num(String doctor_num) {
 		this.doctor_num = doctor_num;
 	}
-	public String getPatient_num() {
+	public int getPatient_num() {
 		return patient_num;
 	}
-	public void setPatient_num(String patient_num) {
+	public void setPatient_num(int patient_num) {
 		this.patient_num = patient_num;
 	}
 	public String getReview_content() {

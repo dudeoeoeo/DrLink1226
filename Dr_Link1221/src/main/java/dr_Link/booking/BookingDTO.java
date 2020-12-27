@@ -5,9 +5,9 @@ import dr_Link.dto.DepartmentDTO;
 
 public class BookingDTO {
 	private String appointment_num      ;
-	private String patient_num          ;
-	private String doctor_num           ;
-	private String dep_num              ;
+	private int patient_num          ;
+	private int doctor_num           ;
+	private int dep_num              ;
 	private String appointment_date     ;
 	private String appointment_time     ;
 	private String reg_date             ;
@@ -32,22 +32,22 @@ public class BookingDTO {
 	public void setAppointment_num(String appointment_num) {
 		this.appointment_num = appointment_num;
 	}
-	public String getPatient_num() {
+	public int getPatient_num() {
 		return patient_num;
 	}
-	public void setPatient_num(String patient_num) {
+	public void setPatient_num(int patient_num) {
 		this.patient_num = patient_num;
 	}
-	public String getDoctor_num() {
+	public int getDoctor_num() {
 		return doctor_num;
 	}
-	public void setDoctor_num(String doctor_num) {
+	public void setDoctor_num(int doctor_num) {
 		this.doctor_num = doctor_num;
 	}
-	public String getDep_num() {
+	public int getDep_num() {
 		return dep_num;
 	}
-	public void setDep_num(String dep_num) {
+	public void setDep_num(int dep_num) {
 		this.dep_num = dep_num;
 	}
 	public String getAppointment_date() {
