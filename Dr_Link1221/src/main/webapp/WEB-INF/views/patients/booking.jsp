@@ -87,10 +87,10 @@ function myFunction() {
 										  <div class="w3-dropdown-click">
 										    <button onclick="myFunction()" class="w3-button">날짜 변경</button>
 										    <div id="Demo" class="w3-dropdown-content w3-bar-block w3-card-4 w3-animate-zoom">
-										      <a href="booking" class="w3-bar-item w3-button">이번 주</a>
-										      <a href="booking?week=1" class="w3-bar-item w3-button">1주 후</a>
-										      <a href="booking?week=2" class="w3-bar-item w3-button">2주 후</a>
-										      <a href="booking?week=3" class="w3-bar-item w3-button">3주 후</a>
+										      <a href="booking?doctor_num=${doctor_profile.doctor_num}" class="w3-bar-item w3-button">이번 주</a>
+										      <a href="booking?doctor_num=${doctor_profile.doctor_num}&week=1" class="w3-bar-item w3-button">1주 후</a>
+										      <a href="booking?doctor_num=${doctor_profile.doctor_num}&week=2" class="w3-bar-item w3-button">2주 후</a>
+										      <a href="booking?doctor_num=${doctor_profile.doctor_num}&week=3" class="w3-bar-item w3-button">3주 후</a>
 										    </div>
 										  </div>
 									</div>
@@ -317,12 +317,8 @@ function myFunction() {
                                  </div>
 							</div>
 						<form action="bookingSave" method="post" class="bookingForm">
-						<!--  
 							<input type="hidden" name="doctor_num(원본)" value="${doctor_profile.doctor_num }" />
-							<input type="hidden" name="dep_num(원본)" value="${doctor_profile.dep_num}" />
-						-->	
-							<input type="hidden" name="doctor_num" value="1" /> <!-- 테스트용 -->
-							<input type="hidden" name="dep_num" value="10" /> <!-- 테스트용 -->
+							<input type="hidden" name="dep_num(원본)" value="${doctor_profile.dep_num}" />						
 							<input type="hidden" name="appointment_date" class="appointment_date" value="" />
 							<input type="hidden" name="appointment_time" class="appointment_time" value="" />
 						 <!-- Submit Section -->

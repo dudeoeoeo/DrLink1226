@@ -23,8 +23,8 @@
  	</select>
  	
  	<!-- 환자 예약 리스트 -->
- 	<select id="getPatientBookingList" parameterType="int" resultType="bookingDTO">
- 		select * from appointment where patient_num=#{patient_num}
+ 	<select id="getPatientBookingList" parameterType="int" resultMap="bookingMap">
+ 		select * from appointment a, dl_doctor b, department c where a.doctor_num=b.doctor_num and b.dep_num=c.dep_num and patient_num=#{patient_num}
  	</select>
  	
  	<!-- 의사 예약 리스트 -->
@@ -32,6 +32,40 @@
  		select * from appointment where doctor_num=#{doctor_num}
  	</select>
  	
+ <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->	
+   	<resultMap type="departmentDTO" id="departmentMap">
+		<result column="dep_num" property="dep_num"/>
+		<result column="dep_name" property="dep_name"/>
+	</resultMap>
  	
+	<resultMap type="doctorDTO" id="doctorMap">
+		<result column="doctor_num" property="doctor_num" />
+		<result column="d_id" property="d_id" />
+		<result column="d_pwd" property="d_pwd" />
+		<result column="d_name" property="d_name" />
+		<result column="d_jumin_num" property="d_jumin_num" />
+		<result column="d_phone_num" property="d_phone_num" />
+		<result column="d_address" property="d_address" />
+		<result column="d_email" property="d_email" />
+		<result column="d_career" property="d_career" />
+		<result column="d_licence" property="d_licence" />
+		<result column="d_photo" property="d_photo" />
+		<result column="d_regdate" property="d_regdate" />
+		<result column="d_graduation" property="d_graduation" />
+		<collection property="departmentDTO" resultMap="departmentMap"/>
+	</resultMap>
+	
+	<resultMap type="bookingDTO" id="bookingMap">
+		<result column="appointment_num" property="appointment_num" />
+		<result column="patient_num" property="patient_num" />
+		<result column="doctor_num" property="doctor_num" />
+		<result column="dep_num" property="dep_num" />
+		<result column="appointment_date" property="appointment_date" />
+		<result column="appointment_time" property="appointment_time" />
+		<result column="reg_date" property="reg_date" />
+		<collection property="doctorDTO" resultMap="doctorMap"/>
+		<collection property="departmentDTO" resultMap="departmentMap"/>
+		
+	</resultMap>	
  	
 </mapper>

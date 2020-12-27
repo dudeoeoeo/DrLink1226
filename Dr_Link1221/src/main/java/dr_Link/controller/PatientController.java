@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import dr_Link.doctorProfile.DoctorDTO;
+import dr_Link.booking.BookingService;
+import dr_Link.doctorProfile.DoctorDaoInter;
 import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.patient.PatientDaoInter;
+import dr_Link.patient.PatientServiceInter;
 import dr_Link.prescription.PrescriptionDTO;
-import dr_Link.prescription.PrescriptionDaoInter;
 import dr_Link.prescription.PrescriptionService;
 
 
@@ -30,7 +31,16 @@ import dr_Link.prescription.PrescriptionService;
 public class PatientController {
 
 	@Autowired	
-	private PrescriptionService pre_service;
+	private PrescriptionService prescriptionService;
+	@Autowired
+	private PatientServiceInter patientService;
+	
+	@Autowired
+	private BookingService bookingService;
+	
+	@Autowired
+	private DoctorDaoInter doctor_dao;
+	
 	@Autowired
 	private PatientDaoInter patient_dao;
 	
@@ -41,14 +51,14 @@ public class PatientController {
 	}
 	
 	@RequestMapping("updatePatient")
-	public String updatePatient(PatientDTO vo, HttpSession session) {
+	public String updatePatient(PatientDTO vo, HttpSession session, HttpServletRequest request) {
 		
 		try {
-			String r_path = session.getServletContext().getRealPath("/");
-			System.out.println("r_path :" + r_path);
-			String img_path = "C:\\Users\\koko\\git\\Dr_Link_1222\\Dr_Link1221\\src\\main\\webapp\\resources\\patient\\profileImg\\";
+//			String r_path = session.getServletContext().getRealPath("/");
+//			System.out.println("r_path :" + r_path);
+			String img_path = request.getSession().getServletContext().getRealPath("resources/patient/profileImg")+"/";
 			System.out.println("img_path :" + img_path);
-			StringBuffer path = new StringBuffer();
+//			StringBuffer path = new StringBuffer();
 			/*
 			path.append(r_path).append(img_path);
 			path.append(oriFn);
@@ -66,6 +76,8 @@ public class PatientController {
 			PatientDTO p_num = (PatientDTO) session.getAttribute("user");
 			vo.setPatient_num(p_num.getPatient_num());
 			
+			patientService.updatePatient(vo);
+			
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 			} catch (IllegalStateException e) {
@@ -80,7 +92,7 @@ public class PatientController {
 	@RequestMapping("profile-settings")
 	public String profile_setting(HttpSession session, Model model) {
 		PatientDTO result = (PatientDTO) session.getAttribute("user");
-		result = patient_dao.getPatientDTO(result.getPatient_num());
+		result = patientService.getPatientDTO(Integer.parseInt(result.getPatient_num()));
 		model.addAttribute("patient", result);
 		return "/patients/profile-settings.page";
 	}
@@ -93,7 +105,7 @@ public class PatientController {
 		PatientDTO pt = (PatientDTO)session.getAttribute("user");
 		try {
 
-		List<PrescriptionDTO> prescriptionRecord = pre_service.prescriptionRecord(pt.getPatient_num());
+		List<PrescriptionDTO> prescriptionRecord = prescriptionService.prescriptionRecord(pt.getPatient_num());
 		model.addAttribute("prescriptionRecord", prescriptionRecord);
 		} catch (NullPointerException e) {
 				  
@@ -105,9 +117,9 @@ public class PatientController {
 	@RequestMapping(value = "/detail_prescription") 
 	public String end_prescription(PrescriptionDTO pre_vo,Model model, MedicineDTO medi_vo,HttpSession session, DrLinkDTO drlinkVo) {
 		PatientDTO pt = (PatientDTO)session.getAttribute("user");
-		PrescriptionDTO prescription = pre_service.detail_prescription(pre_vo);
-		DrLinkDTO drlinkinfo = pre_service.drLink_info(drlinkVo); 
-		List<MedicineDTO> medi_detail = pre_service.medicine_detail_info(prescription.getMedicine_num());
+		PrescriptionDTO prescription = prescriptionService.detail_prescription(pre_vo);
+		DrLinkDTO drlinkinfo = prescriptionService.drLink_info(drlinkVo); 
+		List<MedicineDTO> medi_detail = prescriptionService.medicine_detail_info(prescription.getMedicine_num());
 		
 		model.addAttribute("prescription",prescription);
 		model.addAttribute("medi_detail",medi_detail);

@@ -14,7 +14,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void addReview(Doc_ReviewDTO vo) {
 		// TODO Auto-generated method stub
-
+		reviewDao.addReview(vo);
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<Doc_ReviewDTO> getReviewList(int doctor_num) {
 		// TODO Auto-generated method stub
-		return null;
+		return reviewDao.getReviewList(doctor_num);
 	}
 
 }

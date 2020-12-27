@@ -9,6 +9,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 <title>Dr.Link에 오신 것을 환영합니다</title>
 
+<!-- login CSS -->
+<link rel="stylesheet" href="${path}/resources/assets/css/login.css">
+<link rel="stylesheet" href="${path}/resources/assets/css/nicepage.css">
+
 <!-- Favicons -->
 <link type="image/x-icon" href="${path}/resources/assets/img/favicon.png" rel="icon">
 

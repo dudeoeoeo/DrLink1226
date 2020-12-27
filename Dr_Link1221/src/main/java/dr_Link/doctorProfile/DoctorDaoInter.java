@@ -1,14 +1,19 @@
 package dr_Link.doctorProfile;
 
 import java.util.List;
+import java.util.Map;
 
+import dr_Link.dto.PageDTO;
 import dr_Link.dto.SearchDTO;
 
 
 
 public interface DoctorDaoInter {
+	
 	public DoctorDTO doctor_info(int doctor_num);
+	
 	public void doctor_profile_update(DoctorDTO vo);
+	
 	public List<SearchDTO> getSearch();
 	//의사 로그인
 	public DoctorDTO dr_loginCheck(DoctorDTO dto);
@@ -30,5 +35,12 @@ public interface DoctorDaoInter {
 
 	// 이메일 검사
 	public DoctorDTO emailCheck(String id) throws Exception;
+	
+
+	/* public List<SearchDTO> getSearch(); */
+	public List<DoctorDTO> getList(Map<String, List<String>> map);
+	public int getTotalCount();
+
+	List<DoctorDTO> getList(PageDTO svo);
 }
 	

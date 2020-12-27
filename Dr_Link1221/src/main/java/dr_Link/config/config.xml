@@ -7,6 +7,7 @@
  <configuration>
  	<typeAliases>
  		<typeAlias type="dr_Link.doctorProfile.DoctorDTO" alias="doctorDTO"/>
+ 		<typeAlias type="dr_Link.dto.DrLinkDTO" alias="drLinkDTO"/>
  		<typeAlias type="dr_Link.dto.MedicineDTO" alias="medicineDTO"/>
  		<typeAlias type="dr_Link.dto.PatientDTO" alias="patientDTO"/>
  		<typeAlias type="dr_Link.prescription.PrescriptionDTO" alias="prescriptionDTO"/>
@@ -16,6 +17,5 @@
  		<typeAlias type="dr_Link.review.Doc_ReviewDTO" alias="doc_ReviewDTO"/>
  		<typeAlias type="dr_Link.dto.DepartmentDTO" alias="departmentDTO"/>
  		<typeAlias type="dr_Link.dto.PageDTO" alias="PageDTO"/>
- 		<typeAlias type="dr_Link.dto.DrLinkDTO" alias="drLinkDTO"/>
  	</typeAliases>
  </configuration>

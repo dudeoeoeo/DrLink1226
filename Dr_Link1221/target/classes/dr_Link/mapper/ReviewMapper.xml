@@ -8,13 +8,12 @@
 
 	<insert id="addReview" parameterType="doc_ReviewDTO">
 		insert into doc_review values(doc_review_seq.nextval, #{doctor_num},
-		#{review_writer}, #{review_content}, #{review_rating}, sysdate)
+		#{patient_num}, #{review_content}, #{review_rating}, sysdate)
 	</insert>
 
 	<select id="reviewList" parameterType="int" resultMap="reviewInfo">
 		select a.patient_num as patient_num, p_name, p_photo, review_num,
-		review_content, review_rating, review_date from dl_user a, doc_review
-		b
+		review_content, review_rating, to_char(review_date,'YYYY-MM-DD') as review_date from dl_user a, doc_review b
 		where a.patient_num=b.patient_num and doctor_num=#{doctor_num} order by
 		review_date desc
 	</select>

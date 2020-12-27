@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!DOCTYPE html>
+<!DOCTYPE html>		
+<!-- 우편번호 API -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 function execPostCode() {
 	
@@ -63,7 +64,15 @@ function execPostCode() {
 		} 
 	});
 		
-		
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$('#blah').attr('src', e.target.result);
+			} 
+			reader.readAsDataURL(input.files[0]);
+		} 
+	} 		
 </script> 
 <!-- Breadcrumb -->
 			<div class="breadcrumb-bar">
@@ -94,7 +103,7 @@ function execPostCode() {
 								<div class="widget-profile pro-widget-content">
 									<div class="profile-info-widget">
 										<a href="#" class="booking-doc-img">
-											<img src="${path}/resources/patient/profileImg/${patient.p_photo}" alt="User Image">
+											<img src="${path }/resources/patient/profileImg/${patient.p_photo}" alt="User Image">
 										</a>
 										<div class="profile-det-info">
 											<h3>${patient.p_name }</h3>
@@ -151,7 +160,7 @@ function execPostCode() {
 												<div class="form-group">
 													<div class="change-avatar">
 														<div class="profile-img">
-															<img class="blah" src="${path }/resources/patient/profileImg/${patient.p_photo}" alt="User Image">
+															<img id="blah" src="${path }/resources/patient/profileImg/${patient.p_photo}" alt="User Image">
 														</div>
 														<div class="upload-img">
 															<div class="change-photo-btn">

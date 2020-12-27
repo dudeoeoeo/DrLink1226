@@ -36,7 +36,32 @@ public class DoctorDTO {
 	private String d_graduation,d_career,d_field;
 	private MultipartFile file;
 	private DepartmentDTO departmentDTO;
+	private String[] d_fields;
+		
+	public String getD_photo() {
+		return d_photo;
+	}
+	public void setD_photo(String d_photo) {
+		this.d_photo = d_photo;
+	}
 	
+	public String[] getD_fields() {
+		if(this.d_field != null) {
+			int cnt=0;
+			String[] arr = new String[5];
+			for(String str : this.d_field.split(",")) {
+				arr[cnt] = str;
+				cnt++;
+			}
+			
+			return arr;
+		}
+		
+		 return null;
+	}
+	public void setD_fields(String[] d_fields) {
+		this.d_fields = d_fields;
+	}
 	public DepartmentDTO getDepartmentDTO() {
 		return departmentDTO;
 	}
@@ -133,13 +158,6 @@ public class DoctorDTO {
 	}
 	public void setD_licence(String d_licence) {
 		this.d_licence = d_licence;
-	}
-	
-	public String getd_photo() {
-		return d_photo;
-	}
-	public void setd_photo(String d_photo) {
-		this.d_photo = d_photo;
 	}
 	public MultipartFile getFile() {
 		return file;

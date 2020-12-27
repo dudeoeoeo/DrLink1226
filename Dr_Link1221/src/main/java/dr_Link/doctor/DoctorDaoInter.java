@@ -7,9 +7,7 @@ import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.dto.PageDTO;
 
 public interface DoctorDaoInter {
-	
-	void insertDoctor(DoctorDTO vo);
-	
+		
 	void updateDoctor(DoctorDTO vo);
 	
 	void deleteDoctor(DoctorDTO vo);
@@ -33,22 +31,28 @@ public interface DoctorDaoInter {
 	//김다유 : 의사 프로필 수정
 	public void doctor_profile_update(DoctorDTO vo);
 	
-	//김성민 : 의사 로그인
+	//의사 로그인
 	public DoctorDTO dr_loginCheck(DoctorDTO dto);
 	
-	//김성민 : 아이디 중복체크(비번발급용)
+	//의사 회원가입
+	public void insertDoctor(DoctorDTO dto);
+	
+	//아이디 중복체크(비번발급용)
 	public int idCheck(String d_id) throws Exception;
 
-	//김성민 : 아이디 중복검사(회원가입용)
+	//아이디 중복검사(회원가입용)
 	public int check_id(String d_id) throws Exception;
+	
+	///인증번호 검사
+	public int verifyCheck(String d_verifynum);
 
-	//김성민 : 아이디 찾기
+	// 아이디 찾기
 	public String find_id(String email) throws Exception;
 
-	//김성민 : 비밀번호 변경
+	// 비밀번호 변경
 	public int update_pw(DoctorDTO dto) throws Exception;
 
-	//김성민 : 이메일 검사
+	// 이메일 검사
 	public DoctorDTO emailCheck(String id) throws Exception;
 	
 	}
