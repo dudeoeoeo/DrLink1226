@@ -7,9 +7,7 @@ import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.dto.PageDTO;
 
 public interface DoctorDaoInter {
-	
-	void insertDoctor(DoctorDTO vo);
-	
+		
 	void updateDoctor(DoctorDTO vo);
 	
 	void deleteDoctor(DoctorDTO vo);

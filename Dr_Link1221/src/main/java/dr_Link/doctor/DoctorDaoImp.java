@@ -118,6 +118,8 @@ public class DoctorDaoImp implements DoctorDaoInter {
 	// 이메일 검사
 	public DoctorDTO emailCheck(String id) throws Exception{
 		System.out.println("emailCheck 다오 임플까지옴");
+		return ss.selectOne("doctor.emailCheck", id);
+	}
 		
 	
 	/*@Override
@@ -126,7 +128,4 @@ public class DoctorDaoImp implements DoctorDaoInter {
 	 * System.out.println("===> ss getSearch() 실행"); return
 	 * ss.selectList("doctor.getSearch"); }
 	 */
-
-	
-
 }

@@ -37,6 +37,12 @@ public class DoctorDTO {
 	private MultipartFile file;
 	private DepartmentDTO departmentDTO;
 	
+	public String getD_photo() {
+		return d_photo;
+	}
+	public void setD_photo(String d_photo) {
+		this.d_photo = d_photo;
+	}
 	public DepartmentDTO getDepartmentDTO() {
 		return departmentDTO;
 	}
@@ -133,13 +139,6 @@ public class DoctorDTO {
 	}
 	public void setD_licence(String d_licence) {
 		this.d_licence = d_licence;
-	}
-	
-	public String getd_photo() {
-		return d_photo;
-	}
-	public void setd_photo(String d_photo) {
-		this.d_photo = d_photo;
 	}
 	public MultipartFile getFile() {
 		return file;
