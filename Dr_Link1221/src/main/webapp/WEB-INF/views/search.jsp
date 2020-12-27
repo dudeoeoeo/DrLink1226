@@ -162,9 +162,10 @@
 					                                </c:when> 
 					                                
 					                              <c:otherwise>
-					                              <c:set var="len" value="${fn:length(m[listStatus.index])}"/>
 					                              <c:forEach var="d_field" items="${list.d_fields }" >
+					                              	<c:if test="${not empty d_field and d_field != ''}">
 					                                 <span>${d_field}</span>
+					                                 </c:if>
 					                              </c:forEach>
 					                              </c:otherwise>
 					                              

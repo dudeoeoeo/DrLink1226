@@ -1,8 +1,5 @@
 package dr_Link.doctorProfile;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.web.multipart.MultipartFile;
 
 import dr_Link.dto.DepartmentDTO;
@@ -39,17 +36,23 @@ public class DoctorDTO {
 	private String d_graduation,d_career,d_field;
 	private MultipartFile file;
 	private DepartmentDTO departmentDTO;
-	private List<String[]> d_fields;
+	private String[] d_fields;
 		
-	public List<String[]> getD_fields() {
-		  List<String[]> m = new ArrayList<String[]>();
-		  if(this.d_field!=null) {
-			  	String[] d_field = this.d_field.split(",");
-				m.add(d_field);
-		  }	
-		  return m;
+	public String[] getD_fields() {
+		if(this.d_field != null) {
+			int cnt=0;
+			String[] arr = new String[5];
+			for(String str : this.d_field.split(",")) {
+				arr[cnt] = str;
+				cnt++;
+			}
+			
+			return arr;
+		}
+		
+		 return null;
 	}
-	public void setD_fields(List<String[]> d_fields) {
+	public void setD_fields(String[] d_fields) {
 		this.d_fields = d_fields;
 	}
 	public DepartmentDTO getDepartmentDTO() {
