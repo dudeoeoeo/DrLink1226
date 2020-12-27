@@ -1,4 +1,4 @@
-f<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -14,7 +14,7 @@ f<%@ page language="java" contentType="text/html; charset=UTF-8"
 							<div class="doctor-widget">
 								<div class="doc-info-left">
 									<div class="doctor-img">
-										<img src="${path}/resources/doctor/doctorImg/${doctor_profile.d_imgfile}" class="img-fluid" alt="User Image">
+										<img src="${path}/resources/assets/doctor/doctorImg/${doctor_profile.d_imgfile}" class="img-fluid" alt="User Image">
 										
 										<!-- <div class="doctor-action">
 											<a href="javascript:void(0)" class="btn btn-white fav-btn" >

@@ -15,8 +15,7 @@ public class PatientDaoImp implements PatientDaoInter{
 	
 	@Autowired
 	private SqlSessionTemplate ss;
-	
-	
+
 	
 	/* 김성민 */
 	@Override
@@ -42,6 +41,12 @@ public class PatientDaoImp implements PatientDaoInter{
 	@Override
 	public int check_id(String p_id) throws Exception{
 		return ss.selectOne("patient.idCheck",p_id);
+	}
+
+	//아이디 중복검사(회원가입용)
+	@Override
+	public int check_email(String p_email) throws Exception{
+		return ss.selectOne("patient.patientemailCheck",p_email);
 	}
 	
 	// 아이디 찾기
@@ -86,11 +91,5 @@ public class PatientDaoImp implements PatientDaoInter{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	//이미지업로드 및 회원가입
-//	public void addTvo(PatientDTO dto) {
-//		System.out.println("addTvo요청");
-//		ss.insert("patient.adds", dto);
-//	}
 
 }

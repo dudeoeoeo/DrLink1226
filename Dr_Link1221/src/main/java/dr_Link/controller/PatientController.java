@@ -40,6 +40,9 @@ public class PatientController {
 	@Autowired
 	private DoctorDaoInter doctor_dao;
 	
+	@Autowired
+	private PatientDaoInter patient_dao;
+	
 	@RequestMapping(value = "{step}")
 	public String accessAnyFiles(@PathVariable String step) {
 		System.out.println("patients 컨트롤러");
@@ -96,40 +99,43 @@ public class PatientController {
 	/* 김다유 : patient_dashboard 페이지로 이동 - 처방기록리스트 */
 	/* patient_dashboard에서 진료기록, 결제기록, 예약기록 담당하시는 분들 여기서 값 세팅해주세요 */
 	@RequestMapping(value = "patient_dashboard")
-	public String treatmentRecord(Model model, HttpSession session) {
-		String patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
+	public String treatmentRecord(PrescriptionDTO pre_vo, Model model,HttpSession session) {
+		System.out.println("대시보드 매핑");
+		PatientDTO pt = (PatientDTO)session.getAttribute("user");
 		try {
-			// 환자 프로필
-			PatientDTO patient_profile = patientService.getPatientDTO(Integer.parseInt(patient_num));
-			model.addAttribute("patient_profile", patient_profile);
-			
-			// 예약 정보
-			List<BookingDTO> bookingList = bookingService.getPatientBookingList(Integer.parseInt(patient_num));
-			model.addAttribute("bookingList", bookingList);
-			
-			// 처방전
-			
-			// 결제내역
-			
-			
+
+		List<PrescriptionDTO> prescriptionRecord = pre_service.prescriptionRecord(pt.getPatient_num());
+		model.addAttribute("prescriptionRecord", prescriptionRecord);
 		} catch (NullPointerException e) {
-			e.printStackTrace();
+				  
 		}
 		return "/patients/patient_dashboard.page";
 	}
 	
 	/* 김다유 : 처방기록 상세 페이지로 이동 */
 	@RequestMapping(value = "/detail_prescription") 
-	public String end_prescription(PrescriptionDTO vo,Model model, DrLinkDTO drLinkVo) {
-		PrescriptionDTO prescription = prescriptionService.detail_prescription(vo);
-		DrLinkDTO drLinkinfo = prescriptionService.prescription_info(drLinkVo);
-		
-		System.out.println("★getPatient_num : "+ prescription.getPatient_num());
-		System.out.println("★getDoctor_num : "+ prescription.getDoctor_num());
-		System.out.println("★getTreatment_num : "+ prescription.getTreatment_num());
+	public String end_prescription(PrescriptionDTO pre_vo,Model model, MedicineDTO medi_vo,HttpSession session, DrLinkDTO drlinkVo) {
+		PatientDTO pt = (PatientDTO)session.getAttribute("user");
+		PrescriptionDTO prescription = pre_service.detail_prescription(pre_vo);
+		DrLinkDTO drlinkinfo = pre_service.drLink_info(drlinkVo); 
+		List<MedicineDTO> medi_detail = pre_service.medicine_detail_info(prescription.getMedicine_num());
 		
 		model.addAttribute("prescription",prescription);
-		model.addAttribute("drLinkinfo",drLinkinfo);
+		model.addAttribute("medi_detail",medi_detail);
+		model.addAttribute("drlinkinfo",drlinkinfo);
+		
+//		int chk_num = 0;
+//		String url ="";
+//		
+//		if(chk_num == 0) {
+//			int pre_num = prescription.getPrescription_num();
+//			model.addAttribute("pre_num",pre_num);
+//			url="/patients/payment";
+//		}else {
+//			model.addAttribute("prescription",prescription);
+//			model.addAttribute("medi_detail",medi_detail);
+//			url="/patients/detail_prescription";
+//		}
 		System.out.println("controller detail_prescription 실행 완료");
 		    
 		return "/patients/detail_prescription";

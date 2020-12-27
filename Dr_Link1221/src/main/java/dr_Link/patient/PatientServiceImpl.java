@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import dr_Link.dto.PatientDTO;
 
-@Service("patientService")
+@Service("patientServiceInter")
 public class PatientServiceImpl implements PatientServiceInter{
 	
 	/* 김성민 */
@@ -25,6 +25,13 @@ public class PatientServiceImpl implements PatientServiceInter{
 		out.close();
 	}
 	
+	// 이메일 중복 검사
+	@Override
+	public void check_email(String p_email, HttpServletResponse response) throws Exception {
+		PrintWriter out = response.getWriter();
+		out.println(patientDaoImpl.check_email(p_email));
+		out.close();
+	}
 	
 	// 아이디 찾기
 	@Override
@@ -46,20 +53,17 @@ public class PatientServiceImpl implements PatientServiceInter{
 		}
 	}
 	
-	
-	
-	
 	// 이메일 발송
 	@Override
 	public void send_mail(PatientDTO dto, String div) throws Exception {
 		// Mail Server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com";
-		String hostSMTPid = "ksungmin10@naver.com";
-		String hostSMTPpwd = "@^nonpix24";
+		String hostSMTPid = "sungminkimpro@naver.com";
+		String hostSMTPpwd = "kosmoTEST123";
 
 		// 보내는 사람 EMail, 제목, 내용
-		String fromEmail = "ksungmin10@naver.com";
+		String fromEmail = "sungminkimpro@naver.com";
 		String fromName = "닥터링크";
 		String subject = "";
 		String msg = "";
@@ -75,7 +79,7 @@ public class PatientServiceImpl implements PatientServiceInter{
 			msg += "하단의 인증 버튼 클릭 시 정상적으로 회원가입이 완료됩니다.</div><br/>";
 			msg += "<form method='post' action='http://localhost:8081/homepage/member/approval_member.do'>";
 			msg += "<input type='hidden' name='email' value='" + dto.getP_email() + "'>";
-//이게 필요한건지 모르겟음...			msg += "<input type='hidden' name='approval_key' value='" + dto.getApproval_key() + "'>";
+			//이게 필요한건지 모르겟음...	re.회원가입시 인증용		msg += "<input type='hidden' name='approval_key' value='" + dto.getApproval_key() + "'>";
 			msg += "<input type='submit' value='인증'></form><br/></div>";
 		}else if(div.equals("find_pw")) {
 			subject = "Spring Homepage 임시 비밀번호 입니다.";
@@ -106,7 +110,6 @@ public class PatientServiceImpl implements PatientServiceInter{
 			System.out.println("메일발송 실패 : " + e);
 		}
 	}
-	
 	
 	// 비밀번호 찾기
 	@Override
