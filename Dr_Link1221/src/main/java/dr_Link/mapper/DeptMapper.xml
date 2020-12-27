@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dept">
+	<select id="getDept" parameterType="int" resultType="departmentDTO">
+		select * from department where dep_num=#{dep_num}
+	</select>
+	
+	<select id="getDeptList" resultType="departmentDTO">
+		select * from department order by dep_num
+	</select>
+	
+	<insert id="addDept" parameterType="departmentDTO">
+		insert into department values(#{dep_num}, #{dep_name})
+	</insert>
+	
+	<update id="updateDept" parameterType="departmentDTO">
+		update department set dep_name=#{dep_name} where dep_num=#{dep_num}
+	</update>
+	
+	<delete id="delDept" parameterType="int">
+		delete from department where dep_num=#{dep_num}
+	</delete>
+
+</mapper>

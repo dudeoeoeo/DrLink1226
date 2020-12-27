@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="doctor">
+    
+   	<!-- 2020-12-23 다유 추가  -->
+   	<resultMap type="departmentDTO" id="departmentMap">
+	<result column="dep_num" property="dep_num"/>
+	<result column="dep_name" property="dep_name"/>
+	</resultMap>
+	
+	<resultMap type="doctorDTO" id="doctorMap">
+		<result column="doctor_num" property="doctor_num" />
+		<result column="d_id" property="d_id" />
+		<result column="d_pwd" property="d_pwd" />
+		<result column="d_name" property="d_name" />
+		<result column="d_jumin_num" property="d_jumin_num" />
+		<result column="d_phone_num" property="d_phone_num" />
+		<result column="d_gender" property="d_gender" />
+		<result column="d_zipcode" property="d_zipcode" />
+		<result column="d_address1" property="d_address1" />
+		<result column="d_address2" property="d_address2" />
+		<result column="d_email" property="d_email" />
+		<result column="d_licence" property="d_licence" />
+		<result column="d_licence_num" property="d_licence_num" />
+		<result column="d_regdate" property="d_regdate" />
+		<result column="d_content" property="d_content" />
+		<result column="d_imgfile" property="d_imgfile" />
+		<result column="d_graduation" property="d_graduation" />
+		<result column="d_career" property="d_career" />
+		<result column="d_field" property="d_field" />
+		<collection property="departmentDTO" resultMap="departmentMap"/>
+	</resultMap>
+ 	<!-- / 2020-12-23 다유 추가  -->
+  
+ <!-- 김다유 : 의사 프로필 업데이트 d_photo=#{d_photo}, -->
+  <update id="doctor_profile_settings" parameterType="doctorDTO">
+  update dl_doctor set d_pwd = #{d_pwd} , 
+  d_name = #{d_name} , d_gender = #{d_gender}, d_phone_num=#{d_phone_num}, d_email=#{d_email}, 
+  d_graduation=#{d_graduation}, 
+  d_career=#{d_career}, d_licence=#{d_licence}, d_licence_num=#{d_licence_num}, 
+  d_content=#{d_content}, d_field=#{d_field} where doctor_num = #{doctor_num}
+  </update>
+   <!-- 의료진소개 -->
+   
+   <!-- 김다유 : 의사 정보 -->
+  <select id="doctor_profile" parameterType="int" resultMap="doctorMap">
+  	SELECT * FROM dl_doctor a JOIN department b ON a.dep_num = b.dep_num where doctor_num=#{doctor_num}
+  </select>
+   
+ 	<!-- 김성민 -->
+ 	<!-- 로그인 -->
+	<select id="loginchk" parameterType="doctorDTO" resultType="doctorDTO">
+		select d_id, d_pwd from doctor where d_id=#{d_id} and d_pwd=#{d_pwd}
+	</select>
+	
+ 	<!-- 회원가입 -->
+	<insert id="add" parameterType="doctorDTO">
+		insert into doctor(doctor_num, d_id, d_pwd, d_name, d_gender, d_jumin_num, d_phone_num, d_address, d_email, d_graduation, d_career, d_imgfile) values(doctor_num_pk.nextval,#{d_id}, #{d_pwd}, #{d_name}, #{d_gender}, #{d_jumin_num}, #{d_phone_num}, #{d_zipcode}, #{d_email}, #{d_graduation2}, #{d_career, jdbcType=VARCHAR}}, #{d_imgfile})
+	</insert>
+
+  
+	<!-- 아이디 중복 검사 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(*) from doctor where d_id = #{d_id}
+	</select>
+
+  
+	<!-- 아이디 중복 검사 -->
+	<select id="check_id" parameterType="String" resultType="int">
+		select count(*) from doctor where d_id = #{d_id}
+	</select>
+	
+	
+	<!-- 아이디 찾기 -->
+	<select id="find_id" parameterType="String" resultType="String">
+		select d_id from doctor where d_email = #{email}
+	</select>
+
+
+	<!-- 비밀번호 변경 -->
+	<update id="update_pw" parameterType="doctorDTO">
+		update doctor set d_pwd = #{d_pwd} where d_id = #{d_id}
+	</update>
+
+	<!-- 이메일 매칭용 -->
+	<select id="emailCheck" parameterType="String" resultType="doctorDTO">
+		select * from doctor where d_id = #{id}
+	</select>
+
+  	<!-- search -->
+  	 <!-- 의료진소개 페이징처리 및 필터링 -->
+	  <select id="list" resultType="doctorDTO" parameterType="PageDTO">
+	   select * from (
+	   select rownum r_num, a.* from 
+	   (
+	   select * from dl_doctor 
+	   <if test="searchType != null">
+	   <where>
+	   	<choose>
+	   		<when test="searchType == 1">
+	   			 d_gender = #{searchValue}
+	   		</when>
+	   		<when test="searchType == 2">
+	   			dep_num = #{searchValue}
+	   		</when>
+	   	</choose>
+	   </where>
+	   </if>
+	   
+	   order by doctor_num desc
+	   ) a
+	   ) where r_num between #{start} and #{end}
+	</select>
+	<select id="totalCount" resultType="int" parameterType="PageDTO">
+	  		select count(*) cnt from dl_doctor
+	  		<if test="searchType != null">
+	   <where>
+	   	<choose>
+	   		<when test="searchType == 1">
+	   			 d_gender = #{searchValue}
+	   		</when>
+	   		<when test="searchType == 2">
+	   			dep_num = #{searchValue}
+	   			<!--  d_name like '%'|| #{searchValue} ||'%'-->
+	   		</when>
+	   	</choose>
+	   </where>
+	   </if>
+	 </select>
+	 
+	 
+	<!-- search 파라미터 값 있을 때 -->  
+	<select id="searchList" resultType="doctorDTO" parameterType="hashmap">
+	
+		select * from (
+		   select rownum r_num, a.* from 
+		   (
+		   select * from dl_doctor 
+	   
+			<where> 
+	
+			<if test="d_genderList.size !=0">
+			d_gender in
+			<foreach collection="d_genderList" item="item" 
+			index="index" separator="," open="(" close=")">
+			#{item}
+			</foreach>
+			</if>
+			
+			<if test="dep_numList.size !=0">
+			and dep_num in
+			<foreach collection="dep_numList" item="item"
+			index="index" separator="," open="(" close=")">
+			#{item}
+			</foreach>
+			</if>
+			</where>
+			order by doctor_num desc 
+			) a
+			   ) where r_num between 1 and 15 
+	</select>
+   
+  
+  </mapper>

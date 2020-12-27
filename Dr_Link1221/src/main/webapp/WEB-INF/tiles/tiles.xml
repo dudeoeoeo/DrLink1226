@@ -1,0 +1,101 @@
+<!DOCTYPE tiles-definitions PUBLIC
+  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ 
+<tiles-definitions>
+ 
+    <!-- basic -->
+    <definition name="base" template="/WEB-INF/tiles/base/index_template.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/base/header.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/base/footer.jsp" />
+    </definition>
+ 
+    <definition name="*.page" extends="base">
+        <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+    </definition>
+ 
+     <definition name="*/*.page" extends="base">
+         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+     </definition>
+    
+    <definition name="*/*/*.page" extends="base">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+    </definition>
+    
+    
+    <!-- patients -->
+    <definition name="patients" template="/WEB-INF/tiles/patients_template.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+    </definition>
+    
+    <definition name="*.patients" extends="patients">
+        <put-attribute name="body" value="/WEB-INF/views/patients/{1}.jsp" />
+    </definition>
+ 
+    
+    <!-- doctor -->
+    <definition name="doctor" template="/WEB-INF/tiles/doctor_template.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+    </definition>
+    
+    <definition name="*.doctor" extends="doctor">
+        <put-attribute name="body" value="/WEB-INF/views/doctor/{1}.jsp" />
+    </definition>
+ 
+    
+    <!-- admin -->
+    <definition name="admin" template="/WEB-INF/tiles/admin/admin_template.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/admin/admin_header.jsp" />
+        <put-attribute name="sidebar" value="/WEB-INF/tiles/admin/admin_sidebar.jsp" />
+    </definition>
+    
+    <definition name="*.admin" extends="admin">
+        <put-attribute name="body" value="/WEB-INF/views/admin/{1}.jsp" />
+    </definition>
+ 
+     <definition name="*/*.admin" extends="admin">
+         <put-attribute name="body" value="/WEB-INF/views/admin/{1}/{2}.jsp" />
+     </definition>
+    
+    <definition name="*/*/*.admin" extends="admin">
+        <put-attribute name="body" value="/WEB-INF/views/admin/{1}/{2}/{3}.jsp" />
+    </definition>
+    
+     <!-- footer 미표시 -->
+    <definition name="noFooter" template="/WEB-INF/tiles/noFooter/chat_template.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/noFooter/header.jsp" />
+    </definition>
+ 
+    <definition name="*.chat" extends="noFooter">
+        <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+    </definition>
+ 
+     <definition name="*/*.chat" extends="noFooter">
+         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+     </definition>
+    
+    <definition name="*/*/*.chat" extends="noFooter">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+    </definition>
+    
+    
+    <!-- 메뉴 미표시 -->
+    <definition name="baseEmpty" template="/WEB-INF/tiles/templateEmpty.jsp">
+    	 <put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
+    </definition>
+    
+    <definition name="*.part" extends="baseEmpty">
+        <put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+    </definition>
+ 
+     <definition name="*/*.part" extends="baseEmpty">
+         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+     </definition>
+    
+    <definition name="*/*/*.part" extends="baseEmpty">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+    </definition>        
+    
+</tiles-definitions>

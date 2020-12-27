@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- create table dl_user ( patient_num number(4) constraint dl_patient_num_pk 
+	primary key, p_id varchar2(20) not null, p_pwd varchar2(20) not null, p_name 
+	varchar2(10) not null, p_gender char(2) not null, p_jumin_num char(20) not 
+	null, p_phone_num char(13) not null, p_address varchar2(200) not null, p_email 
+	varchar2(30) not null, bloodtype varchar2(8) not null, p_imgfile varchar2(50) 
+	not null, height char(10) not null, weight char(10) not null, allergy char(2) 
+	not null, p_regdate date default sysdate ); create sequence dl_patient_num_pk 
+	increment by 1 start with 1; -->
+
+
+<mapper namespace="patient">
+	
+	<update id="updatePatient" parameterType="patientDTO">
+		update dl_user set bloodtype=#{bloodtype}, p_phone_num=#{p_phone_num}, p_email=#{p_email}, p_zipcode=#{p_zipcode}, p_address1=#{p_address1}, p_address2=#{p_address2}, p_photo=#{p_photo} where patient_num=#{patient_num} 
+	</update>
+
+	<select id="getPatient" parameterType="int" resultType="patientDTO">
+		select * from dl_user where patient_num=#{patient_num}
+	</select>
+
+
+	<!-- 김다유 : 처방기록 -->
+	<select id="treatmentRecord" parameterType="int"
+		resultType="treatmentRecordDTO">
+		select * from treatment_record where patient_num=#{patient_num}
+	</select>
+
+	<!-- 김성민 -->
+	<!-- 회원가입 -->
+	<insert id="add" parameterType="patientDTO">
+		insert into dl_user
+		values(dl_patient_num.nextval,#{p_id}, #{p_pwd}, #{p_name},
+		#{p_gender}, #{p_jumin_num}, #{p_phone_num}, #{p_zipcode},
+		#{p_address1}, #{p_address2}, #{p_email}, #{bloodtype}, #{height},
+		#{weight}, #{allergy}, #{p_photo}, sysdate)
+	</insert>
+
+
+	<!-- 로그인 -->
+	<select id="loginchk" parameterType="patientDTO" resultType="patientDTO">
+		select patient_num, p_id, p_name from dl_user where p_id=#{p_id} and p_pwd=#{p_pwd}
+	</select>
+
+
+	<!-- 아이디 중복 검사 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+		select
+		count(*) from dl_user where p_id = #{p_id}
+	</select>
+
+
+	<!-- 아이디 중복 검사 -->
+	<select id="check_id" parameterType="String" resultType="int">
+		select
+		count(*) from dl_user where p_id = #{p_id}
+	</select>
+
+
+	<!-- 아이디 찾기 -->
+	<select id="find_id" parameterType="String" resultType="String">
+		select
+		p_id from dl_user where p_email = #{email}
+	</select>
+
+
+	<!-- 비밀번호 변경 -->
+	<update id="update_pw" parameterType="patientDTO">
+		update dl_user set p_pwd =
+		#{p_pwd} where p_id = #{p_id}
+	</update>
+
+	<!-- 이메일 매칭용 -->
+	<select id="emailCheck" parameterType="String"
+		resultType="patientDTO">
+		select * from dl_user where p_id = #{id}
+	</select>
+
+
+</mapper>
