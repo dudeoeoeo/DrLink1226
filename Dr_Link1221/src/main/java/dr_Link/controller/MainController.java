@@ -24,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import dr_Link.doctor.DoctorDaoImp;
+import dr_Link.doctor.DoctorDaoInter;
+import dr_Link.doctor.DoctorServiceImpl;
 import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.dto.Hospital_boardDTO;
 import dr_Link.dto.PageDTO;
@@ -41,11 +43,17 @@ public class MainController {
 	@Autowired
 	private PatientDaoInter patientDAO;
 	
+	@Autowired	
+	private DoctorDaoInter doctor_dao;
+	
 	@Autowired
 	private DoctorDaoImp doctorDaoInter;
 
 	@Autowired
 	private PatientServiceImpl service;
+	
+	@Autowired
+	private DoctorServiceImpl doctor_service;
 
 	@RequestMapping(value = { "/", "index" })
 	public String indexRq() {
@@ -64,71 +72,103 @@ public class MainController {
 		return "AI_medical_" + step + ".page";
 	}
 
+	//환자 로그인 체크
 	@RequestMapping(value = "loginCheck")
 	public String loginCheck(PatientDTO dto, HttpSession session, Model model) {
+		System.out.println("===> dao로 가자!");
 		PatientDTO result = patientDAO.loginCheckPatient(dto);
 		if (result == null) {
+			System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
 			model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
-			return "login.page";
+			return "patient_login.page";
 		} else {
 			session.setAttribute("user", result);
-			session.setMaxInactiveInterval(30*60);
 		}
 		return "redirect:/";
 	}
 
+	//환자 의사 로그아웃
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("user");
+		session.removeAttribute("doctor");
 
 		return "redirect:/";
 	}
-
-	// 아이디 찾기
+	
+	//의사 로그인 체크
+	@RequestMapping(value = "doctorloginCheck")
+	public String drloginCheck(DoctorDTO dto, HttpSession session, Model model) {
+		System.out.println("===> dao로 가자!");
+		DoctorDTO result = doctor_dao.dr_loginCheck(dto);
+		if (result == null) {
+			System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
+			model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
+			return "doctor_login.page";
+		} else {
+			session.setAttribute("doctor", result);
+		}
+		return "redirect:/";
+	}
+	
+	// 환자 아이디 찾기
 	@RequestMapping(value = "find_id.do", method = RequestMethod.POST)
-	public String find_id(HttpServletResponse response, @RequestParam("email") String email, Model md)
-			throws Exception {
+	public String find_id(HttpServletResponse response, @RequestParam("email") String email, Model md) throws Exception {
 		md.addAttribute("id", service.find_id(response, email));
-		return "find-id";
+		return "patient_find_id";
+	}
+	
+	// 의사 아이디 찾기
+	@RequestMapping(value = "doctor_find_id.do", method = RequestMethod.POST)
+	public String doctor_find_id(HttpServletResponse response, @RequestParam("email") String email, Model md) throws Exception{
+		md.addAttribute("id", doctor_service.doctor_find_id(response, email));
+		return "doctor_find-id";
 	}
 
-	// 아이디 중복 검사(AJAX)
+	// 의사 인증번호 유효성검사
+	@RequestMapping(value = "verifyCheck", method = RequestMethod.POST)
+	public String verifyCheck(@RequestParam("d_verifynum") String d_verifynum, HttpServletResponse response, Model model) throws Exception{
+		System.out.println("===> Mybatis 의사 인증번호 유효성검사 실행 성공인가?");
+		
+		int result = doctor_dao.verifyCheck(d_verifynum);
+		if (result == 0) {
+			System.out.println("인증번호가 일치하지 않습니다.");
+			model.addAttribute("message", "<p style='color:red'> 인증번호가 일치하지 않습니다. </p>");
+			return "doctor_verify.page";
+		}
+		return "doctor_register.page";
+	}
+
+	// 환자 아이디 중복 검사(AJAX)
 	@RequestMapping(value = "check_id.do", method = RequestMethod.POST)
 	public void check_id(@RequestParam("p_id") String p_id, HttpServletResponse response) throws Exception {
 		System.out.println("===> Mybatis 아이디 중복 검사(AJAX) 실행 성공인가?");
 		service.check_id(p_id, response);
 	}
 
-	// id 중복 체크 컨트롤러 필요없을 듯 하다
-//	@RequestMapping(value = "idCheck.do", method = RequestMethod.GET)
-//	@ResponseBody
-//	public int idCheck(@RequestParam("p_id") String p_id) {
-//		System.out.println("===> Mybatis idCheck() 실행 성공인가?");
-//		return PDaoInter.idCheck(p_id);
-//	}
+	// 환자 이메일 중복 검사(AJAX)
+	@RequestMapping(value = "check_email.do", method = RequestMethod.POST)
+	public void check_email(@RequestParam("p_email") String p_email, HttpServletResponse response) throws Exception {
+		System.out.println("===> Mybatis 이메일 중복 검사(AJAX) 실행 성공인가?");
+		service.check_email(p_email, response);
+	}
 
-	// 비밀번호 찾기
+	// 환자 비밀번호 찾기
 	@RequestMapping(value = "find_pw.do", method = RequestMethod.POST)
 	public void find_pw(@ModelAttribute PatientDTO dto, HttpServletResponse response) throws Exception {
 		System.out.println("===> Mybatis 비밀번호 찾기 실행 성공인가?");
 		service.find_pw(response, dto);
 	}
 
-//	@RequestMapping(value = "userInsert")
-//	public String userInsert(PatientDTO dto) {
-//		System.out.println("===> dao로 가자!");
-//		PDaoInter.insertPatient(dto);
-//		System.out.println("===> Mybatis add() 실행 성공인가?");
-//		return "login";
-//	}
-
-	@RequestMapping(value = "userInsert", method = RequestMethod.POST)
-	public ModelAndView userInsert(PatientDTO dto, HttpServletRequest request, HttpSession session) {
+	//환자 회원가입
+	@RequestMapping(value = "patientInsert", method = RequestMethod.POST)
+	public ModelAndView patientInsert(PatientDTO dto, HttpServletRequest request, HttpSession session) {
+		System.out.println("회원가입 컨트롤러에 왔는가?");
 		ModelAndView mav = new ModelAndView("redirect:login");
 
 		String r_path = session.getServletContext().getRealPath("/");
 		System.out.println("r_path :" + r_path);
-		String img_path = "C:\\Users\\koko\\git\\Dr_Link_1222\\Dr_Link1221\\src\\main\\webapp\\resources\\patient\\profileImg\\";
+		String img_path = "C:\\Users\\sungm\\git\\Dr_Link_1222\\Dr_Link1221\\src\\main\\webapp\\resources\\patient\\profileImg\\";
 		System.out.println("img_path :" + img_path);
 		StringBuffer path = new StringBuffer();
 		path.append(r_path).append(img_path);
@@ -150,32 +190,72 @@ public class MainController {
 		try {
 			p_photo.transferTo(f);
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		mav.addObject("imgName", oriFn);
-
-//		File f = new File(path.toString()); // ���� �̹����� ����� ���
-//		try {
-//			p_photo.transferTo(f); // �������� transferTo�� ȣ���ؼ� �̹����� ������ҿ� ���� 
-//		} catch (IllegalStateException | IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		mav.addObject("imgName",oriFn);
-
-//		PDaoInter.addTvo(dto);
-
 		System.out.println("===> dao로 가자!");
 		patientDAO.insertPatient(dto);
 		System.out.println("===> Mybatis add() 실행 성공인가?");
 		return mav;
+	}
+	
+	//의사 회원가입 
+	@RequestMapping(value = "doctorInsert", method = RequestMethod.POST)
+	public ModelAndView doctorInsert(DoctorDTO dto, HttpServletRequest request,  HttpSession session) {
+		System.out.println("doctorInsert 요청");
+		ModelAndView mav = new ModelAndView("redirect:login");
 
-//		return "login";
+		String r_path = session.getServletContext().getRealPath("/");
+		System.out.println("r_path :"+r_path);
+		String img_path ="C:\\Users\\sungm\\git\\Dr_Link_1222\\Dr_Link1221\\src\\main\\webapp\\resources\\doctor\\doctorImg\\";
+		System.out.println("img_path :"+img_path);
+		StringBuffer path = new StringBuffer();
+		path.append(r_path).append(img_path);
+		MultipartFile d_photo =dto.getFile();
+		String oriFn = dto.getD_id() + d_photo.getOriginalFilename(); // 여기에 회원 아이디와 동일 파일 이름으로 저장하자
+		
+		path.append(oriFn);
+		dto.setD_photo(oriFn);
+		System.out.println("path = r_path + img_path:"+path);
+		
+		//위에 3줄 이상해서 내가 추가해본다.
+
+		StringBuffer newpath = new StringBuffer();
+		newpath.append(img_path);
+		newpath.append(oriFn);
+		
+		File f = new File(newpath.toString()); 
+		try {
+			d_photo.transferTo(f); 
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		mav.addObject("imgName",oriFn);
+
+		System.out.println("===> dao로 가자!");
+		doctor_dao.insertDoctor(dto);
+		System.out.println("===> Mybatis add() 실행 성공인가?");
+		return mav;
+	}
+	
+
+	// 의사 아이디 중복 검사(AJAX)
+	@RequestMapping(value = "doctor_check_id.do", method = RequestMethod.POST)
+	public void doctor_check_id(@RequestParam("d_id") String d_id, HttpServletResponse response) throws Exception{
+		System.out.println("===> Mybatis 아이디 중복 검사(AJAX) 실행 성공인가?");
+		doctor_service.doctor_check_id(d_id, response);
+	}
+	
+	// 의사 비밀번호 찾기
+	@RequestMapping(value = "doctor_find_pw.do", method = RequestMethod.POST)
+	public void doctor_find_pw(@ModelAttribute DoctorDTO dto, HttpServletResponse response) throws Exception{
+		System.out.println("===> Mybatis 비밀번호 찾기 실행 성공인가?");
+		doctor_service.doctor_find_pw(response, dto);
 	}
 
 	@RequestMapping(value = "adminquestion")

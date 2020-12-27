@@ -64,16 +64,23 @@
 							<li><a href="${path}/AI_medical_hair">탈모</a></li>
 							<!--  <li><a href="pharmacy-index">AI진단</a></li> -->
 						</ul>
-				<c:if test="${sessionScope.user != null }">
+				<c:if test="${sessionScope.user != null}">
 						<li class="has-submenu">
 							<a href="${path}/patients/patient_dashboard?patient_num=${sessionScope.user.patient_num}">마이페이지</a>
+						</li>
+								</ul>
+						</li>
+				</c:if>	
+				<c:if test="${sessionScope.doctor != null}">
+						<li class="has-submenu">
+							<a href="${path}/doctor/doctor_dashboard?doctor_num=${sessionScope.doctor.doctor_num}">마이페이지</a>
 						</li>
 								</ul>
 						</li>
 				</c:if>										 
 					</div>
 				<c:choose>
-					<c:when test="${sessionScope.user == null }">	
+					<c:when test="${sessionScope.user == null and sessionScope.doctor == null}">	
 						<ul class="nav header-navbar-rht">
 							<li class="nav-item">
 								<a class="nav-link header-login" href="${path}/login">로그인 / 회원가입</a>
@@ -82,7 +89,12 @@
 					</c:when>
 					<c:otherwise>					
 						<ul class="nav header-navbar-rht">
-							<li> ${ sessionScope.user.p_name }님, 반갑습니다. </li><br>
+							<c:if test="${sessionScope.doctor != null}">
+								<li> ${ sessionScope.doctor.d_name } 의사 선생님, 반갑습니다. </li><br>
+							</c:if>	
+							<c:if test="${sessionScope.user != null}">
+								<li> ${ sessionScope.user.p_name }님, 반갑습니다. </li><br>
+							</c:if>
 							<li class="nav-item">
 								<a class="nav-link header-login" href="${path}/logout">로그아웃</a>
 							</li>

@@ -53,41 +53,42 @@
  	<!-- 김성민 -->
  	<!-- 로그인 -->
 	<select id="loginchk" parameterType="doctorDTO" resultType="doctorDTO">
-		select d_id, d_pwd from doctor where d_id=#{d_id} and d_pwd=#{d_pwd}
+		select doctor_num, d_id, d_name from dl_doctor where d_id=#{d_id} and d_pwd=#{d_pwd}
 	</select>
 	
  	<!-- 회원가입 -->
 	<insert id="add" parameterType="doctorDTO">
-		insert into doctor(doctor_num, d_id, d_pwd, d_name, d_gender, d_jumin_num, d_phone_num, d_address, d_email, d_graduation, d_career, d_imgfile) values(doctor_num_pk.nextval,#{d_id}, #{d_pwd}, #{d_name}, #{d_gender}, #{d_jumin_num}, #{d_phone_num}, #{d_zipcode}, #{d_email}, #{d_graduation2}, #{d_career, jdbcType=VARCHAR}}, #{d_imgfile})
+		insert into dl_doctor(doctor_num, d_id, d_pwd, d_name, d_gender, d_jumin_num, d_phone_num, d_zipcode, d_address1, d_address2, d_email, d_photo) values(doctor_num.nextval,#{d_id}, #{d_pwd}, #{d_name}, #{d_gender}, #{d_jumin_num}, #{d_phone_num}, #{d_zipcode}, #{d_address1}, #{d_address2}, #{d_email}, #{d_photo})
 	</insert>
 
-  
 	<!-- 아이디 중복 검사 -->
 	<select id="idCheck" parameterType="String" resultType="int">
-		select count(*) from doctor where d_id = #{d_id}
+		select count(*) from dl_doctor where d_id = #{d_id}
 	</select>
 
-  
+	<!-- 회원가입 인증번호 검사 -->
+	<select id="verifyCheck" parameterType="String" resultType="int">
+		select count(*) from doctor_verify where d_verifynum = #{d_verifynum}
+	</select>
+
 	<!-- 아이디 중복 검사 -->
 	<select id="check_id" parameterType="String" resultType="int">
-		select count(*) from doctor where d_id = #{d_id}
+		select count(*) from dl_doctor where d_id = #{d_id}
 	</select>
-	
 	
 	<!-- 아이디 찾기 -->
 	<select id="find_id" parameterType="String" resultType="String">
-		select d_id from doctor where d_email = #{email}
+		select d_id from dl_doctor where d_email = #{email}
 	</select>
-
 
 	<!-- 비밀번호 변경 -->
 	<update id="update_pw" parameterType="doctorDTO">
-		update doctor set d_pwd = #{d_pwd} where d_id = #{d_id}
+		update dl_doctor set d_pwd = #{d_pwd} where d_id = #{d_id}
 	</update>
 
 	<!-- 이메일 매칭용 -->
 	<select id="emailCheck" parameterType="String" resultType="doctorDTO">
-		select * from doctor where d_id = #{id}
+		select * from dl_doctor where d_id = #{id}
 	</select>
 
   	<!-- search -->

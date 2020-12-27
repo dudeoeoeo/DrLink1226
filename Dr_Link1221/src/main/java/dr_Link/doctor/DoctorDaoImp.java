@@ -25,11 +25,6 @@ public class DoctorDaoImp implements DoctorDaoInter {
 	}
 
 	@Override
-	public void insertDoctor(DoctorDTO vo) {
-		
-	}
-
-	@Override
 	public void updateDoctor(DoctorDTO vo) {
 		
 	}
@@ -73,11 +68,20 @@ public class DoctorDaoImp implements DoctorDaoInter {
 		System.out.println("===> Mybatis doctor_profile_settings() 실행");
 		ss.insert("doctor.doctor_profile_settings",vo);
 	}
-
+	
+	//의사 로그인
 	@Override
 	public DoctorDTO dr_loginCheck(DoctorDTO dto) {
 		System.out.println("===> imple에서 Mybatis mapper loginchk()로 실행");
 		return ss.selectOne("doctor.loginchk",dto);
+	}
+	
+	//의사 회원가입
+	@Override
+	public void insertDoctor(DoctorDTO dto) {
+		System.out.println("===> imple에서 Mybatis mapper add()로 실행");
+		System.out.println(dto.getDoctor_num()+","+dto.getD_name());
+		ss.insert("doctor.add",dto);
 	}
 
 	//아이디 중복검사(비번발급용)
@@ -90,6 +94,12 @@ public class DoctorDaoImp implements DoctorDaoInter {
 	@Override
 	public int check_id(String d_id) throws Exception{
 		return ss.selectOne("doctor.idCheck",d_id);
+	}
+
+	//의사 인증번호 유효성검사
+	@Override
+	public int verifyCheck(String d_verifynum) {
+		return ss.selectOne("doctor.verifyCheck",d_verifynum);
 	}
 	
 	// 아이디 찾기
@@ -104,12 +114,11 @@ public class DoctorDaoImp implements DoctorDaoInter {
 		System.out.println("update_pw 다오 임플까지옴");
 		return ss.update("doctor.update_pw", dto);
 	}
-
+	
 	// 이메일 검사
 	public DoctorDTO emailCheck(String id) throws Exception{
 		System.out.println("emailCheck 다오 임플까지옴");
-		return ss.selectOne("doctor.emailCheck", id);
-	}
+		
 	
 	/*@Override
 	
