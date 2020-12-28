@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import dr_Link.booking.BookingDTO;
 import dr_Link.booking.BookingService;
 import dr_Link.doctorProfile.DoctorProfileDAO;
 import dr_Link.dto.DrLinkDTO;
@@ -39,10 +40,10 @@ public class PatientController {
 	private BookingService bookingService;
 	
 	@Autowired
-	private DoctorProfileDAO doctor_dao;
+	private DoctorProfileDAO doctorProfileDAO;
 	
 	@Autowired
-	private PatientDaoInter patient_dao;
+	private PatientDaoInter patientDaoInter;
 	
 	@RequestMapping(value = "{step}")
 	public String accessAnyFiles(@PathVariable String step) {
@@ -101,18 +102,24 @@ public class PatientController {
 	/* 김다유 : patient_dashboard 페이지로 이동 - 처방기록리스트 */
 	/* patient_dashboard에서 진료기록, 결제기록, 예약기록 담당하시는 분들 여기서 값 세팅해주세요 */
 	@RequestMapping(value = "patient_dashboard")
-	public String treatmentRecord(PrescriptionDTO pre_vo, Model model,HttpSession session) {
-		System.out.println("대시보드 매핑");
-		PatientDTO pt = (PatientDTO)session.getAttribute("user");
+	public String treatmentRecord(Model model, HttpSession session) {
+		int patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
 		try {
-
-		//List<PrescriptionDTO> prescriptionRecord = prescriptionService.prescriptionRecord(Integer.parseInt(pt.getPatient_num()));
-		List<PrescriptionDTO> prescriptionRecord = prescriptionService.prescriptionRecord(pt.getPatient_num());
-		PatientDTO user_info = prescriptionService.patient_info(pt.getPatient_num());
-		model.addAttribute("prescriptionRecord", prescriptionRecord);
-		model.addAttribute("user_info", user_info);
+			// 환자 프로필
+			PatientDTO patient_profile = patientService.getPatientDTO(patient_num);
+			model.addAttribute("patient_profile", patient_profile);
+			
+			// 예약 정보
+			List<BookingDTO> bookingList = bookingService.getPatientBookingList(patient_num);
+			model.addAttribute("bookingList", bookingList);
+			
+			// 처방전
+			
+			// 결제내역
+			
+			
 		} catch (NullPointerException e) {
-				  
+			e.printStackTrace();
 		}
 		return "/patients/patient_dashboard.page";
 	}
