@@ -14,8 +14,8 @@ public class BookingDAOImpl implements BookingDAO {
 
 	@Override
 	public void addBooking(BookingDTO vo) {
-		// TODO Auto-generated method stub
 		ss.insert("booking.addBooking", vo);
+		System.out.println("예약 성공");
 	}
 
 	@Override

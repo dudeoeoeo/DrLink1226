@@ -62,7 +62,7 @@ function myFunction() {
 											<img src="${path}/resources/doctor/doctorImg/${doctor_profile.d_photo}" alt="User Image">
 										</a>
 										<div class="booking-info">
-											<h4><a href="doctor-profile">${doctor_profile.d_name } 의사</a></h4>
+											<h4><a href="doctor-profile">${doctor_profile.d_name} 의사</a></h4>
 											<div class="rating">
 											<c:forEach begin="0" end="4" step="1" varStatus="i">
 											   <c:choose>

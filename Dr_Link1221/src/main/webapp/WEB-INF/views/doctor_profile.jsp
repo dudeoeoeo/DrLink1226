@@ -63,21 +63,12 @@ f<%@ page language="java" contentType="text/html; charset=UTF-8"
 								<div class="doc-info-right">
 									
 									<div class="doctor-action">
-										<!--<a href="javascript:void(0)" class="btn btn-white call-btn"data-toggle="modal" data-target="#video_call">
-											<i class="far fa-bookmark"></i>
-										</a>
-										 <a href="chat" class="btn btn-white msg-btn">
-											<i class="far fa-comment-alt"></i>
-										</a>
-										<a href="javascript:void(0)" class="btn btn-white call-btn" data-toggle="modal" data-target="#voice_call">
-											<i class="fas fa-phone"></i>
-										</a>-->
-										<a href="javascript:void(0)" class="btn btn-white fav-btn" >
+										<a href="javascript:void(0)" class="btn btn-white fav-btn" style="margin-left: 80% !important; margin-bottom: 30% !important;">
 											<i class="far fa-bookmark"></i>
 										</a> 
 									</div>
 									<div class="clinic-booking">
-										<a class="apt-btn" href="${path }/patients/booking?doctor_num=${doctor_profile.doctor_num }">예약하기</a>
+										<a class="apt-btn" href="${path}/patients/booking?doctor_num=${doctor_profile.doctor_num }">예약하기</a>
 									</div>
 								</div>
 							</div>
@@ -179,7 +170,7 @@ f<%@ page language="java" contentType="text/html; charset=UTF-8"
 															<div class="experience-content">
 																<div class="timeline-content">
 																<c:set var="len" value="${fn:length(m[1])}"/> 
-																<c:forEach begin="0" end="${len-1}" varStatus="status" step="2">
+																<c:forEach begin="0" end="${len-1}" varStatus="status" step="3">
 																	<a href="javascript:void(0)" class="name">${m[1][status.index]}</a>
 																	<div>${m[1][status.index+1]}</div>
 																	<br/>
@@ -233,7 +224,7 @@ f<%@ page language="java" contentType="text/html; charset=UTF-8"
 										<li>
 											<div class="comment">
 												<img class="avatar avatar-sm rounded-circle" alt="User Image" src="${path}/resources/patient/profileImg/${review.patientDTO.p_photo}">
-												<div class="comment-body">
+												<div class="comment-body" style="width: -webkit-fill-available;">
 													<div class="meta-data">
 														<span class="comment-author">${review.patientDTO.p_name }</span>
 														<span class="comment-date">${review.review_date}</span>

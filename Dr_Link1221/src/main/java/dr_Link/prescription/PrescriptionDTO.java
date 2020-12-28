@@ -41,7 +41,6 @@ public class PrescriptionDTO {
 		return dsg;
 	}
 	public void setDsg(String dsg) {
-		System.out.println("들어오는값: "+dsg);
 		this.dsg = dsg;
 	}
 	public String getQty() {

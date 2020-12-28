@@ -8,13 +8,7 @@
 				<div class="container-fluid">
 					<div class="row align-items-center">
 						<div class="col-md-12 col-12">
-							<nav aria-label="breadcrumb" class="page-breadcrumb">
-								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Blog</li>
-								</ol>
-							</nav>
-							<h2 class="breadcrumb-title">Blog Details</h2>
+							<h2 class="breadcrumb-title">${n_board.news_title }</h2>
 						</div>
 					</div>
 				</div>
@@ -47,7 +41,7 @@
 									</div>
 									</c:otherwise>
 									</c:choose>
-									<h3 class="blog-title">${n_board.news_title }'삐끗' 반복된다면 발목 불안정성 주의, 발목 염좌 </h3>
+									<h3 class="blog-title">${n_board.news_title }</h3>
 									<div class="blog-info clearfix">
 										<div class="post-left">
 											<ul>
@@ -243,28 +237,6 @@
 								
 							</div>
 						</div>
-					
-						<!-- Blog Sidebar -->
-						<div class="col-lg-4 col-md-12 sidebar-right theiaStickySidebar">
-
-							<!-- Search -->
-							<div class="card search-widget">
-								<div class="card-body">
-									<form class="search-form">
-										<div class="input-group">
-											<input type="text" placeholder="Search..." class="form-control">
-											<div class="input-group-append">
-												<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-											</div>
-										</div>
-									</form>
-								</div>
-							</div>
-							<!-- /Search -->
-
-							
-						</div>
-						<!-- /Blog Sidebar -->
 						
                 </div>
 				</div>

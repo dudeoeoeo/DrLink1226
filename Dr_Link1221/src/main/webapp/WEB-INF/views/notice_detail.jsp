@@ -34,27 +34,6 @@
 							</div>
 						</div>
 					
-						<!-- Blog Sidebar -->
-						<div class="col-lg-4 col-md-12 sidebar-right theiaStickySidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
-
-							<!-- Search -->
-							
-							<!-- /Search -->
-
-							<!-- Latest Posts -->
-							
-							<!-- /Latest Posts -->
-
-							<!-- Categories -->
-							
-							<!-- /Categories -->
-
-							<!-- Tags -->
-							
-							<!-- /Tags -->
-							
-						</div>
-						<!-- /Blog Sidebar -->
 						
                 </div>
 				</div>

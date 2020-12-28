@@ -109,11 +109,11 @@ public class BookingController {
 		PatientDTO temp = (PatientDTO) session.getAttribute("user");
 		System.out.println(temp.getPatient_num());
 		vo.setPatient_num(temp.getPatient_num());
+		System.out.println(vo.getAppointment_date());
 
 		try {
 			bookingService.addBooking(vo);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 		}
 		// 의사 프로필 
 		DoctorDTO doctor_profile = doctorProfileDAO.doctor_info(vo.getDoctor_num());
