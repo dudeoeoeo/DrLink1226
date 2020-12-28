@@ -19,9 +19,9 @@ import dr_Link.dto.TreatmentRecordDTO;
 */
 public class PrescriptionDTO {
 	
-	private int prescription_num, patient_num,doctor_num,treatment_num;
+	private int prescription_num, patient_num,doctor_num,treatment_num,price;
 	private String payment_check,prescription_date,prescription_time;
-	private String dsg,qty,tdate,medi_num,pre_date;
+	private String dsg,qty,tdate,medi_num,pre_date; //jsp 페이지에서 넘어오는 값
 	private String [] medicine_num,dosage,quantity,taking_date;
 	private TreatmentRecordDTO treatmentRecordDTO;
 	private MedicineDTO medicineDTO;
@@ -40,6 +40,7 @@ public class PrescriptionDTO {
 		return dsg;
 	}
 	public void setDsg(String dsg) {
+		System.out.println("들어오는값: "+dsg);
 		this.dsg = dsg;
 	}
 	public String getQty() {
@@ -86,20 +87,18 @@ public class PrescriptionDTO {
 	}
 	
 	
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	public int getPrescription_num() {
 		return prescription_num;
 	}
 	public void setPrescription_num(int prescription_num) {
 		this.prescription_num = prescription_num;
 	}
-	public void setMedicine_num(String medicine_num) {
-		this.medicine_num = medicine_num.split(",");
-	}
-	
-	public String[] getMedicine_num() {
-		return medicine_num;
-	}
-	
 	public int getPatient_num() {
 		return patient_num;
 	}
@@ -132,24 +131,6 @@ public class PrescriptionDTO {
 	public void setPayment_check(String payment_check) {
 		this.payment_check = payment_check;
 	}
-	public void setDosage(String dosage) {
-		this.dosage = dosage.split(",");
-	}
-	public String[] getDosage() {
-		return dosage;
-	}
-	public void setQuantity(String quantity) {
-		this.quantity = quantity.split(",");
-	} 
-	public String[] getQuantity() {
-		return quantity;
-	}
-	public void setTaking_date(String taking_date) {
-		this.taking_date = taking_date.split(",");
-	}
-	public String[] getTaking_date() {
-		return taking_date;
-	}
 	public String getPrescription_date() {
 		return prescription_date;
 	}
@@ -169,6 +150,20 @@ public class PrescriptionDTO {
 		this.prescription_time = prescription_time;
 	}
 	
-	
-
-}
+	public String[] getMedicine_num() {
+		this.medicine_num = this.medi_num.split(",");
+		return this.medicine_num;
+	}
+	public String[] getQuantity() {
+		this.quantity = this.qty.split(",");
+		return this.quantity;
+	}
+	public String[] getTaking_date() {
+		this.taking_date = this.tdate.split(",");
+		return this.taking_date;
+	}
+	public String[] getDosage() {
+		this.dosage = this.dsg.split(",");
+		return this.dosage;
+	}
+} 

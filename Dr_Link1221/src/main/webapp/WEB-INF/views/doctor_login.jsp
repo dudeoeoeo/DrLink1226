@@ -28,16 +28,16 @@
 										</div>
 										<form action="doctorloginCheck" name="doctorloginCheck" id="doctorloginCheck" class="drloginCheck" method="post">
 											<div class="form-group form-focus">
-												<input type="text" class="form-control floating" name="d_id" >
+												<input type="text" class="form-control floating" name="d_id" value="doctor_test1">
 												<label class="focus-label">아이디를 입력해주세요.</label>
 											</div>
 											<div class="form-group form-focus">
-												<input type="password" class="form-control floating" name="d_pwd">
+												<input type="password" class="form-control floating" name="d_pwd" value="1111">
 												<label class="focus-label">비밀번호를 입력해주세요.</label>
 											</div>
 											<input type="submit" class="btn btn-primary btn-block btn-lg login-btn" value="로그인">
 											<div class="noticemessage">
-												<input type="hidden" class="flag" value="${message }">
+												<input type="hidden" class="flag" value="${message}">
 											</div>
 											<div class="login-or">
 												<span class="or-line"></span>

@@ -172,7 +172,7 @@ body {
 																<tr>
 																	<td>${drlinkinfo.dl_name}</td>
 																	<td>${drlinkinfo.dl_tel}</td>
-																	<td>${drlinkinfo.dl_fax}</td>
+																	<td>${drlinkinfo.dl_faxtel}</td>
 																	<td><Strong style="text-decoration:underline; color:#003669;">${prescription.doctorDTO.d_name}</Strong></td>
 																</tr>
 															</tbody>

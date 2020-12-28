@@ -79,27 +79,28 @@
 	<resultMap type="prescriptionDTO" id="prescriptionMap">
 		<id property="prescription_num" column="prescription_num" javaType="int" />
 		<result column="payment_check" property="payment_check" />
-		<result column="dosage" property="dosage" />
-		<result column="quantity" property="quantity" />
-		<result column="taking_date" property="taking_date" />
+		<result column="dosage" property="dsg" />
+		<result column="quantity" property="qty" />
+		<result column="taking_date" property="tdate" />
 		<result column="prescription_date" property="prescription_date" />
-		<result column="medicine_num" property="medicine_num" />
+		<result column="medicine_num" property="medi_num" />
 		<result column="patient_num" property="patient_num" />
 		<result column="doctor_num" property="doctor_num" />
 		<result column="treatment_num" property="treatment_num" />
+		<result column="price" property="price" />
 		<collection property="treatmentRecordDTO" resultMap="treatmentRecordMap"/>
 		<collection property="doctorDTO" resultMap="doctorMap"/>
 		<collection property="patientDTO" resultMap="patientMap"/>
 	</resultMap>
 	
    <!-- 김다유 : 처방전 입력-->
+   <!-- treatment_num 이 화상진료를 해야 생기는 데이터라 임의로 값을 넣어 놓음 향후 수정요망 -->
    <insert id="add_prescription" parameterType="prescriptionDTO">
-   insert into prescription (prescription_num, patient_num,doctor_num,medicine_num,payment_check,treatment_num,dosage,quantity,taking_date,prescription_date) 
-   values (prescription_num.nextval, (select patient_num from treatment_record where treatment_num = 102),
-   (select doctor_num from treatment_record where treatment_num = 102),
+   insert into prescription 
+   values (prescription_num.nextval, #{patient_num},#{doctor_num},
    #{medi_num, jdbcType=VARCHAR},default,102,
    #{dsg, jdbcType=VARCHAR},#{qty, jdbcType=VARCHAR},
-   #{tdate, jdbcType=VARCHAR},#{pre_date, jdbcType=VARCHAR})
+   #{tdate, jdbcType=VARCHAR},#{pre_date, jdbcType=VARCHAR},#{price})
    </insert>
 
  <!-- 김다유 : 처방전 약품 검색 -->
@@ -136,7 +137,7 @@
         join dl_user u on p.patient_num = u.patient_num
         join dl_doctor d on p.doctor_num = d.doctor_num 
 	where 
-		p.prescription_num=#{prescription_num}
+		p.prescription_num=(SELECT max(prescription_num) FROM prescription)
   </select>
   
   <!-- 김다유 : 처방기록 -->

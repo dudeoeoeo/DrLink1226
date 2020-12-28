@@ -86,7 +86,6 @@ body {
 															<thead>
 																<tr>
 																	<th>교부 일자</th>
-																	<th>교부 번호</th>
 																	<th>환자 성명</th>
 																	<th>처방 의료인의 성명</th>
 																	<th>면허 증빙</th>
@@ -97,7 +96,6 @@ body {
 																<tr>
 																	<td><%= date.format(nowTime) %>
 																	<span class="d-block text-info"><%= time.format(nowTime) %></span></td>
-																	<td>제 <span> *insert후 update?*</span> 호</td>
 																	<td>${patientinfo.p_name}</td>
 																	<td class="text-left">
 																		<h2 class="table-avatar">
@@ -161,13 +159,13 @@ body {
 															</select>
 														</td>
 														<td>
-															<input class="form-control" value="" type="text" name="dosage">
+															<input class="form-control" value="" type="text" name="dsg">
 														</td>
 														<td>
-															<input class="form-control" value="" type="text" name="quantity">
+															<input class="form-control" value="" type="text" name="qty">
 														</td>
 														<td>
-															<input class="form-control" value="" type="text" name="taking_date">
+															<input class="form-control" value="" type="text" name="tdate">
 														</td>
 														<td>
 														</td>
@@ -188,7 +186,9 @@ body {
 										</thead>
 										<tbody>
 											<tr>
-												<td style="width: 30%;float: right;" ><input class="form-control" value="" type="text" name="price" placeholder="금액을 입력해주세요" style="width:70%;float: right;"></td>
+												<td style="width: 30%;float: right;" >
+												<input class="form-control" value="" type="text" name="price" placeholder="금액을 입력해주세요" style="width:70%;float: right;">
+												</td>
 											</tr>
 										</tbody>
 									</table>
@@ -250,13 +250,13 @@ $(function(){
 				'</select>'+
 				'</td>'+
 				'<td>'+
-				'<input class="form-control" value="" type="text" name="dosage">'+
+				'<input class="form-control" value="" type="text" name="dsg">'+
 				'</td>'+
 				'<td>'+
-				'<input class="form-control" value="" type="text" name="quantity">'+
+				'<input class="form-control" value="" type="text" name="qty">'+
 				'</td>'+
 				'<td>'+
-				'<input class="form-control" value="" type="text" name="taking_date">'+
+				'<input class="form-control" value="" type="text" name="tdate">'+
 				'</td>'+
 				'<td>'+					
 				'<a href="#" class="btn bg-danger-light trash">'+
@@ -276,7 +276,8 @@ $(function(){
 	    		console.log($(this).val());
 	    		medi_num.push($(this).val());
 	    	}) // each
-	    	$('#prescription_form').append('<input type="hidden" name="medicine_num" value="'+medi_num+'">');
+	    	alert(medi_num);
+	    	$('#prescription_form').append('<input type="hidden" name="medi_num" value="'+medi_num+'">');
 	    	$('#prescription_form').attr('action', 'end_prescription').submit();
 	    }) // click
 });

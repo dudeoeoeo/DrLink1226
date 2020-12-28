@@ -67,16 +67,16 @@
 	<resultMap type="prescriptionDTO" id="prescriptionMap">
 		<id property="prescription_num" column="prescription_num" javaType="int" />
 		<result column="payment_check" property="payment_check" />
-		<result column="dosage" property="dosage" />
-		<result column="quantity" property="quantity" />
-		<result column="taking_date" property="taking_date" />
+		<result column="dosage" property="dsg" />
+		<result column="quantity" property="qty" />
+		<result column="taking_date" property="tdate" />
 		<result column="prescription_date" property="prescription_date" />
-		<result column="medicine_num" property="medicine_num" />
+		<result column="medicine_num" property="medi_num" />
 		<result column="patient_num" property="patient_num" />
 		<result column="doctor_num" property="doctor_num" />
+		<result column="price" property="price" />
 		<result column="treatment_num" property="treatment_num" />
 	</resultMap>
-	
 	
 	
 	<resultMap type="treatmentRecordDTO" id="treatmentRecordMap">
