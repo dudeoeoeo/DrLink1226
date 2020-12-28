@@ -99,6 +99,12 @@ public class DoctorDaoImp implements DoctorDaoInter {
 		return ss.selectOne("doctor.idCheck",d_id);
 	}
 
+	//이메일 중복검사(회원가입용)
+	@Override
+	public int check_email(String d_email) throws Exception{
+		return ss.selectOne("doctor.doctoremailCheck",d_email);
+	}
+
 	//의사 인증번호 유효성검사
 	@Override
 	public int verifyCheck(String d_verifynum) {

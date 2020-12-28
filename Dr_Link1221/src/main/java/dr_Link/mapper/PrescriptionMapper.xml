@@ -156,9 +156,6 @@
   	insert into payment_record values(pay_record_num.nextval, #{patient_num}, #{doctor_num}, #{dep_num}, #{prescription_num}, sysdate, #{price}, #{payment_way})
   </insert>
   
-  <!-- 김다유 : 처방전 병원 정보 -->
-  <select id="drLink_info" resultType="drLinkDTO">
-     select * from drlink 
-  </select>
+
   
   </mapper>

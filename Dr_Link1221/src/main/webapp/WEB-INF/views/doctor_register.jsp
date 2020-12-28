@@ -154,12 +154,24 @@
 				        $("#d_email").val("");
 				        $("#d_email").focus();
 				        return false;
-				      } else {
-							$("#email_check").html("");
-							$("#submit-btn").removeAttr("disabled");
-						}
-				
-					
+				      } else {					
+				    	  $.ajax({
+								url : "doctor_check_email.do",
+								type : "POST",
+								data : {
+									d_email : $("#d_email").val()
+								},
+								success : function(result) {
+									if (result == 1) {
+										$("#email_check").html("중복된 이메일이 있습니다.");
+										$('#email_check').css('color', 'red');
+										$("#submit-btn").attr("disabled", "disabled");
+									} else {
+										$("#email_check").html("");
+										$("#submit-btn").removeAttr("disabled");
+									}
+								},
+							})}
 				});
 			});
 					
@@ -214,41 +226,6 @@
 			
 
 
-			$(function(){
-				$('#height').blur(function(){
-					var getheight = RegExp(/^[0-9]*$/);
-
-					if(!getheight.test($("#height").val())){
-						$("#height_check").html("숫자로 입력해야합니다.");
-						$('#height_check').css('color', 'red');
-			    	    $('#height').val('');
-					}else if($('#height').val()>=220 || $('#height').val()<=100){
-						$("#height_check").html("본인의 키를 입력해야합니다.");
-						$('#height_check').css('color', 'red');
-			    	    $('#height').val('');
-					}else{
-						$("#height_check").html("");
-					}
-				});
-			}); 
-
-			$(function(){
-				$('#weight').blur(function(){
-					var getheight = RegExp(/^[0-9]*$/);
-
-					if(!getheight.test($("#weight").val())){
-						$("#weight_check").html("숫자로 입력해야합니다.");
-						$('#weight_check').css('color', 'red');
-			    	    $('#weight').val('');
-					}else if($('#weight').val()>=200 || $('#weight').val()<=30){
-						$("#weight_check").html("본인의 몸무게를 입력해야합니다.");
-						$('#weight_check').css('color', 'red');
-			    	    $('#weight').val('');
-					}else{
-						$("#weight_check").html("");
-					}
-				});
-			}); 
 			
 			
 			//회원가입 버튼 활성화
@@ -379,8 +356,8 @@
 							<div class="card">
 								<div class="card-body">
 									
-									<!-- Profile Settings Form -->
-									<form action="doctorInsert" name="doctorInsert" method="post" enctype="multipart/form-data" onsubmit="return checks()">
+									<!-- Profile Settings Form   onsubmit="return checks()" -->
+									<form action="doctorInsert" name="doctorInsert" method="post" enctype="multipart/form-data">
 										<div class="row form-row">
 											<div class="col-12 col-md-12">
 												<div class="form-group">
@@ -391,7 +368,7 @@
 														<div class="upload-img">
 															<div class="change-photo-btn">
 																<span><i class="fa fa-upload"></i> 사진 업로드</span>
-																<input type="file" class="upload" id="d_photo" name="d_photo" onchange="readURL(this);">
+																<input type="file" class="upload" id="file" name="file" onchange="readURL(this);">
 															</div>
 															<small class="form-text text-muted">이미지 파일 형식 JPG, GIF, PNG. <br>최대 크기는 2MB</small>
 														</div>
@@ -448,8 +425,8 @@
 											</div>
 											<div class="col-6">
 												<div class="form-group">
-												<label class="">전공과목<span class="text-danger"></span></label>
-												<select id="d_licence" name="d_licence" class="form-control" >
+												<label class="">전공과목<span class="text-danger">*</span></label>
+												<select id="d_licence" name="d_licence" class="form-control" required>
 												    <option value="">전공선택</option>
 												    <option value="가정의학과">가정의학과</option>
 												    <option value="결핵과">결핵과</option>
@@ -483,114 +460,98 @@
 												</div>
 											</div>
 						 
-							<!-- Education -->
-							<div class="card">
-								<div class="card-body">
-									<h4 class="card-title">학력</h4>
-									<div class="education-info">
-										<div class="row form-row education-cont">
-											<div class="col-12 col-md-10 col-lg-11">
-												<div class="row form-row">
-												<c:set var="len" value="${fn:length(m[0])}"/> 
-													<div class="col-12 col-md-6 col-lg-4">
-														<div class="form-group">
-															<label>출신대학</label>
-															<input type="text" class="form-control" name="d_graduation" value="">
-														</div> 
-													</div>
-													<div class="col-12 col-md-6 col-lg-4">
-														<div class="form-group">
-															<label>학과</label>
-															<input type="text" class="form-control" name="d_graduation" value="">
-														</div> 
-													</div>
-													<div class="col-12 col-md-6 col-lg-4">
-														<div class="form-group">
-															<label>졸업년도</label>
-															<input type="text" class="form-control" name="d_graduation" value="">
-														</div> 
+											<!-- Education -->
+											<div class="card-body">
+												<h4 class="card-title">학력</h4>
+												<div class="education-info">
+													<div class="row form-row education-cont">
+														<div class="col-12 col-md-10 col-lg-11">
+															<div class="row form-row">
+																<div class="col-12 col-md-6 col-lg-4">
+																	<div class="form-group">
+																		<label>출신대학</label>
+																		<input type="text" class="form-control" name="d_graduation" value="">
+																	</div> 
+																</div>
+																<div class="col-12 col-md-6 col-lg-4">
+																	<div class="form-group">
+																		<label>학과</label>
+																		<input type="text" class="form-control" name="d_graduation" value="">
+																	</div> 
+																</div>
+																<div class="col-12 col-md-6 col-lg-4">
+																	<div class="form-group">
+																		<label>졸업년도</label>
+																		<input type="text" class="form-control" name="d_graduation" value="">
+																	</div> 
+																</div>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-									</div>
-									<div class="add-more">
-										<a href="javascript:void(0);" class="add-education"><i class="fa fa-plus-circle"></i> 추가하기</a>
-									</div>
-								</div>
-							</div>
-							<!-- /Education -->
+											<!-- /Education -->
 						
-							<!-- Experience -->
-							<div class="card">
-								<div class="card-body">
-									<h4 class="card-title">경력</h4>
-									<div class="experience-info">
-										<div class="row form-row experience-cont">
-											<div class="col-12 col-md-10 col-lg-11">
-												<div class="row form-row">
-													<div class="col-12 col-md-6 col-lg-4">
-														<div class="form-group">
-															<label>병원이름</label>
-															<input type="text" class="form-control" name="d_career"  value="">
-														</div> 
-													</div>
-													<div class="col-12 col-md-6 col-lg-4">
-														<div class="form-group">
-															<label>직함</label>
-															<input type="text" class="form-control" name="d_career" value="">
-														</div> 
-													</div>
-													<div class="col-12 col-md-6 col-lg-4">
-														<div class="form-group">
-															<label>활동년도</label>
-															<input type="text" class="form-control" name="d_career" value="">
-														</div> 
+											<!-- Experience -->
+											<div class="card-body">
+												<h4 class="card-title">경력</h4>
+												<div class="experience-info">
+													<div class="row form-row experience-cont">
+														<div class="col-12 col-md-10 col-lg-11">
+															<div class="row form-row">
+																<div class="col-12 col-md-6 col-lg-4">
+																	<div class="form-group">
+																		<label>병원이름</label>
+																		<input type="text" class="form-control" name="d_career"  value="">
+																	</div> 
+																</div>
+																<div class="col-12 col-md-6 col-lg-4">
+																	<div class="form-group">
+																		<label>직함</label>
+																		<input type="text" class="form-control" name="d_career" value="">
+																	</div> 
+																</div>
+																<div class="col-12 col-md-6 col-lg-4">
+																	<div class="form-group">
+																		<label>활동년도</label>
+																		<input type="text" class="form-control" name="d_career" value="">
+																	</div> 
+																</div>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-									</div>
-									<div class="add-more">
-										<a href="javascript:void(0);" class="add-experience"><i class="fa fa-plus-circle"></i>추가하기</a>
-									</div>
-								</div>
-							</div>
-							<!-- /Experience -->
+											<!-- /Experience -->
 							
 							
-							<!-- Registrations -->
-							<div class="card">
-								<div class="card-body">
-									<h4 class="card-title">면허내역</h4>
-									<div class="registrations-info">
-										<div class="row form-row reg-cont">
-											<div class="col-12 col-md-6 col-lg-4">
-												<div class="form-group">
-													<label>면허이름</label>
-													<input type="text" class="form-control" name="d_licence" value="">
-												</div> 
+											<!-- Registrations -->
+											<div class="card-body">
+												<h4 class="card-title">면허내역</h4>
+												<div class="registrations-info">
+													<div class="row form-row reg-cont">
+														<div class="col-12 col-md-6 col-lg-4">
+															<div class="form-group">
+																<label>면허이름</label>
+																<input type="text" class="form-control" name="d_licence" value="">
+															</div> 
+														</div>
+														<div class="col-12 col-md-6 col-lg-4">
+															<div class="form-group">
+																<label>면허번호</label>
+																<input type="text" class="form-control" name="d_licence_num" value="">
+															</div> 
+														</div>
+														<div class="col-12 col-md-6 col-lg-4">
+															<div class="form-group">
+																<label>취득년도</label>
+																<input type="text" class="form-control">
+															</div> 
+														</div>
+													</div>
+												</div>
 											</div>
-											<div class="col-12 col-md-6 col-lg-4">
-												<div class="form-group">
-													<label>면허번호</label>
-													<input type="text" class="form-control" name="d_licence_num" value="">
-												</div> 
-											</div>
-											<div class="col-12 col-md-6 col-lg-4">
-												<div class="form-group">
-													<label>취득년도</label>
-													<input type="text" class="form-control">
-												</div> 
-											</div>
-										</div>
-									</div>
-									<div class="add-more">
-										<a href="javascript:void(0);" class="add-reg"><i class="fa fa-plus-circle"></i> 추가하기</a>
-									</div>
-								</div>
-							</div>
-							<!-- /Registrations -->
+											<!-- /Registrations -->
 											<div class="col-12 ">
 												<div class="form-inline">
 												<label class="">우편번호<span class="text-danger"></span></label>
@@ -606,23 +567,17 @@
 													<input type="text" id="d_address2" name="d_address2" class="addr2 form-control" size="40" placeholder="상세주소">
 												</div>
 											</div>
-
-												
-											
-										<div class="submit-section" style="margin-top:20px;">
-											<button type="submit" class="btn btn-primary submit-btn" id="submit-btn">회원가입</button>
-											<button type="reset" class="btn btn-primary submit-btn" >다시입력</button>
-										</div>
+											<div class="submit-section" style="margin-top:20px;">
+												<button type="submit" class="btn btn-primary submit-btn" id="submit-btn">회원가입</button>
+												<button type="reset" class="btn btn-primary submit-btn" >다시입력</button>
+											</div>
 										</div>
 									</form>
 									<!-- /Profile Settings Form -->
-									
 								</div>
 							</div>
 						</div>
-						
 					</div>
-
 				</div>
 			</div>
 			<!-- /Page Content -->

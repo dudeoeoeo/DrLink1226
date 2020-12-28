@@ -57,6 +57,9 @@ public interface DoctorDaoInter {
 	// 이메일 검사
 	public DoctorDTO emailCheck(String id) throws Exception;
 	
+	//이메일 중복검사(회원가입용)
+	public int check_email(String d_email) throws Exception;
+	
 	public List<AppointmentDTO> getApList(int doctor_num, int p_num);
 	public List<AppointmentDTO> get_D_board(int doctor_num);
 	public List<TreatmentRecordDTO> getAP_num();

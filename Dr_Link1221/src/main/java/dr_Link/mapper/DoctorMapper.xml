@@ -91,6 +91,12 @@
 		select * from dl_doctor where d_id = #{id}
 	</select>
 
+	<!-- 이메일 중복 검사 -->
+	<select id="doctoremailCheck" parameterType="String" resultType="int">
+		select
+		count(*) from dl_doctor where d_email = #{d_email}
+	</select>
+
   	<!-- search -->
   	 <!-- 의료진소개 페이징처리 및 필터링 -->
 	  <select id="list" resultType="doctorDTO" parameterType="PageDTO">

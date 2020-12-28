@@ -42,29 +42,27 @@ body {
 }
 </style>
  
-		<!-- Main Wrapper -->
-        <div class="main-wrapper login-body">
-            <div class="login-wrapper">
-            	<div class="container">
-                	<div class="loginbox">
-                    	<div class="login-left">
-                        </div>
-                        <div class="login-right">
-							<div class="login-right-wrap">
-								<h1>아이디 찾기</h1>
-								<p class="account-subtitle">아이디 찾기 검색결과</p>
-								
-								<!-- Form -->
-									<div class="form-group">
-										${ id }
+			<!-- Page Content -->
+			<div class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-8 offset-md-2">
+							<div class="account-content">
+								<div class="row align-items-center justify-content-center">
+									<div class="col-md-12 col-lg-6 login-right">
+										<div class="login-header">
+											<h3>Dr.Link <span>아이디 찾기</span></h3>
+										</div>
+										<div class="form-group" style="text-align: center;">
+											<h2><span>아이디 : </span>${ id }</h2>
+										</div>
+										<div class="text-center dont-have">아이디가 기억나셨나요? <a href="patient_login">로그인</a></div>
+										<div class="text-center dont-have"> 비밀번호를 잊으셨습니까? <a href="patient_forgot_password">  비밀번호 찾기</a></div>
 									</div>
-								<!-- /Form -->
-								
-								<div class="text-center dont-have">아이디가 기억나셨나요? <a href="patient_login">로그인</a></div>
-								<div class="text-center dont-have"> 비밀번호를 잊으셨습니까? <a href="patient_forgot_password">  비밀번호 찾기</a></div>
+								</div>
 							</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+						</div>
+					</div>
+				</div>
+			</div>		
+			<!-- /Page Content -->

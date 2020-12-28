@@ -35,8 +35,8 @@
  
     
     <!-- doctor -->
-    <definition name="doctor" template="/WEB-INF/tiles/doctor_template.jsp">
-        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+    <definition name="doctor" template="/WEB-INF/tiles/doctor/doctor_template.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/doctor/header.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     

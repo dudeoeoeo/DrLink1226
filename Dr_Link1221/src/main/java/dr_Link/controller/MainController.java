@@ -49,18 +49,15 @@ public class MainController {
 	
 	@Autowired	
 	private DoctorDaoInter doctor_dao;
-	
-	@Autowired
-	private DoctorDaoImp doctorDaoInter;
 
 	@Autowired
-	private PatientServiceImpl service;
+	private PatientServiceInter service;
 	
 	@Autowired
 	private DoctorProfileDAO doctorProfileDAO;
 	
 	@Autowired
-	private DoctorServiceImpl doctor_service;
+	private DoctorServiceInter doctor_service;
 
 	@RequestMapping(value = { "/", "index" })
 	public String indexRq() {
@@ -123,14 +120,14 @@ public class MainController {
 	@RequestMapping(value = "find_id.do", method = RequestMethod.POST)
 	public String find_id(HttpServletResponse response, @RequestParam("email") String email, Model md) throws Exception {
 		md.addAttribute("id", service.find_id(response, email));
-		return "patient_find_id";
+		return "patient_find_id.page";
 	}
 	
 	// 의사 아이디 찾기
 	@RequestMapping(value = "doctor_find_id.do", method = RequestMethod.POST)
 	public String doctor_find_id(HttpServletResponse response, @RequestParam("email") String email, Model md) throws Exception{
 		md.addAttribute("id", doctor_service.doctor_find_id(response, email));
-		return "doctor_find-id";
+		return "doctor_find-id.page";
 	}
 
 	// 의사 인증번호 유효성검사
@@ -176,12 +173,13 @@ public class MainController {
 
 		String r_path = session.getServletContext().getRealPath("/");
 		System.out.println("r_path :" + r_path);
-		String img_path = "C:\\Users\\sungm\\git\\Dr_Link_1222\\Dr_Link1221\\src\\main\\webapp\\resources\\patient\\profileImg\\";
+		String img_path = "\\resources\\patient\\profileImg\\";
 		System.out.println("img_path :" + img_path);
 		StringBuffer path = new StringBuffer();
 		path.append(r_path).append(img_path);
-		MultipartFile p_photo = dto.getFile();
-		String oriFn = p_photo.getOriginalFilename();
+		System.out.println("실제 path: " + path);
+		MultipartFile file = dto.getFile();
+		String oriFn = file.getOriginalFilename();
 
 		path.append(oriFn);
 		dto.setP_photo(oriFn);
@@ -190,13 +188,15 @@ public class MainController {
 		// 위에 3줄 이상해서 내가 추가해본다.
 
 		StringBuffer newpath = new StringBuffer();
+		newpath.append(r_path);
 		newpath.append(img_path);
 		newpath.append(oriFn);
+		System.out.println("newpath"+ newpath);
 
-		File f = new File(newpath.toString()); // ���� �̹����� ����� ���
+		File f = new File(newpath.toString()); 
 
 		try {
-			p_photo.transferTo(f);
+			file.transferTo(f);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -212,18 +212,18 @@ public class MainController {
 	
 	//의사 회원가입 
 	@RequestMapping(value = "doctorInsert", method = RequestMethod.POST)
-	public ModelAndView doctorInsert(DoctorDTO dto, HttpServletRequest request,  HttpSession session) {
+	public ModelAndView doctorInsert(DoctorDTO dto, HttpServletRequest request, HttpSession session) {
 		System.out.println("doctorInsert 요청");
 		ModelAndView mav = new ModelAndView("redirect:login");
 
 		String r_path = session.getServletContext().getRealPath("/");
 		System.out.println("r_path :"+r_path);
-		String img_path ="C:\\Users\\sungm\\git\\Dr_Link_1222\\Dr_Link1221\\src\\main\\webapp\\resources\\doctor\\doctorImg\\";
+		String img_path ="\\resources\\doctor\\doctorImg\\";
 		System.out.println("img_path :"+img_path);
 		StringBuffer path = new StringBuffer();
 		path.append(r_path).append(img_path);
-		MultipartFile d_photo =dto.getFile();
-		String oriFn = dto.getD_id() + d_photo.getOriginalFilename(); // 여기에 회원 아이디와 동일 파일 이름으로 저장하자
+		MultipartFile file =dto.getFile();
+		String oriFn = file.getOriginalFilename(); // 여기에 회원 아이디와 동일 파일 이름으로 저장하자
 		
 		path.append(oriFn);
 		dto.setD_photo(oriFn);
@@ -232,12 +232,13 @@ public class MainController {
 		//위에 3줄 이상해서 내가 추가해본다.
 
 		StringBuffer newpath = new StringBuffer();
+		newpath.append(r_path);
 		newpath.append(img_path);
 		newpath.append(oriFn);
 		
 		File f = new File(newpath.toString()); 
 		try {
-			d_photo.transferTo(f); 
+			file.transferTo(f); 
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -256,6 +257,13 @@ public class MainController {
 	public void doctor_check_id(@RequestParam("d_id") String d_id, HttpServletResponse response) throws Exception{
 		System.out.println("===> Mybatis 아이디 중복 검사(AJAX) 실행 성공인가?");
 		doctor_service.doctor_check_id(d_id, response);
+	}
+
+	// 의사 이메일 중복 검사(AJAX) 1228
+	@RequestMapping(value = "doctor_check_email.do", method = RequestMethod.POST)
+	public void doctor_check_email(@RequestParam("d_email") String d_email, HttpServletResponse response) throws Exception {
+		System.out.println("===> Mybatis 이메일 중복 검사(AJAX) 실행 성공인가?");
+		doctor_service.doctor_check_email(d_email, response);
 	}
 	
 	// 의사 비밀번호 찾기

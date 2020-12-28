@@ -25,6 +25,14 @@ public class DoctorServiceImpl implements DoctorServiceInter{
 		out.close();
 	}
 	
+	// 이메일 중복 검사
+	@Override
+	public void doctor_check_email(String d_email, HttpServletResponse response) throws Exception {
+		PrintWriter out = response.getWriter();
+		out.println(doctorDaoImpl.check_email(d_email));
+		out.close();
+	}
+	
 	
 	// 아이디 찾기
 	@Override

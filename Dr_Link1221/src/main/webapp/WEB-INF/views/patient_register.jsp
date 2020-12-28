@@ -175,7 +175,7 @@
 			
 
 
-			$(function(){
+/* 			$(function(){
 				$('#height').blur(function(){
 					var getheight = RegExp(/^[0-9]*$/);
 
@@ -209,7 +209,7 @@
 						$("#weight_check").html("");
 					}
 				});
-			}); 
+			});  */
 			
 			
 			//회원가입 버튼 활성화
@@ -387,8 +387,8 @@ label{
 							<div class="card">
 								<div class="card-body">
 									
-									<!-- Profile Settings Form -->
-									<form action="patientInsert" name="patientInsert" method="post" enctype="multipart/form-data" onsubmit="return checks()">
+									<!-- Profile Settings Form  onsubmit="return checks()" --> 
+									<form action="patientInsert" name="patientInsert" method="post" enctype="multipart/form-data" >
 										<div class="row form-row">
 											<div class="col-12 col-md-12">
 												<div class="form-group">
@@ -399,7 +399,7 @@ label{
 														<div class="upload-img">
 															<div class="change-photo-btn">
 																<span><i class="fa fa-upload"></i> 사진 업로드</span>
-																<input type="file" class="upload" id="p_photo" name="p_photo" onchange="readURL(this);">
+																<input type="file" class="upload" id="file" name="file" onchange="readURL(this);">
 															</div>
 															<small class="form-text text-muted">이미지 파일 형식 JPG, GIF, PNG. <br>최대 크기는 2MB</small>
 														</div>
@@ -518,6 +518,7 @@ label{
 										<div class="submit-section" style="margin-top:20px;">
 											<button type="submit" class="btn btn-primary submit-btn" id="submit-btn">회원가입</button>
 											<button type="reset" class="btn btn-primary submit-btn" >다시입력</button>
+										</div>
 										</div>
 										</div>
 									</form>
