@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+f<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -14,7 +14,7 @@
 							<div class="doctor-widget">
 								<div class="doc-info-left">
 									<div class="doctor-img">
-										<img src="${path}/resources/assets/doctor/doctorImg/${doctor_profile.d_imgfile}" class="img-fluid" alt="User Image">
+										<img src="${path}/resources/doctor/doctorImg/${doctor_profile.d_photo}" class="img-fluid" alt="User Image">
 										
 										<!-- <div class="doctor-action">
 											<a href="javascript:void(0)" class="btn btn-white fav-btn" >
@@ -27,11 +27,17 @@
 										<p class="doc-speciality">${doctor_profile.departmentDTO.dep_name}</p>
 										<p class="doc-department"><i class="fa fa-stethoscope" aria-hidden="true"></i> ${doctor_profile.d_licence}</p>
 										<div class="rating">
-											<i class="fas fa-star filled"></i>
-											<i class="fas fa-star filled"></i>
-											<i class="fas fa-star filled"></i>
-											<i class="fas fa-star filled"></i>
-											<i class="fas fa-star"></i>
+											<c:forEach begin="0" end="4" step="1" varStatus="i">
+											   <c:choose>
+											      <c:when test="${reviewList[0].ratingAvg > i.index}">
+											         <i class="fas fa-star filled"></i>   
+											      </c:when>
+											      <c:otherwise>
+											         <i class="fas fa-star"></i>
+											      </c:otherwise>
+											   </c:choose>   
+											</c:forEach>
+											<span class="d-inline-block average-rating">${fn:length(reviewList)}</span>
 										</div>
 										<div class="clinic-services">
 										<c:choose>
@@ -71,7 +77,7 @@
 										</a> 
 									</div>
 									<div class="clinic-booking">
-										<a class="apt-btn" href="/patient/booking?doctor_num=${doctor_profile.doctor_num }">예약하기</a>
+										<a class="apt-btn" href="${path }/patients/booking?doctor_num=${doctor_profile.doctor_num }">예약하기</a>
 									</div>
 								</div>
 							</div>
@@ -226,15 +232,15 @@
 										<!-- Comment List -->
 										<li>
 											<div class="comment">
-												<img class="avatar avatar-sm rounded-circle" alt="User Image" src="${path}/resources/patient/patientImg/${review.patientDTO.p_photo}">
+												<img class="avatar avatar-sm rounded-circle" alt="User Image" src="${path}/resources/patient/profileImg/${review.patientDTO.p_photo}">
 												<div class="comment-body">
 													<div class="meta-data">
 														<span class="comment-author">${review.patientDTO.p_name }</span>
 														<span class="comment-date">${review.review_date}</span>
 														<div class="review-count rating">
-															<c:forEach var="i" begin="0" end="4" step="1">
+															<c:forEach begin="0" end="4" step="1" varStatus="i">
 																<c:choose>
-																	<c:when test="${review_rating > i}">
+																	<c:when test="${review.review_rating > i.index}">
 																		<i class="fas fa-star filled"></i>	
 																	</c:when>
 																	<c:otherwise>
@@ -249,12 +255,12 @@
 													</p>
 													<div class="comment-reply">
 														<p class="recommend-btn">
-															<span>Recommend?</span>
+															<span>도움이 되는 후기였나요?</span>
 															<a href="#" class="like-btn">
-																<i class="far fa-thumbs-up"></i> Yes
+																<i class="far fa-thumbs-up"></i> 추천
 															</a>
 															<a href="#" class="dislike-btn">
-																<i class="far fa-thumbs-down"></i> No
+																<i class="far fa-thumbs-down"></i> 비추천
 															</a>
 														</p>
 													</div>
@@ -278,7 +284,8 @@
 									<!-- /Review Listing -->
 								
 									<!-- Write Review -->
-									<div class="write-review">
+								<div class="write-review">
+								<c:if test="${not empty sessionScope.user }">
 										<h4>후기를 남겨주세요</h4>
 										
 										<!-- Write Review Form -->
@@ -333,9 +340,10 @@
 										</form>
 										<!-- /Write Review Form -->
 										
+									
+								</c:if>
+								<!-- /Write Review -->
 									</div>
-									<!-- /Write Review -->
-						
 								</div>
 								<!-- /Reviews Content -->
 							</div>
@@ -361,7 +369,7 @@
 							<div class="call-wrapper">
 								<div class="call-inner">
 									<div class="call-user">
-										<img alt="User Image" src="${path}/resources/doctor/doctorImg/${doctor_profile.d_imgfile}" class="call-avatar">
+										<img alt="User Image" src="${path}/resources/doctor/doctorImg/${doctor_profile.d_photo}" class="call-avatar">
 										<h4>Dr. Darren Elder</h4>
 										<span>Connecting...</span>
 									</div>							
@@ -391,7 +399,7 @@
 							<div class="call-wrapper">
 								<div class="call-inner">
 									<div class="call-user">
-										<img class="call-avatar" src="${path}/resources/doctor/doctorImg/${doctor_profile.d_imgfile}" alt="User Image">
+										<img class="call-avatar" src="${path}/resources/doctor/doctorImg/${doctor_profile.d_photo}" alt="User Image">
 										<h4>Dr. Darren Elder</h4>
 										<span>Calling ...</span>
 									</div>							

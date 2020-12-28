@@ -126,7 +126,7 @@ function execPostCode() {
 												</a>
 											</li>
 											<li>
-												<a href="favourites">
+												<a href="#">
 													<i class="fas fa-bookmark"></i>
 													<span>Favourites</span>
 												</a>

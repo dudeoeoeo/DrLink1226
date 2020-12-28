@@ -8,7 +8,7 @@ import dr_Link.dto.SearchDTO;
 
 
 
-public interface DoctorDaoInter {
+public interface DoctorProfileDAO {
 	
 	public DoctorDTO doctor_info(int doctor_num);
 	

@@ -26,6 +26,7 @@ import dr_Link.doctor.DoctorDaoImp;
 import dr_Link.doctor.DoctorDaoInter;
 import dr_Link.doctor.DoctorServiceImpl;
 import dr_Link.doctorProfile.DoctorDTO;
+import dr_Link.doctorProfile.DoctorProfileDAO;
 import dr_Link.dto.Hospital_boardDTO;
 import dr_Link.dto.PageDTO;
 import dr_Link.dto.PatientDTO;
@@ -50,6 +51,9 @@ public class MainController {
 
 	@Autowired
 	private PatientServiceImpl service;
+	
+	@Autowired
+	private DoctorProfileDAO doctorProfileDAO;
 	
 	@Autowired
 	private DoctorServiceImpl doctor_service;
@@ -293,7 +297,7 @@ public class MainController {
 	
 	
 	// search페이지 부분
-	@RequestMapping(value="/search")
+	@RequestMapping(value="/search") 
 	public String listSearch(PageDTO svo, Model model, HttpServletRequest request){
 		System.out.println("search 요청");
 		List<String> d_genderList=null;
@@ -326,7 +330,7 @@ public class MainController {
 		}
 		
 		
-		List<DoctorDTO> list = doctor_dao.getList(map);
+		List<DoctorDTO> list = doctorProfileDAO.getList(map);
 		
 
 

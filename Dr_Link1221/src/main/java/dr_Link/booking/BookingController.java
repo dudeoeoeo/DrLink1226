@@ -3,7 +3,6 @@ package dr_Link.booking;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -16,14 +15,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dr_Link.doctorProfile.DoctorDTO;
-import dr_Link.doctorProfile.DoctorDaoImp;
+import dr_Link.doctorProfile.DoctorProfileDAO;
 import dr_Link.dto.PatientDTO;
+import dr_Link.review.ReviewService;
 
 @Controller
 public class BookingController {
 	
 	@Autowired
-	private DoctorDaoImp doctor_dao;
+	private ReviewService reviewService;
+	
+	@Autowired
+	private DoctorProfileDAO doctorProfileDAO;
 
 	@Autowired
 	private BookingService bookingService;
@@ -60,8 +63,11 @@ public class BookingController {
 	@RequestMapping("patients/booking")
 	public String bookingPage(HttpServletRequest request, Model model) {
 		// 의사 프로필 
-		DoctorDTO doctor_profile = doctor_dao.doctor_info(Integer.parseInt(request.getParameter("doctor_num")));
+		DoctorDTO doctor_profile = doctorProfileDAO.doctor_info(Integer.parseInt(request.getParameter("doctor_num")));
   		model.addAttribute("doctor_profile",doctor_profile);
+  		
+  		//리뷰리스트에 의사번호를 던져 값을 model에 담아 jsp로 전달
+  		model.addAttribute("reviewList", reviewService.getReviewList(Integer.parseInt(request.getParameter("doctor_num"))));
 		  
 		// 날짜
 		List<List<String>> week = new ArrayList<List<String>>();
@@ -99,17 +105,20 @@ public class BookingController {
 	}
 
 	@RequestMapping("patients/bookingSave")
-	public String bookingSave(HttpServletRequest request, HttpSession session, BookingDTO vo) {
+	public String bookingSave(HttpServletRequest request, HttpSession session, BookingDTO vo, Model model) {
 		PatientDTO temp = (PatientDTO) session.getAttribute("user");
+		System.out.println(temp.getPatient_num());
 		vo.setPatient_num(temp.getPatient_num());
 
 		try {
 			bookingService.addBooking(vo);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "error/error-500";
 		}
+		// 의사 프로필 
+		DoctorDTO doctor_profile = doctorProfileDAO.doctor_info(vo.getDoctor_num());
+  		model.addAttribute("doctor_profile",doctor_profile);		
+		model.addAttribute("bookingInfo", vo);
 
 		return "patients/booking-success.page";
 	}

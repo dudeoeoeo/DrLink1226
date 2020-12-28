@@ -3,7 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<script>
+	$(document).ready(function(){
+		$(".btn.btn-primary.search-btn").click(function(){
+			$(".main").attr("action","AI_medical_"+$("#oemail2").val());
+			$(".main").submit();
+		});
+	});
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 <title>Dr.Link에 오신 것을 환영합니다</title>
@@ -84,18 +91,18 @@ width:auto !important;
                          
 						<!-- Search -->
 						<div class="search-box">
-							<form action="search">
+							<form class="main">
 								<div class="form-group search-location" style="margin-left: 30% !important;">
 									<select id="oemail2" class="form-control">
-															<option value="" selected="selected">- 진료과 선택 -</option>
-															<option value="korea.com">안과</option>
-															<option value="dreamwiz.com">피부과</option>
-															<option value="gmail.com">정신건강과</option>
+															<option value="" selected="selected">- 증상 선택 -</option>
+															<option value="eye">눈 질병</option>
+															<option value="skin">피부 질병</option>
+															<option value="hair">탈모</option>
 													</select>
-									<span class="form-text">진료과목을 선택하세요.</span>
+									<span class="form-text">AI 진단을 받을 항목을 선택해주세요.</span>
 								</div>
 								
-								<button type="submit" class="btn btn-primary search-btn"><i class="fas fa-search"></i> <span>Search</span></button>
+								<button class="btn btn-primary search-btn"><i class="fas fa-search"></i> <span>Search</span></button>
 							</form>
 						</div>
 						<!-- /Search -->
@@ -656,6 +663,7 @@ width:auto !important;
 	</section>
 	<!-- /Blog Section -->			
 	
+	
    
   </div>
   <!-- /Main Wrapper -->
@@ -672,7 +680,6 @@ width:auto !important;
 
 <!-- Custom JS -->
 <script src="${path}/resources/assets/js/script.js"></script>
-
 <script type="text/javascript">
 $(function(){
     window.onload = function () {
@@ -714,7 +721,6 @@ $(function(){
         }
     }
 });
-</script>
-		
+</script>		
 	</body>
 </html>

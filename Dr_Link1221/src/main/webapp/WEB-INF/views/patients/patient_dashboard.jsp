@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html> 		
 			<!-- Breadcrumb -->
 			<div class="breadcrumb-bar">
@@ -31,10 +34,10 @@
 								<div class="widget-profile pro-widget-content">
 									<div class="profile-info-widget">
 										<a href="#" class="booking-doc-img">
-											<img src="${path}/resources/assets/patient/profileImg/${user_info.p_photo}">
+											<img src="${path}/resources/patient/profileImg/${user_info.p_photo}">
 										</a>
 										<div class="profile-det-info">
-											<h3>${user_info.p_name}</h3>
+											<h3>${user_info.p_name }</h3>
 											<div class="patient-details">
 												<h5><i class="fas fa-birthday-cake"></i> ${user_info.birth}</h5>
 												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> ${user_info.profileAddress}</h5>
@@ -52,7 +55,7 @@
 												</a>
 											</li>
 											<li>
-												<a href="favourites">
+												<a href="#">
 													<i class="fas fa-bookmark"></i>
 													<span>Favourites</span>
 												</a>
@@ -85,10 +88,10 @@
 									<nav class="user-tabs mb-4">
 										<ul class="nav nav-tabs nav-tabs-bottom nav-justified">
 											<li class="nav-item">
-												<a class="nav-link active" href="#pat_appointments" data-toggle="tab">예약내역</a>
+												<a class="nav-link active" href="#pat_appointments" data-toggle="tab">예약일람</a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link" href="#pat_prescriptions" data-toggle="tab">처방내역</a>
+												<a class="nav-link" href="#pat_prescriptions" data-toggle="tab">처방일람</a>
 											</li>
 											<li class="nav-item">
 												<a class="nav-link" href="#pat_medical_records" data-toggle="tab"><span class="med-records">진료내역</span></a>
@@ -107,6 +110,11 @@
 										<div id="pat_appointments" class="tab-pane fade show active">
 											<div class="card card-table mb-0">
 												<div class="card-body">
+												<c:choose>
+											        <c:when test="${empty bookingList}">
+											        <p style="margin:10px; padding:10px;">아직 정보가 입력되지 않았습니다.</p>
+											        </c:when> 
+													<c:otherwise>
 													<div class="table-responsive">
 														<table class="table table-hover table-center mb-0">
 															<thead>
@@ -126,23 +134,27 @@
 															</thead>
 															<tbody>
 																<!-- start for -->
+															<c:forEach var="bookingList" items="${bookingList }">
 																<tr class="text-center" >
 																	<td>
 																		<h2 class="table-avatar">
-																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${path}/resources/assets/img/doctors/doctor-thumb-10.jpg" alt="User Image">
+																			<a href="doctor-profile?doctor_num=${bookingList.doctorDTO.doctor_num }" class="avatar avatar-sm mr-2">
+																				<img class="avatar-img rounded-circle" src="${path}/resources/doctor/doctorImg/${bookingList.doctorDTO.d_photo}" alt="User Image">
 																			</a>
-																			<a href="doctor-profile">Dr. Olga Barlow  <span>Dental</span></a>
+																			<a href="doctor-profile?doctor_num=${bookingList.doctorDTO.doctor_num }">Dr. ${bookingList.doctorDTO.d_name }  <span>${bookingList.departmentDTO.dep_name }</span></a>
 																		</h2>
 																	</td>
-																	<td>5 Nov 2019 <span class="d-block text-info">5.00 PM</span></td>
-																	<td>1 Nov 2019</td>
-																	<td><span class="badge badge-pill bg-success-light">Confirm</span></td>
+																	<td>${bookingList.appointment_date } <span class="d-block text-info">${bookingList.appointment_time }</span></td>
+																	<td>${bookingList.reg_date }</td>
+																	<td><span class="badge badge-pill bg-success-light">정상</span></td>
 																</tr>
 																<!-- / end for -->
+															</c:forEach>
 															</tbody>
 														</table>
 													</div>
+													</c:otherwise>
+												</c:choose>	
 												</div>
 											</div>
 										</div>
@@ -154,17 +166,23 @@
 												<div class="card-body">
 												<c:choose>
 											        <c:when test="${empty prescriptionRecord}">
-											        <p style="margin:10px;">아직 정보가 입력되지 않았습니다.</p>
+											        <p style="margin:10px; padding:10px;">아직 정보가 입력되지 않았습니다.</p>
 											        </c:when> 
 													<c:otherwise>
 													<div class="table-responsive">
 														<table class="table table-hover table-center mb-0">
 															<thead>
-																<tr>
+																<tr class="text-center">
 																	<th>처방일자 </th>
 																	<th>처방전</th>									
 																	<th>처방의사 </th>
-																	<th></th>
+																	<th>
+																		<div class="table-action">
+																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+																				<i class="fas fa-print"></i> 출력
+																			</a>
+																		</div>
+																	</th>
 																</tr>     
 															</thead>
 															<tbody>
@@ -175,7 +193,7 @@
 																<td>
 																	<h2 class="table-avatar">
 																		<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																			<img class="avatar-img rounded-circle" src="${path}/resources/assets/img/doctors/doctor-thumb-01.jpg" alt="User Image">
+																			<img class="avatar-img rounded-circle" src="${path}/resources/doctor/doctorImg/${prescriptionRecord.doctorDTO.d_photo}" alt="User Image">
 																		</a>
 																		<a href="doctor-profile">${prescriptionRecord.doctorDTO.d_name} <span>${prescriptionRecord.doctorDTO.departmentDTO.dep_name}</span></a>
 																	</h2>
@@ -226,7 +244,7 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${path}/resources/assets/img/doctors/doctor-thumb-01.jpg" alt="User Image">
+																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-01.jpg" alt="User Image">
 																			</a>
 																			<a href="doctor-profile">김다유 <span>정신과</span></a>
 																		</h2>
@@ -274,7 +292,7 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${path}/resources/assets/img/doctors/doctor-thumb-01.jpg" alt="User Image">
+																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-01.jpg" alt="User Image">
 																			</a>
 																			<a href="doctor-profile">김성민 <span>정신과</span></a>
 																		</h2>
@@ -299,7 +317,7 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${path}/resources/assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-02.jpg" alt="User Image">
 																			</a>
 																			<a href="doctor-profile">김성민 <span>정신과</span></a>
 																		</h2>
@@ -324,7 +342,7 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${path}/resources/assets/img/doctors/doctor-thumb-03.jpg" alt="User Image">
+																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-03.jpg" alt="User Image">
 																			</a>
 																			<a href="doctor-profile">이석 <span>피부과</span></a>
 																		</h2>
@@ -349,7 +367,7 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${path}/resources/assets/img/doctors/doctor-thumb-04.jpg" alt="User Image">
+																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-04.jpg" alt="User Image">
 																			</a>
 																			<a href="doctor-profile">이석 <span>피부과</span></a>
 																		</h2>
@@ -374,7 +392,7 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${path}/resources/assets/img/doctors/doctor-thumb-05.jpg" alt="User Image">
+																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-05.jpg" alt="User Image">
 																			</a>
 																			<a href="doctor-profile">Dr. Marvin Campbell <span>Ophthalmology</span></a>
 																		</h2>
@@ -399,7 +417,7 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${path}/resources/assets/img/doctors/doctor-thumb-06.jpg" alt="User Image">
+																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-06.jpg" alt="User Image">
 																			</a>
 																			<a href="doctor-profile">Dr. Katharine Berthold <span>Orthopaedics</span></a>
 																		</h2>
@@ -424,7 +442,7 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${path}/resources/assets/img/doctors/doctor-thumb-07.jpg" alt="User Image">
+																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-07.jpg" alt="User Image">
 																			</a>
 																			<a href="doctor-profile">Dr. Linda Tobin <span>Neurology</span></a>
 																		</h2>
@@ -449,7 +467,7 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${path}/resources/assets/img/doctors/doctor-thumb-08.jpg" alt="User Image">
+																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-08.jpg" alt="User Image">
 																			</a>
 																			<a href="doctor-profile">Dr. Paul Richard <span>Dermatology</span></a>
 																		</h2>
@@ -474,7 +492,7 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${path}/resources/assets/img/doctors/doctor-thumb-09.jpg" alt="User Image">
+																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-09.jpg" alt="User Image">
 																			</a>
 																			<a href="doctor-profile">Dr. John Gibbs <span>Dental</span></a>
 																		</h2>
@@ -499,7 +517,7 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${path}/resources/assets/img/doctors/doctor-thumb-10.jpg" alt="User Image">
+																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-10.jpg" alt="User Image">
 																			</a>
 																			<a href="doctor-profile">Dr. Olga Barlow <span>#0010</span></a>
 																		</h2>

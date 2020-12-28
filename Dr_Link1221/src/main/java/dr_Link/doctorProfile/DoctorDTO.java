@@ -3,6 +3,7 @@ package dr_Link.doctorProfile;
 import org.springframework.web.multipart.MultipartFile;
 
 import dr_Link.dto.DepartmentDTO;
+import dr_Link.review.Doc_ReviewDTO;
 
 public class DoctorDTO {
 	
@@ -36,15 +37,15 @@ public class DoctorDTO {
 	private String d_graduation,d_career,d_field;
 	private MultipartFile file;
 	private DepartmentDTO departmentDTO;
+	private Doc_ReviewDTO doc_ReviewDTO;
 	private String[] d_fields;
 		
-	public String getD_photo() {
-		return d_photo;
+	public Doc_ReviewDTO getDoc_ReviewDTO() {
+		return doc_ReviewDTO;
 	}
-	public void setD_photo(String d_photo) {
-		this.d_photo = d_photo;
+	public void setDoc_ReviewDTO(Doc_ReviewDTO doc_ReviewDTO) {
+		this.doc_ReviewDTO = doc_ReviewDTO;
 	}
-	
 	public String[] getD_fields() {
 		if(this.d_field != null) {
 			int cnt=0;
@@ -158,6 +159,14 @@ public class DoctorDTO {
 	}
 	public void setD_licence(String d_licence) {
 		this.d_licence = d_licence;
+	}
+	
+
+	public String getD_photo() {
+		return d_photo;
+	}
+	public void setD_photo(String d_photo) {
+		this.d_photo = d_photo;
 	}
 	public MultipartFile getFile() {
 		return file;
