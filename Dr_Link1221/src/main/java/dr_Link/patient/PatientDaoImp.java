@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dr_Link.dto.PatientDTO;
+import dr_Link.dto.Pay_recordDTO;
 import dr_Link.dto.TreatmentRecordDTO;
+import dr_Link.prescription.PrescriptionDTO;
 
 @Repository("patientDAO")
 public class PatientDaoImp implements PatientDaoInter{
@@ -69,10 +71,24 @@ public class PatientDaoImp implements PatientDaoInter{
 	}
 
 	@Override
-	public List<TreatmentRecordDTO> treatmentRecord(int patient_num) {
+	public List<TreatmentRecordDTO> treatmentRecordList(int patient_num) {
 		System.out.println("===> Mybatis treatmentRecord() 실행");
-		return ss.selectList("patient.treatmentRecord", patient_num);
+		return ss.selectList("patient.treatmentRecordList", patient_num);
 	}
+	
+
+	@Override
+	public List<PrescriptionDTO> prescriptionRecord(int patient_num) {
+		System.out.println("===> Mybatis prescriptionRecord() 실행");
+		return ss.selectList("prescription.prescriptionRecord", patient_num);
+	}
+	
+	@Override
+	public List<Pay_recordDTO> payment_record(int patient_num) {
+		System.out.println("===> Mybatis payment_record() 실행");
+		return ss.selectList("patient.payment_record", patient_num);
+	}
+	
 
 	@Override
 	public PatientDTO getPatientDTO(int patient_num) {

@@ -689,7 +689,7 @@ $(function(){
     }
     setTimeout(function () {
         notify();
-    }, 2000);
+    }, 5000);
 
     function notify() {
 
@@ -712,11 +712,11 @@ $(function(){
             //console.log(n.timestamp)
 
             notification.onclick = function () {
-                window.open('patients/video_call');
+                window.open('#');
             };
             
             notification.onclose = function () {
-                window.open('patients/video_call');
+                window.open('#');
             };
         }
     }

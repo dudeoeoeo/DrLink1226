@@ -101,7 +101,7 @@ body {
 																	<td>${patientinfo.p_name}</td>
 																	<td class="text-left">
 																		<h2 class="table-avatar">
-																			<a href="doctor-profile">${doctorinfo.d_name}<span>${doctorinfo.departmentDTO.dep_name}</span></a>
+																			<a href="" style="pointer-events: none;">${doctorinfo.d_name}<span>${doctorinfo.departmentDTO.dep_name}</span></a>
 																		</h2>
 																	</td>
 																	<td>${doctorinfo.d_licence}</td>

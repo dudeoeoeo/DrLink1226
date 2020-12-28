@@ -3,6 +3,7 @@ package dr_Link.patient;
 import java.util.List;
 
 import dr_Link.dto.PatientDTO;
+import dr_Link.dto.Pay_recordDTO;
 import dr_Link.dto.TreatmentRecordDTO;
 import dr_Link.prescription.PrescriptionDTO;
 
@@ -16,7 +17,11 @@ public interface PatientDaoInter {
 	public void deletePatient(int patient_num);
 	
 	/* public DoctorDTO detail_prescription(DoctorDTO vo); */
-	public List<TreatmentRecordDTO> treatmentRecord (int patient_num);
+	public List<TreatmentRecordDTO> treatmentRecordList (int patient_num);
+	
+	public List<PrescriptionDTO> prescriptionRecord (int patient_num);
+	
+	public List<Pay_recordDTO> payment_record(int patient_num);
 	
 	//회원가입
 	public void insertPatient(PatientDTO dto);

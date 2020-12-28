@@ -20,6 +20,8 @@ import dr_Link.doctorProfile.DoctorProfileDAO;
 import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
+import dr_Link.dto.Pay_recordDTO;
+import dr_Link.dto.TreatmentRecordDTO;
 import dr_Link.patient.PatientDaoInter;
 import dr_Link.patient.PatientServiceInter;
 import dr_Link.prescription.PrescriptionDTO;
@@ -100,7 +102,6 @@ public class PatientController {
 	}
 	
 	/* 김다유 : patient_dashboard 페이지로 이동 - 처방기록리스트 */
-	/* patient_dashboard에서 진료기록, 결제기록, 예약기록 담당하시는 분들 여기서 값 세팅해주세요 */
 	@RequestMapping(value = "patient_dashboard")
 	public String treatmentRecord(Model model, HttpSession session) {
 		int patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
@@ -113,10 +114,19 @@ public class PatientController {
 			List<BookingDTO> bookingList = bookingService.getPatientBookingList(patient_num);
 			model.addAttribute("bookingList", bookingList);
 			
-			// 처방전
+			// 진료기록
+			List<TreatmentRecordDTO> treatmentList = patientDaoInter.treatmentRecordList(patient_num);
+			System.out.println(treatmentList.get(0).getDep_num());
+			System.out.println(treatmentList.get(0).getDepartmentDTO().getDep_name());
+			model.addAttribute("treatmentList", treatmentList);
+			
+			//처방전
+			List<PrescriptionDTO> prescriptionRecord = patientDaoInter.prescriptionRecord(patient_num);
+			model.addAttribute("prescriptionRecord", prescriptionRecord);
 			
 			// 결제내역
-			
+			List<Pay_recordDTO> payment_record = patientDaoInter.payment_record(patient_num);
+			model.addAttribute("payment_record", payment_record);
 			
 		} catch (NullPointerException e) {
 			e.printStackTrace();

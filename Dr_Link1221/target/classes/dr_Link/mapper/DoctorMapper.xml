@@ -162,7 +162,7 @@
 	</select>
    
    	<resultMap type="departmentDTO" id="departmentMap">
-		<result column="dep_num" property="dep_num"/>
+	<id property="dep_num" column="dep_num" javaType="int" />
 		<result column="dep_name" property="dep_name"/>
 	</resultMap>
 

@@ -34,13 +34,13 @@
 								<div class="widget-profile pro-widget-content">
 									<div class="profile-info-widget">
 										<a href="#" class="booking-doc-img">
-											<img src="${path}/resources/patient/profileImg/${user_info.p_photo}">
+											<img src="${path}/resources/patient/profileImg/${patient_profile.p_photo}">
 										</a>
 										<div class="profile-det-info">
-											<h3>${user_info.p_name }</h3>
+											<h3>${patient_profile.p_name }</h3>
 											<div class="patient-details">
-												<h5><i class="fas fa-birthday-cake"></i> ${user_info.birth}</h5>
-												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> ${user_info.profileAddress}</h5>
+												<h5><i class="fas fa-birthday-cake"></i> ${patient_profile.birth}</h5>
+												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> ${patient_profile.profileAddress}</h5>
 											</div>
 										</div>
 									</div>
@@ -67,7 +67,7 @@
 												</a>
 											</li>
 											<li>
-												<a href="${path}/logout">
+												<a href="logout">
 													<i class="fas fa-sign-out-alt"></i>
 													<span>로그아웃</span>
 												</a>
@@ -88,10 +88,10 @@
 									<nav class="user-tabs mb-4">
 										<ul class="nav nav-tabs nav-tabs-bottom nav-justified">
 											<li class="nav-item">
-												<a class="nav-link active" href="#pat_appointments" data-toggle="tab">예약일람</a>
+												<a class="nav-link active" href="#pat_appointments" data-toggle="tab">예약내역</a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link" href="#pat_prescriptions" data-toggle="tab">처방일람</a>
+												<a class="nav-link" href="#pat_prescriptions" data-toggle="tab">처방내역</a>
 											</li>
 											<li class="nav-item">
 												<a class="nav-link" href="#pat_medical_records" data-toggle="tab"><span class="med-records">진료내역</span></a>
@@ -123,29 +123,22 @@
 																	<th>진료일시</th>
 																	<th>예약일자</th>
 																	<th>상태</th>
-																	<th>
-																		<div class="table-action">
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> 출력
-																			</a>
-																		</div>
-																	</th>
 																</tr>
 															</thead>
 															<tbody>
 																<!-- start for -->
-															<c:forEach var="bookingList" items="${bookingList }">
+															<c:forEach var="bookingList" items="${bookingList}">
 																<tr class="text-center" >
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile?doctor_num=${bookingList.doctorDTO.doctor_num }" class="avatar avatar-sm mr-2">
 																				<img class="avatar-img rounded-circle" src="${path}/resources/doctor/doctorImg/${bookingList.doctorDTO.d_photo}" alt="User Image">
 																			</a>
-																			<a href="doctor-profile?doctor_num=${bookingList.doctorDTO.doctor_num }">Dr. ${bookingList.doctorDTO.d_name }  <span>${bookingList.departmentDTO.dep_name }</span></a>
+																			<a href="doctor-profile?doctor_num=${bookingList.doctorDTO.doctor_num}">Dr. ${bookingList.doctorDTO.d_name }  <span>${bookingList.departmentDTO.dep_name }</span></a>
 																		</h2>
 																	</td>
-																	<td>${bookingList.appointment_date } <span class="d-block text-info">${bookingList.appointment_time }</span></td>
-																	<td>${bookingList.reg_date }</td>
+																	<td>${bookingList.appointment_date} <span class="d-block text-info">${bookingList.appointment_time}</span></td>
+																	<td>${bookingList.reg_date}</td>
 																	<td><span class="badge badge-pill bg-success-light">정상</span></td>
 																</tr>
 																<!-- / end for -->
@@ -224,6 +217,11 @@
 										<div id="pat_medical_records" class="tab-pane fade">
 											<div class="card card-table mb-0">
 												<div class="card-body">
+												<c:choose>
+											        <c:when test="${empty treatmentList}">
+											        <p style="margin:10px; padding:10px;">아직 정보가 입력되지 않았습니다.</p>
+											        </c:when> 
+													<c:otherwise>
 													<div class="table-responsive">
 														<table class="table table-hover table-center mb-0">
 															<thead>
@@ -237,16 +235,17 @@
 															</thead>
 															<tbody>
 															<!-- start for -->
+															<c:forEach var="treatmentList" items="${treatmentList}" varStatus="status" >
 																<tr class="text-center">
-																	<td><a href="javascript:void(0);">정신과</a></td>
-																	<td>2020-10-31</td>
-																	<td><a href="#">20201031_김환자.pdf</a></td>
+																	<td><a href="javascript:void(0);">${treatmentList.departmentDTO.dep_name}</a></td>
+																	<td>${treatmentList.start_treatment_time}</td>
+																	<td><a href="#">20201031_${treatmentList.patientDTO.p_name}.pdf</a></td>
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
 																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-01.jpg" alt="User Image">
 																			</a>
-																			<a href="doctor-profile">김다유 <span>정신과</span></a>
+																			<a href="doctor-profile">${treatmentList.doctorDTO.d_name}<span>${treatmentList.departmentDTO.dep_name}</span></a>
 																		</h2>
 																	</td>
 																	<td class="text-right">
@@ -260,10 +259,13 @@
 																		</div>
 																	</td>
 																</tr>
+																</c:forEach>
 															<!--  end for -->
 															</tbody>  	
 														</table>
 													</div>
+													</c:otherwise>
+												</c:choose>	
 												</div>
 											</div>
 										</div>
@@ -273,6 +275,11 @@
 										<div id="pat_billing" class="tab-pane fade">
 											<div class="card card-table mb-0">
 												<div class="card-body">
+												<c:choose>
+											        <c:when test="${empty payment_record}">
+											        <p style="margin:10px; padding:10px;">아직 정보가 입력되지 않았습니다.</p>
+											        </c:when> 
+													<c:otherwise>
 													<div class="table-responsive">
 														<table class="table table-hover table-center mb-0">
 															<thead>
@@ -286,19 +293,20 @@
 															</thead>
 															<tbody>
 																<tr>
+															<c:forEach var="payment_record" items="${payment_record}" varStatus="status" >
 																	<td>
-																		<a href="invoice-view">#11111</a>
+																		<a href="invoice-view">${payment_record.pay_num}</a>
 																	</td>
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
 																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-01.jpg" alt="User Image">
 																			</a>
-																			<a href="doctor-profile">김성민 <span>정신과</span></a>
+																			<a href="doctor-profile">${payment_record.doctorDTO.d_name}<span>${payment_record.departmentDTO.dep_name}</span></a>
 																		</h2>
 																	</td>
-																	<td>25,000원</td>
-																	<td>2020-11-30</td>
+																	<td>${payment_record.price}</td>
+																	<td>${payment_record.paydate}</td>
 																	<td class="text-right">
 																		<div class="table-action">
 																			<a href="invoice-view" class="btn btn-sm bg-info-light">
@@ -310,234 +318,13 @@
 																		</div>
 																	</td>
 																</tr>
-																<tr>
-																	<td>
-																		<a href="invoice-view">#11122</a>
-																	</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-02.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile">김성민 <span>정신과</span></a>
-																		</h2>
-																	</td>
-																	<td>15,000원</td>
-																	<td>2020-11-14</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="invoice-view" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>
-																		<a href="invoice-view">#22222</a>
-																	</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-03.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile">이석 <span>피부과</span></a>
-																		</h2>
-																	</td>
-																	<td>35,000원</td>
-																	<td>2020-10-30</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="invoice-view" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>
-																		<a href="invoice-view">#33333</a>
-																	</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-04.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile">이석 <span>피부과</span></a>
-																		</h2>
-																	</td>
-																	<td>23,500원</td>
-																	<td>2020-09-19</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="invoice-view" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>
-																		<a href="invoice-view">#INV-0006</a>
-																	</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-05.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile">Dr. Marvin Campbell <span>Ophthalmology</span></a>
-																		</h2>
-																	</td>
-																	<td>$600</td>
-																	<td>10 Nov 2019</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="invoice-view" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>
-																		<a href="invoice-view">#INV-0005</a>
-																	</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-06.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile">Dr. Katharine Berthold <span>Orthopaedics</span></a>
-																		</h2>
-																	</td>
-																	<td>$200</td>
-																	<td>9 Nov 2019</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="invoice-view" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>
-																		<a href="invoice-view">#INV-0004</a>
-																	</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-07.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile">Dr. Linda Tobin <span>Neurology</span></a>
-																		</h2>
-																	</td>
-																	<td>$100</td>
-																	<td>8 Nov 2019</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="invoice-view" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>
-																		<a href="invoice-view">#INV-0003</a>
-																	</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-08.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile">Dr. Paul Richard <span>Dermatology</span></a>
-																		</h2>
-																	</td>
-																	<td>$250</td>
-																	<td>7 Nov 2019</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="invoice-view" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>
-																		<a href="invoice-view">#INV-0002</a>
-																	</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-09.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile">Dr. John Gibbs <span>Dental</span></a>
-																		</h2>
-																	</td>
-																	<td>$175</td>
-																	<td>6 Nov 2019</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="invoice-view" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																<tr>
-																	<td>
-																		<a href="invoice-view">#INV-0001</a>
-																	</td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-10.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile">Dr. Olga Barlow <span>#0010</span></a>
-																		</h2>
-																	</td>
-																	<td>$550</td>
-																	<td>5 Nov 2019</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="invoice-view" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-															</tbody>
+																</c:forEach>
+															<!--  end for -->
+															</tbody>  	
 														</table>
 													</div>
+													</c:otherwise>
+												</c:choose>	
 												</div>
 											</div>
 										</div>

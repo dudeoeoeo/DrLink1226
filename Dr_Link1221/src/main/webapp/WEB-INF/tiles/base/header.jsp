@@ -3,6 +3,62 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+
+<!-- Favicons -->
+<link type="image/x-icon" href="${path}/resources/assets/img/favicon.png" rel="icon">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="${path}/resources/assets/css/bootstrap.min.css">
+
+<!-- Fontawesome CSS -->
+<link rel="stylesheet" href="${path}/resources/assets/plugins/fontawesome/css/fontawesome.min.css">
+<link rel="stylesheet" href="${path}/resources/assets/plugins/fontawesome/css/all.min.css">
+
+<!-- Main CSS -->
+<link rel="stylesheet" href="${path}/resources/assets/css/style.css">
+
+
+<!-- 구글폰트 -->
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
+
+<style>
+body {
+    font-family: "Nanum Gothic", sans-serif;
+}
+
+#header-wrapper{
+	background-image: url("${pageContext.request.contextPath}/resorces/img/banner.jpg");
+	background-size : cover;
+}
+
+@media all and (min-width: 992px) {
+	.navbar .nav-item .dropdown-menu{ display: none; }
+	.navbar .nav-item:hover .nav-link{ color: black;  }
+	.navbar .nav-item:hover .dropdown-menu{ display: block; }
+	.navbar .nav-item .dropdown-menu{ margin-top:0; }
+}	
+
+#drlink{
+font-family: 'Major Mono Display', monospace; 
+margin-right: 20px;
+}
+
+ul .bxslider{
+width:auto !important;
+}
+
+#bxslider{
+width:auto !important;
+}
+
+.footer-menu{
+	color:#fff;
+}
+
+</style>
+
 <script type="text/javascript">  
 	$(function(){
 		$("#path").val(location.pathname + location.search);

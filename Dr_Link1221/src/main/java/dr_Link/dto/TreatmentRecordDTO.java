@@ -1,18 +1,35 @@
 package dr_Link.dto;
 
+import dr_Link.doctorProfile.DoctorDTO;
+
 public class TreatmentRecordDTO {
-	/*
-	treatment_num number(5) CONSTRAINT treatment_num_pk primary key,
-    patient_num number,
-    doctor_num number,
-    dep_num number,
-    start_treatment_time date default sysdate,
-    monitoring_time
-	*/
+	
 	private int treatment_num,patient_num,doctor_num, dep_num;
 	private String monitoring_time, start_treatment_time;
+	private PatientDTO patientDTO;
+	private DoctorDTO doctorDTO;
+	private DepartmentDTO departmentDTO;
 	
 	
+	
+	public PatientDTO getPatientDTO() {
+		return patientDTO;
+	}
+	public void setPatientDTO(PatientDTO patientDTO) {
+		this.patientDTO = patientDTO;
+	}
+	public DoctorDTO getDoctorDTO() {
+		return doctorDTO;
+	}
+	public void setDoctorDTO(DoctorDTO doctorDTO) {
+		this.doctorDTO = doctorDTO;
+	}
+	public DepartmentDTO getDepartmentDTO() {
+		return departmentDTO;
+	}
+	public void setDepartmentDTO(DepartmentDTO departmentDTO) {
+		this.departmentDTO = departmentDTO;
+	}
 	public String getStart_treatment_time() {
 		return start_treatment_time;
 	}

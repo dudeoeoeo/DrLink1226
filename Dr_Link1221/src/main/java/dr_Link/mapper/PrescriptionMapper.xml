@@ -9,7 +9,7 @@
   collection 의 resultMap에는 다른 resultMap의 아이디를 넣음 property는 vo 클래스에 가져온 변수이름 -->
    <!-- 김다유 : 처방전 의사정보 resultMap -->
    	<resultMap type="departmentDTO" id="departmentMap">
-		<result column="dep_num" property="dep_num"/>
+	<id property="dep_num" column="dep_num" javaType="int" />
 		<result column="dep_name" property="dep_name"/>
 	</resultMap>
 	

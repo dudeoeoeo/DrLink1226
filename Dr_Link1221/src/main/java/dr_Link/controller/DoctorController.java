@@ -71,8 +71,10 @@ public class DoctorController {
 		System.out.println("처방입력 페이지로 이동");
 		
 		/* 로그인해서 session에 값이 있다고 가정하고 테스트 */
-		PatientDTO patientinfo = pre_service.patient_info(2);
-		DoctorDTO doctorinfo = pre_service.doctor_info(2);
+
+		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
+		PatientDTO patientinfo = pre_service.patient_info(doctor_num);
+		DoctorDTO doctorinfo = pre_service.doctor_info(doctor_num);
 		DrLinkDTO drlinkinfo = pre_service.drLink_info(drlinkVo); 
 		List<MedicineDTO> medicine_info = pre_service.medicine_info(mediVo);
 		

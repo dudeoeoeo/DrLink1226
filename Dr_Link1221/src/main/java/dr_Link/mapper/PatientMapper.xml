@@ -3,14 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- create table dl_user ( patient_num number(4) constraint dl_patient_num_pk 
-	primary key, p_id varchar2(20) not null, p_pwd varchar2(20) not null, p_name 
-	varchar2(10) not null, p_gender char(2) not null, p_jumin_num char(20) not 
-	null, p_phone_num char(13) not null, p_address varchar2(200) not null, p_email 
-	varchar2(30) not null, bloodtype varchar2(8) not null, p_imgfile varchar2(50) 
-	not null, height char(10) not null, weight char(10) not null, allergy char(2) 
-	not null, p_regdate date default sysdate ); create sequence dl_patient_num_pk 
-	increment by 1 start with 1; -->
 
 
 <mapper namespace="patient">
@@ -23,11 +15,117 @@
 		select * from dl_user where patient_num=#{patient_num}
 	</select>
 
+	
+   	<resultMap type="departmentDTO" id="departmentMap">
+		<id property="dep_num" column="dep_num" javaType="int" />
+		<result column="dep_name" property="dep_name"/>
+	</resultMap>
+
+	<resultMap type="doctorDTO" id="doctorMap">
+		<id property="doctor_num" column="doctor_num" javaType="int" />
+		<result column="d_id" property="d_id" />
+		<result column="d_pwd" property="d_pwd" />
+		<result column="d_name" property="d_name" />
+		<result column="d_jumin_num" property="d_jumin_num" />
+		<result column="d_phone_num" property="d_phone_num" />
+		<result column="d_gender" property="d_gender" />
+		<result column="d_zipcode" property="d_zipcode" />
+		<result column="d_address1" property="d_address1" />
+		<result column="d_address2" property="d_address2" />
+		<result column="d_email" property="d_email" />
+		<result column="d_licence" property="d_licence" />
+		<result column="d_licence_num" property="d_licence_num" />
+		<result column="d_regdate" property="d_regdate" />
+		<result column="d_content" property="d_content" />
+		<result column="d_imgfile" property="d_imgfile" />
+		<result column="d_graduation" property="d_graduation" />
+		<result column="d_career" property="d_career" />
+		<result column="d_field" property="d_field" />
+	</resultMap>
+
+	<resultMap type="patientDTO" id="patientMap">
+		<id property="patient_num" column="patient_num" javaType="int" />
+		<result column="p_id" property="p_id" />
+		<result column="p_pwd" property="p_pwd" />
+		<result column="p_name" property="p_name" />
+		<result column="p_jumin_num" property="p_jumin_num" />
+		<result column="p_phone_num" property="p_phone_num" />
+		<result column="bloodtype" property="bloodtype" />
+		<result column="allergy" property="allergy" />
+		<result column="p_email" property="p_email" />
+		<result column="height" property="height" />
+		<result column="weight" property="weight" />
+		<result column="p_birth" property="p_birth" />
+		<result column="p_gender" property="p_gender" />
+		<result column="p_zipcode" property="p_zipcode" />
+		<result column="p_address1" property="p_address1" />
+		<result column="p_address2" property="p_address2" />
+		<result column="p_phone" property="p_phone" />
+		<result column="p_regdate" property="p_regdate" />
+	</resultMap>
+	
+	<resultMap type="prescriptionDTO" id="prescriptionMap">
+		<id property="prescription_num" column="prescription_num" javaType="int" />
+		<result column="payment_check" property="payment_check" />
+		<result column="dosage" property="dosage" />
+		<result column="quantity" property="quantity" />
+		<result column="taking_date" property="taking_date" />
+		<result column="prescription_date" property="prescription_date" />
+		<result column="medicine_num" property="medicine_num" />
+		<result column="patient_num" property="patient_num" />
+		<result column="doctor_num" property="doctor_num" />
+		<result column="treatment_num" property="treatment_num" />
+	</resultMap>
+	
+	
+	
+	<resultMap type="treatmentRecordDTO" id="treatmentRecordMap">
+  	 	<id property="treatment_num" column="treatment_num" javaType="int" />
+		<result column="patient_num" property="patient_num"/>
+		<result column="doctor_num" property="doctor_num"/>
+		<result column="dep_num" property="dep_num"/>
+		<result column="monitoring_time" property="monitoring_time"/>
+		<result column="start_treatment_time" property="start_treatment_time"/>
+		<collection property="doctorDTO" resultMap="doctorMap"/>
+		<collection property="patientDTO" resultMap="patientMap"/>
+		<collection property="departmentDTO" resultMap="departmentMap"/>
+	</resultMap>
+	
+	
+	<resultMap type="pay_recordDTO" id="pay_recordMap">
+		<id property="pay_num" column="pay_num" javaType="int" />
+		<result column="patient_num" property="patient_num" />
+		<result column="doctor_num" property="doctor_num" />
+		<result column="prescription_num" property="prescription_num" />
+		<result column="dep_num" property="dep_num" />
+		<result column="paydate" property="paydate" />
+		<result column="payment_way" property="payment_way" />
+		<result column="price" property="price" />
+		<collection property="patientDTO" resultMap="patientMap"/>
+		<collection property="doctorDTO" resultMap="doctorMap"/>
+		<collection property="departmentDTO" resultMap="departmentMap"/>
+		<collection property="prescriptionDTO" resultMap="prescriptionMap"/>
+	</resultMap>
+	
+	
 
 	<!-- 김다유 : 처방기록 -->
-	<select id="treatmentRecord" parameterType="int"
-		resultType="treatmentRecordDTO">
-		select * from treatment_record where patient_num=#{patient_num}
+	<select id="treatmentRecordList" parameterType="int" resultMap="treatmentRecordMap">
+       select * from treatment_record a 
+       join dl_user b on a.patient_num=b.patient_num 
+       join dl_doctor c on a.doctor_num=c.doctor_num 
+       join department d on a.dep_num=d.dep_num 
+       where a.patient_num=#{patient_num}
+	</select>
+	
+	<!-- 김다유 : 결제기록 -->
+	<select id="payment_record" parameterType="int" resultMap="pay_recordMap">
+	  select * from payment_record a 
+       join dl_user b on a.patient_num=b.patient_num 
+       join dl_doctor c on a.doctor_num=c.doctor_num 
+       join department d on a.dep_num=d.dep_num 
+       join prescription e on a.prescription_num=e.prescription_num
+       where a.patient_num=#{patient_num}
 	</select>
 
 	<!-- 김성민 -->
