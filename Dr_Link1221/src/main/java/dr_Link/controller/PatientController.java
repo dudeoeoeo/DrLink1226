@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import dr_Link.booking.BookingService;
-import dr_Link.doctorProfile.DoctorDaoInter;
+import dr_Link.doctorProfile.DoctorProfileDAO;
 import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
@@ -39,7 +39,7 @@ public class PatientController {
 	private BookingService bookingService;
 	
 	@Autowired
-	private DoctorDaoInter doctor_dao;
+	private DoctorProfileDAO doctor_dao;
 	
 	@Autowired
 	private PatientDaoInter patient_dao;

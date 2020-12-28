@@ -5,7 +5,7 @@
   
   <mapper namespace="doctor">
     
-   	<!-- 2020-12-23 다유 추가  -->
+   	<!-- 
    	<resultMap type="departmentDTO" id="departmentMap">
 	<result column="dep_num" property="dep_num"/>
 	<result column="dep_name" property="dep_name"/>
@@ -33,7 +33,7 @@
 		<result column="d_field" property="d_field" />
 		<collection property="departmentDTO" resultMap="departmentMap"/>
 	</resultMap>
- 	<!-- / 2020-12-23 다유 추가  -->
+ 	  -->
   
  <!-- 김다유 : 의사 프로필 업데이트 d_photo=#{d_photo}, -->
   <update id="doctor_profile_settings" parameterType="doctorDTO">
@@ -134,35 +134,86 @@
 	 
 	 
 	<!-- search 파라미터 값 있을 때 -->  
-	<select id="searchList" resultType="doctorDTO" parameterType="hashmap">
-	
-		select * from (
-		   select rownum r_num, a.* from 
-		   (
-		   select * from dl_doctor 
-	   
-			<where> 
-	
-			<if test="d_genderList.size !=0">
-			d_gender in
-			<foreach collection="d_genderList" item="item" 
-			index="index" separator="," open="(" close=")">
-			#{item}
-			</foreach>
-			</if>
-			
-			<if test="dep_numList.size !=0">
-			and dep_num in
-			<foreach collection="dep_numList" item="item"
-			index="index" separator="," open="(" close=")">
-			#{item}
-			</foreach>
-			</if>
-			</where>
-			order by doctor_num desc 
-			) a
-			   ) where r_num between 1 and 15 
+	<select id="searchList" resultMap="doctorMap">
+		select a.*, b.*, c.*, nvl(b.rating, 0) as review_rating from
+		dl_doctor a,
+		(select doctor_num, round(avg(review_rating) ,0) as rating
+		from doc_review group by doctor_num) b,
+		department c  
+		<where> 
+		a.DEP_NUM=c.DEP_NUM and
+		a.DOCTOR_NUM=b.doctor_num(+)
+		<if test="d_genderList != null">
+		and d_gender in
+		<foreach collection="d_genderList" item="item" 
+		index="index" separator="," open="(" close=")">
+		#{item}
+		</foreach>
+		</if>
+		<if test="dep_numList != null">
+		and a.dep_num in
+		<foreach collection="dep_numList" item="item"
+		index="index" separator="," open="(" close=")">
+		#{item}
+		</foreach>
+		</if>
+		</where>
+		order by D_NAME
 	</select>
+   
+   	<resultMap type="departmentDTO" id="departmentMap">
+		<result column="dep_num" property="dep_num"/>
+		<result column="dep_name" property="dep_name"/>
+	</resultMap>
+
+	<resultMap type="doctorDTO" id="doctorMap">
+	<id property="doctor_num" column="doctor_num" javaType="int" />
+		<result column="d_id" property="d_id" />
+		<result column="d_pwd" property="d_pwd" />
+		<result column="d_name" property="d_name" />
+		<result column="d_jumin_num" property="d_jumin_num" />
+		<result column="d_phone_num" property="d_phone_num" />
+		<result column="d_gender" property="d_gender" />
+		<result column="d_zipcode" property="d_zipcode" />
+		<result column="d_address1" property="d_address1" />
+		<result column="d_address2" property="d_address2" />
+		<result column="d_email" property="d_email" />
+		<result column="d_licence" property="d_licence" />
+		<result column="d_licence_num" property="d_licence_num" />
+		<result column="d_regdate" property="d_regdate" />
+		<result column="d_content" property="d_content" />
+		<result column="d_photo" property="d_photo" />
+		<result column="d_graduation" property="d_graduation" />
+		<result column="d_career" property="d_career" />
+		<result column="d_field" property="d_field" />
+		<collection property="departmentDTO" resultMap="departmentMap"/>
+		<collection property="doc_ReviewDTO" resultMap="reviewMap"/>
+	</resultMap>
+	
+	<resultMap type="doc_ReviewDTO" id="reviewMap">
+		<result column="review_rating" property="review_rating"/>		
+	</resultMap>
+
+	<resultMap type="patientDTO" id="patientMap">
+	<id property="patient_num" column="patient_num" javaType="int" />
+		<result column="p_id" property="p_id" />
+		<result column="p_pwd" property="p_pwd" />
+		<result column="p_name" property="p_name" />
+		<result column="p_jumin_num" property="p_jumin_num" />
+		<result column="p_phone_num" property="p_phone_num" />
+		<result column="bloodtype" property="bloodtype" />
+		<result column="allergy" property="allergy" />
+		<result column="p_email" property="p_email" />
+		<result column="height" property="height" />
+		<result column="weight" property="weight" />
+		<result column="p_birth" property="p_birth" />
+		<result column="p_gender" property="p_gender" />
+		<result column="p_zipcode" property="p_zipcode" />
+		<result column="p_address1" property="p_address1" />
+		<result column="p_address2" property="p_address2" />
+		<result column="p_phone" property="p_phone" />
+		<result column="p_regdate" property="p_regdate" />
+	</resultMap>
    
   
   </mapper>

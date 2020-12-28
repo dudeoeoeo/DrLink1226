@@ -12,8 +12,8 @@ import dr_Link.dto.PageDTO;
 import dr_Link.dto.SearchDTO;
 
 
-@Repository("doctorDao")
-public class DoctorDaoImp implements DoctorDaoInter {
+@Repository("doctorProfileDAO")
+public class DoctorProfileDAOImp implements DoctorProfileDAO {
 	
 	@Autowired
 	private SqlSessionTemplate ss;
