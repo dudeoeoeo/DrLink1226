@@ -1,6 +1,7 @@
 package dr_Link.prescription;
 
 import dr_Link.doctorProfile.DoctorDTO;
+import dr_Link.dto.DepartmentDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.dto.TreatmentRecordDTO;

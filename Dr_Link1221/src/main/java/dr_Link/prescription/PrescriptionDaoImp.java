@@ -11,6 +11,7 @@ import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
+import dr_Link.dto.Pay_recordDTO;
 
 @Repository("PrescriptionDaoInter")
 public class PrescriptionDaoImp implements PrescriptionDaoInter {
@@ -68,8 +69,20 @@ public class PrescriptionDaoImp implements PrescriptionDaoInter {
 	}
 
 	@Override
-	public DrLinkDTO drLink_info(DrLinkDTO vo) {
-		return ss.selectOne("prescription.drLink_info",vo);
+	public void updatePayment_check(int prescription_num) {
+		System.out.println("DAO updatePayment_check요청");
+		ss.update("prescription.updatePay_chk", prescription_num);
 	}
 
+	@Override
+	public void insertPayment_record(Pay_recordDTO pay) {
+		System.out.println("DAO payment_record요청");
+		System.out.println("dao 에서 환자번호: "+pay.getPatient_num());
+		ss.insert("prescription.insertPay_record", pay);
+	}
+	
+	@Override
+    public DrLinkDTO drLink_info(DrLinkDTO vo) {
+       return ss.selectOne("prescription.drLink_info",vo);
+    }
 }

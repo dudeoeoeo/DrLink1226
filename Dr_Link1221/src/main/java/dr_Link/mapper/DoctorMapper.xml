@@ -53,7 +53,7 @@
  	<!-- 김성민 -->
  	<!-- 로그인 -->
 	<select id="loginchk" parameterType="doctorDTO" resultType="doctorDTO">
-		select doctor_num, d_id, d_name from dl_doctor where d_id=#{d_id} and d_pwd=#{d_pwd}
+		select doctor_num, d_id, d_name, dep_num from dl_doctor where d_id=#{d_id} and d_pwd=#{d_pwd}
 	</select>
 	
  	<!-- 회원가입 -->
@@ -89,6 +89,12 @@
 	<!-- 이메일 매칭용 -->
 	<select id="emailCheck" parameterType="String" resultType="doctorDTO">
 		select * from dl_doctor where d_id = #{id}
+	</select>
+
+	<!-- 이메일 중복 검사 -->
+	<select id="doctoremailCheck" parameterType="String" resultType="int">
+		select
+		count(*) from dl_doctor where d_email = #{d_email}
 	</select>
 
   	<!-- search -->
@@ -215,5 +221,129 @@
 		<result column="p_regdate" property="p_regdate" />
 	</resultMap>
    
+   
+ <!-- resultMap -->
+	<resultMap type="patientDTO" id="patientResult">
+		<id property="patient_num" column="patient_num" javaType="int"/>
+		<result property="p_name" column="p_name"/>
+		<result property="bloodtype" column="bloodtype"/>
+		<result property="allergy" column="allergy"/>
+		<result property="p_photo" column="p_photo"/>
+		<result property="p_gender" column="p_gender"/>
+		<result property="p_jumin_num" column="p_jumin_num"/>
+		<result property="p_zipcode" column="p_zipcode"/>
+		<result property="p_address1" column="p_address1"/>
+		<result property="p_address2" column="p_address2"/>
+		<result property="profileAddress" column="profileAddress"/>
+		<result property="p_email" column="p_email"/>
+		<result property="p_phone_num" column="p_phone_num"/>
+	</resultMap>
+	
+	<resultMap type="doctorDTO" id="doctorResult">
+		<id property="doctor_num" column="doctor_num" javaType="int"/>
+		<result property="d_name" column="d_name"/>
+		<result property="d_jumin_num" column="d_jumin_num"/>
+		<result property="d_phone_num" column="d_phone_num"/>
+		<result property="d_email" column="d_email"/>
+		<result property="d_gender" column="d_gender"/>
+	</resultMap>
+	
+	<resultMap type="departmentDTO" id="departResult">
+		<id property="dep_num" column="dep_num" javaType="int"/>
+		<result property="dep_name" column="dep_name"/>
+	</resultMap>
+	
+	<resultMap type="treatmentRecordDTO" id="treatResult">
+		<id property="treatment_num" column="treatment_num" javaType="int"/>
+		<result property="patient_num" column="patient_num"/>
+		<result property="doctor_num" column="doctor_num"/>
+		<result property="appoint_num" column="appoint_num"/>
+		<result property="monitoring_time" column="monitoring_time"/>
+		<result property="start_treatment_time" column="start_treatment_time"/>
+	</resultMap>
+	
+	<resultMap type="appointmentDTO" id="d_dash_board">
+		<id property="appoint_num" column="appoint_num" javaType="int"/>
+		<result property="appointment_date" column="appointment_date"/>
+		<result property="appointment_time" column="appointment_time"/>
+		<result property="patient_num" column="patient_num"/>
+		<result property="doctor_num" column="doctor_num"/>
+		<result property="dep_num" column="dep_num"/>
+		<result property="reg_time" column="reg_time"/>
+		<result property="total_cnt" column="total_cnt"/>
+		
+		<collection property="patients" javaType="java.util.List" resultMap="patientResult" ofType="patientDTO"/>
+	</resultMap>
+  <!-- resultMap 끝-->
+  
+  <!-- doctor_dashboard 로 갈 때 필요한 데이터들 -->
+  
+  <select id="dash_total_cnt" parameterType="int" resultType="appointmentDTO">
+  
+    select doctor_num,
+( select count(*) from appointment where doctor_num = #{doctor_num} and appointment_date = to_char(sysdate, 'YYYY-MM-DD') ) today_cnt,
+( select count(*) from appointment where doctor_num = #{doctor_num} and appointment_date = to_char(sysdate+1, 'YYYY-MM-DD'))  tomo_cnt, 
+( select count(*) from appointment where doctor_num = #{doctor_num} ) total_cnt 
+from appointment where doctor_num = #{doctor_num} group by doctor_num
+
+  </select>
+  
+  <select id="getAP_num" resultType="treatmentRecordDTO">
+   select appoint_num from treatment_record where appoint_num in 
+  ( select appoint_num from appointment where appointment_date = to_char(sysdate, 'YYYY-MM-DD') )
+  </select>
+  
+<select id="get_dashList" parameterType="int" resultMap="d_dash_board">
+
+select  p.patient_num patient_num, p.p_name p_name, p.p_address1 p_address1, p.p_address2 p_address2, p.p_email p_email, p.allergy allergy,
+        p.p_phone_num p_phone_num, p.p_gender p_gender, am.appointment_date appointment_date, am.appointment_time appointment_time, am.appoint_num appoint_num
+from dl_user p, appointment am
+where p.patient_num = am.patient_num and am.doctor_num = #{doctor_num} and
+<![CDATA[
+am.appointment_date >= to_char(sysdate, 'YYYY-MM-DD') and 
+am.appointment_date <= to_char(sysdate+1, 'YYYY-MM-DD')
+]]>	
+order by am.appointment_date
+
+</select>	
+
+<resultMap type="appointmentDTO" id="apListResult">
+	<id property="doctor_num" column="doctor_num" javaType="int"/>
+	<result property="appointment_time" column="appointment_time"/>
+	<result property="reg_time" column="reg_time"/>
+	
+	<collection property="patients" javaType="java.util.List" resultMap="patientResult" ofType="patientDTO"/>
+	<collection property="departments" javaType="java.util.List" resultMap="departResult" ofType="departmentDTO"/>
+</resultMap> 
+
+<select id="getApList" parameterType="int" resultMap="d_dash_board">
+
+select rownum, a.* from (
+select p.p_name p_name, p.p_address1 p_address1, p.p_address2 p_address2, p.p_email p_email, am.appoint_num appoint_num,
+        p.p_phone_num p_phone_num, p.p_gender p_gender, am.appointment_date appointment_date,am.appointment_time appointment_time, 
+( select count(*) from appointment where doctor_num = #{doctor_num} and appointment_date >= to_char(sysdate, 'YYYY-MM-DD') ) total_cnt
+from dl_user p, appointment am
+where p.patient_num = am.patient_num and am.doctor_num = #{doctor_num} and 
+<![CDATA[
+am.appointment_date >= to_char(sysdate, 'YYYY-MM-DD')
+]]>
+order by am.appointment_date ) a
+where rownum between #{start} and #{end}
+
+<!-- select rownum, a.* from (
+select p.p_name p_name, p.p_address p_address, p.p_email p_email, am.appoint_num appoint_num,
+        p.p_phone_num p_phone_num, p.p_gender p_gender, am.appointment_time appointment_time, 
+( select count(*) from appointment where to_date( substr(appointment_time, 1, 8), 'YYYYMMDD' ) >= to_date(to_char(sysdate, 'YYYYMMDD')) ) total_cnt
+from dl_user p, appointment am
+where p.patient_num = am.patient_num and am.doctor_num = #{doctor_num} and 
+<![CDATA[
+to_date(substr(am.appointment_time, 1, 8), 'YYYYMMDD') >= to_date(to_char(sysdate, 'YYYYMMDD'))
+]]>
+order by am.appointment_time ) a
+where rownum between #{start} and #{end}
+ -->
+
+</select>	  
+
   
   </mapper>

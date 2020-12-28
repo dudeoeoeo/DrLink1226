@@ -45,7 +45,7 @@ public class PatientDaoImp implements PatientDaoInter{
 		return ss.selectOne("patient.idCheck",p_id);
 	}
 
-	//아이디 중복검사(회원가입용)
+	//이메일 중복검사(회원가입용)
 	@Override
 	public int check_email(String p_email) throws Exception{
 		return ss.selectOne("patient.patientemailCheck",p_email);

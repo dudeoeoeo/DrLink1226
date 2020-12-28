@@ -10,6 +10,7 @@ import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
+import dr_Link.dto.Pay_recordDTO;
 
 @Repository("PrescriptionService")
 public class PrescriptionServiceImpl implements PrescriptionService{
@@ -57,7 +58,15 @@ public class PrescriptionServiceImpl implements PrescriptionService{
 	public DrLinkDTO drLink_info(DrLinkDTO vo) {
 		return pre_dao.drLink_info(vo);
 	}
-
+	
+	@Override
+	public void payment_success(Pay_recordDTO pay_dto) {
+		System.out.println("service insertPay_record요청");
+		pre_dao.insertPayment_record(pay_dto);
+		System.out.println("service payment_success요청");
+		pre_dao.updatePayment_check(pay_dto.getPrescription_num());
+	}
+	
 	@Override
 	@Transactional
 	public PrescriptionDTO end_prescription(PrescriptionDTO vo) {

@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import dr_Link.booking.BookingDTO;
 import dr_Link.booking.BookingService;
@@ -25,6 +27,7 @@ import dr_Link.dto.TreatmentRecordDTO;
 import dr_Link.patient.PatientDaoInter;
 import dr_Link.patient.PatientServiceInter;
 import dr_Link.prescription.PrescriptionDTO;
+import dr_Link.prescription.PrescriptionDaoInter;
 import dr_Link.prescription.PrescriptionService;
 
 
@@ -46,6 +49,10 @@ public class PatientController {
 	
 	@Autowired
 	private PatientDaoInter patientDaoInter;
+	
+	@Autowired
+	private PrescriptionDaoInter pre_dao;
+	
 	
 	@RequestMapping(value = "{step}")
 	public String accessAnyFiles(@PathVariable String step) {
@@ -135,32 +142,56 @@ public class PatientController {
 	}
 	
 	/* 김다유 : 처방기록 상세 페이지로 이동 */
-	@RequestMapping(value = "/detail_prescription") 
-	public String end_prescription(PrescriptionDTO pre_vo,Model model, MedicineDTO medi_vo,HttpSession session, DrLinkDTO drlinkVo) {
-		PatientDTO pt = (PatientDTO)session.getAttribute("user");
-		PrescriptionDTO prescription = prescriptionService.detail_prescription(pre_vo);
-		DrLinkDTO drlinkinfo = prescriptionService.drLink_info(drlinkVo); 
-		List<MedicineDTO> medi_detail = prescriptionService.medicine_detail_info(prescription.getMedicine_num());
-		
-		model.addAttribute("prescription",prescription);
-		model.addAttribute("medi_detail",medi_detail);
-		model.addAttribute("drlinkinfo",drlinkinfo);
-		
-//		int chk_num = 0;
-//		String url ="";
+//	@RequestMapping(value = "/detail_prescription") 
+//	public String end_prescription(PrescriptionDTO pre_vo,Model model, MedicineDTO medi_vo,HttpSession session, DrLinkDTO drlinkVo) {
+//		PatientDTO pt = (PatientDTO)session.getAttribute("user");
+//		PrescriptionDTO prescription = prescriptionService.detail_prescription(pre_vo);
+//		DrLinkDTO drlinkinfo = prescriptionService.drLink_info(drlinkVo); 
+//		List<MedicineDTO> medi_detail = prescriptionService.medicine_detail_info(prescription.getMedicine_num());
 //		
-//		if(chk_num == 0) {
-//			int pre_num = prescription.getPrescription_num();
-//			model.addAttribute("pre_num",pre_num);
-//			url="/patients/payment";
-//		}else {
-//			model.addAttribute("prescription",prescription);
-//			model.addAttribute("medi_detail",medi_detail);
-//			url="/patients/detail_prescription";
-//		}
+//		model.addAttribute("prescription",prescription);
+//		model.addAttribute("medi_detail",medi_detail);
+//		model.addAttribute("drlinkinfo",drlinkinfo);
+//		
+//		System.out.println("controller detail_prescription 실행 완료");
+//		    
+//		return "/patients/detail_prescription";
+//	}
+	
+	@RequestMapping(value = "/detail_prescription")
+	public String end_prescription(PrescriptionDTO pre_vo,Model model, MedicineDTO medi_vo,HttpSession session, DrLinkDTO drlinkVO) {
+		PrescriptionDTO prescription = pre_dao.detail_prescription(pre_vo);
+		String url = "";
+		String pay_chk = prescription.getPayment_check();
+		
+		if(!(pay_chk.equals("1"))) {
+			System.out.println("if문");
+			url="/patients/payment_form";
+		} else {
+			System.out.println("else문");
+			DrLinkDTO drlinkinfo = prescriptionService.drLink_info(drlinkVO);
+			List<MedicineDTO> medi_detail = pre_dao.medicine_detail_info(prescription.getMedicine_num());
+			model.addAttribute("medi_detail",medi_detail);
+			model.addAttribute("drlinkinfo",drlinkinfo);
+			url="/patients/detail_prescription";
+		}
+		model.addAttribute("prescription",prescription);
 		System.out.println("controller detail_prescription 실행 완료");
 		    
-		return "/patients/detail_prescription";
+		return url+".page";
 	}
-
+	
+	@RequestMapping(value = "/payment_success", method = RequestMethod.POST)
+	public ModelAndView payment_success(Pay_recordDTO pay, HttpSession session) {
+		ModelAndView mv = new ModelAndView("/patients/payment_success.page");
+		System.out.println("들어온 값들 "+pay.getDoctor_num());
+		System.out.println("들어온 값들 "+pay.getPatient_num());
+		System.out.println("들어온 값들 "+pay.getPayment_way());
+		System.out.println("들어온 값들 "+pay.getPrice());
+		System.out.println("들어온 값들 "+pay.getPrescription_num());
+		System.out.println("들어온 값들 "+pay.getDep_num());
+		
+		prescriptionService.payment_success(pay);
+		return mv;
+	}
 }

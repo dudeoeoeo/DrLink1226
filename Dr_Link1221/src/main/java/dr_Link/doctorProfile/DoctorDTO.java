@@ -120,18 +120,12 @@ public class DoctorDTO {
 		return d_jumin_num;
 	}
 	public void setD_jumin_num(String d_jumin_num) {
-		StringBuffer str = new StringBuffer(d_jumin_num);
-		str = str.insert(7, "-");
-		d_jumin_num = str.toString();
 		this.d_jumin_num = d_jumin_num;
 	}
 	public String getD_phone_num() {
 		return d_phone_num;
 	}
 	public void setD_phone_num(String d_phone_num) {
-		StringBuffer str = new StringBuffer(d_phone_num);
-		str = str.insert(3, "-");
-		str = str.insert(8, "-");
 		this.d_phone_num = d_phone_num;
 	}
 	

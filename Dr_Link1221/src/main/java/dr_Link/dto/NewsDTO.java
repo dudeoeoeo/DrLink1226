@@ -8,6 +8,7 @@ public class NewsDTO {
     private String [] news_content;
     private int watched, getCnt;
     
+    
 	public int getGetCnt() {
 		return getCnt;
 	}
