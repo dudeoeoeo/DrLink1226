@@ -218,8 +218,8 @@ body {
 									</div>
 									<!-- /Prescription Item -->
 												<div class="text-center" style="margin:10px !important;">		
-											<button type="submit" class="btn btn-info submit-btn" formaction="detail_prescription">처방전 상세페이지</button>
-											<button type="submit" class="btn btn-info submit-btn" formaction="#">메인으로</button>
+											<!-- <button type="submit" class="btn btn-info submit-btn" formaction="detail_prescription">처방전 상세페이지</button> -->
+											<input type="button" class="btn btn-info submit-btn" value="메인으로" onclick="location.href='main'">
 											</div>
 									</div>
 								</div>

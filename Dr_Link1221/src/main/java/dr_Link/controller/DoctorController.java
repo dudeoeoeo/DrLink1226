@@ -40,6 +40,14 @@ public class DoctorController {
 		return "/doctor/"+step;
 	}
 	
+	@RequestMapping(value = "main")
+	public String main() {
+		System.out.println("doctor 컨트롤러 step 실행");
+		return "redirect:main";
+	}
+	
+	
+	
 	/* 배열 붙이는 메소드 */
 	public static String arrayJoin(String glue, String array[]) {
 	    String result = "";

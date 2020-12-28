@@ -207,7 +207,8 @@ body {
 									<!-- /Prescription Item -->
 													
 												<div class="text-center" style="margin:10px !important;">		
-											<button type="submit" class="btn btn-info submit-btn" formaction="#">메인으로</button>
+												<input type="button" class="btn btn-info submit-btn" value="메인으로" onclick="location.href='patient_dashboard'">
+											<!-- <button type="submit" class="btn btn-info submit-btn" formaction="#">메인으로</button> -->
 											</div>
 									</div>
 								</div>
