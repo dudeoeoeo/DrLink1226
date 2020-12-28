@@ -4,25 +4,33 @@ import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.dto.PatientDTO;
 
 public class Doc_ReviewDTO {	
-	private String review_num; 
-	private String doctor_num;
+	private int review_num; 
+	private int doctor_num;
 	private int patient_num;
 	private String review_content;
 	private int review_rating;
 	private String review_date;
 	private DoctorDTO doctorDTO;
 	private PatientDTO patientDTO;
+	private int ratingAvg;
 	
-	public String getReview_num() {
+	public int getRatingAvg() {
+		return ratingAvg;
+	}
+	public void setRatingAvg(int ratingAvg) {
+		this.ratingAvg = ratingAvg;
+	}
+
+	public int getReview_num() {
 		return review_num;
 	}
-	public void setReview_num(String review_num) {
+	public void setReview_num(int review_num) {
 		this.review_num = review_num;
 	}
-	public String getDoctor_num() {
+	public int getDoctor_num() {
 		return doctor_num;
 	}
-	public void setDoctor_num(String doctor_num) {
+	public void setDoctor_num(int doctor_num) {
 		this.doctor_num = doctor_num;
 	}
 	public int getPatient_num() {
