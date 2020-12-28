@@ -1,5 +1,6 @@
 package dr_Link.doctor;
 
+import java.util.HashMap; 
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.dto.PageDTO;
+import dr_Link.dto.AppointmentDTO;
+import dr_Link.dto.TreatmentRecordDTO;
 
 @Repository("doctorDaoInter")
 public class DoctorDaoImp implements DoctorDaoInter {
@@ -121,11 +124,42 @@ public class DoctorDaoImp implements DoctorDaoInter {
 		return ss.selectOne("doctor.emailCheck", id);
 	}
 		
-	
 	/*@Override
-	
 	 * public List<SearchDTO> getSearch() {
 	 * System.out.println("===> ss getSearch() 실행"); return
 	 * ss.selectList("doctor.getSearch"); }
 	 */
+	
+	// dash_board 갈 때 가져올 예약 목록들
+	public List<AppointmentDTO> get_D_board(int doctor_num) {
+		System.out.println("get_D_board 요청");
+		return ss.selectList("doctor.get_dashList", doctor_num);
+	}
+
+	// 오늘자 예약 목록에서 진료가 되었는지 체크
+	public List<TreatmentRecordDTO> getAP_num() {
+		System.out.println("getAP_num 요청");
+		return ss.selectList("doctor.getAP_num");
+	}
+	
+	// 환자 수 가져오기
+	public AppointmentDTO get_total_cnt(int doctor_num) {
+		System.out.println("get_total_cnt 요청");
+		return ss.selectOne("doctor.dash_total_cnt", doctor_num);
+	}
+	
+	// appointment 페이지로 갈 때
+	public List<AppointmentDTO> getApList(int doctor_num, int p_num) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		if (p_num == 1) {
+			map.put("start", p_num);
+		} else {
+			map.put("start", p_num*10-9);
+		}
+		map.put("end", p_num*10);
+		map.put("doctor_num", doctor_num);
+		System.out.println("getApList 요청: "+ doctor_num + " "+ p_num);
+		return ss.selectList("doctor.getApList",map);
+	}
+	
 }

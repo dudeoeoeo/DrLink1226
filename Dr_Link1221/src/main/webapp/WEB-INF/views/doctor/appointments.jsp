@@ -243,7 +243,7 @@ body {
 											<img src="${path}/resources/assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
 										</a>
 										<div class="profile-det-info">
-											<h3> ${sessionScope.user_name } 의사</h3>
+											<h3> ${sessionScope.doctor.d_name } 의사</h3>
 											
 											<div class="patient-details">
 												<h5 class="mb-0"> ${dep_name }</h5>
@@ -319,9 +319,7 @@ body {
 						
 						<div class="col-md-7 col-lg-8 col-xl-9">
 							<div class="appointments">
-							
 							<c:forEach var="ap" items="${apList}" varStatus="status">
-							<c:set var="index" value="0"></c:set>
 								<!-- Appointment List -->
 								<div class="appointment-list">
 									<div class="profile-info-widget">
@@ -329,12 +327,13 @@ body {
 											<img src="${path}/resources/assets/img/patients/patient.jpg" alt="User Image">
 										</a>
 										<div class="profile-det-info">
-											<h3><a href="patient-profile"> ${ap.patients[index].p_name}</a></h3>
+											<h3><a href="patient-profile"> ${ap.patients[0].p_name}</a></h3>
 											<div class="patient-details">
+												<h5><i class="far fa-clock"></i> ${ap.appointment_date } </h5>
 												<h5><i class="far fa-clock"></i> ${ap.appointment_time } </h5>
-												<h5><i class="fas fa-map-marker-alt"></i> ${ap.patients[index].p_address} </h5>
-												<h5><i class="fas fa-envelope"></i> ${ap.patients[index].p_email}</h5>
-												<h5 class="mb-0"><i class="fas fa-phone"></i> ${ap.patients[index].p_phone_num} </h5>
+												<h5><i class="fas fa-map-marker-alt"></i> ${ap.patients[0].p_address1} </h5>
+												<h5><i class="fas fa-envelope"></i> ${ap.patients[0].p_email}</h5>
+												<h5 class="mb-0"><i class="fas fa-phone"></i> ${ap.patients[0].p_phone_num} </h5>
 											</div>
 										</div>
 									</div>

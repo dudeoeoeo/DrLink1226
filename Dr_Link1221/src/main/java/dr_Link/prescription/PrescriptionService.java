@@ -6,6 +6,7 @@ import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
+import dr_Link.dto.Pay_recordDTO;
 
 public interface PrescriptionService {
 	/* public DoctorDTO detail_prescription(DoctorDTO vo); */
@@ -17,5 +18,5 @@ public interface PrescriptionService {
 	public List<MedicineDTO> medicine_info (MedicineDTO vo) ;
 	public List<MedicineDTO> medicine_detail_info (String [] medicine_num) ;
 	public DrLinkDTO drLink_info(DrLinkDTO vo);
-
+	public void payment_success(Pay_recordDTO pay);
 }

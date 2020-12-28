@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import dr_Link.doctorProfile.DoctorDTO;
+import dr_Link.dto.AppointmentDTO;
 import dr_Link.dto.PageDTO;
+import dr_Link.dto.TreatmentRecordDTO;
 
 public interface DoctorDaoInter {
 		
@@ -55,6 +57,11 @@ public interface DoctorDaoInter {
 	// 이메일 검사
 	public DoctorDTO emailCheck(String id) throws Exception;
 	
-	}
+	public List<AppointmentDTO> getApList(int doctor_num, int p_num);
+	public List<AppointmentDTO> get_D_board(int doctor_num);
+	public List<TreatmentRecordDTO> getAP_num();
+	public AppointmentDTO get_total_cnt(int doctor_num);
+	
+}
 
 	

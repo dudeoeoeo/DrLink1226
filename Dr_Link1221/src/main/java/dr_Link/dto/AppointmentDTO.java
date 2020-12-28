@@ -1,5 +1,10 @@
 package dr_Link.dto;
 
+import java.util.List;
+
+import dr_Link.dto.DepartmentDTO;
+import dr_Link.dto.PatientDTO;
+
 public class AppointmentDTO {
 	private String appointment_num       ;
 	private String patient_num           ;
@@ -8,6 +13,10 @@ public class AppointmentDTO {
 	private String appointment_date        ;
 	private String appointment_time        ;
 	private String reg_date              ;
+	private int today_cnt, tomo_cnt, total_cnt;
+	
+	private List<PatientDTO> patients;
+	private List<DepartmentDTO> departments;
 	
 	public String getAppointment_num() {
 		return appointment_num;
@@ -32,6 +41,36 @@ public class AppointmentDTO {
 	}
 	public void setDep_num(String dep_num) {
 		this.dep_num = dep_num;
+	}
+	public int getToday_cnt() {
+		return today_cnt;
+	}
+	public void setToday_cnt(int today_cnt) {
+		this.today_cnt = today_cnt;
+	}
+	public int getTomo_cnt() {
+		return tomo_cnt;
+	}
+	public void setTomo_cnt(int tomo_cnt) {
+		this.tomo_cnt = tomo_cnt;
+	}
+	public int getTotal_cnt() {
+		return total_cnt;
+	}
+	public void setTotal_cnt(int total_cnt) {
+		this.total_cnt = total_cnt;
+	}
+	public List<PatientDTO> getPatients() {
+		return patients;
+	}
+	public void setPatients(List<PatientDTO> patients) {
+		this.patients = patients;
+	}
+	public List<DepartmentDTO> getDepartments() {
+		return departments;
+	}
+	public void setDepartments(List<DepartmentDTO> departments) {
+		this.departments = departments;
 	}
 	public String getAppointment_date() {
 		return appointment_date;

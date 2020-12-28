@@ -1,6 +1,10 @@
 package dr_Link.controller;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import dr_Link.doctor.DoctorDaoInter;
 import dr_Link.doctorProfile.DoctorDTO;
@@ -22,6 +27,8 @@ import dr_Link.dto.PatientDTO;
 import dr_Link.prescription.PrescriptionDTO;
 import dr_Link.prescription.PrescriptionDaoInter;
 import dr_Link.prescription.PrescriptionService;
+import dr_Link.dto.AppointmentDTO;
+import dr_Link.dto.TreatmentRecordDTO;
 
 
 @Controller
@@ -152,7 +159,78 @@ public class DoctorController {
 		vo.setD_pwd(req.getParameter("chg_pwd"));
 		doc_dao.doctor_profile_update(vo);
 		return "/doctor/doctor-dashboard";
+	}
+	
+	// 예약현황
+	@RequestMapping(value = "/appointments")
+	public ModelAndView goAPPage(HttpSession session, HttpServletRequest rq) {
+		// 페이징 처리를 위해 들어오는 넘버
+		String page_num = rq.getParameter("p_num");
+		int p_num =  page_num == null ? 1 : Integer.parseInt(page_num);
+		DoctorDTO doctor = (DoctorDTO)session.getAttribute("doctor");
+		
+		List<AppointmentDTO> ap = doc_dao.getApList(doctor.getDoctor_num(), p_num);
+		ModelAndView mv = new ModelAndView("/doctor/appointments.page");
+		mv.addObject("apList", ap);
+		try {
+			if(ap.get(0).getTotal_cnt() > 0) {
+				p_num = (ap.get(0).getTotal_cnt()%10 == 0) ? p_num%10 : (p_num/10)+1;
+				mv.addObject("p_num", p_num);
+			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
 		}
-	
-	
+			
+		/*
+		try {
+			Date today = new Date(); 
+			SimpleDateFormat format6, format7; 
+			format6 = new SimpleDateFormat("오늘은 yyyy년의 w주차이며 D번째 날입니다."); 
+			format7 = new SimpleDateFormat("오늘은 M월의 w번째 주, d번째 날이며, F번째 E요일입니다."); 
+			System.out.println(format6.format(today)); 
+			System.out.println(format7.format(today));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}*/
+		
+		return mv;
+	}
+		
+
+		
+	// dash_board
+	@RequestMapping(value = "/doctor-dashboard")
+	public ModelAndView doctor_dashboard(HttpSession session, HttpServletRequest rq) {
+		// 의사가 대시보드로 이동할 때 세션에 있는 의사의 pk 번호를 가져온다.
+		DoctorDTO doctor = (DoctorDTO)session.getAttribute("doctor");
+		ModelAndView mv = new ModelAndView("/doctor/doctor-dashboard.page");
+		AppointmentDTO ap_dto = doc_dao.get_total_cnt(doctor.getDoctor_num());
+		List<TreatmentRecordDTO> tr_dto = doc_dao.getAP_num();
+		List<AppointmentDTO> apList = doc_dao.get_D_board(doctor.getDoctor_num());
+		int cnt=0;
+		System.out.println("대시보드 가져온 : "+apList.size());
+		
+		try {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			String day = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			Date today = format.parse(day);
+			for(int i=0; i<apList.size(); i++) {
+				Date apDay = format.parse(apList.get(i).getAppointment_date());
+				// if에 들어간 i의 값은 오늘 보다 큰 날짜의 데이터를 담고있는 List의 index 번호
+				if (today.compareTo(apDay) < 0) {
+					cnt=i; 
+					break;
+				}
+				cnt++;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		mv.addObject("allCnt", ap_dto);
+		mv.addObject("afterTreat", tr_dto);
+		mv.addObject("dashList", apList);
+		mv.addObject("cnt", cnt);
+		return mv;
+	}
 }

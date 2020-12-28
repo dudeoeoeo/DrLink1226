@@ -16,9 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,6 +35,8 @@ import dr_Link.dto.PatientDTO;
 import dr_Link.main.MainDaoInter;
 import dr_Link.patient.PatientDaoInter;
 import dr_Link.patient.PatientServiceImpl;
+import dr_Link.dto.NewsDTO;
+import dr_Link.dto.NewsReplDTO;
 
 @Controller
 public class MainController {
@@ -340,5 +344,97 @@ public class MainController {
 		model.addAttribute("paging", svo);
 		model.addAttribute("list",list );
 		return "search.page";
+	}
+	
+	@RequestMapping(value = "notice_detail")
+	public ModelAndView getH_BoardDetail(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("notice_detail.page");
+		int h_b_num = Integer.parseInt(request.getParameter("b_num"));
+		dao.plusWatchCnt(h_b_num);
+		Hospital_boardDTO dto = dao.getDetailHospitalBoard(h_b_num);
+		mv.addObject("h_board", dto);
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "health-blog")
+	public ModelAndView getHealth_Board(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("health-blog.page");
+		List<NewsDTO> nt;
+		System.out.println("health 페이지로 가기");
+		try{
+			if(request.getParameter("d_page") != null ) {
+				nt = dao.getNewsPage(Integer.parseInt(request.getParameter("d_page")));
+			} else { nt = dao.getAllNewsBoards(); }
+			
+			for(int i=0; i<nt.size(); i++) { 
+				String regdate = nt.get(i).getNews_regdate().substring(0, 10).replace("-", ".");
+				nt.get(i).setNews_regdate(regdate); }
+			int page_num = nt.get(0).getGetCnt();
+			
+			page_num = (page_num%4 == 0) ? page_num/4 : (page_num/4)+1;
+			mv.addObject("newsList", nt);
+			mv.addObject("p_num", page_num);
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
+		return mv;
+	}
+	
+	@RequestMapping(value = "health-blog-detail")
+	public ModelAndView getHealth_BoardDetail(HttpServletRequest request, NewsReplDTO news) {
+		ModelAndView mv = new ModelAndView("health-blog-detail.page");
+		try {
+			if(request.getParameter("b_num") != null) {
+			NewsDTO dto = dao.getNewsBoardsDetail(Integer.parseInt(request.getParameter("b_num")));
+			List<NewsReplDTO> nr = dao.getNewsRepl(Integer.parseInt(request.getParameter("b_num")));
+			
+			mv.addObject("n_board", dto);
+			mv.addObject("n_repl", nr);
+			for(NewsReplDTO n : nr) {
+				//System.out.println("가져온 값: "+ nr.get(0).getN_comments_num());
+			}
+			System.out.println("ajax");
+			} else {
+				
+			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "leave_comment", method = RequestMethod.POST)
+	@ResponseBody
+	public Object comments_repl(@RequestBody NewsReplDTO nr, HttpSession session, HttpServletRequest rq) {
+
+		int result=0;
+		int b_num = nr.getNews_board_num();
+		try {
+			String handle_repl= nr.getRepl_handling();
+			if(handle_repl.equals("댓글")) {
+				result = dao.insert_repl(nr);
+			} else if (handle_repl.equals("답글")) {
+				nr.setN_comments_num(nr.getNews_reply_num());
+				result = dao.insert_repl(nr);
+			} else if (handle_repl.equals("수정")) {
+				result = dao.update_repl(nr);
+			}
+			else {
+				result = dao.delete_repl(nr);
+			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		if(result>0) {
+			map.put("success", "작업이 완료되었습니다.");
+			map.put("url", "http://localhost:8080/Dr_Link1221/health-blog-detail?b_num="+b_num);
+		}
+		else map.put("err", "작업이 서버에 오류가 있어 수행되지 않았습니다.");
+		System.out.println("map: "+ map.get("url"));
+		return map;
 	}
 }

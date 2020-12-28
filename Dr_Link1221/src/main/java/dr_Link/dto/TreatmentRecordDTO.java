@@ -11,7 +11,6 @@ public class TreatmentRecordDTO {
 	private DepartmentDTO departmentDTO;
 	
 	
-	
 	public PatientDTO getPatientDTO() {
 		return patientDTO;
 	}

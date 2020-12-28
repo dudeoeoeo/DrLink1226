@@ -1,6 +1,7 @@
 package dr_Link.prescription;
 
 import dr_Link.doctorProfile.DoctorDTO;
+import dr_Link.dto.DepartmentDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.dto.TreatmentRecordDTO;
@@ -19,7 +20,7 @@ import dr_Link.dto.TreatmentRecordDTO;
 */
 public class PrescriptionDTO {
 	
-	private int prescription_num, patient_num,doctor_num,treatment_num;
+	private int prescription_num, patient_num,doctor_num,treatment_num, price;
 	private String payment_check,prescription_date,prescription_time;
 	private String dsg,qty,tdate,medi_num,pre_date;
 	private String [] medicine_num,dosage,quantity,taking_date;
@@ -27,8 +28,13 @@ public class PrescriptionDTO {
 	private MedicineDTO medicineDTO;
 	private DoctorDTO doctorDTO;
 	private PatientDTO patientDTO;
-
 	
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	public String getPre_date() {
 		return pre_date;
 	}

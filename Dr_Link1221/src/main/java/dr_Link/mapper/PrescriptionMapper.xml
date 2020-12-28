@@ -47,7 +47,7 @@
 		<result column="d_licence_num" property="d_licence_num" />
 		<result column="d_regdate" property="d_regdate" />
 		<result column="d_content" property="d_content" />
-		<result column="d_imgfile" property="d_imgfile" />
+		<result column="d_photo" property="d_photo" />
 		<result column="d_graduation" property="d_graduation" />
 		<result column="d_career" property="d_career" />
 		<result column="d_field" property="d_field" />
@@ -79,6 +79,7 @@
 	<resultMap type="prescriptionDTO" id="prescriptionMap">
 		<id property="prescription_num" column="prescription_num" javaType="int" />
 		<result column="payment_check" property="payment_check" />
+		<result column="price" property="price" />
 		<result column="dosage" property="dosage" />
 		<result column="quantity" property="quantity" />
 		<result column="taking_date" property="taking_date" />
@@ -146,5 +147,18 @@
   JOIN department c ON b.dep_num=c.dep_num 
   WHERE patient_num=#{patient_num} order by a.prescription_num desc
   </select>	
+  
+  <update id="updatePay_chk" parameterType="int">
+  	update prescription set payment_check = '1' where prescription_num = #{prescription_num}
+  </update>
+  
+  <insert id="insertPay_record" parameterType="Pay_recordDTO">
+  	insert into payment_record values(pay_record_num.nextval, #{patient_num}, #{doctor_num}, #{dep_num}, #{prescription_num}, sysdate, #{price}, #{payment_way})
+  </insert>
+  
+  <!-- 김다유 : 처방전 병원 정보 -->
+  <select id="drLink_info" resultType="drLinkDTO">
+     select * from drlink 
+  </select>
   
   </mapper>
