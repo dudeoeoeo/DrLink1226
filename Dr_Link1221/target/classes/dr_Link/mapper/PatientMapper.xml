@@ -137,14 +137,14 @@
 		insert into dl_user
 		values(dl_patient_num.nextval,#{p_id}, #{p_pwd}, #{p_name},
 		#{p_gender}, #{p_jumin_num}, #{p_phone_num}, #{p_zipcode},
-		#{p_address1}, #{p_address2}, #{p_email}, #{bloodtype}, #{height},
-		#{weight}, #{allergy}, #{p_photo}, sysdate)
+		#{p_address1}, #{p_address2}, #{p_email}, #{bloodtype}, #{p_photo},
+		#{height}, #{weight}, #{allergy}, sysdate)
 	</insert>
 
 
 	<!-- 로그인 -->
 	<select id="loginchk" parameterType="patientDTO" resultType="patientDTO">
-		select patient_num, p_id, p_name from dl_user where p_id=#{p_id} and p_pwd=#{p_pwd}
+		select patient_num, p_id, p_name, p_retire_date from dl_user where p_id=#{p_id} and p_pwd=#{p_pwd}
 	</select>
 
 

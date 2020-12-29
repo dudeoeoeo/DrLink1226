@@ -39,7 +39,15 @@ public class DoctorDTO {
 	private DepartmentDTO departmentDTO;
 	private Doc_ReviewDTO doc_ReviewDTO;
 	private String[] d_fields;
+	private String d_retire_date;
+	
 		
+	public String getD_retire_date() {
+		return d_retire_date;
+	}
+	public void setD_retire_date(String d_retire_date) {
+		this.d_retire_date = d_retire_date;
+	}
 	public Doc_ReviewDTO getDoc_ReviewDTO() {
 		return doc_ReviewDTO;
 	}

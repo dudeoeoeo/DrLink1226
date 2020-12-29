@@ -37,6 +37,58 @@
 			<script src="${path}/resources/assets/js/respond.min.js"></script>
 		<![endif]-->
 	
+		<script>
+		//업로드 이미지 미리보기
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					$('#blah').attr('src', e.target.result);
+				} 
+				reader.readAsDataURL(input.files[0]);
+			} 
+		} 
+		
+		
+
+		
+		//비밀번호 유효성 및 중복확인
+		$(function(){ 
+			$('#chg_pwd').blur(function(){
+				var chg_pwd = $("#chg_pwd").val(); 
+				var old_pwd = "${doctorinfo.d_pwd}";
+				if(old_pwd == chg_pwd){
+					$("#old_pwd_check").text("이전과 같은 비밀번호 입니다.");
+					$('#old_pwd_check').css('color', 'red');
+		    	    $('#chg_pwd').val('');
+		         	$('#chg_pwd').focus();
+			      }else{
+					$("#old_pwd_check").text("");
+			 	  }
+			});
+		});
+		
+		$(function(){ 
+			$('#chg_pwd2').blur(function(){
+				var getPwd = RegExp(/^[a-zA-z0-9]{4,12}$/);
+				if(!getPwd.test($("#chg_pwd2").val())){
+					$("#pwd_check").html("영문 대소문자와 숫자 4~12자리로 입력해야합니다.");
+					$('#pwd_check').css('color', 'red');
+			        $("#chg_pwd").val("");
+			        $("#chg_pwd2").val("");
+			        $("#chg_pwd").focus();
+			      }else if($('#chg_pwd').val() != $('#chg_pwd2').val()){
+					$("#pwd_check").text("비밀번호가 일치하지 않습니다.");
+					$('#pwd_check').css('color', 'red');
+		    	    $('#chg_pwd2').val('');
+		         	$('#chg_pwd2').focus();
+			      }else{
+					$("#pwd_check").text("비밀번호가 일치합니다.");
+					$('#pwd_check').css('color', 'green');
+			 	  }
+			});
+		});
+		</script>
 	</head>
 	<body>
 
@@ -156,12 +208,12 @@
 											<div class="form-group">
 												<div class="change-avatar">
 													<div class="profile-img">
-														<img src="${path}/resources/assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+														<img id="blah" src="${path }/resources/doctor/doctorImg/${doctorinfo.d_photo}" alt="프로필 사진">
 													</div>
 													<div class="upload-img">
 														<div class="change-photo-btn">
 															<span><i class="fa fa-upload"></i> 사진 첨부</span>
-															<input type="file" class="upload" name="p_imgfile">
+															<input type="file" class="upload" id="file" name="file" onchange="readURL(this);">
 														</div>
 														<small class="form-text text-muted">JPG, GIF, PNG만 허용됩니다. 최대 사이즈 2MB</small>
 													</div>
@@ -177,7 +229,7 @@
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<label>Email <span class="text-danger">*</span></label>
+												<label>이메일 <span class="text-danger">*</span></label>
 												<input type="email" class="form-control" name="d_email" value="${doctorinfo.d_email}">
 											</div>
 										</div>
@@ -189,23 +241,25 @@
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<label>휴대폰</label>
+												<label>휴대전화</label>
 												<input type="text" class="form-control"  name="d_phone_num" value="${doctorinfo.d_phone_num}">
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label>성별</label>
+												${doctorinfo.d_gender}
+												<c:set var="d_gender" value="${doctorinfo.d_gender}" />
 												<select class="form-control select"  name="d_gender" >
 												<c:choose>
-												<c:when test="${doctorinfo.d_gender eq '남'}">
-											        <option value="${doctorinfo.d_gender}" selected="selected">${doctorinfo.d_gender}</option>
-											        <option value="여" >여</option>
+												<c:when test="${'1' eq doctorinfo.d_gender  }">
+											        <option value="${doctorinfo.d_gender}" selected="selected">남</option>
+											        <option value="2" >여</option>
 												</c:when>
-												<c:otherwise>
-											        <option value="${doctorinfo.d_gender}" selected="selected">${doctorinfo.d_gender}</option>
-											        <option value="남" >남</option>
-												</c:otherwise>
+												<c:when test="${'2' eq doctorinfo.d_gender  }">
+											        <option value="${doctorinfo.d_gender}" selected="selected">여</option>
+											        <option value="1" >남</option>
+												</c:when>
 												</c:choose>
 												</select>
 											</div>
@@ -260,6 +314,7 @@
 											<div class="col-12 col-md-10 col-lg-11">
 												<div class="row form-row">
 												<c:set var="len" value="${fn:length(m[0])}"/> 
+												<c:if test="${len gt 0 }">
 												<c:forEach begin="0" end="${len-1}" varStatus="status" step="3">
 													<div class="col-12 col-md-6 col-lg-4">
 														<div class="form-group">
@@ -280,6 +335,7 @@
 														</div> 
 													</div>
 													</c:forEach>
+													</c:if>
 												</div>
 											</div>
 										</div>
@@ -299,7 +355,9 @@
 										<div class="row form-row experience-cont">
 											<div class="col-12 col-md-10 col-lg-11">
 												<div class="row form-row">
+												
 												<c:set var="len" value="${fn:length(m[1])}"/> 
+												<c:if test="${len gt 0 }">
 												<c:forEach begin="0" end="${len-1}" varStatus="status" step="3">
 													<div class="col-12 col-md-6 col-lg-4">
 														<div class="form-group">
@@ -320,6 +378,7 @@
 														</div> 
 													</div>
 												</c:forEach>
+												</c:if>
 												</div>
 											</div>
 										</div>
@@ -333,35 +392,90 @@
 							
 							
 							<!-- Registrations -->
+							
+											
+
 							<div class="card">
 								<div class="card-body">
-									<h4 class="card-title">면허내역</h4>
+									<h4 class="card-title">면허정보</h4>
 									<div class="registrations-info">
 										<div class="row form-row reg-cont">
-											<div class="col-12 col-md-6 col-lg-4">
+											<div class="col-12 col-md-10 col-lg-11">
+											<div class="row form-row" >
+											
+													<div class="col-12 col-md-6 col-lg-4">
 												<div class="form-group">
-													<label>면허이름</label>
-													<input type="text" class="form-control" name="d_licence" value="${doctorinfo.d_licence}">
-												</div> 
+												<label class="">진료과<span class="text-danger">*</span></label>
+												<select id="dep_num" name="dep_num" class="form-control" required>
+												<c:choose>
+												<c:when test="${doctorinfo.dep_num eq '10'}">
+											        <option value="${doctorinfo.dep_num}" selected="selected">안과</option>
+											        <option value="20" >피부과</option>
+											        <option value="30" >정신건강의학과</option>
+												</c:when>
+												<c:when test="${doctorinfo.dep_num eq '20'}">
+											        <option value="${doctorinfo.dep_num}" selected="selected">피부과</option>
+											        <option value="10" >안과</option>
+											        <option value="30" >정신건강의학과</option>
+												</c:when>
+												<c:otherwise>
+											        <option value="${doctorinfo.dep_num}" selected="selected">정신건강의학과</option>
+											        <option value="10" >안과</option>
+											        <option value="20" >피부과</option>
+												</c:otherwise>
+												</c:choose>
+												</select>
+												</div>
+												</div>
+												
+													<div class="col-12 col-md-6 col-lg-4">
+												<div class="form-group">
+												<label class="">전공과목<span class="text-danger">*</span></label>
+												<select id="d_licence" name="d_licence" class="form-control" required>
+												    <option value="${doctorinfo.d_licence}" selected="selected">${doctorinfo.d_licence}</option>
+												    <option value="가정의학과">가정의학과</option>
+												    <option value="결핵과">결핵과</option>
+												    <option value="내과">내과</option>
+												    <option value="방사선종양학과">방사선종양학과</option>
+												    <option value="병리과">병리과</option>
+												    <option value="비뇨기과">비뇨기과</option>
+												    <option value="마취통증의학과">마취통증의학과</option>
+												    <option value="산부인과">산부인과</option>
+												    <option value="소아청소년외과">소아청소년외과</option>
+												    <option value="성형외과">성형외과</option>
+												    <option value="신경과">신경과</option>
+												    <option value="신경외과">신경외과</option>
+												    <option value="안과">안과</option>
+												    <option value="영상의학과">영상의학과</option>
+												    <option value="예방의학과">예방의학과</option>
+												    <option value="외과">외과</option>
+												    <option value="응급의학과">응급의학과</option>
+												    <option value="이비인후과">이비인후과</option>
+												    <option value="작업환경의학과">작업환경의학과</option>
+												    <option value="재활의학과">재활의학과</option>
+												    <option value="정신건강의학과">정신건강의학과</option>
+												    <option value="정형외과">정형외과</option>
+												    <option value="진단검사의학과">진단검사의학과</option>
+												    <option value="피부과">피부과</option>
+												    <option value="핵의학과">핵의학과</option>
+												    <option value="흉부외과">흉부외과</option>
+												    <option value="일반외과">일반외과</option>
+												    <option value="기타">기타</option>
+												</select>
+												</div>
 											</div>
-											<div class="col-12 col-md-6 col-lg-4">
+													<div class="col-12 col-md-6 col-lg-4">
 												<div class="form-group">
-													<label>면허번호</label>
-													<input type="text" class="form-control" name="d_licence_num" value="${doctorinfo.d_licence_num}">
-												</div> 
+												<label class="">면허번호<span class="text-danger">*</span></label>
+												<input id="d_licence_num" name="d_licence_num" class="form-control" maxlength="30" value="548732155485" type="text" placeholder="면허번호를 입력해주세요." required />
+												<div class="check_font" id="d_licence_num"></div>
+												</div>
 											</div>
-											<div class="col-12 col-md-6 col-lg-4">
-												<div class="form-group">
-													<label>취득년도</label>
-													<input type="text" class="form-control">
-												</div> 
 											</div>
 										</div>
 									</div>
-									<div class="add-more">
-										<a href="javascript:void(0);" class="add-reg"><i class="fa fa-plus-circle"></i> Add More</a>
-									</div>
 								</div>
+							</div>
 							</div>
 							<!-- /Registrations -->
 							
@@ -371,16 +485,24 @@
 									<h4 class="card-title">비밀번호 변경</h4>
 									<div class="registrations-info">
 										<div class="row form-row reg-cont">
-											<div class="col-12 col-md-5">
+											<div class="col-2">
 												<div class="form-group">
 													<label>현재비밀번호</label>
-													<input type="password" name="old_pwd" class="form-control">
+													<input type="password" name="old_pwd" id="old_pwd" class="form-control" value="${doctorinfo.d_pwd}" readonly="readonly">
+													<div class="check_font" id="old_pwd_check"></div>
 												</div> 
 											</div>
 											<div class="col-12 col-md-5">
 												<div class="form-group">
 													<label>변경비밀번호</label>
-													<input type="password" name="chg_pwd" class="form-control">
+													<input type="password" name="chg_pwd" id="chg_pwd" class="form-control">
+												</div> 
+											</div>
+											<div class="col-12 col-md-5">
+												<div class="form-group">
+													<label>변경비밀번호 확인</label>
+													<input type="password" name="chg_pwd2" id="chg_pwd2" class="form-control">
+													<div class="check_font" id="pwd_check"></div>
 												</div> 
 											</div>
 										</div>
@@ -389,10 +511,9 @@
 								</div>
 							</div>
 							<!-- /password -->
-							
 							<div class="submit-section submit-btn-bottom">
-								<button type="submit" class="btn btn-primary submit-btn" value="전송" >변경 저장하기</button>
-							</div>
+                        <button type="submit" class="btn btn-primary submit-btn" value="전송" >변경 저장하기</button>
+                     </div>
 							</form>
 						</div>
 					</div>
@@ -433,29 +554,6 @@
 		<script src="${path}/resources/assets/js/script.js"></script>
 		
 		
-		<script>
-		var chg_pwd = $("#chg_pwd").val(); 
-		var old_pwd = $("#old_pwd").val(); 
-		
-		$(function(){
-			$(".submit-btn").click(function(){
-				if(chg_pwd!="" && old_pwd===chg_pwd){
-					alert("이전과 같은 비밀번호 입니다.")
-					return false
-				}else if(old_pwd==""){
-					alert("현재 비밀번호를 입력해주세요")
-					return false
-				}else if(chg_pwd==""){
-					alert("수정할 비밀번호를 입력해주세요")
-					return false
-				}
-				$('#doctor_profile_settings').attr("action","setting_ok");
-				$("#doctor_profile_settings").attr("enctype", "application/x-www-form-urlencoded");
-				$('#doctor_profile_settings').submit();
-			})
-			
-		})
-		</script>
 		
 	</body>
 </html>

@@ -7,57 +7,6 @@
 		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>		
 		
-		
-		<!-- jQuery -->
-		<script src="${path}/resources/assets/js/jquery.min.js"></script>
-		
-		<!-- Bootstrap Core JS -->
-		<script src="${path}/resources/assets/js/popper.min.js"></script>
-		<script src="${path}/resources/assets/js/bootstrap.min.js"></script>
-		
-		<!-- Sticky Sidebar JS -->
-        <script src="${path}/resources/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
-        <script src="${path}/resources/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
-		
-		<!-- Select2 JS -->
-		<script src="${path}/resources/assets/plugins/select2/js/select2.min.js"></script>
-		
-		<!-- Dropzone JS -->
-		<script src="${path}/resources/assets/plugins/dropzone/dropzone.min.js"></script>
-		
-		<!-- Bootstrap Tagsinput JS -->
-		<script src="${path}/resources/assets/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.js"></script>
-		
-		<!-- Profile Settings JS -->
-		<script src="${path}/resources/assets/js/profile-settings.js"></script>
-		
-		<!-- Custom JS -->
-		<script src="${path}/resources/assets/js/script.js"></script>
-		
-		
-		
-		
-		<!-- Favicons -->
-		<link href="${path}/resources/assets/img/favicon.png" rel="icon">
-		
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="${path}/resources/assets/css/bootstrap.min.css">
-		
-		<!-- Fontawesome CSS -->
-		<link rel="stylesheet" href="${path}/resources/assets/plugins/fontawesome/css/fontawesome.min.css">
-		<link rel="stylesheet" href="${path}/resources/assets/plugins/fontawesome/css/all.min.css">
-		
-		<!-- Select2 CSS -->
-		<link rel="stylesheet" href="${path}/resources/assets/plugins/select2/css/select2.min.css">
-		
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="${path}/resources/assets/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css">
-		
-		<link rel="stylesheet" href="${path}/resources/assets/plugins/dropzone/dropzone.min.css">
-		
-		<!-- Main CSS -->
-		<link rel="stylesheet" href="${path}/resources/assets/css/style.css">
-		
 		<script>
 
 		function execPostCode() {
@@ -259,7 +208,7 @@
 				        $("#d_jumin_num").focus();
 				        
 				        //남 여 구분
-				      }else if(juminGender == 1 || juminGender == 3) {
+				      }else if(juminGender == '1' || juminGender == '3') {
 				        	document.doctorInsert.d_gender.value="1";
 							$("#jumin_check").text("");
 
@@ -378,13 +327,13 @@
 											<div class="col-12 col-md-6">
 												<div class="form-group">
 													<label>이름<span class="text-danger">*</span></label>
-													<input type="text" class="form-control" value="" name="d_name" id="d_name" maxlength="6" required />
+													<input type="text" class="form-control" value="테스트" name="d_name" id="d_name" maxlength="6" required />
 												</div>
 											</div>
 											<div class="col-12 col-md-6">
 												<div class="form-group">
 													<label>주민번호<span class="text-danger">*</span></label>
-													<input type="text" class="form-control" value="" name="d_jumin_num" id="d_jumin_num"  maxlength="13" placeholder="'-' 없이 번호만 입력해주세요." required />
+													<input type="text" class="form-control" value="9111111111111" name="d_jumin_num" id="d_jumin_num"  maxlength="13" placeholder="'-' 없이 번호만 입력해주세요." required />
 													<div class="check_font" id="jumin_check"></div>
 												</div>
 											</div>
@@ -418,17 +367,10 @@
 											</div>
 											<div class="col-6">
 												<div class="form-group">
-												<label class="">휴대전화<span class="text-danger">*</span></label>
-												<input id="d_phone_num" name="d_phone_num" class="form-control" maxlength="11" size="40" value="" type="text" placeholder="'-' 없이 번호만 입력해주세요." required />
-												<div class="check_font" id="phone_check"></div>
-												</div>
-											</div>
-											<div class="col-6">
-												<div class="form-group">
 												<label class="">전공과목<span class="text-danger">*</span></label>
 												<select id="d_licence" name="d_licence" class="form-control" required>
 												    <option value="">전공선택</option>
-												    <option value="가정의학과">가정의학과</option>
+												    <option value="가정의학과" selected="selected">가정의학과</option>
 												    <option value="결핵과">결핵과</option>
 												    <option value="내과">내과</option>
 												    <option value="방사선종양학과">방사선종양학과</option>
@@ -459,10 +401,35 @@
 												</select>
 												</div>
 											</div>
+											<div class="col-6">
+												<div class="form-group">
+												<label class="">면허번호<span class="text-danger">*</span></label>
+												<input id="d_licence_num" name="d_licence_num" class="form-control" maxlength="30" size="40" value="548732155485" type="text" placeholder="면허번호를 입력해주세요." required />
+												<div class="check_font" id="d_licence_num"></div>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="form-group">
+												<label class="">진료과<span class="text-danger">*</span></label>
+												<select id="dep_num" name="dep_num" class="form-control" required>
+												    <option value="">전료과선택</option>
+												    <option value="10" selected="selected">안과</option>
+												    <option value="20">피부과</option>
+												    <option value="30">정신건강의학과</option>
+												</select>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="form-group">
+												<label class="">휴대전화<span class="text-danger">*</span></label>
+												<input id="d_phone_num" name="d_phone_num" class="form-control" maxlength="11" size="40" value="01012345678" type="text" placeholder="'-' 없이 번호만 입력해주세요." required />
+												<div class="check_font" id="phone_check"></div>
+												</div>
+											</div>
 						 
 											<!-- Education -->
 											<div class="card-body">
-												<h4 class="card-title">학력</h4>
+												<h4 class="card-title">학력<span class="text-danger">*</span></h4>
 												<div class="education-info">
 													<div class="row form-row education-cont">
 														<div class="col-12 col-md-10 col-lg-11">
@@ -470,19 +437,19 @@
 																<div class="col-12 col-md-6 col-lg-4">
 																	<div class="form-group">
 																		<label>출신대학</label>
-																		<input type="text" class="form-control" name="d_graduation" value="">
+																		<input type="text" class="form-control" name="d_graduation" value="서울대학교" required>
 																	</div> 
 																</div>
 																<div class="col-12 col-md-6 col-lg-4">
 																	<div class="form-group">
 																		<label>학과</label>
-																		<input type="text" class="form-control" name="d_graduation" value="">
+																		<input type="text" class="form-control" name="d_graduation" value="의학과" required>
 																	</div> 
 																</div>
 																<div class="col-12 col-md-6 col-lg-4">
 																	<div class="form-group">
 																		<label>졸업년도</label>
-																		<input type="text" class="form-control" name="d_graduation" value="">
+																		<input type="text" class="form-control" name="d_graduation" value="2002" required>
 																	</div> 
 																</div>
 															</div>
@@ -523,48 +490,19 @@
 												</div>
 											</div>
 											<!-- /Experience -->
-							
-							
-											<!-- Registrations -->
-											<div class="card-body">
-												<h4 class="card-title">면허내역</h4>
-												<div class="registrations-info">
-													<div class="row form-row reg-cont">
-														<div class="col-12 col-md-6 col-lg-4">
-															<div class="form-group">
-																<label>면허이름</label>
-																<input type="text" class="form-control" name="d_licence" value="">
-															</div> 
-														</div>
-														<div class="col-12 col-md-6 col-lg-4">
-															<div class="form-group">
-																<label>면허번호</label>
-																<input type="text" class="form-control" name="d_licence_num" value="">
-															</div> 
-														</div>
-														<div class="col-12 col-md-6 col-lg-4">
-															<div class="form-group">
-																<label>취득년도</label>
-																<input type="text" class="form-control">
-															</div> 
-														</div>
-													</div>
-												</div>
-											</div>
-											<!-- /Registrations -->
 											<div class="col-12 ">
 												<div class="form-inline">
 												<label class="">우편번호<span class="text-danger"></span></label>
-													<input type="text" name="d_zipcode" id="d_zipcode" class="zipcode form-control" placeholder="우편번호" readonly>
+													<input type="text" name="d_zipcode" id="d_zipcode" class="zipcode form-control" value="12345" placeholder="우편번호" readonly required>
 													<input type="button" onclick="execPostCode()" id="zipcode_btn" class="form-control " value="우편번호 찾기">
 												</div>
 												<div class="form-group">
 												<label>주소<span class="text-danger"></span></label>
-													<input type="text" id="d_address1" name="d_address1" class="addr1 form-control" size="40" placeholder="주소">
+													<input type="text" id="d_address1" name="d_address1" class="addr1 form-control" size="40" value="서울시 금천구" placeholder="주소" required>
 												</div>
 												<div class="form-group">
 												<label>상세주소<span class="text-danger"></span></label>
-													<input type="text" id="d_address2" name="d_address2" class="addr2 form-control" size="40" placeholder="상세주소">
+													<input type="text" id="d_address2" name="d_address2" class="addr2 form-control" size="40" value="11" placeholder="상세주소">
 												</div>
 											</div>
 											<div class="submit-section" style="margin-top:20px;">

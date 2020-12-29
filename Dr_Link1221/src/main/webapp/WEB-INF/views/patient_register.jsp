@@ -10,7 +10,6 @@
 		<script>
 
 		function execPostCode() {
-			 alert(1);
 			 new daum.Postcode({
 
 		           oncomplete: function(data) {
@@ -244,7 +243,7 @@
 				        return false;
 				        
 				        //남 여 구분
-				      }else if(juminGender == 1 || juminGender == 3) {
+				      }else if(juminGender == '1' || juminGender == '3') {
 				        	document.patientInsert.p_gender.value="1";
 							$("#jumin_check").text("");
 
@@ -409,13 +408,13 @@ label{
 											<div class="col-12 col-md-6">
 												<div class="form-group">
 													<label>이름<span class="text-danger">*</span></label>
-													<input type="text" class="form-control" value="" name="p_name" id="p_name" maxlength="6" required/>
+													<input type="text" class="form-control" value="테스트" name="p_name" id="p_name" maxlength="6" required/>
 												</div>
 											</div>
 											<div class="col-12 col-md-6">
 												<div class="form-group">
 													<label>주민번호<span class="text-danger">*</span></label>
-													<input type="text" class="form-control" value="" name="p_jumin_num" id="p_jumin_num"  maxlength="13" placeholder="'-' 없이 번호만 입력해주세요." required />
+													<input type="text" class="form-control" value="9111111111111" name="p_jumin_num" id="p_jumin_num"  maxlength="13" placeholder="'-' 없이 번호만 입력해주세요." required />
 													<div class="check_font" id="jumin_check"></div>
 												</div>
 											</div>
@@ -450,16 +449,16 @@ label{
 											<div class="col-6">
 												<div class="form-group">
 												<label class="">휴대전화<span class="text-danger">*</span></label>
-												<input id="p_phone_num" name="p_phone_num" class="form-control" maxlength="11" size="40" value="" type="text" placeholder="'-' 없이 번호만 입력해주세요." required/>
+												<input id="p_phone_num" name="p_phone_num" class="form-control" maxlength="11" size="40" value="01012345678" type="text" placeholder="'-' 없이 번호만 입력해주세요." required/>
 												<div class="check_font" id="phone_check"></div>
 												</div>
 											</div>
 											<div class="col-6">
 												<div class="form-group">
-													<label>혈액형</label>
-													<select class="form-control select" name="bloodtype">
-														<option value="" selected="selected">- 혈액형 선택 -</option>
-														<option>A-</option>
+													<label>혈액형<span class="text-danger">*</span></label>
+													<select class="form-control select" name="bloodtype" required>
+														<option value="" >- 혈액형 선택 -</option>
+														<option selected="selected">A-</option>
 														<option>A+</option>
 														<option>B-</option>
 														<option>B+</option>
@@ -472,44 +471,44 @@ label{
 											</div>
 											<div class="col-6">
 												<div class="form-group">
-												<label class="">키<span class="text-danger"></span></label>
-												<input id="height" name="height" class="form-control" maxlength="3" size="40" value="" type="text" placeholder="cm 단위로 입력해주세요.">
+												<label class="">키<span class="text-danger">*</span></label>
+												<input id="height" name="height" class="form-control" maxlength="3" size="40" value="180" type="text" placeholder="cm 단위로 입력해주세요." required>
 												<div class="check_font" id="height_check"></div>
 												</div>
 											</div>
 											<div class="col-6">
 												<div class="form-group">
-												<label class="">몸무게<span class="text-danger"></span></label>
-												<input id="weight" name="weight" class="form-control" maxlength="3" size="40" value="" type="text" placeholder="kg 단위로 입력해주세요.">
+												<label class="">몸무게<span class="text-danger">*</span></label>
+												<input id="weight" name="weight" class="form-control" maxlength="3" size="40" value="80" type="text" placeholder="kg 단위로 입력해주세요." required>
 												<div class="check_font" id="weight_check"></div>
 												</div>
 											</div>
 											<div class="col-6">
 												<div class="form-group">
-												<label class="">알레르기<span class="text-danger"></span></label>
+												<label class="">알레르기<span class="text-danger">*</span></label>
 												
 												<div class="btn-group btn-group-toggle" data-toggle="buttons">
 													<label class="btn btn-primary" style="width: 100px">
-														<input type="radio" name="allergy" id="allergy" value="0"> 있음
+														<input type="radio" name="allergy" id="allergy" value="0" > 있음
 													</label>
 													<label class="btn btn-primary" style="width: 100px">
-														<input type="radio" name="allergy" id="allergy" value="1"> 없음
+														<input type="radio" name="allergy" id="allergy" value="1" checked="checked"> 없음
 													</label>
 												</div>
 											</div>
 											<div class="col-12 ">
 												<div class="form-inline">
-												<label class="">우편번호</label>
-													<input type="text" name="p_zipcode" id="p_zipcode" class="zipcode form-control" placeholder="우편번호" readonly>
+												<label class="">우편번호<span class="text-danger">*</span></label>
+													<input type="text" name="p_zipcode" id="p_zipcode" class="zipcode form-control" value="12345" placeholder="우편번호" readonly required>
 													<input type="button" onclick="execPostCode()" id="zipcode_btn" class="form-control " value="우편번호 찾기">
 												</div>
 												<div class="form-group">
-												<label>주소<span class="text-danger"></span></label>
-													<input type="text" id="p_address1" name="p_address1" class="addr1 form-control" size="40" placeholder="주소">
+												<label>주소<span class="text-danger">*</span></label>
+													<input type="text" id="p_address1" name="p_address1" class="addr1 form-control" size="40" value="서울시 금천구" placeholder="주소" required>
 												</div>
 												<div class="form-group">
 												<label>상세주소<span class="text-danger"></span></label>
-													<input type="text" id="p_address2" name="p_address2" class="addr2 form-control" size="40" placeholder="상세주소">
+													<input type="text" id="p_address2" name="p_address2" class="addr2 form-control" size="40" value="11" placeholder="상세주소">
 												</div>
 											</div>
 

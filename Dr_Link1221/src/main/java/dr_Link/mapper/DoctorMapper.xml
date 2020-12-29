@@ -31,6 +31,7 @@
 		<result column="d_graduation" property="d_graduation" />
 		<result column="d_career" property="d_career" />
 		<result column="d_field" property="d_field" />
+		<result column="d_retire_date" property="d_retire_date" />
 	</resultMap>
 
 	<resultMap type="patientDTO" id="d_patientMap">
@@ -94,12 +95,12 @@
  	<!-- 김성민 -->
  	<!-- 로그인 -->
 	<select id="loginchk" parameterType="doctorDTO" resultType="doctorDTO">
-		select doctor_num, d_id, d_name, dep_num from dl_doctor where d_id=#{d_id} and d_pwd=#{d_pwd}
+		select doctor_num, d_id, d_name, dep_num, d_retire_date from dl_doctor where d_id=#{d_id} and d_pwd=#{d_pwd}
 	</select>
 	
  	<!-- 회원가입 -->
 	<insert id="add" parameterType="doctorDTO">
-		insert into dl_doctor(doctor_num, d_id, d_pwd, d_name, d_gender, d_jumin_num, d_phone_num, d_zipcode, d_address1, d_address2, d_email, d_photo) values(doctor_num.nextval,#{d_id}, #{d_pwd}, #{d_name}, #{d_gender}, #{d_jumin_num}, #{d_phone_num}, #{d_zipcode}, #{d_address1}, #{d_address2}, #{d_email}, #{d_photo})
+		insert into dl_doctor(doctor_num, d_id, d_pwd, d_name, d_gender, d_jumin_num, d_phone_num, d_zipcode, d_address1, d_address2, d_email, d_photo, d_graduation, d_licence, d_career, d_licence_num, dep_num) values(doctor_num.nextval,#{d_id}, #{d_pwd}, #{d_name}, #{d_gender}, #{d_jumin_num}, #{d_phone_num}, #{d_zipcode}, #{d_address1}, #{d_address2}, #{d_email}, #{d_photo}, #{d_graduation}, #{d_licence}, #{d_career}, #{d_licence_num}, #{dep_num})
 	</insert>
 
 	<!-- 아이디 중복 검사 -->
