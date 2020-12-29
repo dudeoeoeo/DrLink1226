@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html> 
-<html lang="ko">
+<html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>의사진료일정 - Dr.Link</title>
+		<title>환자리스트-Dr.Link</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 		
 		<!-- Favicons -->
@@ -20,8 +20,7 @@
 		
 		<!-- Main CSS -->
 		<link rel="stylesheet" href="${path}/resources/assets/css/style.css">
-		
-		<!-- 구글폰트 -->
+	<!-- 구글폰트 -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
@@ -34,8 +33,9 @@ body {
 
 .footer-menu{
 	color:#fff;
-}
+}	
 </style>
+	
 	
 	</head>
 	<body>
@@ -43,14 +43,12 @@ body {
 		<!-- Main Wrapper -->
 		<div class="main-wrapper">
 		
-			
-			
 			<!-- Breadcrumb -->
 			<div class="breadcrumb-bar">
 				<div class="container-fluid">
 					<div class="row align-items-center">
 						<div class="col-md-12 col-12">
-							<h2 class="breadcrumb-title">진료일정</h2>
+							<h2 class="breadcrumb-title">나의 환자</h2>
 						</div>
 					</div>
 				</div>
@@ -133,40 +131,42 @@ body {
 							<!-- /Profile Sidebar -->
 							
 						</div>
-						
 						<div class="col-md-7 col-lg-8 col-xl-9">
-							<div class="appointments">
-							<c:forEach var="ap" items="${apList}" varStatus="status">
-								<!-- Appointment List -->
-								<div class="appointment-list">
-									<div class="profile-info-widget">
-										<a href="patient-profile" class="booking-doc-img">
-											<img src="${path}/resources/assets/img/patients/patient.jpg" alt="User Image">
-										</a>
-										<div class="profile-det-info">
-											<h3><a href="patient-profile"> ${ap.patients[0].p_name}</a></h3>
-											<div class="patient-details">
-												<h5><i class="far fa-clock"></i> ${ap.appointment_date } </h5>
-												<h5><i class="far fa-clock"></i> ${ap.appointment_time } </h5>
-												<h5><i class="fas fa-map-marker-alt"></i> ${ap.patients[0].p_address1} </h5>
-												<h5><i class="fas fa-envelope"></i> ${ap.patients[0].p_email}</h5>
-												<h5 class="mb-0"><i class="fas fa-phone"></i> ${ap.patients[0].p_phone_num} </h5>
+						
+							<div class="row row-grid">
+							
+								<!-- 환자리스트 반복 시작 -->
+                                <c:forEach var="patient" items="${my_patients_list}" varStatus="status">
+								<div class="col-md-6 col-lg-4 col-xl-3">
+									<div class="card widget-profile pat-widget-profile">
+										<div class="card-body">
+											<div class="pro-widget-content">
+												<div class="profile-info-widget">
+													<a href="patient-profile" class="booking-doc-img">
+														<img src="${path}/resources/assets/img/patients/patient.jpg" alt="User Image">
+													</a>
+													<div class="profile-det-info">
+														<h3><a href="#">${patient.patientDTO.p_name}</a></h3>
+														
+														<div class="patient-details">
+															<h5><b>Patient ID :</b> ${patient.patientDTO.patient_num}</h5>
+															<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i>${patient.patientDTO.profileAddress}</h5>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="patient-info" style="text-align : center;">
+												<h6>${patient.patientDTO.birth}, ${patient.patientDTO.p_gender}</h6>
+												<h6><b>혈액형 :</b> ${patient.patientDTO.bloodtype}</h6>
 											</div>
 										</div>
 									</div>
-									<div class="appointment-action"> <!-- data-target="#appt_details" -->
-										<a href="#" class="btn btn-sm bg-info-light" data-toggle="modal" >
-										<input type="hidden" name="detail_num" value="${status.count}">
-											<i class="far fa-eye"></i> 상세보기
-										</a>
-									</div>
 								</div>
-								<!-- /Appointment List -->
-							</c:forEach>
-							
-								
+								</c:forEach>
+								<!-- 환자리스트 반복 끝 -->
 								
 							</div>
+
 						</div>
 					</div>
 
@@ -175,7 +175,7 @@ body {
 			</div>		
 			<!-- /Page Content -->
    
-			<!-- Footer -->
+		<!-- Footer -->
 	<footer class="footer">
 		
 		<!-- Footer Top -->
@@ -301,69 +301,8 @@ body {
 		
 	</footer>
 	<!-- /Footer -->
-		   
 		</div>
 		<!-- /Main Wrapper -->
-		
-		
-		<c:forEach var="ap" items="${apList}" varStatus="status">
-		<!-- Appointment Details Modal -->
-		<div class="modal fade custom-modal" id="appt_details${status.count }">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">예약 상세내역</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					
-				
-					<div class="modal-body">
-						<ul class="info-details">
-							<li>
-								<div class="details-header">
-									<div class="row">
-										<div class="col-md-6">
-											<span class="title">진료일정</span>
-											<span class="text">${ap.appointment_time }</span>
-										</div>
-										<!-- <div class="col-md-6">
-											<div class="text-right">
-												<button type="button" class="btn bg-success-light btn-sm" id="topup_status">Completed</button>
-											</div>
-										</div> -->
-									</div>
-								</div>
-							</li>
-							<li>
-								<span class="title">환자이름:</span>
-								<span class="text">${ap.patients[index].p_name}</span>
-							</li>
-							<li>
-								<span class="title">환자성별:</span>
-								<span class="text">${ap.patients[index].p_gender}</span>
-							</li>
-							<li>
-								<span class="title">알러지여부:</span>
-								<c:choose>
-									<c:when test='${ap.patients[index].allergy eq "1"}'>
-										<span class="text">있음</span>
-									</c:when>
-									<c:otherwise>
-										<span class="text">없음</span>
-									</c:otherwise>
-								</c:choose>
-							</li>
-						</ul>
-					</div>
-				
-				
-				</div>
-			</div>
-		</div>
-		<!-- /Appointment Details Modal -->
-	  </c:forEach>
 	  
 		<!-- jQuery -->
 		<script src="${path}/resources/assets/js/jquery.min.js"></script>
@@ -378,15 +317,6 @@ body {
 		
 		<!-- Custom JS -->
 		<script src="${path}/resources/assets/js/script.js"></script>
-
-	<script type="text/javascript">
-		$(function(){
-			$('.bg-info-light').click(function(){
-				var idx = $(this).find('input[name="detail_num"]').val();
-				//$("#appt_details"+idx).modal()
-				$(this).attr('data-target', '#appt_details'+idx)
-			}) // click
-		}) // ready
-	</script>
+		
 	</body>
 </html>

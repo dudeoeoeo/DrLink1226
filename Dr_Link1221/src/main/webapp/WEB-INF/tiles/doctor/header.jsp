@@ -78,12 +78,6 @@
 			</ul>
 						</c:otherwise>
 					</c:choose>
-							
-							
-			
-			
-		
-			
 		</nav>
 	</header>
 	<!-- /Header -->

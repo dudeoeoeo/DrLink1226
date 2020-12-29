@@ -16,7 +16,7 @@
   
   <select id="boardList" resultType="h_boardDTO">
   	SELECT ROW_NUMBER() over (order by h.hospital_board_num) row_num, h.* 
-  	from hospital_board h where rownum between 1 and 10 order by h.hospital_board_num
+  	from hospital_board h where rownum between 1 and 10 order by h.hospital_board_num desc
   </select>
   
   <select id="boardListPage" parameterType="int" resultType="h_boardDTO">
@@ -47,6 +47,7 @@ WHERE rnum between #{start} and #{end}
 	<when test="start gt 0"> between #{start} and #{end}</when>
 	<otherwise> between 1 and 4 </otherwise>
 	</choose>
+	order by news_board_num desc
   </select>
   
   <select id="getNewsBoardsDetail" parameterType="int" resultType="newsDTO">

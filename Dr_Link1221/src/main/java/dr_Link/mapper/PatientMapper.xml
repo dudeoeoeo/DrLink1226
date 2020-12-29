@@ -116,6 +116,7 @@
        join dl_doctor c on a.doctor_num=c.doctor_num 
        join department d on a.dep_num=d.dep_num 
        where a.patient_num=#{patient_num}
+       order by treatment_num desc
 	</select>
 	
 	<!-- 김다유 : 결제기록 -->
@@ -126,6 +127,7 @@
        join department d on a.dep_num=d.dep_num 
        join prescription e on a.prescription_num=e.prescription_num
        where a.patient_num=#{patient_num}
+       order by pay_num desc
 	</select>
 
 	<!-- 김성민 -->

@@ -17,11 +17,39 @@
 <!-- Main CSS -->
 <link rel="stylesheet" href="${path}/resources/assets/css/style.css">
 
-
 <!-- 구글폰트 -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
+
+
+		
+<!-- Sticky Sidebar JS -->
+<script src="${path}/resources/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+<script src="${path}/resources/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+<!-- Circle Progress JS -->
+<script src="${path}/resources/assets/js/circle-progress.min.js"></script>
+
+<!-- jQuery -->
+<script src="${path}/resources/assets/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JS -->
+<script src="${path}/resources/assets/js/popper.min.js"></script>
+<script src="${path}/resources/assets/js/bootstrap.min.js"></script>
+
+<!-- Slick JS -->
+<script src="${path}/resources/assets/js/slick.js"></script>
+
+
+<!-- Daterangepikcer JS 
+<script src="${path}/resources/assets/js/moment.min.js"></script>
+<script src="${path}/resources/assets/plugins/daterangepicker/daterangepicker.js"></script>
+-->
+
+<!-- Custom JS -->
+<script src="${path}/resources/assets/js/script.js"></script>
+		
 
 <style>
 body {

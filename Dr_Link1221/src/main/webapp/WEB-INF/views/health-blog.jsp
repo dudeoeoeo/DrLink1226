@@ -8,7 +8,7 @@
 				<div class="container">
 				
 					<div class="row">
-						<div class="col-lg-8 col-md-12">
+						<div class="col-lg-12 col-md-12">
 						
 							<div class="row blog-grid-row">
 							
@@ -29,7 +29,7 @@
 									<c:otherwise>
 									<div class="blog-image">
 										<a href="health-blog-detail?n_num=${n.news_board_num}"><img class="img-fluid" 
-										src="${pageContext.request.contextPath}/resources/img/blog/blog-02.jpg" alt="Post Image"></a>
+										src="${path}/resources/assets/img/blog/blog-02.jpg" alt="Post Image"></a>
 									</div>
 									</c:otherwise>
 									</c:choose>
@@ -48,7 +48,7 @@
 								</div>
 							</c:forEach>
 							<!-- Blog Pagination -->
-							<div class="row">
+							<div class="row mx-auto">
 								<div class="col-md-12">
 									<div class="blog-pagination">
 										<nav>

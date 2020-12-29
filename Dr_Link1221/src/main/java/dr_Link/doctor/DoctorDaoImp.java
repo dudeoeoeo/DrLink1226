@@ -13,6 +13,8 @@ import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.dto.PageDTO;
 import dr_Link.dto.AppointmentDTO;
 import dr_Link.dto.TreatmentRecordDTO;
+import dr_Link.prescription.PrescriptionDTO;
+import dr_Link.review.Doc_ReviewDTO;
 
 @Repository("doctorDaoInter")
 public class DoctorDaoImp implements DoctorDaoInter {
@@ -27,6 +29,16 @@ public class DoctorDaoImp implements DoctorDaoInter {
 		return ss.selectOne("doctor.doctor_profile", doctor_num);
 	}
 
+	@Override
+	public List<TreatmentRecordDTO> my_patients_list(int doctor_num) {
+		return ss.selectList("doctor.my_patients_list",doctor_num);
+	}
+
+	public List<Doc_ReviewDTO> reviewList(int doctor_num) {
+		// TODO Auto-generated method stub
+		return ss.selectList("doc_review.reviewList", doctor_num);
+	}
+	
 	@Override
 	public void updateDoctor(DoctorDTO vo) {
 		

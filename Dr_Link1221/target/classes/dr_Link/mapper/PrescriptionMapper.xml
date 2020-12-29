@@ -125,11 +125,10 @@
   
   <!-- 김다유 : 약품정보 -->
   <select id="medicine_info" resultType="medicineDTO">
-  	select * from medicine
+  	select * from medicine order by medicine_num
   </select>
   
   <!-- 김다유 : 처방전 상세 정보 -->
-  <!-- 테스트 중이라 향후에 patient_num=#{patient_num}으로 수정해야함  -->
   <select id="detail_prescription" parameterType="prescriptionDTO" resultMap="prescriptionMap">
 	 select * 
 	from 

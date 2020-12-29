@@ -152,7 +152,7 @@
 											</div>
 										</div>
 										<!-- /Appointment Tab -->
-										
+
 										<!-- Prescription Tab -->
 										<div class="tab-pane fade" id="pat_prescriptions">
 											<div class="card card-table mb-0">

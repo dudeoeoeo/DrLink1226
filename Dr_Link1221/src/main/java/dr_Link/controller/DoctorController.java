@@ -27,6 +27,7 @@ import dr_Link.dto.PatientDTO;
 import dr_Link.prescription.PrescriptionDTO;
 import dr_Link.prescription.PrescriptionDaoInter;
 import dr_Link.prescription.PrescriptionService;
+import dr_Link.review.Doc_ReviewDTO;
 import dr_Link.dto.AppointmentDTO;
 import dr_Link.dto.TreatmentRecordDTO;
 
@@ -44,15 +45,8 @@ public class DoctorController {
 	@RequestMapping(value = "{step}")
 	public String accessAnyFiles(@PathVariable String step) {
 		System.out.println("doctor 컨트롤러 step 실행");
-		return "/doctor/"+step;
+		return "/doctor/"+step+".page";
 	}
-	
-	@RequestMapping(value = "main")
-	public String main() {
-		System.out.println("doctor 컨트롤러 step 실행");
-		return "redirect:main";
-	}
-	
 	
 	
 	/* 배열 붙이는 메소드 */
@@ -77,9 +71,8 @@ public class DoctorController {
 	public String add_prescription( HttpServletRequest request, PatientDTO patientVo,DoctorDTO doctorVo, DrLinkDTO drlinkVo, MedicineDTO mediVo, Model model, HttpSession session) {
 		System.out.println("처방입력 페이지로 이동");
 		
-		/* 로그인해서 session에 값이 있다고 가정하고 테스트 */
-
 		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
+		/*현재 환자와 진료를 해서 번호를 받아 올 수 있는 상황이 아니라 임의로 값을 넣어 테스트 하는 중*/
 		int patient_num = 2;
 		PatientDTO patientinfo = pre_service.patient_info(patient_num);
 		DoctorDTO doctorinfo = pre_service.doctor_info(doctor_num);
@@ -116,10 +109,13 @@ public class DoctorController {
 	}
 
 	
+	
+	
 	/*김다유 : 의사 프로필 수정 페이지*/
 	@RequestMapping(value = "/doctor_profile_settings")
-	public String profile_settings(DoctorDTO vo, Model model) {
-		DoctorDTO doctorinfo = pre_service.doctor_info(2);
+	public String profile_settings(DoctorDTO vo, Model model, HttpSession session) {
+		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
+		DoctorDTO doctorinfo = pre_service.doctor_info(doctor_num);
 		 List<String[]> m = new ArrayList<String[]>();
 		  String [] d_graduation = doctorinfo.getD_graduation().split(",");
 		  String [] d_career = doctorinfo.getD_career().split(",");
@@ -137,7 +133,7 @@ public class DoctorController {
 		  }	 
 		  model.addAttribute("m",m);
 		model.addAttribute("doctorinfo",doctorinfo);
-		return "/doctor/doctor_profile_settings";
+		return "/doctor/doctor_profile_settings.page";
 	}
 	
 	
@@ -146,8 +142,31 @@ public class DoctorController {
 	public String setting_ok(DoctorDTO vo, HttpServletRequest req, HttpServletResponse resp,Model model){
 		vo.setD_pwd(req.getParameter("chg_pwd"));
 		doc_dao.doctor_profile_update(vo);
-		return "/doctor/doctor-dashboard";
+		return "/doctor/doctor_dashboard.page";
 	}
+	
+	
+	/* 김다유 : 의사대시보드 나의 환자 */
+	@RequestMapping(value = "/my_patients" )
+	public String my_patients(DoctorDTO vo, Model model, HttpSession session) {
+		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
+		List<TreatmentRecordDTO> my_patients_list = doc_dao.my_patients_list(doctor_num);
+		model.addAttribute("my_patients_list", my_patients_list);
+		System.out.println(my_patients_list.get(0).getPatientDTO().getP_name());
+		return "/doctor/my_patients.page";
+	}
+	
+	/* 김다유 : 의사대시보드 나의 환자 */
+	@RequestMapping(value = "/reviews" )
+	public String reviews(DoctorDTO vo, Model model, HttpSession session) {
+		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
+		List<Doc_ReviewDTO> reviewList = doc_dao.reviewList(doctor_num);
+		model.addAttribute("reviewList", reviewList);
+		System.out.println(reviewList.get(0).getReview_content());
+		return "/doctor/reviews.page";
+	}
+	
+	
 	
 	// 예약현황
 	@RequestMapping(value = "/appointments")
@@ -187,11 +206,11 @@ public class DoctorController {
 
 		
 	// dash_board
-	@RequestMapping(value = "/doctor-dashboard")
+	@RequestMapping(value = "/doctor_dashboard")
 	public ModelAndView doctor_dashboard(HttpSession session, HttpServletRequest rq) {
 		// 의사가 대시보드로 이동할 때 세션에 있는 의사의 pk 번호를 가져온다.
 		DoctorDTO doctor = (DoctorDTO)session.getAttribute("doctor");
-		ModelAndView mv = new ModelAndView("/doctor/doctor-dashboard.page");
+		ModelAndView mv = new ModelAndView("/doctor/doctor_dashboard.page");
 		AppointmentDTO ap_dto = doc_dao.get_total_cnt(doctor.getDoctor_num());
 		List<TreatmentRecordDTO> tr_dto = doc_dao.getAP_num();
 		List<AppointmentDTO> apList = doc_dao.get_D_board(doctor.getDoctor_num());

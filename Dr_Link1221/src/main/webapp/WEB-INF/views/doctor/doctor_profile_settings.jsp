@@ -49,13 +49,7 @@
 				<div class="container-fluid">
 					<div class="row align-items-center">
 						<div class="col-md-12 col-12">
-							<nav aria-label="breadcrumb" class="page-breadcrumb">
-								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">프로필 수정</li>
-								</ol>
-							</nav>
-							<h2 class="breadcrumb-title">마이페이지</h2>
+							<h2 class="breadcrumb-title">내 정보 수정</h2>
 						</div>
 					</div>
 				</div>
@@ -71,89 +65,77 @@
 						
 							<!-- Profile Sidebar -->
 							<div class="profile-sidebar">
-								<div class="widget-profile pro-widget-content">
-									<div class="profile-info-widget">
-										<a href="#" class="booking-doc-img">
-											<img src="${path}/resources/assets/assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
-										</a>
-										<div class="profile-det-info">
-											<h3>${doctorinfo.d_name} 의사</h3>
-											
-											<div class="patient-details">
-												<h5 class="mb-0">${doctorinfo.departmentDTO.dep_name}</h5>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="dashboard-widget">
-									<nav class="dashboard-menu">
-										<ul>
-											<li>
-												<a href="doctor-dashboard">
-													<i class="fas fa-columns"></i>
-													<span>Dashboard</span>
-												</a>
-											</li>
-											<li>
-												<a href="appointments">
-													<i class="fas fa-calendar-check"></i>
-													<span>진료일정</span>
-												</a>
-											</li>
-											<li>
-												<a href="my-patients">
-													<i class="fas fa-user-injured"></i>
-													<span>환자내역</span>
-												</a>
-											</li>
-											<li>
-												<a href="schedule-timings">
-													<i class="fas fa-hourglass-start"></i>
-													<span>근무시간</span>
-												</a>
-											</li>
-											<li>
-												<a href="invoices">
-													<i class="fas fa-file-invoice"></i>
-													<span>Invoices</span>
-												</a>
-											</li>
-											<li>
-												<a href="reviews">
-													<i class="fas fa-star"></i>
-													<span>리뷰</span>
-												</a>
-											</li>
-											<li>
-												<a href="chat-doctor">
-													<i class="fas fa-comments"></i>
-													<span>메세지</span>
-													<small class="unread-msg">23</small>
-												</a>
-											</li>
-											<li class="active">
-												<a href="doctor-profile-settings">
-													<i class="fas fa-user-cog"></i>
-													<span>프로필수정</span>
-												</a>
-											</li>
-											<li>
-												<a href="index">
-													<i class="fas fa-sign-out-alt"></i>
-													<span>로그아웃</span>
-												</a>
-											</li>
-										</ul>
-									</nav>
-								</div>
-							</div>
+                        <div class="widget-profile pro-widget-content">
+                           <div class="profile-info-widget">
+                              <a href="#" class="booking-doc-img">
+                                 <img src="${path}/resources/assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+                              </a>
+                              <div class="profile-det-info">
+                                 <h3>${sessionScope.doctor.d_name} 의사</h3>
+                                 
+                                 <div class="patient-details">
+                                    <h5 class="mb-0">진료과 DB 가져오기 </h5>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="dashboard-widget">
+                           <nav class="dashboard-menu">
+                              <ul>
+                                 <li class="active">
+                                    <a href="doctor-dashboard">
+                                       <i class="fas fa-columns"></i>
+                                       <span>마이페이지</span>
+                                    </a>
+                                 </li>
+                                 <li>
+                                    <a href="appointments">
+                                       <i class="fas fa-calendar-check"></i>
+                                       <span>진료일정</span>
+                                    </a>
+                                 </li>
+                                 <li>
+                                    <a href="my_patients">
+                                       <i class="fas fa-user-injured"></i>
+                                       <span>나의 환자</span>
+                                    </a>
+                                 </li>
+                                 <li>
+                                    <a href="reviews">
+                                       <i class="fas fa-star"></i>
+                                       <span>나의 후기</span>
+                                    </a>
+                                 </li>
+                                 <li>
+                                    <a href="#">
+                                       <i class="fas fa-comments"></i>
+                                       <span>메세지</span>
+                                       <small class="unread-msg">23</small>
+                                    </a>
+                                 </li>
+                                 <li>
+                                    <a href="doctor_profile_settings">
+                                       <i class="fas fa-user-cog"></i>
+                                       <span>프로필 수정</span>
+                                    </a>
+                                 </li>
+                                 <li>
+                                    <a href="${path}/logout">
+                                       <i class="fas fa-sign-out-alt"></i>
+                                       <span>로그아웃</span>
+                                    </a>
+                                 </li>
+                              </ul>
+                           </nav>
+                        </div>
+                     </div>
 							<!-- /Profile Sidebar -->
 							
 						</div>
 						<div class="col-md-7 col-lg-8 col-xl-9">
 						
 							<!-- Basic Information -->
-							<form id="doctor-profile-settings" action="setting_ok"  method="post" enctype="multipart/for-data">
+							<form id="doctor_profile_settings" action="setting_ok"  method="post" enctype="multipart/for-data">
 							<div class="card">
 								<div class="card-body">
 									<h4 class="card-title">기본 정보</h4>
@@ -455,9 +437,9 @@
 					alert("수정할 비밀번호를 입력해주세요")
 					return false
 				}
-				$('#doctor-profile-settings').attr("action","setting_ok");
-				$("#doctor-profile-settings").attr("enctype", "application/x-www-form-urlencoded");
-				$('#doctor-profile-settings').submit();
+				$('#doctor_profile_settings').attr("action","setting_ok");
+				$("#doctor_profile_settings").attr("enctype", "application/x-www-form-urlencoded");
+				$('#doctor_profile_settings').submit();
 			})
 			
 		})

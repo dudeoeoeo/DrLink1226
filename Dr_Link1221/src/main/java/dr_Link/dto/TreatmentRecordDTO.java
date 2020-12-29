@@ -4,7 +4,7 @@ import dr_Link.doctorProfile.DoctorDTO;
 
 public class TreatmentRecordDTO {
 	
-	private int treatment_num,patient_num,doctor_num, dep_num;
+	private int treatment_num,patient_num,doctor_num, dep_num, appointment_num;
 	private String monitoring_time, start_treatment_time;
 	private PatientDTO patientDTO;
 	private DoctorDTO doctorDTO;
@@ -26,6 +26,15 @@ public class TreatmentRecordDTO {
 	public DepartmentDTO getDepartmentDTO() {
 		return departmentDTO;
 	}
+	
+	
+	public int getAppointment_num() {
+		return appointment_num;
+	}
+	public void setAppointment_num(int appointment_num) {
+		this.appointment_num = appointment_num;
+	}
+	
 	public void setDepartmentDTO(DepartmentDTO departmentDTO) {
 		this.departmentDTO = departmentDTO;
 	}

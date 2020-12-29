@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html> 
 <html lang="en">
@@ -41,36 +42,59 @@ body {
 <body>
 
 	<!-- Main Wrapper -->
-<div class="main-wrapper">
 	
 	<!-- Header -->
 	<tiles:insertAttribute name="header"/>
 	<!-- /Header -->
-	<tiles:insertAttribute name="body" />
+	
+	    
+	<!-- Breadcrumb -->
+	<div class="breadcrumb-bar">
+	   <div class="container-fluid">
+	      <div class="row align-items-center">
+	         <div class="col-md-12 col-12">
+	            <h2 class="breadcrumb-title">마이페이지</h2>
+	         </div>
+	      </div>
+	   </div>
+	</div>
+	 <!-- /Breadcrumb -->
+	
+	<div class="content">
+	    <div class="container-fluid">
+		    <div class="row">
+			    <tiles:insertAttribute name="menu" />
+                <div class="col-md-7 col-lg-8 col-xl-9">
+				<tiles:insertAttribute name="body" />
+		    	</div> 
+		    </div> 
+	    </div> 
+    </div>   
 	<!-- Footer -->
-	<tiles:insertAttribute name="footer" />
+	<%-- <tiles:insertAttribute name="footer" /> --%>
 	<!-- /Footer -->
 	
 <!-- /Main Wrapper -->
-</div>
+
+<!-- Sticky Sidebar JS -->
+<script src="${path}/resources/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+<script src="${path}/resources/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+<!-- Circle Progress JS -->
+<script src="${path}/resources/assets/js/circle-progress.min.js"></script>
 
 <!-- jQuery -->
-<script src="${path}/resources/assets/js/jquery-3.2.1.min.js"></script>
+<script src="${path}/resources/assets/js/jquery.min.js"></script>
 
 <!-- Bootstrap Core JS -->
 <script src="${path}/resources/assets/js/popper.min.js"></script>
 <script src="${path}/resources/assets/js/bootstrap.min.js"></script>
 
-<!-- Slimscroll JS -->
-<script src="${path}/resources/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-<script src="${path}/resources/assets/plugins/raphael/raphael.min.js"></script>    
-<script src="${path}/resources/assets/plugins/morris/morris.min.js"></script>  
-<script src="${path}/resources/assets/js/chart.morris.js"></script>
+<!-- Slick JS -->
+<script src="${path}/resources/assets/js/slick.js"></script>
 
 <!-- Custom JS -->
-<script  src="${path}/resources/assets/js/script.js"></script>
-	
+<script src="${path}/resources/assets/js/script.js"></script>
 </body>
 </html>
 

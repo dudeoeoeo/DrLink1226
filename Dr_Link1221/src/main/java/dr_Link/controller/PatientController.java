@@ -80,7 +80,7 @@ public class PatientController {
 			newpath.append(img_path);
 			newpath.append(oriFn);
 			vo.setP_photo(oriFn);
-			File f = new File(newpath.toString()); // ���� �̹����� ����� ���
+			File f = new File(newpath.toString()); 
 			
 			p_photo.transferTo(f);
 			PatientDTO p_num = (PatientDTO) session.getAttribute("user");
@@ -141,23 +141,7 @@ public class PatientController {
 		return "/patients/patient_dashboard.page";
 	}
 	
-	/* 김다유 : 처방기록 상세 페이지로 이동 */
-//	@RequestMapping(value = "/detail_prescription") 
-//	public String end_prescription(PrescriptionDTO pre_vo,Model model, MedicineDTO medi_vo,HttpSession session, DrLinkDTO drlinkVo) {
-//		PatientDTO pt = (PatientDTO)session.getAttribute("user");
-//		PrescriptionDTO prescription = prescriptionService.detail_prescription(pre_vo);
-//		DrLinkDTO drlinkinfo = prescriptionService.drLink_info(drlinkVo); 
-//		List<MedicineDTO> medi_detail = prescriptionService.medicine_detail_info(prescription.getMedicine_num());
-//		
-//		model.addAttribute("prescription",prescription);
-//		model.addAttribute("medi_detail",medi_detail);
-//		model.addAttribute("drlinkinfo",drlinkinfo);
-//		
-//		System.out.println("controller detail_prescription 실행 완료");
-//		    
-//		return "/patients/detail_prescription";
-//	}
-	
+	/* 김다유 & 고현영 : 처방기록 상세 페이지로 이동 */	
 	@RequestMapping(value = "/detail_prescription")
 	public String end_prescription(PrescriptionDTO pre_vo,Model model, MedicineDTO medi_vo,HttpSession session, DrLinkDTO drlinkVO) {
 		PrescriptionDTO prescription = pre_dao.detail_prescription(pre_vo);

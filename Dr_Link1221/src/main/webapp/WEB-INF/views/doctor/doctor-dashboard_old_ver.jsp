@@ -33,7 +33,7 @@
 								<div class="widget-profile pro-widget-content">
 									<div class="profile-info-widget">
 										<a href="#" class="booking-doc-img">
-											<img src="${pageContext.request.contextPath}/resources/assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+											<img src="${path}/resources/assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
 										</a>
 										<div class="profile-det-info">
 											<h3>${sessionScope.doctor.d_name} 의사</h3>
@@ -121,7 +121,7 @@
 													<div class="dash-widget dct-border-rht">
 														<div class="circle-bar circle-bar1">
 															<div class="circle-graph1" data-percent="75">
-																<img src="${pageContext.request.contextPath}/resources/assets/img/icon-01.png" class="img-fluid" alt="patient">
+																<img src="${path}/resources/assets/img/icon-01.png" class="img-fluid" alt="patient">
 															</div>
 														</div>
 														<div class="dash-widget-info">
@@ -136,7 +136,7 @@
 													<div class="dash-widget dct-border-rht">
 														<div class="circle-bar circle-bar2">
 															<div class="circle-graph2" data-percent="65">
-																<img src="${pageContext.request.contextPath}/resources/assets/img/icon-02.png" class="img-fluid" alt="Patient">
+																<img src="${path}/resources/assets/img/icon-02.png" class="img-fluid" alt="Patient">
 															</div>
 														</div>
 														<div class="dash-widget-info">
@@ -151,7 +151,7 @@
 													<div class="dash-widget">
 														<div class="circle-bar circle-bar3">
 															<div class="circle-graph3" data-percent="50">
-																<img src="${pageContext.request.contextPath}/resources/assets/img/icon-03.png" class="img-fluid" alt="Patient">
+																<img src="${path}/resources/assets/img/icon-03.png" class="img-fluid" alt="Patient">
 															</div>
 														</div>
 														<div class="dash-widget-info">
@@ -209,7 +209,7 @@
 																	<tr>
 																		<td>
 																			<h2 class="table-avatar">
-																				<a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/assets/img/patients/patient.jpg" alt="User Image"></a>
+																				<a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${path}/resources/assets/img/patients/patient.jpg" alt="User Image"></a>
 																				<a href="patient-profile.jsp">${dash.patients[index].p_name } <!-- <span>#12345</span> --></a>
 																			</h2>
 																		</td>
@@ -219,12 +219,12 @@
 																		<c:choose>
 																			<c:when test="${!empty afterTreat }">
 																				<c:forEach var="at" items="${afterTreat}">
-																					<c:if test="${at.appoint_num eq dash.appoint_num}">
+																					<c:if test="${at.appointment_num eq dash.appointment_num}">
 																						again
 																					</c:if>
 																				</c:forEach>
 																			</c:when>
-																			<c:when test="${at.appoint_num ne dash.appoint_num}">
+																			<c:when test="${at.appointment_num ne dash.appointment_num}">
 																				first
 																			</c:when>
 																		</c:choose>
@@ -294,7 +294,7 @@
 																	<tr>
 																		<td>
 																			<h2 class="table-avatar">
-																				<a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/assets/img/patients/patient6.jpg" alt="User Image"></a>
+																				<a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${path}/resources/assets/img/patients/patient6.jpg" alt="User Image"></a>
 																				<a href="patient-profile">${dash.patients[index].p_name } <!-- <span>#33333</span> --></a>
 																			</h2>
 																		</td>
@@ -304,12 +304,12 @@
 																			<c:choose>
 																				<c:when test="${!empty afterTreat }">
 																					<c:forEach var="at" items="${afterTreat}">
-																						<c:if test="${at.appoint_num eq dash.appoint_num}">
+																						<c:if test="${at.appointment_num eq dash.appointment_num}">
 																							again
 																						</c:if>
 																					</c:forEach>
 																				</c:when>
-																				<c:when test="${at.appoint_num ne dash.appoint_num}">
+																				<c:when test="${at.appointment_num ne dash.appointment_num}">
 																					first
 																				</c:when>
 																			</c:choose>
@@ -379,10 +379,6 @@
 			
 			<!-- /Page Content -->
    
-		   
-		</div>
-		<!-- /Main Wrapper -->
-		
 		
 		<!-- Appointment Details Modal today -->
 	<c:forEach varStatus="status" items="${dashList}" var="dash">

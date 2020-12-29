@@ -7,6 +7,8 @@ import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.dto.AppointmentDTO;
 import dr_Link.dto.PageDTO;
 import dr_Link.dto.TreatmentRecordDTO;
+import dr_Link.prescription.PrescriptionDTO;
+import dr_Link.review.Doc_ReviewDTO;
 
 public interface DoctorDaoInter {
 		
@@ -32,6 +34,12 @@ public interface DoctorDaoInter {
 	
 	//김다유 : 의사 프로필 수정
 	public void doctor_profile_update(DoctorDTO vo);
+	
+	//김다유 : 환자 리스트
+	public List<TreatmentRecordDTO> my_patients_list (int doctor_num);
+	
+	//김다유 : 후기 리스트
+	public List<Doc_ReviewDTO> reviewList (int doctor_num);
 	
 	//의사 로그인
 	public DoctorDTO dr_loginCheck(DoctorDTO dto);
