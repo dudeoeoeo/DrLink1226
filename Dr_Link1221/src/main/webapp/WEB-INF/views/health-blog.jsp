@@ -35,7 +35,7 @@
 									</c:choose>
 										<div class="blog-content">
 											<ul class="entry-meta meta-item">
-												<li><i class="far fa-clock"></i> ${n.news_regdate }</li>
+												<li><i class="far fa-clock"></i> ${n.news_regdate}</li>
 												<li><i class="fa fa-eye" aria-hidden="true"></i>조회수 ${n.watched }</li>
 											</ul>
 											<h3 class="blog-title"><a href="health-blog-detail?b_num=${n.news_board_num}">${n.news_title }</a></h3>

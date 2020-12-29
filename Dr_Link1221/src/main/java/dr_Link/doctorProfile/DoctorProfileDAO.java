@@ -37,7 +37,6 @@ public interface DoctorProfileDAO {
 	public DoctorDTO emailCheck(String id) throws Exception;
 	
 
-	/* public List<SearchDTO> getSearch(); */
 	public List<DoctorDTO> getList(Map<String, List<String>> map);
 	public int getTotalCount();
 

@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dr_Link.booking.BookingDTO;
 import dr_Link.booking.BookingService;
-import dr_Link.doctorProfile.DoctorProfileDAO;
 import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
@@ -43,9 +42,6 @@ public class PatientController {
 	
 	@Autowired
 	private BookingService bookingService;
-	
-	@Autowired
-	private DoctorProfileDAO doctorProfileDAO;
 	
 	@Autowired
 	private PatientDaoInter patientDaoInter;

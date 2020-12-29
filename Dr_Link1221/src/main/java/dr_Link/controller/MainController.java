@@ -44,7 +44,7 @@ import dr_Link.dto.NewsReplDTO;
 public class MainController {
 	
 	@Autowired
-	private MainDaoInter dao;
+	private MainDaoInter main_dao;
 
 	@Autowired
 	private PatientDaoInter patientDAO;
@@ -65,7 +65,7 @@ public class MainController {
 	@RequestMapping(value = { "/", "index" })
 	public String indexRq() {
 		System.out.println("index 요청: ");
-		return "main.page";
+		return "redirect:/main";
 	}
 	
 	@RequestMapping(value = "{step}")
@@ -77,6 +77,22 @@ public class MainController {
 	@RequestMapping(value = "AI_medical_{step}")
 	public String accessAnyFiles(@PathVariable String step) {
 		return "AI_medical_" + step + ".page";
+	}
+	
+	@RequestMapping(value = "main")
+	public String main(Model model) {
+		
+		List<NewsDTO> newsList = main_dao.getAllNewsBoards();
+		model.addAttribute("newsList", newsList);
+		
+		Map<String, List<String>> map = new HashMap<String, List<String>>();
+		List<DoctorDTO> list = doctorProfileDAO.getList(map);
+		model.addAttribute("list",list );
+		
+		List<Hospital_boardDTO> h_boardList = main_dao.getAllHospitalBoards();
+		model.addAttribute("h_boardList", h_boardList);
+		
+		return "main.page";
 	}
 
 	//환자 로그인 체크
@@ -293,13 +309,13 @@ public class MainController {
 		ModelAndView mv = new ModelAndView("notice.page");
 		List<Hospital_boardDTO> li;
 		// dao.getAll(); 나중에 수정해야 할 사항
-		int pageAll = dao.getBoardCnt();
+		int pageAll = main_dao.getBoardCnt();
 		pageAll = (pageAll%10 == 0) ? pageAll%10 : (pageAll/10)+1;
 		try {
 			if(request.getParameter("d_page") != null) {
-				li = dao.getAllHospitalBoards(Integer.parseInt(request.getParameter("d_page")));
+				li = main_dao.getAllHospitalBoards(Integer.parseInt(request.getParameter("d_page")));
 			} else {
-				li = dao.getAllHospitalBoards();
+				li = main_dao.getAllHospitalBoards();
 			}
 			mv.addObject("h_boardList",li);
 			mv.addObject("page_num", pageAll);
@@ -323,6 +339,7 @@ public class MainController {
 		try {
 			System.out.println("try");
 			if(request.getParameter("d_gender") != null) {
+				System.out.println("d_gender 넘 아닐떄");
 				temp = request.getParameterValues("d_gender");
 				System.out.println("if문 "+ request.getParameterValues("d_gender"));
 				
@@ -333,6 +350,7 @@ public class MainController {
 				}
 			}  
 			if (request.getParameter("dep_num") != null ) {
+				System.out.println("dep_num이 null 아닐 떄");
 				temp = request.getParameterValues("dep_num");
 				dep_numList = Arrays.asList(temp);
 				map.put("dep_numList", dep_numList);
@@ -340,13 +358,14 @@ public class MainController {
 					System.out.println("else if for: " + i);
 				}
 			}
+			System.out.println("맨 밑");
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
 		
-		
+		System.out.println("list 바로 위에 매핑");
 		List<DoctorDTO> list = doctorProfileDAO.getList(map);
-		
+		System.out.println("여기까지 오케이");
 
 
 		  
@@ -354,6 +373,7 @@ public class MainController {
 		model.addAttribute("dep_numList", dep_numList);
 		model.addAttribute("paging", svo);
 		model.addAttribute("list",list );
+		
 		return "search.page";
 	}
 	
@@ -361,8 +381,8 @@ public class MainController {
 	public ModelAndView getH_BoardDetail(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("notice_detail.page");
 		int h_b_num = Integer.parseInt(request.getParameter("b_num"));
-		dao.plusWatchCnt(h_b_num);
-		Hospital_boardDTO dto = dao.getDetailHospitalBoard(h_b_num);
+		main_dao.plusWatchCnt(h_b_num);
+		Hospital_boardDTO dto = main_dao.getDetailHospitalBoard(h_b_num);
 		mv.addObject("h_board", dto);
 		
 		return mv;
@@ -375,8 +395,8 @@ public class MainController {
 		System.out.println("health 페이지로 가기");
 		try{
 			if(request.getParameter("d_page") != null ) {
-				nt = dao.getNewsPage(Integer.parseInt(request.getParameter("d_page")));
-			} else { nt = dao.getAllNewsBoards(); }
+				nt = main_dao.getNewsPage(Integer.parseInt(request.getParameter("d_page")));
+			} else { nt = main_dao.getAllNewsBoards(); }
 			
 			for(int i=0; i<nt.size(); i++) { 
 				String regdate = nt.get(i).getNews_regdate().substring(0, 10).replace("-", ".");
@@ -397,8 +417,8 @@ public class MainController {
 		ModelAndView mv = new ModelAndView("health-blog-detail.page");
 		try {
 			if(request.getParameter("b_num") != null) {
-			NewsDTO dto = dao.getNewsBoardsDetail(Integer.parseInt(request.getParameter("b_num")));
-			List<NewsReplDTO> nr = dao.getNewsRepl(Integer.parseInt(request.getParameter("b_num")));
+			NewsDTO dto = main_dao.getNewsBoardsDetail(Integer.parseInt(request.getParameter("b_num")));
+			List<NewsReplDTO> nr = main_dao.getNewsRepl(Integer.parseInt(request.getParameter("b_num")));
 			
 			mv.addObject("n_board", dto);
 			mv.addObject("n_repl", nr);
@@ -425,15 +445,15 @@ public class MainController {
 		try {
 			String handle_repl= nr.getRepl_handling();
 			if(handle_repl.equals("댓글")) {
-				result = dao.insert_repl(nr);
+				result = main_dao.insert_repl(nr);
 			} else if (handle_repl.equals("답글")) {
 				nr.setN_comments_num(nr.getNews_reply_num());
-				result = dao.insert_repl(nr);
+				result = main_dao.insert_repl(nr);
 			} else if (handle_repl.equals("수정")) {
-				result = dao.update_repl(nr);
+				result = main_dao.update_repl(nr);
 			}
 			else {
-				result = dao.delete_repl(nr);
+				result = main_dao.delete_repl(nr);
 			}
 		} catch (NullPointerException e) {
 			e.printStackTrace();

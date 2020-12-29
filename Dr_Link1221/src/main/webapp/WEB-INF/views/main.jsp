@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -181,10 +182,11 @@ width:auto !important;
 				<div class="col-lg-8">
 					<div class="doctor-slider slider">
 							<!-- Doctor Widget -->
+							<c:forEach var="list" items="${list}" varStatus="listStatus">
 							<div class="profile-widget">
-								<div class="doc-img">
-									<a href="doctor-profile">
-										<img class="img-fluid" alt="User Image" src="${path}/resources/assets/img/doctors/doctor-01.jpg">
+								<div class="doc-img" style="height: 45%;">
+									<a href="doctor-profile?doctor_num=${list.doctor_num }">
+										<img src="${path}/resources/doctor/doctorImg/${list.d_photo}" class="img-fluid" alt="User Image">
 									</a>
 									<a href="javascript:void(0)" class="fav-btn">
 										<i class="far fa-bookmark"></i>
@@ -192,282 +194,35 @@ width:auto !important;
 								</div>
 								<div class="pro-content">
 									<h3 class="title">
-										<a href="doctor-profile">Ruby Perrin</a> 
+										<a href="doctor-profile">${list.d_name}</a> 
 										<i class="fas fa-check-circle verified"></i>
 									</h3>
-									<p class="speciality">MDS - Periodontology and Oral Implantology, BDS</p>
+		                             <p class="speciality">${list.departmentDTO.dep_name}</p>
 									<div class="rating">
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<span class="d-inline-block average-rating">(17)</span>
+									<c:forEach begin="0" end="4" step="1" varStatus="i">
+									   <c:choose>
+									      <c:when test="${list.doc_ReviewDTO.review_rating > i.index}">
+									         <i class="fas fa-star filled"></i>   
+									      </c:when>
+									      <c:otherwise>
+									         <i class="fas fa-star"></i>
+									      </c:otherwise>
+									   </c:choose>   
+									</c:forEach>
+										<span class="d-inline-block average-rating">${list.doc_ReviewDTO.review_rating }</span>
 									</div>
 									<div class="row row-sm">
 										<div class="col-6">
-											<a href="doctor-profile" class="btn view-btn">상세보기</a>
+											<a href="doctor-profile?doctor_num=${list.doctor_num }" class="btn view-btn">상세보기</a>
 										</div>
 										<div class="col-6">
-											<a href="booking" class="btn book-btn">예약하기</a>
+											<a href="booking?doctor_num=${list.doctor_num }" class="btn book-btn">예약하기</a>
 										</div>
 									</div>
 								</div>
 							</div>
+							</c:forEach>
 							<!-- /Doctor Widget -->
-					
-							<!-- Doctor Widget -->
-							<div class="profile-widget">
-								<div class="doc-img">
-									<a href="doctor-profile">
-										<img class="img-fluid" alt="User Image" src="${path}/resources/assets/img/doctors/doctor-02.jpg">
-									</a>
-									<a href="javascript:void(0)" class="fav-btn">
-										<i class="far fa-bookmark"></i>
-									</a>
-								</div>
-								<div class="pro-content">
-									<h3 class="title">
-										<a href="doctor-profile">Darren Elder</a> 
-										<i class="fas fa-check-circle verified"></i>
-									</h3>
-									<p class="speciality">BDS, MDS - Oral & Maxillofacial Surgery</p>
-									<div class="rating">
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star"></i>
-										<span class="d-inline-block average-rating">(35)</span>
-									</div>
-									<div class="row row-sm">
-										<div class="col-6">
-											<a href="doctor-profile" class="btn view-btn">상세보기</a>
-										</div>
-										<div class="col-6">
-											<a href="booking" class="btn book-btn">예약하기</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Doctor Widget -->
-					
-							<!-- Doctor Widget -->
-							<div class="profile-widget">
-								<div class="doc-img">
-									<a href="doctor-profile">
-										<img class="img-fluid" alt="User Image" src="${path}/resources/assets/img/doctors/doctor-03.jpg">
-									</a>
-									<a href="javascript:void(0)" class="fav-btn">
-										<i class="far fa-bookmark"></i>
-									</a>
-								</div>
-								<div class="pro-content">
-									<h3 class="title">
-										<a href="doctor-profile">Deborah Angel</a> 
-										<i class="fas fa-check-circle verified"></i>
-									</h3>
-									<p class="speciality">MBBS, MD - General Medicine, DNB - Cardiology</p>
-									<div class="rating">
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star"></i>
-										<span class="d-inline-block average-rating">(27)</span>
-									</div>
-									<div class="row row-sm">
-										<div class="col-6">
-											<a href="doctor-profile" class="btn view-btn">상세보기</a>
-										</div>
-										<div class="col-6">
-											<a href="booking" class="btn book-btn">예약하기</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Doctor Widget -->
-					
-							<!-- Doctor Widget -->
-							<div class="profile-widget">
-								<div class="doc-img">
-									<a href="doctor-profile">
-										<img class="img-fluid" alt="User Image" src="${path}/resources/assets/img/doctors/doctor-04.jpg">
-									</a>
-									<a href="javascript:void(0)" class="fav-btn">
-										<i class="far fa-bookmark"></i>
-									</a>
-								</div>
-								<div class="pro-content">
-									<h3 class="title">
-										<a href="doctor-profile">Sofia Brient</a> 
-										<i class="fas fa-check-circle verified"></i>
-									</h3>
-									<p class="speciality">MBBS, MS - General Surgery, MCh - Urology</p>
-									<div class="rating">
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star"></i>
-										<span class="d-inline-block average-rating">(4)</span>
-									</div>
-									<div class="row row-sm">
-										<div class="col-6">
-											<a href="doctor-profile" class="btn view-btn">상세보기</a>
-										</div>
-										<div class="col-6">
-											<a href="booking" class="btn book-btn">예약하기</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Doctor Widget -->
-							
-							<!-- Doctor Widget -->
-							<div class="profile-widget">
-								<div class="doc-img">
-									<a href="doctor-profile">
-										<img class="img-fluid" alt="User Image" src="${path}/resources/assets/img/doctors/doctor-05.jpg">
-									</a>
-									<a href="javascript:void(0)" class="fav-btn">
-										<i class="far fa-bookmark"></i>
-									</a>
-								</div>
-								<div class="pro-content">
-									<h3 class="title">
-										<a href="doctor-profile">Marvin Campbell</a> 
-										<i class="fas fa-check-circle verified"></i>
-									</h3>
-									<p class="speciality">MBBS, MD - Ophthalmology, DNB - Ophthalmology</p>
-									<div class="rating">
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star"></i>
-										<span class="d-inline-block average-rating">(66)</span>
-									</div>
-									<div class="row row-sm">
-										<div class="col-6">
-											<a href="doctor-profile" class="btn view-btn">상세보기</a>
-										</div>
-										<div class="col-6">
-											<a href="booking" class="btn book-btn">예약하기</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Doctor Widget -->
-							
-							<!-- Doctor Widget -->
-							<div class="profile-widget">
-								<div class="doc-img">
-									<a href="doctor-profile">
-										<img class="img-fluid" alt="User Image" src="${path}/resources/assets/img/doctors/doctor-06.jpg">
-									</a>
-									<a href="javascript:void(0)" class="fav-btn">
-										<i class="far fa-bookmark"></i>
-									</a>
-								</div>
-								<div class="pro-content">
-									<h3 class="title">
-										<a href="doctor-profile">Katharine Berthold</a> 
-										<i class="fas fa-check-circle verified"></i>
-									</h3>
-									<p class="speciality">MS - Orthopaedics, MBBS, M.Ch - Orthopaedics</p>
-									<div class="rating">
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star"></i>
-										<span class="d-inline-block average-rating">(52)</span>
-									</div>
-									<div class="row row-sm">
-										<div class="col-6">
-											<a href="doctor-profile" class="btn view-btn">상세보기</a>
-										</div>
-										<div class="col-6">
-											<a href="booking" class="btn book-btn">예약하기</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Doctor Widget -->
-							
-							<!-- Doctor Widget -->
-							<div class="profile-widget">
-								<div class="doc-img">
-									<a href="doctor-profile">
-										<img class="img-fluid" alt="User Image" src="${path}/resources/assets/img/doctors/doctor-07.jpg">
-									</a>
-									<a href="javascript:void(0)" class="fav-btn">
-										<i class="far fa-bookmark"></i>
-									</a>
-								</div>
-								<div class="pro-content">
-									<h3 class="title">
-										<a href="doctor-profile">Linda Tobin</a> 
-										<i class="fas fa-check-circle verified"></i>
-									</h3>
-									<p class="speciality">MBBS, MD - General Medicine, DM - Neurology</p>
-									<div class="rating">
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star"></i>
-										<span class="d-inline-block average-rating">(43)</span>
-									</div>
-									<div class="row row-sm">
-										<div class="col-6">
-											<a href="doctor-profile" class="btn view-btn">상세보기</a>
-										</div>
-										<div class="col-6">
-											<a href="booking" class="btn book-btn">예약하기</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Doctor Widget -->
-							
-							<!-- Doctor Widget -->
-							<div class="profile-widget">
-								<div class="doc-img">
-									<a href="doctor-profile">
-										<img class="img-fluid" alt="User Image" src="${path}/resources/assets/img/doctors/doctor-08.jpg">
-									</a>
-									<a href="javascript:void(0)" class="fav-btn">
-										<i class="far fa-bookmark"></i>
-									</a>
-								</div>
-								<div class="pro-content">
-									<h3 class="title">
-										<a href="doctor-profile">Paul Richard</a> 
-										<i class="fas fa-check-circle verified"></i>
-									</h3>
-									<p class="speciality">MBBS, MD - Dermatology , Venereology & Lepros</p>
-									<div class="rating">
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star filled"></i>
-										<i class="fas fa-star"></i>
-										<span class="d-inline-block average-rating">(49)</span>
-									</div>
-									<div class="row row-sm">
-										<div class="col-6">
-											<a href="doctor-profile" class="btn view-btn">상세보기</a>
-										</div>
-										<div class="col-6">
-											<a href="booking" class="btn book-btn">예약하기</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Doctor Widget -->
-							
 						</div>
 				</div>
 		   </div>
@@ -489,62 +244,29 @@ width:auto !important;
 			<!-- /Section Header -->
 			
 			<div class="row blog-grid-row">
+			
+				<c:forEach var="news" items="${newsList}" end="3">
 				<div class="col-md-6 col-lg-3 col-sm-12">
 				
 					<!-- Blog Post -->
 					<div class="blog grid-blog">
 						<div class="blog-image">
-							<a href="blog-details"><img class="img-fluid" src="${path}/resources/assets/img/blog/blog-02.jpg" alt="Post Image"></a>
+							<div class="video-wrap">
+							<iframe width="100%" height="315" src="${news.news_url}" frameborder="0" 
+							allow="accelerometer; autoplay; clipboard-write; 
+							encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							</div>
 						</div>
 						<div class="blog-content">
-							건강소식 컨텐츠 들어갈 예정
+							<c:forEach var="c" items="${news.news_title}">
+							<p class="mb-0"><a href="health-blog-detail?b_num=${news.news_board_num}">${c}</a></p>
+							</c:forEach>
 						</div>
 					</div>
 					<!-- /Blog Post -->
 					
 				</div>
-				<div class="col-md-6 col-lg-3 col-sm-12">
-				
-					<!-- Blog Post -->
-					<div class="blog grid-blog">
-						<div class="blog-image">
-							<a href="blog-details"><img class="img-fluid" src="${path}/resources/assets/img/blog/blog-02.jpg" alt="Post Image"></a>
-						</div>
-						<div class="blog-content">
-							건강소식 컨텐츠 들어갈 예정
-						</div>
-					</div>
-					<!-- /Blog Post -->
-					
-				</div>
-				<div class="col-md-6 col-lg-3 col-sm-12">
-				
-					<!-- Blog Post -->
-					<div class="blog grid-blog">
-						<div class="blog-image">
-							<a href="blog-details"><img class="img-fluid" src="${path}/resources/assets/img/blog/blog-03.jpg" alt="Post Image"></a>
-						</div>
-						<div class="blog-content">
-							건강소식 컨텐츠 들어갈 예정
-						</div>
-					</div>
-					<!-- /Blog Post -->
-					
-				</div>
-				<div class="col-md-6 col-lg-3 col-sm-12">
-				
-					<!-- Blog Post -->
-					<div class="blog grid-blog">
-						<div class="blog-image">
-							<a href="blog-details"><img class="img-fluid" src="${path}/resources/assets/img/blog/blog-02.jpg" alt="Post Image"></a>
-						</div>
-						<div class="blog-content">
-							건강소식 컨텐츠 들어갈 예정
-						</div>
-					</div>
-					<!-- /Blog Post -->
-					
-				</div>
+				</c:forEach>
 			</div>
 			<div class="view-all text-center"> 
 				<a href="health-blog" class="btn btn-primary">더보기</a>
@@ -575,24 +297,14 @@ width:auto !important;
 								</tr>
 							</thead>
 							<tbody>
+							<c:forEach var="board" end="4" items="${h_boardList}">
 								<tr>
 									<td>공지</td>
-									<td>공지 	입원환자 입원 전 코로나19 검사 시행 안내 </td>
-									<td>2020-11-05</td>
-									<td>8729</td>
+									<td style="text-align: center"><a href="notice_detail?b_num=${board.hospital_board_num}">${board.hospital_title}</a></td>
+									<td style="text-align: center">${board.hospital_regdate}</td>
+									<td style="text-align: center">${board.h_watched}</td>
 								</tr>
-								<tr>
-									<td>공지</td>
-									<td>개원기념일(10월15일) 외래 휴진 안내 </td>
-									<td>2020-10-07</td>
-									<td>320</td>
-								</tr>
-								<tr>
-									<td>공지</td>
-									<td>2020년 분당서울대병원 추석 연휴 및 개천절 휴진 안내  </td>
-									<td>2020-09-28</td>
-									<td>876</td>
-								</tr>
+							</c:forEach>
 							</tbody>
 						</table>
 					</div>
@@ -622,36 +334,32 @@ width:auto !important;
 <script src="${path}/resources/assets/js/script.js"></script>
 <script type="text/javascript">
 $(function(){
-    window.onload = function () {
+	
+	window.onload = function () {
         if (window.Notification) {
             Notification.requestPermission();
         }
     }
-    setTimeout(function () {
-        notify();
-    }, 10000);
+
+    function calculate() {
+        setTimeout(function () {
+            notify();
+        }, 5000);
+    }
 
     function notify() {
-
-        //var timestamp = Notification.timestamp;
-        //var dts = Math.floor(Date.now());
-    	
         if (Notification.permission !== 'granted') {
             alert('notification is disabled');
         }
         else {
-            var notification = new Notification('💕진료 예약 알림💕', {
+        	var notification = new Notification('💕진료 예약 알림💕', {
                 icon: '${path}/resources/assets/img/favicon.png',
                 body: '곧 진료가 시작됩니다. 진료실에 입장해주세요',
                 requireInteraction:true
                 //timestamp: dts
             });
-            
-            //var n = new Notification('Test notification',notification);
 
-            //console.log(n.timestamp)
-
-            notification.onclick = function () {
+        	notification.onclick = function () {
                 window.open('#');
             };
             

@@ -129,7 +129,7 @@
 									<div class="doctor-widget">
 										<div class="doc-info-left">
 											<div class="doctor-img">
-												<a href="doctor-profile">
+												<a href="doctor-profile?doctor_num=${list.doctor_num }">
 													<img src="${path}/resources/doctor/doctorImg/${list.d_photo}" class="img-fluid" alt="User Image">
 												</a>
 											</div>
@@ -140,7 +140,7 @@
 												<div class="rating">
 												<c:forEach begin="0" end="4" step="1" varStatus="i">
 												   <c:choose>
-												      <c:when test="${review_rating > i.index}">
+												      <c:when test="${list.doc_ReviewDTO.review_rating > i.index}">
 												         <i class="fas fa-star filled"></i>   
 												      </c:when>
 												      <c:otherwise>
@@ -148,11 +148,6 @@
 												      </c:otherwise>
 												   </c:choose>   
 												</c:forEach>
-													<!-- <i class="fas fa-star filled"></i>
-													<i class="fas fa-star filled"></i>
-													<i class="fas fa-star filled"></i>
-													<i class="fas fa-star filled"></i>
-													<i class="fas fa-star"></i> -->
 													<span class="d-inline-block average-rating">${list.doc_ReviewDTO.review_rating }</span>
 												</div>
 												<div class="clinic-services">
@@ -182,7 +177,7 @@
 											</div>
 											<div class="clinic-booking">
 												<a class="view-pro-btn" href="doctor-profile?doctor_num=${list.doctor_num }">프로필보기</a>
-												<a class="apt-btn" href="${path }/patients/booking?doctor_num=${list.doctor_num }">예약하기</a>
+												<a class="apt-btn" href='${path}/patients/booking?doctor_num=${list.doctor_num}'>예약하기</a>
 											</div>
 										</div>
 									</div>
@@ -201,3 +196,22 @@
 					</div>
 				
 			<!-- /Page Content -->
+			
+<script>
+	$(function(){
+		var uid = '${sessionScope.user.p_name}';
+        
+		$('.apt-btn').click(function(){
+	         if(uid == '' || uid == null) {
+	        	if(confirm("로그인이 필요한 서비스 입니다. \n 지금 로그인 하시겠습니까 ?")) {
+	        		$(this).attr('href', 'login')
+	        	} else {
+	        		$(this).attr('href', '')
+	        	}
+	         } else if (uid != '' || uid != null) {
+	         }
+	      }) // click
+	    
+		 
+	});	
+</script>
