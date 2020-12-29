@@ -13,7 +13,6 @@ public class BookingServiceImpl implements BookingService {
 	
 	@Override
 	public void addBooking(BookingDTO vo) {
-		// TODO Auto-generated method stub
 		bookingDAO.addBooking(vo);
 	}
 

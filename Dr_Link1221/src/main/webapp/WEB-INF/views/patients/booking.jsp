@@ -316,7 +316,6 @@ function myFunction() {
 								• 당일 진료 시간을 지키지 못하시는 경우 다음 번 이용에 제한이 될 수 있습니다.</p>
 								<br>
 								<p>&nbsp;</p>
-								
                                  </div>
 							</div>
 						<form action="bookingSave" method="post" class="bookingForm">

@@ -174,6 +174,7 @@ width:auto !important;
 						<p>Notre lien Doctoral permet de réserver rapidement et facilement des soins en ligne.</p>					
 						<p>We have a quick and convenient online appointment for Dr. Link.</p>					
 						<p>当社のドクターリンクは、迅速かつ便利なオンライン診療予約を承っております。</p>					
+						<p>本院可以预约即快速又方便的在线诊疗。</p>					
 						<a href="search">더보기</a>
 					</div>
 				</div>

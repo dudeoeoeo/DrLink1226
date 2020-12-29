@@ -35,6 +35,7 @@
 	<id property="doctor_num" column="doctor_num" javaType="int" />
 		<result column="d_id" property="d_id" />
 		<result column="d_pwd" property="d_pwd" />
+		<result column="dep_num" property="dep_num" />
 		<result column="d_name" property="d_name" />
 		<result column="d_jumin_num" property="d_jumin_num" />
 		<result column="d_phone_num" property="d_phone_num" />

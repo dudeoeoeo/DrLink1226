@@ -7,10 +7,11 @@
 <mapper namespace="booking">
 
 	<insert id="addBooking" parameterType="bookingDTO">
-		insert into appointment values(appointment_num_seq.nextval, #{patient_num}, #{doctor_num}, #{dep_num}, #{appointment_date}, #{appointment_time}, sysdate)
+		insert into appointment values(appointment_num.nextval, #{patient_num}, #{doctor_num}, #{dep_num}, #{appointment_date}, #{appointment_time}, sysdate)
 	</insert>  	
  	
- 	<update id="updateBooking" parameterType="bookingDTO"></update>
+ 	<update id="updateBooking" parameterType="bookingDTO">
+ 	</update>
  	
  	<delete id="deleteBooking" parameterType="int"></delete>
  	
@@ -24,7 +25,10 @@
  	
  	<!-- 환자 예약 리스트 -->
  	<select id="getPatientBookingList" parameterType="int" resultMap="bookingMap">
- 		select * from appointment a, dl_doctor b, department c where a.doctor_num=b.doctor_num and b.dep_num=c.dep_num and patient_num=#{patient_num}
+ 		select * 
+ 		from appointment a, dl_doctor b, department c 
+ 		where a.doctor_num=b.doctor_num and b.dep_num=c.dep_num and patient_num=#{patient_num} 
+ 		order by appointment_num desc
  	</select>
  	
  	<!-- 의사 예약 리스트 -->
@@ -43,6 +47,7 @@
 		<result column="d_id" property="d_id" />
 		<result column="d_pwd" property="d_pwd" />
 		<result column="d_name" property="d_name" />
+		<result column="dep_num" property="dep_num" />
 		<result column="d_jumin_num" property="d_jumin_num" />
 		<result column="d_phone_num" property="d_phone_num" />
 		<result column="d_address" property="d_address" />

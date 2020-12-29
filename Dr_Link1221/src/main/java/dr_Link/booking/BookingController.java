@@ -107,9 +107,7 @@ public class BookingController {
 	@RequestMapping("patients/bookingSave")
 	public String bookingSave(HttpServletRequest request, HttpSession session, BookingDTO vo, Model model) {
 		PatientDTO temp = (PatientDTO) session.getAttribute("user");
-		System.out.println(temp.getPatient_num());
 		vo.setPatient_num(temp.getPatient_num());
-		System.out.println(vo.getAppointment_date());
 
 		try {
 			bookingService.addBooking(vo);

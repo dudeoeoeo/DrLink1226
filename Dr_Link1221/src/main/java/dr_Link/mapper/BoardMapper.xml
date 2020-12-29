@@ -74,6 +74,7 @@ WHERE rnum between #{start} and #{end}
 	<result property="d_jumin_num" column="d_jumin_num"/>
 	<result property="d_phone_num" column="d_phone_num"/>
 	<result property="d_email" column="d_email"/>
+	<result column="dep_num" property="dep_num" />
 	<result property="d_gender" column="d_gender"/>
 </resultMap>
 

@@ -143,10 +143,10 @@ h2:not(.u-subtitle) {
 						<div class="footer-widget footer-contact">
 								<h2 class="footer-title">Contact Us</h2>
 								<div class="footer-contact-info">
-									<div class="footer-address">
-										<span><i class="fas fa-map-marker-alt"></i></span>
-										<p> 서울 금천구 가산디지털2로 123 월드메르디앙벤처센터II </p>
-									</div>
+									<p> 
+										<i class="fas fa-map-marker-alt"></i>
+										서울 금천구 가산디지털2로 123 월드메르디앙벤처센터II 
+									</p>
 									<p>
 										<i class="fas fa-phone-alt"></i>
 										02-2025-4119

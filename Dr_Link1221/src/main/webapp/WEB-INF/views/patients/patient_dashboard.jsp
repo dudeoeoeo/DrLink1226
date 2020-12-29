@@ -173,13 +173,7 @@
 																	<th>처방의사</th>
 																	<th>진료과목</th>
 																	<th>진료시간</th>
-																	<th>
-																		<div class="table-action">
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> 상세보기
-																			</a>
-																		</div>
-																	</th>
+																	<th>상세보기</th>
 																</tr>     
 															</thead>
 															<tbody>
