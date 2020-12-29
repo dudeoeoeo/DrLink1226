@@ -83,7 +83,8 @@ width:auto !important;
 				<div class="container-fluid">
 					<div class="banner-wrapper">
 						<div class="banner-header text-center">
-							<h1>진료과에 맞는 전문의를 찾고 예약 해보세요!</h1>
+							<h1>진료과에 맞는 </h1> 
+							<h1>전문의를 찾고 예약 해보세요!</h1>
 							<p>AI로 진단하고 환자에게 맞는 최적 의료 서비스를 제공합니다.</p>
 						</div>
 						
@@ -159,69 +160,6 @@ width:auto !important;
 				</div>
 			</section>
 	
-	<!-- Clinic and Specialities -->
-	<%-- <section class="section section-specialities">
-		<div class="container-fluid">
-			<div class="section-header text-center">
-				<h2>진료과목</h2>
-				<p class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-			</div>
-			<div class="row justify-content-center">
-				<div class="col-md-9">
-					<!-- Slider -->
-					<div class="specialities-slider slider">
-							
-						<!-- Slider Item -->
-					<!-- 	<div class="speicality-item text-center">
-							<div class="speicality-img">
-								<img src="${path}/resources/assets/img/specialities/specialities-01.png" class="img-fluid" alt="Speciality">
-								<span><i class="fa fa-circle" aria-hidden="true"></i></span>
-							</div>
-							<p>피부과</p>
-						</div>	 -->
-						<!-- /Slider Item -->
-						
-						<!-- Slider Item -->
-						<div class="speicality-item text-center">
-							<div class="speicality-img">
-							
-								<!-- <img src="${path}/resources/assets/img/specialities/specialities-02.png" class="img-fluid" alt="Speciality"> -->
-								<img src="${path}/resources/assets/img/eye.png" class="img-fluid" alt="Speciality">
-								<span><i class="fa fa-circle" aria-hidden="true"></i></span>
-							</div>
-							<p>안과</p>	
-						</div>							
-						<!-- /Slider Item -->
-						
-						<!-- Slider Item -->
-						<div class="speicality-item text-center">
-							<div class="speicality-img">
-								<!-- <img src="${path}/resources/assets/img/specialities/specialities-03.png" class="img-fluid" alt="Speciality"> -->
-								<img src="${path}/resources/assets/img/skin.png" class="img-fluid" alt="Speciality">
-								<span><i class="fa fa-circle" aria-hidden="true"></i></span>
-							</div>	
-							<p>피부과</p>	
-						</div>							
-						<!-- /Slider Item -->
-						
-						<!-- Slider Item -->
-						<div class="speicality-item text-center">
-							<div class="speicality-img">
-								<img src="${path}/resources/assets/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">
-								<span><i class="fa fa-circle" aria-hidden="true"></i></span>
-							</div>	
-							<p>Dentist</p>
-						</div>							
-						<!-- /Slider Item -->
-						
-					</div>
-					<!-- /Slider -->
-					
-				</div>
-			</div>
-		</div>   
-	</section>	  --%>
-	<!-- Clinic and Specialities -->
   
 	<!-- Popular Section -->
 	<section class="section section-doctor">
@@ -230,11 +168,12 @@ width:auto !important;
 				<div class="col-lg-4">
 					<div class="section-header ">
 						<h2>온라인 예약</h2>
-						<p>분당서울대학교병원은 빠르고 편리한 온라인진료예약이 가능합니다.</p>
+						<p>저희 닥터링크는 빠르고 편리한 온라인진료예약이 가능합니다.</p>
 					</div>
 					<div class="about-content">
-						<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum.</p>
-						<p>web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes</p>					
+						<p>Notre lien Doctoral permet de réserver rapidement et facilement des soins en ligne.</p>					
+						<p>We have a quick and convenient online appointment for Dr. Link.</p>					
+						<p>当社のドクターリンクは、迅速かつ便利なオンライン診療予約を承っております。</p>					
 						<a href="search">더보기</a>
 					</div>
 				</div>
@@ -689,7 +628,7 @@ $(function(){
     }
     setTimeout(function () {
         notify();
-    }, 5000);
+    }, 10000);
 
     function notify() {
 
@@ -715,9 +654,9 @@ $(function(){
                 window.open('#');
             };
             
-            notification.onclose = function () {
+           /*  notification.onclose = function () {
                 window.open('#');
-            };
+            }; */
         }
     }
 });

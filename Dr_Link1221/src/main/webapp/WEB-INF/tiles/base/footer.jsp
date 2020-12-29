@@ -56,6 +56,14 @@ width:auto !important;
 	color:#fff;
 }
 
+h2:not(.u-subtitle) {
+    font-weight: 30 bold !important;
+    font-size: 1.25rem!important;
+    line-height: 1.1!important;
+    margin-top: 20px!important;
+    margin-bottom: 20px!important;
+}
+
 </style>
 </head>
 <body>
@@ -75,7 +83,7 @@ width:auto !important;
 								<h1 id="drlink" style="color:#fff;">Dr.Link</h1>
 							</div>
 							<div class="footer-about-content">
-								<p>대한민국 의료계의 변화를 선도하며 명실 상부한 대한민국 대표병원으로 <br>자리매김한 닥터링크병원은 ‘미래 의료의 중심 원격AI진료’라는 <br>새로운 비전으로 발전해 나가고자 합니다. </p>
+								<p>대한민국 의료계의 변화를 선도하며 대한민국 대표병원으로 <br>자리매김한 닥터링크병원은 ‘미래 의료의 중심 원격AI진료’라는 <br>새로운 비전으로 발전해 나가고자 합니다. </p>
 								<div class="social-icon">
 									<ul>
 										<li>
