@@ -50,7 +50,7 @@
 												<strong class="customer-text">발행 기관</strong>
 												<p class="invoice-details invoice-details-two">
 													${drlinkinfo.dl_name}<br>
-													금천구 가산동 426-5 월드 메르디앙 벤처 센터 2 차 410 호 <br>
+													서울 금천구 가산디지털2로 123 월드메르디앙벤처센터II<br>
 												</p>
 											</div>
 										</div>

@@ -168,6 +168,13 @@ public class DoctorController {
 	}
 	
 	
+	/* 김다유 : 의사 비밀번호 변경 성민오빠 여기서 해주세요!!!! */
+	@RequestMapping(value = "/doctor_change_password" )
+	public String doctor_change_password(DoctorDTO vo, Model model, HttpSession session) {
+		return "/doctor/doctor_change_password.page";
+	}
+	
+	
 	
 	// 예약현황
 	@RequestMapping(value = "/appointments")

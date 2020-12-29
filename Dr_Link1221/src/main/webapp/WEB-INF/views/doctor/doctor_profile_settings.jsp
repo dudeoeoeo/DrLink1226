@@ -120,9 +120,15 @@
                                     </a>
                                  </li>
 								<li>
-                               				<a href="#">
+                               		<a href="#">
 										<i class="fas fa-ban"></i>
 										<span>회원탈퇴</span>
+									</a>
+								</li>
+								<li>
+                               		<a href="doctor_change_password">
+										<i class="fas fa-key"></i>
+										<span>비밀번호 수정</span>
 									</a>
 								</li>
                                  <li>

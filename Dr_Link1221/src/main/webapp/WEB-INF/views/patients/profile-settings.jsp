@@ -144,6 +144,12 @@ function execPostCode() {
 												</a>
 											</li>
 											<li>
+                                  				<a href="patient_change_password">
+													<i class="fas fa-key"></i>
+													<span>비밀번호 수정</span>
+												</a>
+											</li>
+											<li>
                                   				<a href="${path}/logout">
 													<i class="fas fa-sign-out-alt"></i>
 													<span>로그아웃</span>

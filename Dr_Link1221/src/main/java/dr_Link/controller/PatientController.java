@@ -164,7 +164,7 @@ public class PatientController {
 		return url+".page";
 	}
 	
-
+	/* 김다유 : 결제 상세 페이지 이동*/	
 	@RequestMapping("invoices")
 	public String invoices(PrescriptionDTO pre_vo,Model model, MedicineDTO medi_vo,HttpSession session, DrLinkDTO drlinkVO) {
 		PrescriptionDTO prescription = pre_dao.patient_detail_prescription(pre_vo.getPrescription_num());
@@ -174,6 +174,15 @@ public class PatientController {
 		model.addAttribute("drlinkinfo",drlinkinfo);
 		model.addAttribute("prescription",prescription);
 		return "/patients/invoices.page";
+	}
+	
+	/* 김다유 : 환자 비밀번호 변경 페이지 이동 성민오빠 여기서 해주세요!!!!*/
+	@RequestMapping("patient_change_password")
+	public String patient_dashboard_change(HttpSession session, Model model) {
+		int patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
+		PatientDTO patient_profile = patientService.getPatientDTO(patient_num);
+		model.addAttribute("patient_profile", patient_profile);
+		return "/patients/patient_change_password.page";
 	}
 	
 	@RequestMapping(value = "/payment_success", method = RequestMethod.POST)
