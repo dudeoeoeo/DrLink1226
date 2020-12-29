@@ -94,6 +94,7 @@
 											<!-- Submit Section -->
 											<form id ="payment_form" method="post">
 											<div class="submit-section mt-4">
+											<input type="hidden" name="prescription_num" value="${prescription.prescription_num}">
 												<button id ="paybtn" class="btn btn-primary submit-btn">결제하기</button>
 											</div>
 											</form>

@@ -42,7 +42,7 @@
                            <nav class="dashboard-menu">
                               <ul>
                                  <li class="active">
-                                    <a href="doctor-dashboard">
+                                    <a href="doctor_dashboard">
                                        <i class="fas fa-columns"></i>
                                        <span>Dashboard</span>
                                     </a>
@@ -56,13 +56,13 @@
                                  <li>
                                     <a href="my_patients">
                                        <i class="fas fa-user-injured"></i>
-                                       <span>환자내역</span>
+                                       <span>나의 환자</span>
                                     </a>
                                  </li>
                                  <li>
                                     <a href="reviews">
                                        <i class="fas fa-star"></i>
-                                       <span>리뷰</span>
+                                       <span>나의 후기</span>
                                     </a>
                                  </li>
                                  <li>
@@ -78,6 +78,12 @@
                                        <span>프로필 수정</span>
                                     </a>
                                  </li>
+								<li>
+                               				<a href="#">
+										<i class="fas fa-ban"></i>
+										<span>회원탈퇴</span>
+									</a>
+								</li>
                                  <li>
                                     <a href="${path}/logout">
                                        <i class="fas fa-sign-out-alt"></i>

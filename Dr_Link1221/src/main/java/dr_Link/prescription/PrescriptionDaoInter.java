@@ -14,6 +14,7 @@ public interface PrescriptionDaoInter {
 	public List<PrescriptionDTO> prescriptionRecord (int patient_num);
 	public void add_prescription(PrescriptionDTO vo);
 	public PrescriptionDTO detail_prescription(PrescriptionDTO vo) ;
+	public PrescriptionDTO patient_detail_prescription(int prescription_num) ;
 	public PatientDTO patient_info(int patient_num);
 	public DoctorDTO doctor_info(int doctor_num);
 	public List<MedicineDTO> medicine_info (MedicineDTO vo) ;

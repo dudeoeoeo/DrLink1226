@@ -8,17 +8,17 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 		
 		<!-- Favicons -->
-		<link href="${pageContext.request.contextPath}/resources/img/favicon.png" rel="icon">
+		<link href="${path}/resources/assets/img/favicon.png" rel="icon">
 		
 		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+		<link rel="stylesheet" href="${path}/resources/assets/css/bootstrap.min.css">
 		
 		<!-- Fontawesome CSS -->
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/plugins/fontawesome/css/fontawesome.min.css">
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/plugins/fontawesome/css/all.min.css">
+		<link rel="stylesheet" href="${path}/resources/assets/plugins/fontawesome/css/fontawesome.min.css">
+		<link rel="stylesheet" href="${path}/resources/assets/plugins/fontawesome/css/all.min.css">
 		
 		<!-- Main CSS -->
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+		<link rel="stylesheet" href="${path}/resources/assets/css/style.css">
 		
 		<!-- 구글폰트 -->
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
@@ -71,6 +71,13 @@ body {
 							</div>
 							<!-- /Success Card -->
 							
+						<form id ="payment_success" method="post">
+						<div class="text-center" style="margin:10px !important;">		
+						<button type="submit" class="btn btn-info submit-btn" formaction="detail_prescription">처방전 상세페이지</button>
+						<button type="submit" class="btn btn-info submit-btn" formaction="patient_dashboard">메인으로</button>
+						</div>
+						</form>
+							
 						</div>
 					</div>
 					
@@ -83,14 +90,14 @@ body {
 		<!-- /Main Wrapper -->
 	  
 		<!-- jQuery -->
-		<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+		<script src="${path}/resources/assets/js/jquery.min.js"></script>
 		
 		<!-- Bootstrap Core JS -->
-		<script src="${pageContext.request.contextPath}/resources/js/popper.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+		<script src="${path}/resources/assets/js/popper.min.js"></script>
+		<script src="${path}/resources/assets/js/bootstrap.min.js"></script>
 		
 		<!-- Custom JS -->
-		<script src="${pageContext.request.contextPath}/resources/js/script.js"></script>
+		<script src="${path}/resources/assets/js/script.js"></script>
 		
 	</body>
 </html>

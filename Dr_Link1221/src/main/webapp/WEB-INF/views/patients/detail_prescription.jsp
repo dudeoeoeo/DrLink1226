@@ -72,7 +72,7 @@ body {
 									<div class="pro-widget-content">
 										<div class="profile-info-widget">
 											<a href="#" class="booking-doc-img">
-												<img src="${path}/resources/assets/img/patients/patient.jpg" alt="User Image">
+											<img src="${path}/resources/patient/profileImg/${prescription.patientDTO.p_photo}">
 											</a>
 											<div class="profile-det-info">
 												<h3><a href="patient-profile">${prescription.patientDTO.p_name}</a></h3>
@@ -84,9 +84,9 @@ body {
 									</div>
 									<div class="patient-info">
 										<ul>
-											<li>Phone <span>${prescription.patientDTO.p_phone_num}</span></li>
-											<li>Age <span>38 Years, Male</span></li>
-											<li>Blood Group <span>${prescription.patientDTO.bloodtype}</span></li>
+											<li>연락처 <span>${prescription.patientDTO.p_phone_num}</span></li>
+											<li>나이 <span>${prescription.patientDTO.birth}</span></li>
+											<li>혈액형 <span>${prescription.patientDTO.bloodtype}</span></li>
 										</ul>
 									</div>
 								</div>
@@ -108,7 +108,7 @@ body {
 										<div class="col-sm-6">
 											<div class="biller-info">
 												<h4 class="d-block">${prescription.patientDTO.p_name} 님</h4>
-												<span class="d-block text-sm text-muted">${prescription.doctorDTO.departmentDTO.dep_name} 진료</span>
+												<span class="d-block text-sm text-muted">${prescription.departmentDTO.dep_name} 진료</span>
 											</div>
 										</div>
 										<div class="col-sm-6 text-sm-right">

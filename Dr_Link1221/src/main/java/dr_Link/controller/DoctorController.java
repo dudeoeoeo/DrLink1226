@@ -92,8 +92,9 @@ public class DoctorController {
 	public String end_prescription(HttpServletRequest request, PrescriptionDTO pre_vo, MedicineDTO medi_vo, DrLinkDTO drlinkVo, Model model) {
 		/*배열로 받은 값 , 구분자를 붙여 String으로 만든 후 insert*/
 		String pre_date = arrayJoin(",", request.getParameterValues("prescription_date"));
-		pre_vo.setPre_date(pre_date);			
-		System.out.println(pre_vo.getDsg()+pre_vo.getQty()+pre_vo.getTdate());
+		pre_vo.setPre_date(pre_date);
+		pre_vo.setPrice((int) (pre_vo.getPrice()*0.9));
+		System.out.println(pre_vo.getPrice());
 		/*트랜잭션 처리 한 serviece 메소드 호출, insert, select 동시 작업*/
 		PrescriptionDTO prescription = pre_service.end_prescription(pre_vo);
 

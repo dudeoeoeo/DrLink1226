@@ -105,13 +105,13 @@ function execPostCode() {
 								<div class="widget-profile pro-widget-content">
 									<div class="profile-info-widget">
 										<a href="#" class="booking-doc-img">
-											<img src="${path }/resources/patient/profileImg/${patient.p_photo}" alt="User Image">
+											<img src="${path}/resources/patient/profileImg/${patient_profile.p_photo}">
 										</a>
 										<div class="profile-det-info">
-											<h3>${patient.p_name }</h3>
+											<h3>${patient_profile.p_name }</h3>
 											<div class="patient-details">
-												<h5><i class="fas fa-birthday-cake"></i> ${patient.birth }</h5>
-												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> ${patient.profileAddress }</h5>
+												<h5><i class="fas fa-birthday-cake"></i> ${patient_profile.birth}</h5>
+												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> ${patient_profile.profileAddress}</h5>
 											</div>
 										</div>
 									</div>
@@ -119,7 +119,7 @@ function execPostCode() {
 								<div class="dashboard-widget">
 									<nav class="dashboard-menu">
 										<ul>
-											<li>
+											<li class="active">
 												<a href="patient_dashboard">
 													<i class="fas fa-columns"></i>
 													<span>진료확인</span>
@@ -131,14 +131,20 @@ function execPostCode() {
 													<span>Favourites</span>
 												</a>
 											</li>
-											<li class="active">
+											<li>
 												<a href="profile-settings">
 													<i class="fas fa-user-cog"></i>
 													<span>개인정보 수정</span>
 												</a>
 											</li>
 											<li>
-												<a href="index">
+                                  				<a href="#">
+													<i class="fas fa-ban"></i>
+													<span>회원탈퇴</span>
+												</a>
+											</li>
+											<li>
+                                  				<a href="${path}/logout">
 													<i class="fas fa-sign-out-alt"></i>
 													<span>로그아웃</span>
 												</a>
@@ -162,7 +168,7 @@ function execPostCode() {
 												<div class="form-group">
 													<div class="change-avatar">
 														<div class="profile-img">
-															<img id="blah" src="${path }/resources/patient/profileImg/${patient.p_photo}" alt="User Image">
+															<img id="blah" src="${path }/resources/patient/profileImg/${patient_profile.p_photo}" alt="User Image">
 														</div>
 														<div class="upload-img">
 															<div class="change-photo-btn">
@@ -177,26 +183,26 @@ function execPostCode() {
 											<div class="col-12 col-md-6">
 												<div class="form-group">
 													<label>성</label>
-													<input type="text" class="form-control" value="${fn:substring(patient.p_name,0,1)}" readonly >
+													<input type="text" class="form-control" value="${fn:substring(patient_profile.p_name,0,1)}" readonly >
 												</div>
 											</div>
 											<div class="col-12 col-md-6">
 												<div class="form-group">
 													<label>이름</label>
-													<input type="text" class="form-control" value="${fn:substring(patient.p_name,1,3)}" readonly >
+													<input type="text" class="form-control" value="${fn:substring(patient_profile.p_name,1,3)}" readonly >
 												</div>
 											</div>
 											<div class="col-12 col-md-6">
 												<div class="form-group">
 													<label>생년월일</label>
 													<div class="cal-icon">
-														<input type="text" class="form-control datetimepicker" value="${fn:substring(patient.birth,0,13)}" readonly >
+														<input type="text" class="form-control datetimepicker" value="${fn:substring(patient_profile.birth,0,13)}" readonly >
 													</div>
 												</div>
 											</div>
 											<div class="col-12 col-md-6">
 												<div class="form-group">
-													<input type="hidden" class="pre_bloodtype" value="${fn:trim(patient.bloodtype) }">
+													<input type="hidden" class="pre_bloodtype" value="${fn:trim(patient_profile.bloodtype) }">
 													<label>혈액형</label>
 													<select class="form-control select" name="bloodtype">
 														<option value="" selected="selected">- 혈액형 선택 -</option>
@@ -214,28 +220,28 @@ function execPostCode() {
 											<div class="col-12 col-md-6">
 												<div class="form-group">
 													<label>Email</label>
-													<input type="email" class="form-control" value="${patient.p_email }" name="p_email">
+													<input type="email" class="form-control" value="${patient_profile.p_email }" name="p_email">
 												</div>
 											</div>
 											<div class="col-12 col-md-6">
 												<div class="form-group">
 													<label>핸드폰</label>
-													<input type="text" value="${patient.p_phone_num }" name="p_phone_num" class="form-control">
+													<input type="text" value="${patient_profile.p_phone_num }" name="p_phone_num" class="form-control">
 												</div>
 											</div>
 											<div class="col-12 ">
 												<div class="form-group">
 													<label>주소</label>
 													<div class="form-inline">
-														<input type="text" name="p_zipcode" id="p_zipcode" class="zipcode form-control" placeholder="우편번호"  value="${patient.p_zipcode }">
+														<input type="text" name="p_zipcode" id="p_zipcode" class="zipcode form-control" placeholder="우편번호"  value="${patient_profile.p_zipcode }">
 														<input type="button" onclick="execPostCode()" id="zipcode_btn" class="form-control " value="우편번호 찾기">
 													</div>
 												</div>
 												<div class="form-group">
-													<input type="text" id="p_address1" name="p_address1" class="addr1 form-control" size="40" placeholder="주소" value="${patient.p_address1 }">
+													<input type="text" id="p_address1" name="p_address1" class="addr1 form-control" size="40" placeholder="주소" value="${patient_profile.p_address1 }">
 												</div>
 												<div class="form-group">
-													<input type="text" id="p_address2" name="p_address2" class="addr2 form-control" size="40" placeholder="상세주소" value="${patient.p_address2 }">
+													<input type="text" id="p_address2" name="p_address2" class="addr2 form-control" size="40" placeholder="상세주소" value="${patient_profile.p_address2 }">
 												</div>
 											</div>
 											<div class="col-12 col-md-6">

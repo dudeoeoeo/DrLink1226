@@ -34,7 +34,7 @@
 									<div class="success-cont">
 										<i class="fas fa-check"></i>
 										<h3>예약이 완료되었습니다!</h3>
-										<p>예약된 의사 : <strong>${doctor_profile.departmentDTO.dep_name}   ${doctor_profile.d_name} 의사</strong><br> 예약 일시 : <strong>${fn:substring(bookingInfo.appointment_date,0,4)}년 ${fn:substring(bookingInfo.appointment_date,5,7)}월 ${fn:substring(bookingInfo.appointment_date,9,11)}일 ${bookingInfo.appointment_time }</strong></p>
+										<p>예약된 의사 : <strong>${doctor_profile.departmentDTO.dep_name}   ${doctor_profile.d_name} 의사</strong><br> 예약 일시 : <strong>${fn:substring(bookingInfo.appointment_date,0,4)}년 ${fn:substring(bookingInfo.appointment_date,5,7)}월 ${fn:substring(bookingInfo.appointment_date,8,10)}일 ${bookingInfo.appointment_time }</strong></p>
 										<a href="${path}/" class="btn btn-primary view-inv-btn">메인화면으로</a>
 									</div>
 								</div>

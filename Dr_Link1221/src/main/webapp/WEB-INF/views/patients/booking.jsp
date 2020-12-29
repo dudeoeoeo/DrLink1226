@@ -13,7 +13,7 @@ $(document).ready(function(){
 	});
 	// 예약하기 버튼
 	$(".bookingForm").submit(function(){
-		var index = $(".timing.selected").closest("li").index() - 1;
+		var index = $(".timing.selected").closest("li").index();
 		$(".appointment_date").val($(".day-slot > ul > li:eq(" + index + ")").find("span:eq(1)").text());
 		$(".appointment_time").val($(".timing.selected").find("span").text());
 	});

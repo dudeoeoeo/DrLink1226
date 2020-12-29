@@ -101,10 +101,9 @@ public class PatientController {
 	
 	@RequestMapping("profile-settings")
 	public String profile_setting(HttpSession session, Model model) {
-		PatientDTO result = (PatientDTO) session.getAttribute("user");
-		//result = patientService.getPatientDTO(Integer.parseInt(result.getPatient_num()));
-		result = patientService.getPatientDTO(result.getPatient_num());
-		model.addAttribute("patient", result);
+		int patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
+		PatientDTO patient_profile = patientService.getPatientDTO(patient_num);
+		model.addAttribute("patient_profile", patient_profile);
 		return "/patients/profile-settings.page";
 	}
 	
@@ -144,15 +143,14 @@ public class PatientController {
 	/* 김다유 & 고현영 : 처방기록 상세 페이지로 이동 */	
 	@RequestMapping(value = "/detail_prescription")
 	public String end_prescription(PrescriptionDTO pre_vo,Model model, MedicineDTO medi_vo,HttpSession session, DrLinkDTO drlinkVO) {
-		PrescriptionDTO prescription = pre_dao.detail_prescription(pre_vo);
+		PrescriptionDTO prescription = pre_dao.patient_detail_prescription(pre_vo.getPrescription_num());
 		String url = "";
-		String pay_chk = prescription.getPayment_check();
-		
-		if(!(pay_chk.equals("1"))) {
-			System.out.println("if문");
+		String pay_chk = "0";
+		if(pay_chk.equals(prescription.getPayment_check())) {
+			System.out.println("if문"+pay_chk);
 			url="/patients/payment_form";
 		} else {
-			System.out.println("else문");
+			System.out.println("else문"+pay_chk);
 			DrLinkDTO drlinkinfo = prescriptionService.drLink_info(drlinkVO);
 			List<MedicineDTO> medi_detail = pre_dao.medicine_detail_info(prescription.getMedicine_num());
 			model.addAttribute("medi_detail",medi_detail);
@@ -160,21 +158,27 @@ public class PatientController {
 			url="/patients/detail_prescription";
 		}
 		model.addAttribute("prescription",prescription);
+		System.out.println(prescription.getDepartmentDTO().getDep_name());
 		System.out.println("controller detail_prescription 실행 완료");
 		    
 		return url+".page";
 	}
 	
+
+	@RequestMapping("invoices")
+	public String invoices(PrescriptionDTO pre_vo,Model model, MedicineDTO medi_vo,HttpSession session, DrLinkDTO drlinkVO) {
+		PrescriptionDTO prescription = pre_dao.patient_detail_prescription(pre_vo.getPrescription_num());
+		DrLinkDTO drlinkinfo = prescriptionService.drLink_info(drlinkVO);
+		List<MedicineDTO> medi_detail = pre_dao.medicine_detail_info(prescription.getMedicine_num());
+		model.addAttribute("medi_detail",medi_detail);
+		model.addAttribute("drlinkinfo",drlinkinfo);
+		model.addAttribute("prescription",prescription);
+		return "/patients/invoices.page";
+	}
+	
 	@RequestMapping(value = "/payment_success", method = RequestMethod.POST)
 	public ModelAndView payment_success(Pay_recordDTO pay, HttpSession session) {
 		ModelAndView mv = new ModelAndView("/patients/payment_success.page");
-		System.out.println("들어온 값들 "+pay.getDoctor_num());
-		System.out.println("들어온 값들 "+pay.getPatient_num());
-		System.out.println("들어온 값들 "+pay.getPayment_way());
-		System.out.println("들어온 값들 "+pay.getPrice());
-		System.out.println("들어온 값들 "+pay.getPrescription_num());
-		System.out.println("들어온 값들 "+pay.getDep_num());
-		
 		prescriptionService.payment_success(pay);
 		return mv;
 	}

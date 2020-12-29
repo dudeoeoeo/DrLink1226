@@ -91,6 +91,7 @@
 		<collection property="treatmentRecordDTO" resultMap="treatmentRecordMap"/>
 		<collection property="doctorDTO" resultMap="doctorMap"/>
 		<collection property="patientDTO" resultMap="patientMap"/>
+		<collection property="departmentDTO" resultMap="departmentMap"/>
 	</resultMap>
 	
    <!-- 김다유 : 처방전 입력-->
@@ -128,23 +129,37 @@
   	select * from medicine order by medicine_num
   </select>
   
-  <!-- 김다유 : 처방전 상세 정보 -->
+  <!-- 김다유 : (의사측) 처방전 상세 정보 -->
   <select id="detail_prescription" parameterType="prescriptionDTO" resultMap="prescriptionMap">
-	 select * 
-	from 
-		prescription p join treatment_record t on p.treatment_num=t.treatment_num
-        join dl_user u on p.patient_num = u.patient_num
-        join dl_doctor d on p.doctor_num = d.doctor_num 
-	where 
-		p.prescription_num=(SELECT max(prescription_num) FROM prescription)
+	select * 
+	from prescription p 
+	join treatment_record t on p.treatment_num=t.treatment_num
+	join dl_user u on p.patient_num = u.patient_num
+	join dl_doctor d on p.doctor_num = d.doctor_num 
+	where p.prescription_num=(SELECT max(prescription_num) FROM prescription)
+  </select>
+  
+  
+  <!-- 김다유 : (환자측) 처방전 상세 정보 -->
+  <select id="patient_detail_prescription" parameterType="int" resultMap="prescriptionMap">
+	select * 
+	from prescription a 
+	JOIN dl_doctor b ON a.doctor_num = b.doctor_num 
+	JOIN department c ON b.dep_num=c.dep_num 
+	JOIN treatment_record d on a.treatment_num = d.treatment_num
+	JOIN dl_user e on a.patient_num = e.patient_num
+	where a.prescription_num=#{prescription_num}
   </select>
   
   <!-- 김다유 : 처방기록 -->
   <select id="prescriptionRecord" parameterType="int" resultMap="prescriptionMap">
-  SELECT * FROM prescription a 
+  SELECT * 
+  FROM prescription a 
   JOIN dl_doctor b ON a.doctor_num = b.doctor_num 
   JOIN department c ON b.dep_num=c.dep_num 
-  WHERE patient_num=#{patient_num} order by a.prescription_num desc
+  JOIN treatment_record d on a.treatment_num = d.treatment_num
+  JOIN dl_user e on a.patient_num = e.patient_num
+  WHERE a.patient_num=#{patient_num} order by a.prescription_num desc
   </select>	
   
   <update id="updatePay_chk" parameterType="int">

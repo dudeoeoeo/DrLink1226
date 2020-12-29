@@ -28,6 +28,7 @@ public class PrescriptionDTO {
 	private MedicineDTO medicineDTO;
 	private DoctorDTO doctorDTO;
 	private PatientDTO patientDTO;
+	private DepartmentDTO departmentDTO;
 
 	
 	public String getPre_date() {
@@ -60,6 +61,15 @@ public class PrescriptionDTO {
 	}
 	public void setMedi_num(String medi_num) {
 		this.medi_num = medi_num;
+	}
+	
+	
+	
+	public DepartmentDTO getDepartmentDTO() {
+		return departmentDTO;
+	}
+	public void setDepartmentDTO(DepartmentDTO departmentDTO) {
+		this.departmentDTO = departmentDTO;
 	}
 	public TreatmentRecordDTO getTreatmentRecordDTO() {
 		return treatmentRecordDTO;

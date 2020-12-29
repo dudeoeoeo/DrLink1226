@@ -84,7 +84,7 @@ body {
                            <nav class="dashboard-menu">
                               <ul>
                                  <li class="active">
-                                    <a href="doctor-dashboard">
+                                    <a href="doctor_dashboard">
                                        <i class="fas fa-columns"></i>
                                        <span>마이페이지</span>
                                     </a>
@@ -120,6 +120,12 @@ body {
                                        <span>프로필 수정</span>
                                     </a>
                                  </li>
+								<li>
+                               				<a href="#">
+										<i class="fas fa-ban"></i>
+										<span>회원탈퇴</span>
+									</a>
+								</li>
                                  <li>
                                     <a href="${path}/logout">
                                        <i class="fas fa-sign-out-alt"></i>

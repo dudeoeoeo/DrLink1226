@@ -49,7 +49,7 @@
 									<nav class="dashboard-menu">
 										<ul>
 											<li class="active">
-												<a href="patient-dashboard">
+												<a href="patient_dashboard">
 													<i class="fas fa-columns"></i>
 													<span>진료확인</span>
 												</a>
@@ -67,7 +67,13 @@
 												</a>
 											</li>
 											<li>
-												<a href="logout">
+                                  				<a href="#">
+													<i class="fas fa-ban"></i>
+													<span>회원탈퇴</span>
+												</a>
+											</li>
+											<li>
+                                  				<a href="${path}/logout">
 													<i class="fas fa-sign-out-alt"></i>
 													<span>로그아웃</span>
 												</a>
@@ -94,9 +100,6 @@
 												<a class="nav-link" href="#pat_prescriptions" data-toggle="tab">처방내역</a>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link" href="#pat_medical_records" data-toggle="tab"><span class="med-records">진료내역</span></a>
-											</li>
-											<li class="nav-item">
 												<a class="nav-link" href="#pat_billing" data-toggle="tab">결제내역</a>
 											</li>
 										</ul>
@@ -116,7 +119,7 @@
 											        </c:when> 
 													<c:otherwise>
 													<div class="table-responsive">
-														<table class="table table-hover table-center mb-0">
+														<table class="table table-hover table-center mb-0 text-center">
 															<thead>
 																<tr class="text-center">
 																	<th>담당의</th>
@@ -163,16 +166,17 @@
 											        </c:when> 
 													<c:otherwise>
 													<div class="table-responsive">
-														<table class="table table-hover table-center mb-0">
+														<table class="table table-hover table-center mb-0 text-center">
 															<thead>
 																<tr class="text-center">
-																	<th>처방일자 </th>
-																	<th>처방전</th>									
-																	<th>처방의사 </th>
+																	<th>처방일자</th>									
+																	<th>처방의사</th>
+																	<th>진료과목</th>
+																	<th>진료시간</th>
 																	<th>
 																		<div class="table-action">
 																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> 출력
+																				<i class="fas fa-print"></i> 상세보기
 																			</a>
 																		</div>
 																	</th>
@@ -182,20 +186,18 @@
 															<c:forEach var="prescriptionRecord" items="${prescriptionRecord}" varStatus="status" >
 															<tr>
 																<td>${prescriptionRecord.prescription_date}</td>
-																<td>처방전 1</td>
 																<td>
 																	<h2 class="table-avatar">
 																		<a href="doctor-profile" class="avatar avatar-sm mr-2">
 																			<img class="avatar-img rounded-circle" src="${path}/resources/doctor/doctorImg/${prescriptionRecord.doctorDTO.d_photo}" alt="User Image">
 																		</a>
-																		<a href="doctor-profile">${prescriptionRecord.doctorDTO.d_name} <span>${prescriptionRecord.doctorDTO.departmentDTO.dep_name}</span></a>
+																		<a href="doctor-profile">${prescriptionRecord.doctorDTO.d_name}</a>
 																	</h2>
 																</td>
-																<td class="text-right">
+																<td>${prescriptionRecord.doctorDTO.departmentDTO.dep_name}</td>
+																<td>${prescriptionRecord.treatmentRecordDTO.monitoring_time}</td>
+																<td class="">
 																	<div class="table-action">
-																		<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																			<i class="fas fa-print"></i> Print
-																		</a>
 																		<a href="detail_prescription?prescription_num=${prescriptionRecord.prescription_num}" class="btn btn-sm bg-info-light">
 																			<i class="far fa-eye"></i> View
 																		</a>
@@ -213,63 +215,6 @@
 										</div>
 										<!-- /Prescription Tab -->
 											
-										<!-- Medical Records Tab -->
-										<div id="pat_medical_records" class="tab-pane fade">
-											<div class="card card-table mb-0">
-												<div class="card-body">
-												<c:choose>
-											        <c:when test="${empty treatmentList}">
-											        <p style="margin:10px; padding:10px;">아직 정보가 입력되지 않았습니다.</p>
-											        </c:when> 
-													<c:otherwise>
-													<div class="table-responsive">
-														<table class="table table-hover table-center mb-0">
-															<thead>
-																<tr class="text-center">
-																	<th>진료과목</th>
-																	<th>진료일 </th>
-																	<th>진료기록</th>
-																	<th>담당의</th>
-																	<th></th>
-																</tr>     
-															</thead>
-															<tbody>
-															<!-- start for -->
-															<c:forEach var="treatmentList" items="${treatmentList}" varStatus="status" >
-																<tr class="text-center">
-																	<td><a href="javascript:void(0);">${treatmentList.departmentDTO.dep_name}</a></td>
-																	<td>${treatmentList.start_treatment_time}</td>
-																	<td><a href="#">20201031_${treatmentList.patientDTO.p_name}.pdf</a></td>
-																	<td>
-																		<h2 class="table-avatar">
-																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-01.jpg" alt="User Image">
-																			</a>
-																			<a href="doctor-profile">${treatmentList.doctorDTO.d_name}<span>${treatmentList.departmentDTO.dep_name}</span></a>
-																		</h2>
-																	</td>
-																	<td class="text-right">
-																		<div class="table-action">
-																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																		</div>
-																	</td>
-																</tr>
-																</c:forEach>
-															<!--  end for -->
-															</tbody>  	
-														</table>
-													</div>
-													</c:otherwise>
-												</c:choose>	
-												</div>
-											</div>
-										</div>
-										<!-- /Medical Records Tab -->
 										
 										<!-- Billing Tab -->
 										<div id="pat_billing" class="tab-pane fade">
@@ -281,21 +226,21 @@
 											        </c:when> 
 													<c:otherwise>
 													<div class="table-responsive">
-														<table class="table table-hover table-center mb-0">
+														<table class="table table-hover table-center mb-0 text-center">
 															<thead>
 																<tr>
 																	<th>결제번호</th>
 																	<th>담당의사</th>
 																	<th>금액</th>
 																	<th>결제날짜</th>
-																	<th></th>
+																	<th>상세보기</th>
 																</tr>
 															</thead>
 															<tbody>
-																<tr>
 															<c:forEach var="payment_record" items="${payment_record}" varStatus="status" >
+																<tr>
 																	<td>
-																		<a href="invoice-view">${payment_record.pay_num}</a>
+																		<a href="invoices">${payment_record.pay_num}</a>
 																	</td>
 																	<td>
 																		<h2 class="table-avatar">
@@ -309,11 +254,8 @@
 																	<td>${payment_record.paydate}</td>
 																	<td class="text-right">
 																		<div class="table-action">
-																			<a href="invoice-view" class="btn btn-sm bg-info-light">
+																			<a href="invoices?prescription_num=${payment_record.prescription_num}" class="btn btn-sm bg-info-light">
 																				<i class="far fa-eye"></i> View
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
 																			</a>
 																		</div>
 																	</td>
