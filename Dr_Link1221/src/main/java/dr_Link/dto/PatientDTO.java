@@ -17,8 +17,27 @@ public class PatientDTO {
 	private MultipartFile file;
 	private String birth;
 	private String profileAddress;
+	private String p_retire_date;
+
 	
-	
+	public String getP_retire_date() {
+		return p_retire_date;
+	}
+	public void setP_retire_date(String p_retire_date) {
+		this.p_retire_date = p_retire_date;
+	}
+	public int getHeight() {
+		return height;
+	}
+	public void setHeight(int height) {
+		this.height = height;
+	}
+	public int getWeight() {
+		return weight;
+	}
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
 	public String getProfileAddress() {
 		String[] address = this.p_address1.split(" ");
 		String result = address[0]+", "+address[1];
@@ -124,19 +143,6 @@ public class PatientDTO {
 	}
 	public void setBloodtype(String bloodtype) {
 		this.bloodtype = bloodtype;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-	public void setHeight(int height) {
-		this.height = height;
-	}
-	public int getWeight() {
-		return weight;
-	}
-	public void setWeight(int weight) {
-		this.weight = weight;
 	}
 
 	public String getAllergy() {

@@ -100,15 +100,21 @@ public class MainController {
 	public String loginCheck(PatientDTO dto, HttpSession session, Model model) {
 		System.out.println("===> dao로 가자!");
 		PatientDTO result = patientDAO.loginCheckPatient(dto);
-		if (result == null) {
-			System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
-			model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
-			return "patient_login.page";
-		} else {
-			session.setAttribute("user", result);
-			session.setMaxInactiveInterval(30*60);
+		String retire = patientDAO.loginCheckPatient(dto).getP_retire_date();
+		if(retire == null) {
+			if (result == null) {
+				System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
+				model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
+				return "patient_login.page";
+			} else {
+				session.setAttribute("user", result);
+				session.setMaxInactiveInterval(30*60);
+				return "redirect:/";
+			}
+		}else {
+			model.addAttribute("message", "<p style='color:red'> 이미 탈퇴한 계정입니다. </p>");
 		}
-		return "redirect:/";
+		return "patient_login.page";
 	}
 
 	//환자 의사 로그아웃
@@ -125,14 +131,20 @@ public class MainController {
 	public String drloginCheck(DoctorDTO dto, HttpSession session, Model model) {
 		System.out.println("===> dao로 가자!");
 		DoctorDTO result = doctor_dao.dr_loginCheck(dto);
-		if (result == null) {
-			System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
-			model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
-			return "doctor_login.page";
-		} else {
-			session.setAttribute("doctor", result);
+		String retire = doctor_dao.dr_loginCheck(dto).getD_retire_date();
+		if(retire == null) {
+			if (result == null) {
+				System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
+				model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
+				return "doctor_login.page";
+			} else {
+				session.setAttribute("doctor", result);
+				return "redirect:/";
+			}
+		}else {
+			model.addAttribute("message", "<p style='color:red'> 이미 탈퇴한 계정입니다. </p>");
 		}
-		return "redirect:/";
+		return "doctor_login.page";
 	}
 	
 	// 환자 아이디 찾기
@@ -237,7 +249,7 @@ public class MainController {
 
 		String r_path = session.getServletContext().getRealPath("/");
 		System.out.println("r_path :"+r_path);
-		String img_path ="\\resources\\doctor\\doctorImg\\";
+		String img_path ="C:\\springsts3\\DrLink1226\\Dr_Link1221\\src\\main\\webapp\\resources\\doctor\\doctorImg\\";
 		System.out.println("img_path :"+img_path);
 		StringBuffer path = new StringBuffer();
 		path.append(r_path).append(img_path);
@@ -251,7 +263,7 @@ public class MainController {
 		//위에 3줄 이상해서 내가 추가해본다.
 
 		StringBuffer newpath = new StringBuffer();
-		newpath.append(r_path);
+		//newpath.append(r_path);
 		newpath.append(img_path);
 		newpath.append(oriFn);
 		
