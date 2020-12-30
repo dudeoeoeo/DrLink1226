@@ -135,7 +135,7 @@ function myFunction() {
 											<!-- Time Slot -->
 											<div class="time-slot">
 												<ul class="clearfix">
-												<c:forEach begin="0" end="5">
+												<c:forEach begin="0" end="6">
 													<li>
 														<a class="timing" href="#">
 															<span>9:00</span> <span>AM</span>

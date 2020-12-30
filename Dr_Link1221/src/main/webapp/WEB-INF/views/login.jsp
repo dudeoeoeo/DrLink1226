@@ -68,24 +68,24 @@
 								<div class="col-sm-6 my-auto">
 									<a class="btn btn-primary btn-outline-dark m-3 my-auto"
 										href="patient_login" role="button" rel="nofollow"
-										target="_blank">일반회원<br>로그인
+										>일반회원<br>로그인
 									</a>
 								</div>
 								<div class="col-sm-6 my-auto">
 									<a class="btn btn-primary btn-outline-dark m-3"
-										href="patient_register" target="_blank" role="button">일반회원<br>회원가입
+										href="patient_register" role="button">일반회원<br>회원가입
 									</a>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-6 my-auto">
 									<a class="btn btn-primary btn-outline-dark m-3"
-										href="doctor_login" target="_blank" role="button">의사회원<br>로그인
+										href="doctor_login" role="button">의사회원<br>로그인
 									</a>
 								</div>
 								<div class="col-sm-6 my-auto">
 									<a class="btn btn-primary btn-outline-dark m-3"
-										href="doctor_verify" target="_blank" role="button">의사회원<br>회원가입
+										href="doctor_verify" role="button">의사회원<br>회원가입
 									</a>
 								</div>
 							</div>

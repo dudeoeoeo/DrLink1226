@@ -77,9 +77,8 @@ public class BookingController {
 
 //		[["2020-12-12","월요일"],,,,]
 		if (request.getParameter("week") == null) {
+			//오늘 날짜 담겨 있음
 			temp1.add(mSimpleDateFormat.format(cal.getTime()));
-			System.out.println(mSimpleDateFormat.format(cal.getTime()));
-			System.out.println(dayOfWeek(cal.get(Calendar.DAY_OF_WEEK)));
 			temp1.add(dayOfWeek(cal.get(Calendar.DAY_OF_WEEK)));
 			week.add(temp1);
 			for (int i = 0; i < 6; i++) {
