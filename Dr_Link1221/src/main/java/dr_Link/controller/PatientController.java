@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dr_Link.booking.BookingDTO;
 import dr_Link.booking.BookingService;
@@ -61,10 +62,10 @@ public class PatientController {
 	}
 	
 	@RequestMapping("doctor_profile")
-	public String doctor_profile(HttpServletRequest request, Model model) {
-		DoctorDTO doctor_profile = doctorProfileDAO.doctor_info(Integer.parseInt(request.getParameter("doctor_num")));
-		model.addAttribute("doctor_profile",doctor_profile);
-		return "redirect:/doctor_profile.page";
+	public String doctor_profile(HttpServletRequest request, Model model, RedirectAttributes re) {
+		int doctor_num = Integer.parseInt(request.getParameter("doctor_num"));
+		re.addFlashAttribute("doctor_num", doctor_num);
+		return "redirect:/doctor_profile";
 	}
 	
 	@RequestMapping("updatePatient")
@@ -175,11 +176,14 @@ public class PatientController {
 	@RequestMapping("invoices")
 	public String invoices(PrescriptionDTO pre_vo,Model model, MedicineDTO medi_vo,HttpSession session, DrLinkDTO drlinkVO) {
 		PrescriptionDTO prescription = pre_dao.patient_detail_prescription(pre_vo.getPrescription_num());
+		Pay_recordDTO payrec = pre_dao.pay_record(pre_vo.getPrescription_num());
 		DrLinkDTO drlinkinfo = prescriptionService.drLink_info(drlinkVO);
 		List<MedicineDTO> medi_detail = pre_dao.medicine_detail_info(prescription.getMedicine_num());
+		System.out.println(payrec.getPaydate());
 		model.addAttribute("medi_detail",medi_detail);
 		model.addAttribute("drlinkinfo",drlinkinfo);
 		model.addAttribute("prescription",prescription);
+		model.addAttribute("payrec",payrec);
 		return "/patients/invoices.page";
 	}
 	

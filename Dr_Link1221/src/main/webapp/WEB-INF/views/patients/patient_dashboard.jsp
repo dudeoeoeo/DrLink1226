@@ -123,11 +123,9 @@
 																<tr class="text-center">
 																	<td>
 																		<h2 class="table-avatar">
-																			<img
-																				class="avatar-img rounded-circle avatar avatar-sm mr-2"
-																				src="${path}/resources/doctor/doctorImg/${bookingList.doctorDTO.d_photo}"
-																				alt="User Image"> <a
-																				href="doctor_profile?doctor_num=${bookingList.doctorDTO.doctor_num}">Dr.
+																			<img class="avatar-img rounded-circle avatar avatar-sm mr-2" src="${path}/resources/doctor/doctorImg/${bookingList.doctorDTO.d_photo}"
+																				alt="User Image"> 
+																				<a href="doctor_profile?doctor_num=${bookingList.doctorDTO.doctor_num}">Dr.
 																				${bookingList.doctorDTO.d_name } <span>${bookingList.departmentDTO.dep_name }</span>
 																			</a>
 																		</h2>
@@ -182,11 +180,11 @@
 																				class="avatar-img rounded-circle avatar avatar-sm mr-2"
 																				src="${path}/resources/doctor/doctorImg/${prescriptionRecord.doctorDTO.d_photo}"
 																				alt="User Image"> <a
-																				href="doctor_profile?doctor_num=${prescriptionRecord.doctorDTO.d_name}">${prescriptionRecord.doctorDTO.d_name}</a>
+																				href="doctor_profile?doctor_num=${prescriptionRecord.doctorDTO.doctor_num}">${prescriptionRecord.doctorDTO.d_name}</a>
 																		</h2>
 																	</td>
 																	<td>${prescriptionRecord.doctorDTO.departmentDTO.dep_name}</td>
-																	<td>${prescriptionRecord.treatmentRecordDTO.monitoring_time}</td>
+																	<td>${prescriptionRecord.treatmentRecordDTO.monitoring_time} 분</td>
 																	<td class="">
 																		<div class="table-action">
 																			<a
@@ -245,7 +243,9 @@
 																				href="doctor-profile?doctor_num=${payment_record.doctorDTO.d_name}">${payment_record.doctorDTO.d_name}<span>${payment_record.departmentDTO.dep_name}</span></a>
 																		</h2>
 																	</td>
-																	<td>${payment_record.price}</td>
+																	<fmt:parseNumber var="real_price" value="${payment_record.price}" integerOnly="true" />
+																	<fmt:formatNumber type="number" maxFractionDigits="3" value="${real_price}" var="commaPrice" />
+																	<td>${commaPrice}</td>
 																	<td>${payment_record.paydate}</td>
 																	<td class="text-right">
 																		<div class="table-action">

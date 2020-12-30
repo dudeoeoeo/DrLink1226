@@ -22,4 +22,5 @@ public interface PrescriptionDaoInter {
 	public void updatePayment_check(int prescription_num);
 	public void insertPayment_record(Pay_recordDTO pay);
 	public DrLinkDTO drLink_info(DrLinkDTO vo);
+	public Pay_recordDTO pay_record (int prescription_num);
 }

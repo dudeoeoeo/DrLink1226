@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+ <configuration>
+    <typeAliases>
+       <typeAlias type="dr_Link.doctorProfile.DoctorDTO" alias="doctorDTO"/>
+       <typeAlias type="dr_Link.dto.MedicineDTO" alias="medicineDTO"/>
+       <typeAlias type="dr_Link.dto.PatientDTO" alias="patientDTO"/>
+       <typeAlias type="dr_Link.prescription.PrescriptionDTO" alias="prescriptionDTO"/>
+       <typeAlias type="dr_Link.dto.TreatmentRecordDTO" alias="treatmentRecordDTO"/>
+       <typeAlias type="dr_Link.dto.SearchDTO" alias="searchDTO"/>
+       <typeAlias type="dr_Link.booking.BookingDTO" alias="bookingDTO"/>
+       <typeAlias type="dr_Link.review.Doc_ReviewDTO" alias="doc_ReviewDTO"/>
+       <typeAlias type="dr_Link.dto.DepartmentDTO" alias="departmentDTO"/>
+       <typeAlias type="dr_Link.dto.PageDTO" alias="PageDTO"/>
+       <typeAlias type="dr_Link.dto.DrLinkDTO" alias="drLinkDTO"/>
+       <typeAlias type="dr_Link.dto.Pay_recordDTO" alias="pay_recordDTO"/>
+       <typeAlias type="dr_Link.dto.AppointmentDTO" alias="appointmentDTO"/>
+       <typeAlias type="dr_Link.dto.Hospital_boardDTO" alias="h_boardDTO"/>
+       <typeAlias type="dr_Link.dto.NewsDTO" alias="newsDTO"/>
+       <typeAlias type="dr_Link.dto.NewsReplDTO" alias="newsReplDTO"/>
+    </typeAliases>
+ </configuration>

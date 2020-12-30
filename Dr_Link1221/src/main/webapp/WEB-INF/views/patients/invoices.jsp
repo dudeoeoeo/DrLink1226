@@ -38,7 +38,7 @@
 								<div class="col-md-6">
 									<p class="invoice-details">
 										<strong>영수증 번호:</strong> #00${prescription.prescription_num} <br>
-										<strong>결제일:</strong> ${prescription.prescription_date}
+										<strong>결제일:</strong> ${payrec.paydate}
 									</p>
 								</div>
 							</div>

@@ -90,4 +90,9 @@ public class PrescriptionDaoImp implements PrescriptionDaoInter {
     public DrLinkDTO drLink_info(DrLinkDTO vo) {
        return ss.selectOne("prescription.drLink_info",vo);
     }
+
+	@Override
+	public Pay_recordDTO pay_record(int prescription_num) {
+		return ss.selectOne("prescription.patient_detail_payment",prescription_num);
+	}
 }

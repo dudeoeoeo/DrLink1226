@@ -2,13 +2,17 @@ package dr_Link.doctorProfile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import dr_Link.review.ReviewService;
 
@@ -22,12 +26,18 @@ public class DoctorProfileController {
 	private ReviewService reviewService;
 	
 	@RequestMapping(value = "doctor_profile")
-	public String doctor_profile(HttpServletRequest request, DoctorDTO vo, Model model) {
-		
+	public String doctor_profile(HttpServletRequest request, DoctorDTO vo, Model model, ModelMap modelMap) {
+	    
 	  try {
-		
+		  Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(request);  
+		  DoctorDTO doctor_profile = new DoctorDTO();  
 	 //의사번호를 던져서 가져온 값을 doctor_profile에 저장 후 model 에 담아 jsp 전송
-	  DoctorDTO doctor_profile = doctorProfileDAO.doctor_info(Integer.parseInt(request.getParameter("doctor_num")));
+		  if( redirectMap  != null ){
+			  doctor_profile = doctorProfileDAO.doctor_info((int)redirectMap.get("doctor_num"));  // 오브젝트 타입이라 캐스팅해줌
+		  } else if (request.getParameter("doctor_num") != null) {
+			  doctor_profile = doctorProfileDAO.doctor_info(Integer.parseInt(request.getParameter("doctor_num")));
+		  }
+	  
 	  model.addAttribute("doctor_profile",doctor_profile);
 	  
 	  //db에서 가져온 값이 "a,b,c,"로 되어 있어서 split 후 배열에 담아 model 로 보내는 처리
@@ -55,6 +65,8 @@ public class DoctorProfileController {
 	  
 	  } catch (NullPointerException e) {
 	  
+	  } catch (Exception e) {
+		  e.printStackTrace();
 	  }
 		 
 		return "doctor_profile.page";

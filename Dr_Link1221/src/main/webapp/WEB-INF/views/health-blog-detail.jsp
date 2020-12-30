@@ -250,28 +250,29 @@
          }) // click
          
          $('.comment-btn').click(function(){
-            
+        	if(checkLogin()) {
             // 어떤 요청인지 체크
             do_text = $(this).find('span').text();
             // 수정일 시 textarea에 채울 내용
             var comment_text = $(this).parents('div.comment-block').find('p.blog_repl_comment').text();
             // 현재 댓글 번호
             repl_num = $(this).parent('div').find('input[name="repl_num"]').val();
-            alert("a태그 눌렀을떄 repl_num: " + repl_num);
+            //alert("a태그 눌렀을떄 repl_num: " + repl_num);
             if( do_text == '수정') {
-               $('div#leave_comment').toggle();
+               $('div#leave_comment').css('display','block');
                $('#comments_box').text(comment_text);
             } else if ( do_text == '삭제' ) {
                if(confirm("정말 삭제하시겠습니까 ?")) {
                   delete_repl(repl_num, do_text, b_num);
                }
             } else {
-               $('div#leave_comment').toggle();
+               $('div#leave_comment').css('display','block');
                if($(this).find('input[name="repl_num"]').val() != null) {
                   repl_num = $(this).find('input[name="repl_num"]').val();                   
                }
                $('#comments_box').text("");
             }
+             }
             //alert("리플: "+ repl_num);
          }); // click
          
@@ -308,10 +309,11 @@
       }); // ready
       
    function checkLogin() {
-         var uid = '${sessionScope.user}';
-         var did = '${sessionScope.doctor}';
+         var uid = '${sessionScope.user.p_name}';
+         var did = '${sessionScope.doctor.d_name}';
          var flag = false;
-         if (uid == "" || did == "") {
+         
+         if (uid == null && did == null) {
             if(confirm("로그인이 필요한 서비스입니다. \n로그인 페이지로 이동하시겠습니까 ?")) {
                document.location.href="login";
             }

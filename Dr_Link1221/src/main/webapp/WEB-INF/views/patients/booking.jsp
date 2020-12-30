@@ -114,7 +114,7 @@ function myFunction() {
 												<ul>
 												<c:forEach var="week" items="${week}">
 													<li>
-														<span>${week[1]}</span>
+														<span>${week[1] }</span>
 														<span class="slot-date">${week[0]}</span>
 													</li>
 												</c:forEach>
@@ -135,7 +135,6 @@ function myFunction() {
 											<!-- Time Slot -->
 											<div class="time-slot">
 												<ul class="clearfix">
-												<c:forEach begin="0" end="6">
 													<li>
 														<a class="timing" href="#">
 															<span>9:00</span> <span>AM</span>
@@ -159,7 +158,144 @@ function myFunction() {
 															<span>16:00</span> <span>PM</span>
 														</a>
 													</li>
-												</c:forEach>
+													<li>
+														<a class="timing" href="#">
+															<span>9:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>10:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>11:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>12:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>14:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>15:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>16:00</span> <span>PM</span>
+														</a>
+													</li>
+													<li>
+														<a class="timing" href="#">
+															<span>9:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>10:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>11:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>12:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>14:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>15:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>16:00</span> <span>PM</span>
+														</a>
+													</li>
+													<li>
+														<a class="timing" href="#">
+															<span>9:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>10:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>11:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>12:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>14:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>15:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>16:00</span> <span>PM</span>
+														</a>
+													</li>
+													<li>
+														<a class="timing" href="#">
+															<span>9:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>10:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>11:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>12:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>14:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>15:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>16:00</span> <span>PM</span>
+														</a>
+													</li>
+													<li>
+														<a class="timing" href="#">
+															<span>9:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>10:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>11:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>12:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>14:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>15:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>16:00</span> <span>PM</span>
+														</a>
+													</li>
+													<li>
+														<a class="timing" href="#">
+															<span>9:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>10:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>11:00</span> <span>AM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>12:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>14:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>15:00</span> <span>PM</span>
+														</a>
+														<a class="timing" href="#">
+															<span>16:00</span> <span>PM</span>
+														</a>
+													</li>
 												</ul>
 											</div>
 											<!-- /Time Slot -->

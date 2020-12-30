@@ -86,7 +86,7 @@
 						<div class="col-lg-4 col-md-12 sidebar-right theiaStickySidebar">
 
 							<!-- Search -->
-							<div class="card search-widget">
+							<!-- <div class="card search-widget">
 								<div class="card-body">
 									<form class="search-form">
 										<div class="input-group">
@@ -97,7 +97,7 @@
 										</div>
 									</form>
 								</div>
-							</div>
+							</div> -->
 							<!-- /Search -->
 						</div>
 						<!-- /Blog Sidebar -->

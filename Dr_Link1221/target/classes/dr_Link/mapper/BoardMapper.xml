@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="board">
+  
+  <insert id="add" parameterType="h_boardDTO">
+  	insert into member_aop values(MEMBER_AOP_SEQ.nextval, #{id}, #{pwd}, #{name}, sysdate)
+  </insert>
+  
+  <select id="boardDetail" parameterType="int" resultType="h_boardDTO">
+  	select * from hospital_board where hospital_board_num=#{h_b_num}
+  </select>
+  
+  <select id="boardList" resultType="h_boardDTO">
+  	SELECT ROW_NUMBER() over (order by h.hospital_board_num) row_num, h.* 
+  	from hospital_board h where rownum between 1 and 10 order by h.hospital_board_num desc
+  </select>
+  
+  <select id="boardListPage" parameterType="int" resultType="h_boardDTO">
+  select hh.* from
+(SELECT h.*, ROWNUM as rnum FROM ( SELECT * from hospital_board ORDER BY hospital_board_num) h) hh 
+WHERE rnum between #{start} and #{end}
+  </select>
+  
+  <update id="plusCnt" parameterType="int">
+  	update hospital_board set h_watched = h_watched+1 where hospital_board_num=#{h_b_num}   
+  </update>
+  
+    <select id="getCnt" resultType="int">
+        select count(*) from hospital_board
+    </select>
+  
+   <select id="getAll" resultType="h_boardDTO">
+  select hh.* from
+	(SELECT  COUNT(*) OVER () getCnt, h.*, ROWNUM as rnum FROM ( SELECT * from hospital_board ORDER BY hospital_board_num) h) hh 
+	WHERE rnum between 1 and 20
+  </select>
+  
+  <select id="getAllNewsBoards" parameterType="int" resultType="newsDTO">
+  	select nb.* from
+	(SELECT COUNT(*) OVER () getCnt, n.*, ROWNUM as rnum FROM ( SELECT * from news_board ORDER BY news_board_num) n) nb 
+	WHERE rnum
+	<choose>
+	<when test="start gt 0"> between #{start} and #{end}</when>
+	<otherwise> between 1 and 4 </otherwise>
+	</choose>
+	order by news_board_num desc
+  </select>
+  
+  <select id="getNewsBoardsDetail" parameterType="int" resultType="newsDTO">
+  	SELECT getCnt, nb.*  FROM ( SELECT COUNT(*) getCnt from news_repl where news_board_num = #{b_num} ) nr, 
+  	news_board nb WHERE news_board_num = #{b_num}
+  </select>
+	
+<resultMap type="patientDTO" id="patientResult">
+	<id property="patient_num" column="patient_num" javaType="int"/>
+	<result property="p_name" column="p_name"/>
+	<result property="bloodtype" column="bloodtype"/>
+	<result property="allergy" column="allergy"/>
+	<result property="p_photo" column="p_photo"/>
+	<result property="p_gender" column="p_gender"/>
+	<result property="p_jumin_num" column="p_jumin_num"/>
+	<result property="p_address" column="p_address"/>
+	<result property="p_email" column="p_email"/>
+	<result property="p_phone_num" column="p_phone_num"/>
+</resultMap>
+
+<resultMap type="doctorDTO" id="doctorResult">
+	<id property="doctor_num" column="doctor_num" javaType="int"/>
+	<result property="d_name" column="d_name"/>
+	<result property="d_jumin_num" column="d_jumin_num"/>
+	<result property="d_phone_num" column="d_phone_num"/>
+	<result property="d_email" column="d_email"/>
+	<result column="dep_num" property="dep_num" />
+	<result property="d_gender" column="d_gender"/>
+</resultMap>
+
+<resultMap type="departmentDTO" id="departResult">
+	<id property="dep_num" column="dep_num" javaType="int"/>
+	<result property="dep_name" column="dep_name"/>
+</resultMap>
+
+	
+<resultMap type="newsReplDTO" id="news_replResult">
+	<id property="news_reply_num" column="news_reply_num" javaType="int"/>
+	<result property="news_reply_num" column="news_reply_num"/>
+	<result property="news_repl_comment" column="news_repl_comment"/>
+	<result property="n_repl_date" column="n_repl_date"/>
+	<result property="n_comments_num" column="n_comments_num"/>
+	<collection property="patients" javaType="java.util.List" resultMap="patientResult" ofType="patientDTO"/>
+	<collection property="doctors" javaType="java.util.List" resultMap="doctorResult" ofType="doctorDTO"/>
+</resultMap>
+
+<select id="news_replList" parameterType="int" 
+resultMap="news_replResult">
+
+select nr.news_reply_num news_reply_num, nr.news_repl_comment news_repl_comment, nr.n_repl_date n_repl_date, nr.n_comments_num n_comments_num, 
+p.p_name p_name, p.patient_num patient_num, d.d_name d_name, d.doctor_num doctor_num
+from dl_user p, news_repl nr, dl_doctor d 
+where p.patient_num(+) = nr.patient_num AND d.doctor_num(+) = nr.doctor_num AND nr.news_board_num = #{news_board_num} 
+order by nr.news_reply_num
+
+</select>
+ 
+ <select id="select_repl" parameterType="int" resultType="newsReplDTO">
+ 	select * from news_repl where news_reply_num = #{news_reply_num}
+ </select>
+ 
+ <insert id="insert_repl" parameterType="newsReplDTO">
+	insert into news_repl values (#{news_board_num}, news_board_repl_num.nextval, 
+	<if test="patient_num == 0"> null, #{doctor_num}, #{news_repl_comment}, sysdate, #{n_comments_num} ) </if>
+	<if test="doctor_num == 0">  #{patient_num}, null, #{news_repl_comment}, sysdate, #{n_comments_num} ) </if>	
+ </insert>
+ 
+ <update id="update_repl" parameterType="newsReplDTO">
+ 	update news_repl set news_repl_comment = #{news_repl_comment} where news_reply_num = #{news_reply_num} 
+ </update>
+ 
+ <delete id="delete_repl" parameterType="newsReplDTO">
+ 	delete news_repl where news_reply_num = #{news_reply_num} 
+ </delete>
+ 
+</mapper>
