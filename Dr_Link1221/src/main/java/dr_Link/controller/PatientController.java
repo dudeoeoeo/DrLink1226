@@ -2,25 +2,27 @@ package dr_Link.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dr_Link.booking.BookingDTO;
 import dr_Link.booking.BookingService;
-import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.doctorProfile.DoctorProfileDAO;
 import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
@@ -186,14 +188,66 @@ public class PatientController {
 		model.addAttribute("payrec",payrec);
 		return "/patients/invoices.page";
 	}
-	
-	/* 김다유 : 환자 비밀번호 변경 페이지 이동 성민오빠 여기서 해주세요!!!!*/
-	@RequestMapping("patient_change_password")
-	public String patient_dashboard_change(HttpSession session, Model model) {
+
+	//김성민 : 환자 비밀번호 변경 페이지
+	@RequestMapping(value = "/patient_change_password")
+	public String patient_change_password(PatientDTO vo, Model model, HttpSession session) {
 		int patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
 		PatientDTO patient_profile = patientService.getPatientDTO(patient_num);
-		model.addAttribute("patient_profile", patient_profile);
+		model.addAttribute("patient_profile",patient_profile);
+		
 		return "/patients/patient_change_password.page";
+	}
+
+
+	// 환자 비밀번호 변경 전 비번확인(ajax)
+	@RequestMapping(value = "/patient_check_pwd")
+	@ResponseBody
+	public Map<String, Integer> patient_check_pwd(@RequestParam("old_pwd") int old_pwd, HttpSession session) {
+		PatientDTO pt = new PatientDTO();
+		int result = 0;
+		try {
+			PatientDTO pp = (PatientDTO)session.getAttribute("user");
+			System.out.println("pp: "+pp.getP_id());
+			pt.setP_id(pp.getP_id());
+			pt.setP_pwd(Integer.toString(old_pwd));
+			result = patientDaoInter.patient_check_pwd(pt);
+			System.out.println("가져온 result: "+ result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("success", result);
+		System.out.println("+++++++++++++++++++++++++++++++++++++");
+		return map;
+	}
+	
+	//김성민 : 환자 비번 변경
+	@RequestMapping(value = "/patientChangePwd", method = RequestMethod.POST)
+	public ModelAndView patientChangePwd(PatientDTO dto, String old_pwd, HttpSession session, Model model) {
+		ModelAndView mv = new ModelAndView("/patients/patient_change_password.page");
+		//String patient_pwd = ((PatientDTO) session.getAttribute("user")).getP_pwd();
+		String patient_id = ((PatientDTO) session.getAttribute("user")).getP_id();
+		dto.setP_id(patient_id);
+		patientDaoInter.update_patientpwd(dto);
+		System.out.println("비번변경 기능 들어왓는가?");
+		System.out.println("id :"+patient_id);
+		
+		return mv;
+	}
+	
+	// 김성민 : 환자 회원 탈퇴
+	@RequestMapping(value = "/patientDeleteAccount")
+	public String patientDeleteAccount(PatientDTO vo, Model model, HttpSession session) {
+		String patient_pwd = ((PatientDTO) session.getAttribute("user")).getP_pwd();
+		int patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
+		System.out.println(patient_num+"patient_num");
+		System.out.println(patient_pwd+"patient_pwd");
+		PatientDTO patient_profile = patientService.getPatientDTO(patient_num);
+		model.addAttribute("patient_profile",patient_profile);
+		model.addAttribute("patient_pwd",patient_pwd);
+		
+		return "/patients/patient_delete_account.page";
 	}
 	
 	

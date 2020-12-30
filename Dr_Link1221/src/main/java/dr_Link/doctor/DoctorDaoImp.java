@@ -1,6 +1,6 @@
 package dr_Link.doctor;
 
-import java.util.HashMap; 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,10 +10,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dr_Link.doctorProfile.DoctorDTO;
-import dr_Link.dto.PageDTO;
 import dr_Link.dto.AppointmentDTO;
+import dr_Link.dto.PageDTO;
 import dr_Link.dto.TreatmentRecordDTO;
-import dr_Link.prescription.PrescriptionDTO;
 import dr_Link.review.Doc_ReviewDTO;
 
 @Repository("doctorDaoInter")
@@ -136,9 +135,14 @@ public class DoctorDaoImp implements DoctorDaoInter {
 		return ss.update("doctor.update_pw", dto);
 	}
 	
-	// 비밀번호 변셩
+	// 비밀번호 변경
 	public int update_doctorpwd(DoctorDTO dto) {
 		return ss.update("doctor.update_doctorpwd", dto);
+	}
+	
+	//비밀번호 인증 검사(ajax)
+	public int doctor_check_pwd(DoctorDTO dto) {
+		return ss.selectOne("doctor.pwdCheck", dto);
 	}
 	
 	// 이메일 검사

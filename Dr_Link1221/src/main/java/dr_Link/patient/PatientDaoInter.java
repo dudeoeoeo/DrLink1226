@@ -46,6 +46,9 @@ public interface PatientDaoInter {
 	
 	// 비밀번호 변경
 	public int update_patientpwd(PatientDTO dto);
+
+	//비밀번호 인증 검사(ajax)
+	public int patient_check_pwd(PatientDTO dto);
 	
 	// 이메일 검사
 	public PatientDTO emailCheck(String id) throws Exception;

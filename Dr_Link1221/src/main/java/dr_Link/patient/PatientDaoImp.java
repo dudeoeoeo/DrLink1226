@@ -70,6 +70,11 @@ public class PatientDaoImp implements PatientDaoInter{
 		return ss.update("patient.update_patientpwd", dto);
 	}
 	
+	//비밀번호 인증 검사(ajax)
+	public int patient_check_pwd(PatientDTO dto) {
+		return ss.selectOne("patient.pwdCheck", dto);
+	}
+	
 	// 이메일 검사
 	public PatientDTO emailCheck(String id) throws Exception{
 		System.out.println("emailCheck 다오 임플까지옴");

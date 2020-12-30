@@ -7,7 +7,6 @@ import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.dto.AppointmentDTO;
 import dr_Link.dto.PageDTO;
 import dr_Link.dto.TreatmentRecordDTO;
-import dr_Link.prescription.PrescriptionDTO;
 import dr_Link.review.Doc_ReviewDTO;
 
 public interface DoctorDaoInter {
@@ -64,6 +63,9 @@ public interface DoctorDaoInter {
 	
 	// 비밀번호 변경
 	public int update_doctorpwd(DoctorDTO dto);
+	
+	//비밀번호 인증 검사(ajax)
+	public int doctor_check_pwd(DoctorDTO dto);
 
 	// 이메일 검사
 	public DoctorDTO emailCheck(String id) throws Exception;

@@ -28,44 +28,36 @@
 		<![endif]-->
 	<script>
 
-	$(function(){
-		$(".noticemessage").append($(".flag").val());
-		
-	});
-	
-
-	
-	$(function(){ 
-		$('#old_pwd').blur(function(){
-			var old_d_pwd = ${doctorinfo.d_pwd};
-			var checked_old_pwd = $("#old_pwd").val(); 
-			if(old_d_pwd == checked_old_pwd){
-				
-			}else{
-				$("#old_pwd_check").text("기존 비밀번호와 다릅니다.");
-				$('#old_pwd_check').css('color', 'red');
-	    	    $('#old_pwd').val('');
-	         	$('#old_pwd').focus();
-			}
-		});
-	});
 	//비밀번호 유효성 및 중복확인
-	$(function(){ 
-		$('#d_pwd').blur(function(){
-			var chg_pwd = $("#d_pwd").val(); 
-			var old_pwd = "${doctorinfo.d_pwd}";
-			if(old_pwd == chg_pwd){
-				$("#old_pwd_check").text("이전과 같은 비밀번호 입니다.");
-				$('#old_pwd_check').css('color', 'red');
-	    	    $('#d_pwd').val('');
-	         	$('#d_pwd').focus();
-		      }else{
-				$("#old_pwd_check").text("");
-		 	  }
+ 	$(function(){ 
+		$('#old_pwd').blur(function() {
+			$.ajax({
+				url : "doctor_check_pwd",
+				dataType:'json',
+				async: false,
+				type : "POST",
+				data : {
+					old_pwd : $("#old_pwd").val()
+				},
+				success : function(result) {
+					if (result.success > 0) {
+						console.log("result: "+result.success)
+						$("#old_pwd_check").text("");
+						$("#pwd_ch").val("비밀번호가 같습니다");
+						$("#submit-btn").removeAttr("disabled");
+					} else {
+						$("#submit-btn").attr("disabled", "disabled");
+						$("#old_pwd_check").text("기존 비밀번호와 다릅니다.");
+						$('#old_pwd_check').css('color', 'red');
+			         	return;
+					}
+				},error : function(e) {
+					console.log(e)
+				}
+			})
 		});
-	});
-	
-	$(function(){ 
+		
+	//비밀번호 유효성 및 중복확인
 		$('#d_pwd2').blur(function(){
 			var getPwd = RegExp(/^[a-zA-z0-9]{4,12}$/);
 			if(!getPwd.test($("#d_pwd2").val())){
@@ -79,13 +71,19 @@
 				$('#pwd_check').css('color', 'red');
 	    	    $('#d_pwd2').val('');
 	         	$('#d_pwd2').focus();
+		      }else if($("#old_pwd").val() == $("#d_pwd").val()){
+				$("#submit-btn").attr("disabled", "disabled");
+				$("#pwd_check").text("이전과 같은 비밀번호 입니다.");
+				$('#pwd_check').css('color', 'red');
+	    	    $('#d_pwd').val('');
+	         	$('#d_pwd').focus();
 		      }else{
-				$("#pwd_check").text("비밀번호가 일치합니다.");
+				$("#submit-btn").removeAttr("disabled");
+				$("#pwd_check").text("비밀번호가 알맞습니다.");
 				$('#pwd_check').css('color', 'green');
 		 	  }
 		});
 	});
-	
 	</script>
 	</head>
 	<body>
@@ -210,7 +208,7 @@
 													<div class="check_font" id="pwd_check"></div>
 												</div>
 												<div class="submit-section">
-													<button type="submit" class="btn btn-primary submit-btn">비밀번호 변경</button>
+													<button type="submit" id="submit-btn" class="btn btn-primary submit-btn">비밀번호 변경</button>
 												</div>
 											</form>
 											<!-- /Change Password Form -->

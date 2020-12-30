@@ -149,6 +149,7 @@
 				         	$('#d_pwd2').focus();
 				      	}
 				   }else{
+						$("#submit-btn").removeAttr("disabled");
 						$("#pwd_check").text("비밀번호가 일치합니다.");
 						$('#pwd_check').css('color', 'green');
 				   }
@@ -167,6 +168,7 @@
 				         	$('#d_pwd2').focus();
 				      	}
 				   }else{
+						$("#submit-btn").removeAttr("disabled");
 						$("#pwd_check").text("비밀번호가 일치합니다.");
 						$('#pwd_check').css('color', 'green');
 				   }
@@ -333,7 +335,7 @@
 											<div class="col-12 col-md-6">
 												<div class="form-group">
 													<label>주민번호<span class="text-danger">*</span></label>
-													<input type="text" class="form-control" value="9111111111111" name="d_jumin_num" id="d_jumin_num"  maxlength="13" placeholder="'-' 없이 번호만 입력해주세요." required />
+													<input type="text" class="form-control" value="" name="d_jumin_num" id="d_jumin_num"  maxlength="13" placeholder="'-' 없이 번호만 입력해주세요." required />
 													<div class="check_font" id="jumin_check"></div>
 												</div>
 											</div>

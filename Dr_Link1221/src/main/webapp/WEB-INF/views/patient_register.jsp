@@ -88,11 +88,9 @@
 					})}
 
 				});
-			});
 			
 
 			//이메일 유효성
-			$(function(){ 
 				$("#p_email").blur(function() {
 					var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[a-z\-]+/);
 				    if(!getMail.test($("#p_email").val())){
@@ -121,13 +119,11 @@
 								},
 							})}
 				});
-			});
 					
 					
 			
 			
 			//비밀번호 유효성 및 중복확인
-			$(function(){ 
 				$('#p_pwd2').blur(function(){
 					var getPwd = RegExp(/^[a-zA-z0-9]{4,12}$/);
 					if(!getPwd.test($("#p_pwd2").val())){
@@ -148,12 +144,12 @@
 				         	$('#p_pwd2').focus();
 				      	}
 				   }else{
+						$("#submit-btn").removeAttr("disabled");
 						$("#pwd_check").text("비밀번호가 일치합니다.");
 						$('#pwd_check').css('color', 'green');
 				   }
 
 					}	
-				});
 
 				
 				$('#p_pwd').blur(function(){
@@ -166,6 +162,7 @@
 				         	$('#p_pwd2').focus();
 				      	}
 				   }else{
+						$("#submit-btn").removeAttr("disabled");
 						$("#pwd_check").text("비밀번호가 일치합니다.");
 						$('#pwd_check').css('color', 'green');
 				   }
@@ -225,7 +222,6 @@
 			
 			
 			//주민번호 유효성
-			$(function(){ 
 				$('#p_jumin_num').blur(function(){
 				    var jumins3 = $("#p_jumin_num").val();
 				      //주민등록번호 생년월일 전달
@@ -299,6 +295,7 @@
 						$("#phone_check").text("휴대폰번호를 정확히 입력해 주세요.");
 						$('#phone_check').css('color', 'red');
 				        $("#p_phone_num").focus();
+					     return;
 					}
 					else if ($("#p_phone_num").val() == "" || $("#p_phone_num").val().length != 11 || isNaN($("#p_phone_num").val())) {
 						$("#phone_check").text("휴대폰번호를 정확히 입력해 주세요.");
@@ -414,7 +411,7 @@ label{
 											<div class="col-12 col-md-6">
 												<div class="form-group">
 													<label>주민번호<span class="text-danger">*</span></label>
-													<input type="text" class="form-control" value="9111111111111" name="p_jumin_num" id="p_jumin_num"  maxlength="13" placeholder="'-' 없이 번호만 입력해주세요." required />
+													<input type="text" class="form-control" value="" name="p_jumin_num" id="p_jumin_num"  maxlength="13" placeholder="'-' 없이 번호만 입력해주세요." required />
 													<div class="check_font" id="jumin_check"></div>
 												</div>
 											</div>

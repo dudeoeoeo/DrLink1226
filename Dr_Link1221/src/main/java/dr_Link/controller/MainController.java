@@ -25,21 +25,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import dr_Link.doctor.DoctorDaoImp;
 import dr_Link.doctor.DoctorDaoInter;
-import dr_Link.doctor.DoctorServiceImpl;
 import dr_Link.doctor.DoctorServiceInter;
 import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.doctorProfile.DoctorProfileDAO;
 import dr_Link.dto.Hospital_boardDTO;
+import dr_Link.dto.NewsDTO;
+import dr_Link.dto.NewsReplDTO;
 import dr_Link.dto.PageDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.main.MainDaoInter;
 import dr_Link.patient.PatientDaoInter;
-import dr_Link.patient.PatientServiceImpl;
 import dr_Link.patient.PatientServiceInter;
-import dr_Link.dto.NewsDTO;
-import dr_Link.dto.NewsReplDTO;
 
 @Controller
 public class MainController {
@@ -96,29 +93,25 @@ public class MainController {
 		return "main.page";
 	}
 
-	// 환자 로그인 체크
+	//환자 로그인 체크
 	@RequestMapping(value = "loginCheck")
 	public String loginCheck(PatientDTO dto, HttpSession session, Model model) {
 		System.out.println("===> dao로 가자!");
 		PatientDTO result = patientDAO.loginCheckPatient(dto);
-		String retire = patientDAO.loginCheckPatient(dto).getP_retire_date();
-		if (retire == null) {
-			if (result == null) {
-				System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
-				model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
-				return "patient_login.page";
-			} else {
-				session.setAttribute("user", result);
-				session.setMaxInactiveInterval(30 * 60);
-				return "redirect:/";
-			}
-		} else {
+		if(result == null) {
+			System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
+			model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
+			return "patient_login.page";
+		} else if(result.getP_retire_date() != null) {
 			model.addAttribute("message", "<p style='color:red'> 이미 탈퇴한 계정입니다. </p>");
+			return "patient_login.page";
+		} else {
+			session.setAttribute("user", result);
+			return "redirect:/";
 		}
-		return "patient_login.page";
 	}
 
-	// 환자 의사 로그아웃
+	//환자 의사 로그아웃
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("user");
@@ -126,50 +119,44 @@ public class MainController {
 
 		return "redirect:/";
 	}
-
-	// 의사 로그인 체크
+	
+	//의사 로그인 체크
 	@RequestMapping(value = "doctorloginCheck")
 	public String drloginCheck(DoctorDTO dto, HttpSession session, Model model) {
 		System.out.println("===> dao로 가자!");
 		DoctorDTO result = doctor_dao.dr_loginCheck(dto);
-		String retire = doctor_dao.dr_loginCheck(dto).getD_retire_date();
-		if (retire == null) {
-			if (result == null) {
-				System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
-				model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
-				return "doctor_login.page";
-			} else {
-				session.setAttribute("doctor", result);
-				return "redirect:/";
-			}
-		} else {
+		if(result == null) {
+			System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
+			model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
+			return "doctor_login.page";
+		} else if(result.getD_retire_date() != null) {
 			model.addAttribute("message", "<p style='color:red'> 이미 탈퇴한 계정입니다. </p>");
+			return "doctor_login.page";
+		} else {
+			session.setAttribute("doctor", result);
+			return "redirect:/";
 		}
-		return "doctor_login.page";
 	}
-
+	
 	// 환자 아이디 찾기
 	@RequestMapping(value = "find_id.do", method = RequestMethod.POST)
-	public String find_id(HttpServletResponse response, @RequestParam("email") String email, Model md)
-			throws Exception {
+	public String find_id(HttpServletResponse response, @RequestParam("email") String email, Model md) throws Exception {
 		md.addAttribute("id", service.find_id(response, email));
 		return "patient_find_id.page";
 	}
-
+	
 	// 의사 아이디 찾기
 	@RequestMapping(value = "doctor_find_id.do", method = RequestMethod.POST)
-	public String doctor_find_id(HttpServletResponse response, @RequestParam("email") String email, Model md)
-			throws Exception {
+	public String doctor_find_id(HttpServletResponse response, @RequestParam("email") String email, Model md) throws Exception{
 		md.addAttribute("id", doctor_service.doctor_find_id(response, email));
 		return "doctor_find-id.page";
 	}
 
 	// 의사 인증번호 유효성검사
 	@RequestMapping(value = "verifyCheck", method = RequestMethod.POST)
-	public String verifyCheck(@RequestParam("d_verifynum") String d_verifynum, HttpServletResponse response,
-			Model model) throws Exception {
+	public String verifyCheck(@RequestParam("d_verifynum") String d_verifynum, HttpServletResponse response, Model model) throws Exception{
 		System.out.println("===> Mybatis 의사 인증번호 유효성검사 실행 성공인가?");
-
+		
 		int result = doctor_dao.verifyCheck(d_verifynum);
 		if (result == 0) {
 			System.out.println("인증번호가 일치하지 않습니다.");
@@ -200,35 +187,34 @@ public class MainController {
 		service.find_pw(response, dto);
 	}
 
-	// 환자 회원가입
+	//환자 회원가입
 	@RequestMapping(value = "patientInsert", method = RequestMethod.POST)
 	public ModelAndView patientInsert(PatientDTO dto, HttpServletRequest request, HttpSession session) {
 		System.out.println("회원가입 컨트롤러에 왔는가?");
 		ModelAndView mav = new ModelAndView("redirect:login");
-
-		String r_path = session.getServletContext().getRealPath("/");
+		String r_path = session.getServletContext().getRealPath("resources/patient/profileImg")+"\\";
 		System.out.println("r_path :" + r_path);
-		String img_path = "\\resources\\patient\\profileImg\\";
-		System.out.println("img_path :" + img_path);
-		StringBuffer path = new StringBuffer();
-		path.append(r_path).append(img_path);
-		System.out.println("실제 path: " + path);
+		//String img_path = "\\resources\\patient\\profileImg\\";
+		//System.out.println("img_path :" + img_path);
+		//StringBuffer path = new StringBuffer();
+		//path.append(r_path).append(img_path);
+		//System.out.println("실제 path: " + path);
 		MultipartFile file = dto.getFile();
 		String oriFn = file.getOriginalFilename();
 
-		path.append(oriFn);
+		//path.append(oriFn);
 		dto.setP_photo(oriFn);
-		System.out.println("path = r_path + img_path:" + path);
+		System.out.println("이미지 저장되는 경로"+r_path);
 
 		// 위에 3줄 이상해서 내가 추가해본다.
 
 		StringBuffer newpath = new StringBuffer();
 		newpath.append(r_path);
-		newpath.append(img_path);
+		//newpath.append(img_path);
 		newpath.append(oriFn);
-		System.out.println("newpath" + newpath);
+		System.out.println("newpath"+ newpath);
 
-		File f = new File(newpath.toString());
+		File f = new File(newpath.toString()); 
 
 		try {
 			file.transferTo(f);
@@ -244,42 +230,42 @@ public class MainController {
 		System.out.println("===> Mybatis add() 실행 성공인가?");
 		return mav;
 	}
-
-	// 의사 회원가입
+	
+	//의사 회원가입 
 	@RequestMapping(value = "doctorInsert", method = RequestMethod.POST)
 	public ModelAndView doctorInsert(DoctorDTO dto, HttpServletRequest request, HttpSession session) {
 		System.out.println("doctorInsert 요청");
 		ModelAndView mav = new ModelAndView("redirect:login");
 
-		String r_path = session.getServletContext().getRealPath("/");
-		System.out.println("r_path :" + r_path);
-		String img_path = "C:\\springsts3\\DrLink1226\\Dr_Link1221\\src\\main\\webapp\\resources\\doctor\\doctorImg\\";
-		System.out.println("img_path :" + img_path);
-		StringBuffer path = new StringBuffer();
-		path.append(r_path).append(img_path);
-		MultipartFile file = dto.getFile();
+		String r_path = session.getServletContext().getRealPath("resources/doctor/doctorImg")+"\\";
+		System.out.println("r_path :"+r_path);
+		//String img_path ="C:\\springsts3\\DrLink1226\\Dr_Link1221\\src\\main\\webapp\\resources\\doctor\\doctorImg\\";
+		//System.out.println("img_path :"+img_path);
+		//StringBuffer path = new StringBuffer();
+		//path.append(r_path).append(img_path);
+		MultipartFile file =dto.getFile();
 		String oriFn = file.getOriginalFilename(); // 여기에 회원 아이디와 동일 파일 이름으로 저장하자
-
-		path.append(oriFn);
+		
+		//path.append(oriFn);
 		dto.setD_photo(oriFn);
-		System.out.println("path = r_path + img_path:" + path);
-
-		// 위에 3줄 이상해서 내가 추가해본다.
+		System.out.println("이미지 저장되는 경로"+r_path);
+		
+		//위에 3줄 이상해서 내가 추가해본다.
 
 		StringBuffer newpath = new StringBuffer();
-		// newpath.append(r_path);
-		newpath.append(img_path);
+		newpath.append(r_path);
+		//newpath.append(img_path);
 		newpath.append(oriFn);
-
-		File f = new File(newpath.toString());
+		
+		File f = new File(newpath.toString()); 
 		try {
-			file.transferTo(f);
+			file.transferTo(f); 
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		mav.addObject("imgName", oriFn);
+		mav.addObject("imgName",oriFn);
 
 		System.out.println("===> dao로 가자!");
 		doctor_dao.insertDoctor(dto);
@@ -289,22 +275,21 @@ public class MainController {
 
 	// 의사 아이디 중복 검사(AJAX)
 	@RequestMapping(value = "doctor_check_id.do", method = RequestMethod.POST)
-	public void doctor_check_id(@RequestParam("d_id") String d_id, HttpServletResponse response) throws Exception {
+	public void doctor_check_id(@RequestParam("d_id") String d_id, HttpServletResponse response) throws Exception{
 		System.out.println("===> Mybatis 아이디 중복 검사(AJAX) 실행 성공인가?");
 		doctor_service.doctor_check_id(d_id, response);
 	}
 
 	// 의사 이메일 중복 검사(AJAX) 1228
 	@RequestMapping(value = "doctor_check_email.do", method = RequestMethod.POST)
-	public void doctor_check_email(@RequestParam("d_email") String d_email, HttpServletResponse response)
-			throws Exception {
+	public void doctor_check_email(@RequestParam("d_email") String d_email, HttpServletResponse response) throws Exception {
 		System.out.println("===> Mybatis 이메일 중복 검사(AJAX) 실행 성공인가?");
 		doctor_service.doctor_check_email(d_email, response);
 	}
-
+	
 	// 의사 비밀번호 찾기
 	@RequestMapping(value = "doctor_find_pw.do", method = RequestMethod.POST)
-	public void doctor_find_pw(@ModelAttribute DoctorDTO dto, HttpServletResponse response) throws Exception {
+	public void doctor_find_pw(@ModelAttribute DoctorDTO dto, HttpServletResponse response) throws Exception{
 		System.out.println("===> Mybatis 비밀번호 찾기 실행 성공인가?");
 		doctor_service.doctor_find_pw(response, dto);
 	}
@@ -313,7 +298,7 @@ public class MainController {
 	public String aq() {
 		return "admin/question";
 	}
-
+	
 	@RequestMapping(value = "notice")
 	public ModelAndView getH_BoardList(HttpServletRequest request, HttpSession session) {
 		ModelAndView mv = new ModelAndView("notice.page");

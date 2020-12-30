@@ -13,5 +13,7 @@
 		maxIdle="10"
 		maxWait="-1"
 		/>
+
+<Resources cachingAllowed="true" cacheMaxSize="100000"/>
 		
 </Context>

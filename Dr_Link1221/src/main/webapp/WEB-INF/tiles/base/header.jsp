@@ -116,13 +116,9 @@ width:auto !important;
 					
 			</div>
 			<div class="main-menu-wrapper">
-				
-				<ul class="main-nav" >
+				<ul class="main-nav" style="margin: 0px 0px 0px 54px;">
 					<li class="has-submenu">
-						<a href="${path}/search">의료진 소개 및 예약</a>
-					</li>
-					<li class="has-submenu">
-						<a href="${path}/notice">공지사항
+						<a href="${path}/notice" >공지사항</a>
 					</li>	
 					<li class="has-submenu">
 						<a href="${path}/health-blog">건강정보</a>
@@ -138,21 +134,21 @@ width:auto !important;
 							<li><a href="${path}/AI_medical_hair">탈모</a></li>
 							<!--  <li><a href="pharmacy-index">AI진단</a></li> -->
 						</ul>
-				<c:if test="${sessionScope.user != null}">
+					<li class="has-submenu">
+						<a href="${path}/search">의료진 소개 및 예약</a>
+					</li>
+					<c:if test="${sessionScope.user != null}">
 						<li class="has-submenu">
 							<a href="${path}/patients/patient_dashboard?patient_num=${sessionScope.user.patient_num}">마이페이지</a>
 						</li>
-								</ul>
-						</li>
-				</c:if>	
-				<c:if test="${sessionScope.doctor != null}">
+					</c:if>	
+					<c:if test="${sessionScope.doctor != null}">
 						<li class="has-submenu">
 							<a href="${path}/doctor/doctor_dashboard?doctor_num=${sessionScope.doctor.doctor_num}">마이페이지</a>
 						</li>
-								</ul>
-						</li>
-				</c:if>										 
-					</div>
+					</c:if>	
+				</ul>								 
+			</div>
 				<c:choose>
 					<c:when test="${sessionScope.user == null and sessionScope.doctor == null}">	
 						<ul class="nav header-navbar-rht">
@@ -164,23 +160,17 @@ width:auto !important;
 					<c:otherwise>					
 						<ul class="nav header-navbar-rht">
 							<c:if test="${sessionScope.doctor != null}">
-								<li> ${ sessionScope.doctor.d_name } 의사 선생님, 반갑습니다. </li><br>
+								<li> <p style="font-weight: 600; font-size: medium;" >${ sessionScope.doctor.d_name }</p> 의사 선생님, 반갑습니다. </li><br>
 							</c:if>	
 							<c:if test="${sessionScope.user != null}">
-								<li> ${ sessionScope.user.p_name }님, 반갑습니다. </li><br>
+								<li><p style="font-weight: 600; font-size: medium;" >${ sessionScope.user.p_name }</p>님, 반갑습니다. </li><br>
 							</c:if>
 							<li class="nav-item">
-								<a class="nav-link header-login" href="${path}/logout">로그아웃</a>
+								<a class="nav-link header-login" href="${path}/logout" style="margin: 0px 0px 0px 34px;">로그아웃</a>
 							</li>
 					    </ul>
 					</c:otherwise>
 				</c:choose>
-							
-							
-			
-			
-		
-			
 		</nav>
 	</header>
 	<!-- /Header -->

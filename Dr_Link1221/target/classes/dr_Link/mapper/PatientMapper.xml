@@ -134,7 +134,7 @@
 	<!-- 김성민 -->
 	<!-- 회원가입 -->
 	<insert id="add" parameterType="patientDTO">
-		insert into dl_user
+		insert into dl_user(patient_num, p_id, p_pwd, p_name, p_gender, p_jumin_num, p_phone_num, p_zipcode, p_address1, p_address2, p_email, bloodtype, p_photo, height, weight, allergy, P_REGDATE)
 		values(dl_patient_num.nextval,#{p_id}, #{p_pwd}, #{p_name},
 		#{p_gender}, #{p_jumin_num}, #{p_phone_num}, #{p_zipcode},
 		#{p_address1}, #{p_address2}, #{p_email}, #{bloodtype}, #{p_photo},
@@ -144,7 +144,7 @@
 
 	<!-- 로그인 -->
 	<select id="loginchk" parameterType="patientDTO" resultType="patientDTO">
-		select patient_num, p_id, p_name, p_retire_date from dl_user where p_id=#{p_id} and p_pwd=#{p_pwd}
+		select patient_num, p_id, p_name, p_retire_date, p_pwd from dl_user where p_id=#{p_id} and p_pwd=#{p_pwd}
 	</select>
 
 
@@ -175,7 +175,6 @@
 		p_id from dl_user where p_email = #{email}
 	</select>
 
-
 	<!-- 비밀번호 변경 비번찾기용-->
 	<update id="update_pw" parameterType="patientDTO">
 		update dl_user set p_pwd =
@@ -186,6 +185,11 @@
 	<update id="update_patientpwd" parameterType="patientDTO">
 		update dl_user set p_pwd = #{p_pwd} where p_id = #{p_id}
 	</update>
+	
+	<!-- 비밀번호 변경 전 확인용 -->
+  	<select id="pwdCheck" parameterType="patientDTO" resultType="int">
+		select count(*) from dl_user where p_id = #{p_id} and p_pwd = #{p_pwd}
+	</select>
 
 	<!-- 이메일 매칭용 -->
 	<select id="emailCheck" parameterType="String"

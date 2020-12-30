@@ -30,7 +30,7 @@
 										</div>
 										<form action="verifyCheck" name="verifyCheck" id="verifyCheck" class="verifyCheck" method="post">
 											<div class="form-group form-focus">
-												<input type="text" class="form-control floating" name="d_verifynum" >
+												<input type="text" class="form-control floating" name="d_verifynum" value="drlink123">
 												<label class="focus-label">직원용 인증번호를 입력해주세요.</label>
 											</div>
 											<div class="check_font" id="verify_check"></div>

@@ -132,6 +132,11 @@
 	<update id="update_doctorpwd" parameterType="doctorDTO">
 		update dl_doctor set d_pwd = #{d_pwd} where d_id = #{d_id}
 	</update>
+	
+	<!-- 비밀번호 변경 전 확인용 -->
+  	<select id="pwdCheck" parameterType="doctorDTO" resultType="int">
+		select count(*) from dl_doctor where d_id = #{d_id} and d_pwd = #{d_pwd}
+	</select>
 
 	<!-- 이메일 매칭용 -->
 	<select id="emailCheck" parameterType="String" resultType="doctorDTO">

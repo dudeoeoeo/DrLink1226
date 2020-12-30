@@ -26,66 +26,6 @@
 			<script src="${path}/resources/assets/js/html5shiv.min.js"></script>
 			<script src="${path}/resources/assets/js/respond.min.js"></script>
 		<![endif]-->
-	
-		<script>
-
-	//비밀번호 유효성 및 중복확인
- 	$(function(){ 
-		$('#old_pwd').blur(function() {
-			$.ajax({
-				url : "patient_check_pwd",
-				dataType:'json',
-				async: false,
-				type : "POST",
-				data : {
-					old_pwd : $("#old_pwd").val()
-				},
-				success : function(result) {
-					if (result.success > 0) {
-						console.log("result: "+result.success)
-						$("#old_pwd_check").text("");
-						$("#pwd_ch").val("비밀번호가 같습니다");
-						$("#submit-btn").removeAttr("disabled");
-					} else {
-						$("#submit-btn").attr("disabled", "disabled");
-						$("#old_pwd_check").text("기존 비밀번호와 다릅니다.");
-						$('#old_pwd_check').css('color', 'red');
-			         	return;
-					}
-				},error : function(e) {
-					console.log(e)
-				}
-			})
-		});
-		
-	//비밀번호 유효성 및 중복확인
-		$('#p_pwd2').blur(function(){
-			var getPwd = RegExp(/^[a-zA-z0-9]{4,12}$/);
-			if(!getPwd.test($("#p_pwd2").val())){
-				$("#pwd_check").html("영문 대소문자와 숫자 4~12자리로 입력해야합니다.");
-				$('#pwd_check').css('color', 'red');
-		        $("#p_pwd").val("");
-		        $("#p_pwd2").val("");
-		        $("#p_pwd").focus();
-		      }else if($('#p_pwd').val() != $('#p_pwd2').val()){
-				$("#pwd_check").text("비밀번호가 일치하지 않습니다.");
-				$('#pwd_check').css('color', 'red');
-	    	    $('#p_pwd2').val('');
-	         	$('#p_pwd2').focus();
-		      }else if($("#old_pwd").val() == $("#p_pwd").val()){
-				$("#submit-btn").attr("disabled", "disabled");
-				$("#pwd_check").text("이전과 같은 비밀번호 입니다.");
-				$('#pwd_check').css('color', 'red');
-	    	    $('#p_pwd').val('');
-	         	$('#p_pwd').focus();
-		      }else{
-				$("#submit-btn").removeAttr("disabled");
-				$("#pwd_check").text("비밀번호가 알맞습니다.");
-				$('#pwd_check').css('color', 'green');
-		 	  }
-		});
-	});
-	</script>
 	</head>
 	<body>
 
@@ -95,7 +35,7 @@
 				<div class="container-fluid">
 					<div class="row align-items-center">
 						<div class="col-md-12 col-12">
-							<h2 class="breadcrumb-title">비밀번호 수정</h2>
+							<h2 class="breadcrumb-title">회원탈퇴</h2>
 						</div>
 					</div>
 				</div>
@@ -106,7 +46,6 @@
 			<div class="content">
 				<div class="container-fluid">
 					<div class="row">
-						
 						<!-- Profile Sidebar -->
 						<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
 							<div class="profile-sidebar">
@@ -127,7 +66,7 @@
 								<div class="dashboard-widget">
 									<nav class="dashboard-menu">
 										<ul>
-											<li>
+											<li >
 												<a href="patient_dashboard">
 													<i class="fas fa-columns"></i>
 													<span>진료확인</span>
@@ -145,13 +84,13 @@
 													<span>개인정보 수정</span>
 												</a>
 											</li>
-											<li class="active">
+											<li>
                                   				<a href="patient_change_password">
 													<i class="fas fa-key"></i>
 													<span>비밀번호 수정</span>
 												</a>
 											</li>
-											<li>
+											<li class="active">
                                   				<a href="patient_delete_account">
 													<i class="fas fa-ban"></i>
 													<span>회원탈퇴</span>
@@ -174,34 +113,57 @@
 						<div class="col-md-7 col-lg-8 col-xl-9">
 							<div class="card">
 								<div class="card-body">
-										
 											<!-- Change Password Form -->
-											<form action="patientChangePwd" method="post">
-												<div class="form-group">
-													<label>현재 비밀번호</label>
-													<input type="password" name="old_pwd" id="old_pwd" class="form-control" value="" required>
-													<div class="check_font" id="old_pwd_check"></div>
-												</div>
-												<div class="form-group">
-													<label>새 비밀번호</label>
-													<input type="password" name="p_pwd" id="p_pwd" class="form-control" required>
-												</div>
-												<div class="form-group">
-													<label>비밀번호 확인</label>
-													<input type="password" name="p_pwd2" id="p_pwd2" class="form-control" required>
-													<div class="check_font" id="pwd_check"></div>
-												</div>
-												<div class="submit-section">
-													<button type="submit" id="submit-btn" class="btn btn-primary submit-btn">비밀번호 변경</button>
-												</div>
-											</form>
-											<!-- /Change Password Form -->
-											
+									<form action="patientDeleteAccount" method="post">
+										<h3>정말 탈퇴하시겠습니까?</h3>
+										<div class="form-group">
+											<label>비밀번호</label>
+											<input type="password" name="p_pwd" id="p_pwd" class="form-control">
+											<div class="check_font" id="pwd_check"></div>
 										</div>
-									</div>
+										<div class="terms-accept">
+											<div class="custom-checkbox">
+											   <input type="checkbox" id="terms_accept_1" name="terms_accept_1" >
+											   <label for="terms_accept"><a href="#">위 내용을 </a><span>모두 확인했으며, 회원탈퇴에 동의합니다.</span></label>
+											</div>
+										</div>
+										<div class="submit-section">
+											<button type="submit" class="btn btn-primary submit-btn" id="submit-btn">탈퇴하기</button>
+										</div>
+									</form>
+									<!-- /Change Password Form -->
+									
 								</div>
 							</div>
+						</div>
+					</div>
 				</div>
-
-			</div>		
+			</div>
 			<!-- /Page Content -->
+<script>
+$(function(){
+	$('#p_pwd').blur(function(){
+		var old_pwd = "${patient_pwd.p_pwd}";
+		if($('#p_pwd').val() != old_pwd){
+			alert(old_pwd);
+			$("#submit-btn").attr("disabled", "disabled");
+			$("#pwd_check").text("비밀번호가 일치하지 않습니다.");
+			$('#pwd_check').css('color', 'red');
+		    $('#p_pwd').val('');
+	     	$('#p_pwd').focus();
+		}else{
+			alert(${patient_pwd.p_pwd});
+			$("#submit-btn").removeAttr("disabled");
+			$("#pwd_check").text("");
+		}
+	});
+	
+	$("#submit-btn").hover(function(){
+		if($('input:checkbox[name=terms_accept_1]').is(':checked')){
+			$("#submit-btn").removeAttr("disabled");
+		}else{
+			$("#submit-btn").attr("disabled", "disabled");
+		}
+	});
+});
+</script>
