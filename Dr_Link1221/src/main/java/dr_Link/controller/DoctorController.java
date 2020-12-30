@@ -189,11 +189,34 @@ public class DoctorController {
 		return "/doctor/doctor_change_password.page";
 	}
 	
+	// 의사 비밀번호 변경 전 비번확인(ajax)
+	@RequestMapping(value = "/doctor_check_pwd")
+	@ResponseBody
+	public Map<String, Integer> doctor_check_pwd(@RequestParam("old_pwd") int old_pwd, HttpSession session) {
+		DoctorDTO pt = new DoctorDTO();
+		int result = 0;
+		try {
+			DoctorDTO pp = (DoctorDTO)session.getAttribute("doctor");
+			System.out.println("pp: "+pp.getD_id());
+			pt.setD_id(pp.getD_id());
+			pt.setD_pwd(Integer.toString(old_pwd));
+			result = doc_dao.doctor_check_pwd(pt);
+			System.out.println("가져온 result: "+ result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("success", result);
+		System.out.println("+++++++++++++++++++++++++++++++++++++");
+		return map;
+	}
+	
+	
 	//김성민 : 의사 비번 변경
 	@RequestMapping(value = "/doctorChangePwd", method = RequestMethod.POST)
 	public ModelAndView doctorChangePwd(DoctorDTO dto, String old_pwd, HttpSession session, Model model) {
 		ModelAndView mv = new ModelAndView("/doctor/doctor_change_password.page");
-		String doctor_pwd = ((DoctorDTO) session.getAttribute("doctor")).getD_pwd();
+		//String doctor_pwd = ((DoctorDTO) session.getAttribute("doctor")).getD_pwd();
 		String doctor_id = ((DoctorDTO) session.getAttribute("doctor")).getD_id();
 		dto.setD_id(doctor_id);
 		doc_dao.update_doctorpwd(dto);
