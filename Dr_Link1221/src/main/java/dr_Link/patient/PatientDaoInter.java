@@ -41,8 +41,11 @@ public interface PatientDaoInter {
 	// 아이디 찾기
 	public String find_id(String email) throws Exception;
 	
-	// 비밀번호 변경
+	// 비밀번호 변경 (비번 찾기용)
 	public int update_pw(PatientDTO dto) throws Exception;
+	
+	// 비밀번호 변경
+	public int update_patientpwd(PatientDTO dto);
 	
 	// 이메일 검사
 	public PatientDTO emailCheck(String id) throws Exception;

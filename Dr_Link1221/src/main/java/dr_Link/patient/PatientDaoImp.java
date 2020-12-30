@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.dto.Pay_recordDTO;
 import dr_Link.dto.TreatmentRecordDTO;
@@ -57,11 +58,16 @@ public class PatientDaoImp implements PatientDaoInter{
 		return ss.selectOne("patient.find_id", email);
 	}
 	
-	// 비밀번호 변경
+	// 비밀번호 변경(비번 찾기용)
 	@Transactional
 	public int update_pw(PatientDTO dto) throws Exception{
 		System.out.println("update_pw 다오 임플까지옴");
 		return ss.update("patient.update_pw", dto);
+	}
+	
+	// 비밀번호 변경
+	public int update_patientpwd(PatientDTO dto) {
+		return ss.update("patient.update_patientpwd", dto);
 	}
 	
 	// 이메일 검사
