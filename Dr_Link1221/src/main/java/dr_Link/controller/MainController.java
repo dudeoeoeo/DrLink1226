@@ -80,6 +80,7 @@ public class MainController {
 		return "AI_medical_" + step + ".page";
 	}
 	
+	/* 김다유 : */
 	@RequestMapping(value = "main")
 	public String main(Model model) {
 		
@@ -309,13 +310,6 @@ public class MainController {
 	public String aq() {
 		return "admin/question";
 	}
-
-//	@RequestMapping(value = "/search")
-//	public String searchPage() {
-//		List<DoctorDTO> list=doctorDaoInter.getDoctorList();
-//		
-//		return "search";
-//	}
 	
 	@RequestMapping(value = "notice")
 	public ModelAndView getH_BoardList(HttpServletRequest request, HttpSession session) {

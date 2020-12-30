@@ -56,7 +56,7 @@ public class DoctorController {
 	}
 	
 	
-	/* 배열 붙이는 메소드 */
+	/* 김다유 : 배열 붙이는 메소드 */
 	public static String arrayJoin(String glue, String array[]) {
 	    String result = "";
 
@@ -132,7 +132,7 @@ public class DoctorController {
 		  m.add(d_graduation);
 		  m.add(d_career);	  
 		  if(doctorinfo.getD_content()!=null) {
-			d_content = doctorinfo.getD_content().split(",");
+			d_content = doctorinfo.getD_content().split(".");
 			m.add(d_content);
 		  }
 		  if(doctorinfo.getD_field()!=null) {
@@ -164,7 +164,7 @@ public class DoctorController {
 		return "/doctor/my_patients.page";
 	}
 	
-	/* 김다유 : 의사대시보드 나의 환자 */
+	/* 김다유 : 의사대시보드 나의 리뷰 */
 	@RequestMapping(value = "/reviews" )
 	public String reviews(DoctorDTO vo, Model model, HttpSession session) {
 		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
@@ -220,7 +220,7 @@ public class DoctorController {
 		
 
 		
-	// dash_board
+	/* 김다유 & 고현영 : 의사대시보드 */
 	@RequestMapping(value = "/doctor_dashboard")
 	public ModelAndView doctor_dashboard(HttpSession session, HttpServletRequest rq) {
 		// 의사가 대시보드로 이동할 때 세션에 있는 의사의 pk 번호를 가져온다.

@@ -489,7 +489,26 @@
       <!-- /Appointment Details Modal -->
       
       
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+      
+<!-- jQuery -->
+<script src="${path}/resources/assets/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JS -->
+<script src="${path}/resources/assets/js/popper.min.js"></script>
+<script src="${path}/resources/assets/js/bootstrap.min.js"></script>
+
+<!-- Sticky Sidebar JS -->
+<script src="${path}/resources/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+<script src="${path}/resources/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+<!-- Circle Progress JS -->
+<script src="${path}/resources/assets/js/circle-progress.min.js"></script>
+
+<!-- Custom JS -->
+<script src="${path}/resources/assets/js/script.js"></script>
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
    <script type="text/javascript">
       $(function(){

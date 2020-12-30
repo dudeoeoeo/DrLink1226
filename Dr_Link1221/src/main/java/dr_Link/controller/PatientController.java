@@ -95,6 +95,7 @@ public class PatientController {
 		return "redirect:/patients/profile-settings?patient_num="+vo.getPatient_num();
 	}
 	
+	/* 김다유 : 환자 프로필 수정 페이지 */
 	@RequestMapping("profile-settings")
 	public String profile_setting(HttpSession session, Model model) {
 		int patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
@@ -179,6 +180,7 @@ public class PatientController {
 		model.addAttribute("patient_profile", patient_profile);
 		return "/patients/patient_change_password.page";
 	}
+	
 	
 	@RequestMapping(value = "/payment_success", method = RequestMethod.POST)
 	public ModelAndView payment_success(Pay_recordDTO pay, HttpSession session) {
