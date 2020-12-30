@@ -176,10 +176,15 @@
 	</select>
 
 
-	<!-- 비밀번호 변경 -->
+	<!-- 비밀번호 변경 비번찾기용-->
 	<update id="update_pw" parameterType="patientDTO">
 		update dl_user set p_pwd =
 		#{p_pwd} where p_id = #{p_id}
+	</update>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="update_patientpwd" parameterType="patientDTO">
+		update dl_user set p_pwd = #{p_pwd} where p_id = #{p_id}
 	</update>
 
 	<!-- 이메일 매칭용 -->
