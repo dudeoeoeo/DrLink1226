@@ -102,21 +102,17 @@ public class MainController {
 	public String loginCheck(PatientDTO dto, HttpSession session, Model model) {
 		System.out.println("===> dao로 가자!");
 		PatientDTO result = patientDAO.loginCheckPatient(dto);
-		String retire = patientDAO.loginCheckPatient(dto).getP_retire_date();
-		if(retire == null) {
-			if (result == null) {
-				System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
-				model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
-				return "patient_login.page";
-			} else {
-				session.setAttribute("user", result);
-				session.setMaxInactiveInterval(30*60);
-				return "redirect:/";
-			}
-		}else {
+		if(result == null) {
+			System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
+			model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
+			return "patient_login.page";
+		} else if(result.getP_retire_date() != null) {
 			model.addAttribute("message", "<p style='color:red'> 이미 탈퇴한 계정입니다. </p>");
+			return "patient_login.page";
+		} else {
+			session.setAttribute("user", result);
+			return "redirect:/";
 		}
-		return "patient_login.page";
 	}
 
 	//환자 의사 로그아웃
@@ -133,20 +129,17 @@ public class MainController {
 	public String drloginCheck(DoctorDTO dto, HttpSession session, Model model) {
 		System.out.println("===> dao로 가자!");
 		DoctorDTO result = doctor_dao.dr_loginCheck(dto);
-		String retire = doctor_dao.dr_loginCheck(dto).getD_retire_date();
-		if(retire == null) {
-			if (result == null) {
-				System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
-				model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
-				return "doctor_login.page";
-			} else {
-				session.setAttribute("doctor", result);
-				return "redirect:/";
-			}
-		}else {
+		if(result == null) {
+			System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
+			model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
+			return "doctor_login.page";
+		} else if(result.getD_retire_date() != null) {
 			model.addAttribute("message", "<p style='color:red'> 이미 탈퇴한 계정입니다. </p>");
+			return "doctor_login.page";
+		} else {
+			session.setAttribute("doctor", result);
+			return "redirect:/";
 		}
-		return "doctor_login.page";
 	}
 	
 	// 환자 아이디 찾기

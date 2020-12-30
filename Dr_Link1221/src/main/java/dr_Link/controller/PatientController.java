@@ -174,7 +174,7 @@ public class PatientController {
 	
 	/* 김다유 : 환자 비밀번호 변경 페이지 이동 성민오빠 여기서 해주세요!!!!*/
 	@RequestMapping("patient_change_password")
-	public String patient_dashboard_change(HttpSession session, Model model) {
+	public String patient_dashboard_change(PatientDTO vo, HttpSession session, Model model) {
 		int patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
 		PatientDTO patient_profile = patientService.getPatientDTO(patient_num);
 		model.addAttribute("patient_profile", patient_profile);

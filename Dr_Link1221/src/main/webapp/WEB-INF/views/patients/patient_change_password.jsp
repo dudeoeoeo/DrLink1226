@@ -27,6 +27,67 @@
 			<script src="${path}/resources/assets/js/respond.min.js"></script>
 		<![endif]-->
 	
+		<script>
+
+	$(function(){
+		$(".noticemessage").append($(".flag").val());
+		
+	});
+	
+
+	
+	$(function(){ 
+		$('#old_pwd').blur(function(){
+			var old_d_pwd = ${patient_profile.d_pwd};
+			var checked_old_pwd = $("#old_pwd").val(); 
+			if(old_d_pwd == checked_old_pwd){
+				
+			}else{
+				$("#old_pwd_check").text("기존 비밀번호와 다릅니다.");
+				$('#old_pwd_check').css('color', 'red');
+	    	    $('#old_pwd').val('');
+	         	$('#old_pwd').focus();
+			}
+		});
+	});
+	//비밀번호 유효성 및 중복확인
+	$(function(){ 
+		$('#p_pwd').blur(function(){
+			var chg_pwd = $("#p_pwd").val(); 
+			var old_pwd = "${patient_profile.p_pwd}";
+			if(old_pwd == chg_pwd){
+				$("#old_pwd_check").text("이전과 같은 비밀번호 입니다.");
+				$('#old_pwd_check').css('color', 'red');
+	    	    $('#p_pwd').val('');
+	         	$('#p_pwd').focus();
+		      }else{
+				$("#old_pwd_check").text("");
+		 	  }
+		});
+	});
+	
+	$(function(){ 
+		$('#p_pwd2').blur(function(){
+			var getPwd = RegExp(/^[a-zA-z0-9]{4,12}$/);
+			if(!getPwd.test($("#p_pwd2").val())){
+				$("#pwd_check").html("영문 대소문자와 숫자 4~12자리로 입력해야합니다.");
+				$('#pwd_check').css('color', 'red');
+		        $("#p_pwd").val("");
+		        $("#p_pwd2").val("");
+		        $("#p_pwd").focus();
+		      }else if($('#p_pwd').val() != $('#p_pwd2').val()){
+				$("#pwd_check").text("비밀번호가 일치하지 않습니다.");
+				$('#pwd_check').css('color', 'red');
+	    	    $('#p_pwd2').val('');
+	         	$('#p_pwd2').focus();
+		      }else{
+				$("#pwd_check").text("비밀번호가 일치합니다.");
+				$('#pwd_check').css('color', 'green');
+		 	  }
+		});
+	});
+	
+	</script>
 	</head>
 	<body>
 
@@ -117,18 +178,20 @@
 								<div class="card-body">
 										
 											<!-- Change Password Form -->
-											<form>
+											<form action="doctorChangePwd" method="post">
 												<div class="form-group">
 													<label>현재 비밀번호</label>
-													<input type="password" class="form-control">
+													<input type="password" name="old_pwd" id="old_pwd" class="form-control" value="" required>
+													<div class="check_font" id="old_pwd_check"></div>
 												</div>
 												<div class="form-group">
 													<label>새 비밀번호</label>
-													<input type="password" class="form-control">
+													<input type="password" name="p_pwd" id="p_pwd" class="form-control" required>
 												</div>
 												<div class="form-group">
 													<label>비밀번호 확인</label>
-													<input type="password" class="form-control">
+													<input type="password" name="p_pwd2" id="p_pwd2" class="form-control" required>
+													<div class="check_font" id="pwd_check"></div>
 												</div>
 												<div class="submit-section">
 													<button type="submit" class="btn btn-primary submit-btn">비밀번호 변경</button>
