@@ -67,6 +67,7 @@
 		<result column="p_email" property="p_email" />
 		<result column="height" property="height" />
 		<result column="weight" property="weight" />
+		<result column="p_photo" property="p_photo" />
 		<result column="p_birth" property="p_birth" />
 		<result column="p_gender" property="p_gender" />
 		<result column="p_zipcode" property="p_zipcode" />

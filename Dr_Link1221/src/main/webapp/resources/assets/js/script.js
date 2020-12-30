@@ -244,7 +244,7 @@ Version      : 1.3
 	
 	// Date Range Picker
 	if($('.bookingrange').length > 0) {
-		var start = moment().subtract(6, 'days');
+		var start = moment().subtract(4, 'days');
 		var end = moment();
 
 		function booking_range(start, end) {

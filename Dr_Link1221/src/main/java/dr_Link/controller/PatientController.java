@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dr_Link.booking.BookingDTO;
 import dr_Link.booking.BookingService;
+import dr_Link.doctorProfile.DoctorDTO;
+import dr_Link.doctorProfile.DoctorProfileDAO;
 import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
@@ -48,12 +51,20 @@ public class PatientController {
 	
 	@Autowired
 	private PrescriptionDaoInter pre_dao;
-	
+	@Autowired
+	private DoctorProfileDAO doctorProfileDAO;
 	
 	@RequestMapping(value = "{step}")
 	public String accessAnyFiles(@PathVariable String step) {
 		System.out.println("patients 컨트롤러");
 		return "/patients/"+step+".page";
+	}
+	
+	@RequestMapping("doctor_profile")
+	public String doctor_profile(HttpServletRequest request, Model model) {
+		DoctorDTO doctor_profile = doctorProfileDAO.doctor_info(Integer.parseInt(request.getParameter("doctor_num")));
+		model.addAttribute("doctor_profile",doctor_profile);
+		return "redirect:/doctor_profile.page";
 	}
 	
 	@RequestMapping("updatePatient")

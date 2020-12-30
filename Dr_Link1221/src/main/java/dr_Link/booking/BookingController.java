@@ -78,6 +78,8 @@ public class BookingController {
 //		[["2020-12-12","월요일"],,,,]
 		if (request.getParameter("week") == null) {
 			temp1.add(mSimpleDateFormat.format(cal.getTime()));
+			System.out.println(mSimpleDateFormat.format(cal.getTime()));
+			System.out.println(dayOfWeek(cal.get(Calendar.DAY_OF_WEEK)));
 			temp1.add(dayOfWeek(cal.get(Calendar.DAY_OF_WEEK)));
 			week.add(temp1);
 			for (int i = 0; i < 6; i++) {
@@ -87,6 +89,7 @@ public class BookingController {
 				temp2.add(dayOfWeek(cal.get(Calendar.DAY_OF_WEEK)));
 				week.add(temp2);
 			}
+			
 		} else {
 			int num = Integer.parseInt(request.getParameter("week")) * 7;
 			cal.add(Calendar.DATE, num-1);

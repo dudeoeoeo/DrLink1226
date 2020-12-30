@@ -147,7 +147,6 @@ public class DoctorDTO {
 		return d_graduation;
 	}
 	public void setD_graduation(String d_graduation) {
-		//System.out.println("else문 안의 d_graduation : " + d_graduation);
 		this.d_graduation = d_graduation;
 	}
 	public String getD_career() {

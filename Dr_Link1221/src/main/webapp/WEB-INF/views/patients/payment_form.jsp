@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 		
 			<!-- Page Content -->
@@ -121,7 +124,7 @@
 									<!-- Booking Doctor Info -->
 									<div class="booking-doc-info">
 										<a href="doctor-profile" class="booking-doc-img">
-											<img src="${path}/resource/assets/img/doctorProfileImage/${prescription.doctorDTO.d_photo}" alt="Doctor Image">
+											<img src="${path}/resources/doctor/doctorImg/${prescription.doctorDTO.d_photo}" alt="Doctor Image">
 										</a>
 										<div class="booking-info">
 											<h4><a href="doctor-profile">${prescription.doctorDTO.d_name}</a></h4>
@@ -136,18 +139,28 @@
 										<div class="booking-item-wrap">
 											<ul class="booking-date">
 												<li >진료일 <span>${prescription.prescription_date}</span></li>
-												<li>진료시작 시간 <span>${prescription.treatmentRecordDTO.monitoring_time}</span></li>
+												<li>진료시작 시간 <span>${prescription.treatmentRecordDTO.monitoring_time} 분</span></li>
 												
 											</ul>
 											<ul class="booking-fee">
-											
-												<li>원격 화상 진료비 <span><span>원</span></span></li>
+												<li>원격 화상 진료비 
+												<span>
+												<fmt:parseNumber var="real_price" value="${prescription.price/0.9}" integerOnly="true" />
+												<fmt:formatNumber type="number" maxFractionDigits="3" value="${real_price}" var="commaPrice" />
+												${commaPrice}
+												<span>원</span></span></li>
+											</ul>
+											<ul class="booking-fee">
+												<li>보험 적용:
+												<span>-10%</span></li>
 											</ul>
 											<div class="booking-total">
 												<ul class="booking-total-list">
 													<li>
+														<fmt:parseNumber var="down_price" value="${prescription.price}" integerOnly="true" />
+														<fmt:formatNumber type="number" maxFractionDigits="3" value="${down_price}" var="down_price" />
 														<span>총 금액</span>
-														<span class="total-cost"><span>${prescription.price}원</span></span>
+														<span class="total-cost"><span>${down_price}원</span></span>
 													</li>
 												</ul>
 											</div>
@@ -182,7 +195,6 @@
 			$('#payment_form').append('<input type="hidden" name="price" value="'+ price +'">');
 			$('#payment_form').append('<input type="hidden" name="payment_way" value="card">');
 			$('#payment_form').append('<input type="hidden" name="dep_num" value="'+dep_num+'">');
-			alert("들어옴")
 			$('#payment_form').attr('action', 'payment_success')
 			$('#payment_form').submit();
 		}) // click

@@ -46,6 +46,9 @@ public class PatientDTO {
 	public void setProfileAddress(String profileAddress) {
 		this.profileAddress = profileAddress;
 	}
+	
+	//﻿VO나 DTO는 원칙적으로 pojo 를 따라야하나 프로젝트 기간이 촉박하여 이대로 진행하겠습니다
+	//향후 리팩토링 요망
 	public String getBirth() {
 		String birth="";
 		Date time = new Date();

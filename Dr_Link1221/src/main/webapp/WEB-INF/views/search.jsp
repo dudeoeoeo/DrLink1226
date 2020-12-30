@@ -1,165 +1,159 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!DOCTYPE html> 
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html>
 <script>
-
+	
 </script>
-			<!-- Breadcrumb -->
-			<div class="breadcrumb-bar">
-				<div class="container-fluid">
-					<div class="row align-items-center">
-						<div class="col-md-8 col-12">
-							<h2 class="breadcrumb-title">의료진 소개</h2>
-						</div>
-						<!-- <div class="col-md-4 col-12 d-md-block d-none">
-							<div class="sort-by">
-								<span class="sort-title">Sort by</span>
-								<span class="sortby-fliter">
-									<select class="select">
-										<option>Select</option>
-										<option class="sorting">Rating</option>
-										<option class="sorting">Popular</option>
-										<option class="sorting">Latest</option>
-										<option class="sorting">Free</option>
-									</select>
-								</span>
-							</div>
-						</div> -->
-					</div>
-				</div>
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar">
+	<div class="container-fluid">
+		<div class="row align-items-center">
+			<div class="col-md-8 col-12">
+				<h2 class="breadcrumb-title">의료진 소개</h2>
 			</div>
-			<!-- /Breadcrumb -->
-			
-			<!-- Page Content -->
-			<div class="content">
-				<div class="container-fluid">
+		</div>
+	</div>
+</div>
+<!-- /Breadcrumb -->
 
-					<div class="row">
-						<div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
-						
-							<form method="post" action="search">
-							
-							<!-- Search Filter -->
-							<div class="card search-filter">
-								<div class="card-header">
-									<h4 class="card-title mb-0">검색 필터</h4>
-								</div>
-								<div class="card-body">
-								<div class="filter-widget">
-									<!-- <div class="cal-icon">
-										<input type="text" class="form-control datetimepicker" placeholder="Select Date">
-									</div>	 -->		
-								</div>
-								  <div class="filter-widget">								  
-									<h4>성별</h4>
-									<div>
-										<label class="custom_check">
-											<input type="checkbox" name="d_gender" value="남"
-												<c:forEach var="gender" items="${d_genderList}">
-													<c:if test="${fn:trim(gender) eq '남' }">checked</c:if>
-												</c:forEach> selected>
-											<span class="checkmark"></span> 남자 의사
-										</label>
-									</div>
-									<div>
-										<label class="custom_check">
-											<input type="checkbox" name="d_gender" value="여" 
-												<c:forEach var="gender" items="${d_genderList}">
-													<c:if test="${fn:trim(gender) eq '여' }">checked</c:if>
+<!-- Page Content -->
+<div class="content">
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
+
+				<form method="post" action="search">
+
+					<!-- Search Filter -->
+					<div class="card search-filter">
+						<div class="card-header">
+							<h4 class="card-title mb-0">검색 필터</h4>
+						</div>
+						<div class="card-body">
+							<div class="filter-widget"></div>
+							<div class="filter-widget">
+								<h4>성별</h4>
+								<div>
+									<label class="custom_check"> <input type="checkbox"
+										name="d_gender" value="남"
+										<c:forEach var="gender" items="${d_genderList}">
+													<c:if test="${fn:trim(gender) eq '1' }">checked</c:if>
 												</c:forEach>
-											>
-											<span class="checkmark"></span> 여자 의사
-										</label>
-									</div>
-								</div> 
-								<div class="filter-widget">
-									<h4>전공별</h4>
-									<div>
-										<label class="custom_check">
-											<input type="checkbox" name="dep_num" value="20"
-												<c:forEach var="dep_num" items="${dep_numList}">
+										selected> <span class="checkmark"></span> 남자 의사
+									</label>
+								</div>
+								<div>
+									<label class="custom_check"> <input type="checkbox"
+										name="d_gender" value="여"
+										<c:forEach var="gender" items="${d_genderList}">
+													<c:if test="${fn:trim(gender) eq '2' }">checked</c:if>
+												</c:forEach>>
+										<span class="checkmark"></span> 여자 의사
+									</label>
+								</div>
+							</div>
+							<div class="filter-widget">
+								<h4>전공별</h4>
+								<div>
+									<label class="custom_check"> <input type="checkbox"
+										name="dep_num" value="20"
+										<c:forEach var="dep_num" items="${dep_numList}">
 													<c:if test="${fn:trim(dep_num) eq '20' }">checked</c:if>
-												</c:forEach>
-											>
-											<span class="checkmark"></span> 피부과
-										</label>
-									</div>
-									<div>
-										<label class="custom_check">
-											<input type="checkbox" name="dep_num" value="30"
-												<c:forEach var="dep_num" items="${dep_numList}">
+												</c:forEach>>
+										<span class="checkmark"></span> 피부과
+									</label>
+								</div>
+								<div>
+									<label class="custom_check"> <input type="checkbox"
+										name="dep_num" value="30"
+										<c:forEach var="dep_num" items="${dep_numList}">
 													<c:if test="${fn:trim(dep_num) eq '30' }">checked</c:if>
 												</c:forEach>>
-											<span class="checkmark"></span> 정신건강의학과
-										</label>
-									</div>
-									<div>
-										<label class="custom_check">
-											<input type="checkbox" name="dep_num" value="10"
-												<c:forEach var="dep_num" items="${dep_numList}">
+										<span class="checkmark"></span> 정신건강의학과
+									</label>
+								</div>
+								<div>
+									<label class="custom_check"> <input type="checkbox"
+										name="dep_num" value="10"
+										<c:forEach var="dep_num" items="${dep_numList}">
 													<c:if test="${fn:trim(dep_num) eq '10' }">checked</c:if>
 												</c:forEach>>
-											<span class="checkmark"></span> 안과
-										</label>
-									</div>
-								</div>
-									<div class="btn-search"> 
-										<button type="submit" class="btn btn-block" >검색</button>
-									</div>	
+										<span class="checkmark"></span> 안과
+									</label>
 								</div>
 							</div>
-							<!-- /Search Filter -->
-							</form>
+							<div class="btn-search">
+								<button type="submit" class="btn btn-block">검색</button>
+							</div>
 						</div>
-						
-						<div class="col-md-12 col-lg-8 col-xl-9">
-						<!-- <p>${total}</p>-->
+					</div>
+					<!-- /Search Filter -->
+				</form>
+			</div>
+
+
+			<div class="col-md-12 col-lg-8 col-xl-9">
+				<div class="card">
+					<c:choose>
+						<c:when test="${empty list}">
+							<p style="margin: 10px; padding: 10px;">결과를 찾을 수 없습니다.</p>
+						</c:when>
+						<c:otherwise>
 							<c:forEach var="list" items="${list}" varStatus="listStatus">
-							<!-- Doctor Widget -->
-							<div class="card">
+								<!-- Doctor Widget -->
 								<div class="card-body">
 									<div class="doctor-widget">
 										<div class="doc-info-left">
 											<div class="doctor-img">
-												<a href="doctor-profile?doctor_num=${list.doctor_num }">
-													<img src="${path}/resources/doctor/doctorImg/${list.d_photo}" class="img-fluid" alt="User Image">
+												<a href="doctor_profile?doctor_num=${list.doctor_num }">
+													<img
+													src="${path}/resources/doctor/doctorImg/${list.d_photo}"
+													class="img-fluid" alt="User Image">
 												</a>
 											</div>
 											<div class="doc-info-cont">
-												<h4 class="doc-name"><a href="doctor-profile?doctor_num=${list.doctor_num }">${list.d_name }</a></h4>
-												<p class="doc-speciality" style="padding-right: 15px;">${list.departmentDTO.dep_name }<br></p>
-												<h5 class="doc-department"><i class="fa fa-stethoscope" aria-hidden="true"></i> ${list.d_licence }</h5>
+												<h4 class="doc-name">
+													<a href="doctor_profile?doctor_num=${list.doctor_num }">${list.d_name }</a>
+												</h4>
+												<p class="doc-speciality" style="padding-right: 15px;">${list.departmentDTO.dep_name }<br>
+												</p>
+												<h5 class="doc-department">
+													<i class="fa fa-stethoscope" aria-hidden="true"></i>
+													${list.d_licence }
+												</h5>
 												<div class="rating">
-												<c:forEach begin="0" end="4" step="1" varStatus="i">
-												   <c:choose>
-												      <c:when test="${list.doc_ReviewDTO.review_rating > i.index}">
-												         <i class="fas fa-star filled"></i>   
-												      </c:when>
-												      <c:otherwise>
-												         <i class="fas fa-star"></i>
-												      </c:otherwise>
-												   </c:choose>   
-												</c:forEach>
+													<c:forEach begin="0" end="4" step="1" varStatus="i">
+														<c:choose>
+															<c:when
+																test="${list.doc_ReviewDTO.review_rating > i.index}">
+																<i class="fas fa-star filled"></i>
+															</c:when>
+															<c:otherwise>
+																<i class="fas fa-star"></i>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
 													<span class="d-inline-block average-rating">${list.doc_ReviewDTO.review_rating }</span>
 												</div>
 												<div class="clinic-services">
-												 <c:choose>
-					                                <c:when test="${empty list.d_fields}">
+													<c:choose>
+														<c:when test="${empty list.d_fields}">
 					                                    아직 정보가 입력되지 않았습니다.
-					                                </c:when> 
-					                                
-					                              <c:otherwise>
-					                              <c:forEach var="d_field" items="${list.d_fields }" >
-					                              	<c:if test="${not empty d_field and d_field != ''}">
-					                                 <span>${d_field}</span>
-					                                 </c:if>
-					                              </c:forEach>
-					                              </c:otherwise>
-					                              
-					                             </c:choose> 
-												</div> 
+					                                </c:when>
+
+														<c:otherwise>
+															<c:forEach var="d_field" items="${list.d_fields }">
+																<c:if test="${not empty d_field and d_field != ''}">
+																	<span>${d_field}</span>
+																</c:if>
+															</c:forEach>
+														</c:otherwise>
+
+													</c:choose>
+												</div>
 											</div>
 										</div>
 										<div class="doc-info-right">
@@ -170,42 +164,41 @@
 												</ul> -->
 											</div>
 											<div class="clinic-booking">
-												<a class="view-pro-btn" href="doctor-profile?doctor_num=${list.doctor_num }">프로필보기</a>
-												<a class="apt-btn" href='${path}/patients/booking?doctor_num=${list.doctor_num}'>예약하기</a>
+												<a class="view-pro-btn"
+													href="doctor_profile?doctor_num=${list.doctor_num }">프로필보기</a>
+												<a class="apt-btn"
+													href='${path}/patients/booking?doctor_num=${list.doctor_num}'>예약하기</a>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<!-- /Doctor Widget -->
+								<!-- /Doctor Widget -->
 							</c:forEach>
-
-							<!-- <div class="load-more text-center">
-								<a class="btn btn-primary btn-sm" href="javascript:void(0);">더 보기</a>	
-							</div>	 -->
+						</c:otherwise>
+					</c:choose>
 				</div>
+			</div>
 
-					</div>		
-						</div>
-					</div>
-				
-			<!-- /Page Content -->
-			
+		</div>
+	</div>
+</div>
+
+<!-- /Page Content -->
+
 <script>
-	$(function(){
+	$(function() {
 		var uid = '${sessionScope.user.p_name}';
-        
-		$('.apt-btn').click(function(){
-	         if(uid == '' || uid == null) {
-	        	if(confirm("로그인이 필요한 서비스 입니다. \n 지금 로그인 하시겠습니까 ?")) {
-	        		$(this).attr('href', 'login')
-	        	} else {
-	        		$(this).attr('href', '')
-	        	}
-	         } else if (uid != '' || uid != null) {
-	         }
-	      }) // click
-	    
-		 
-	});	
+
+		$('.apt-btn').click(function() {
+			if (uid == '' || uid == null) {
+				if (confirm("로그인이 필요한 서비스 입니다. \n 지금 로그인 하시겠습니까 ?")) {
+					$(this).attr('href', 'login')
+				} else {
+					$(this).attr('href', '')
+				}
+			} else if (uid != '' || uid != null) {
+			}
+		}) // click
+
+	});
 </script>

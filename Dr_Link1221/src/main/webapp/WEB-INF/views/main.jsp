@@ -36,8 +36,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
 
 <style>
-body {
-    font-family: "Nanum Gothic", sans-serif;
+.main-wrapper h1 h2 h3{
+    font-family: "Nanum Gothic", sans-serif !important;
 }
 
 #header-wrapper{
@@ -119,7 +119,7 @@ width:auto !important;
 					<div class="row">
 						<div class="col-md-9 m-auto">
 							<div class="section-header text-center">
-								<h2>AI 진단을 받아보세요!</h2>
+								<h1>AI 진단을 받아보세요!</h1>
 							</div>
 							<div class="row">
 								<div class="col-lg-4 mb-3">
@@ -185,7 +185,7 @@ width:auto !important;
 							<c:forEach var="list" items="${list}" varStatus="listStatus">
 							<div class="profile-widget">
 								<div class="doc-img" style="height: 45%;">
-									<a href="doctor-profile?doctor_num=${list.doctor_num }">
+									<a href="doctor_profile?doctor_num=${list.doctor_num }">
 										<img src="${path}/resources/doctor/doctorImg/${list.d_photo}" class="img-fluid" alt="User Image">
 									</a>
 									<a href="javascript:void(0)" class="fav-btn">
@@ -194,7 +194,7 @@ width:auto !important;
 								</div>
 								<div class="pro-content">
 									<h3 class="title">
-										<a href="doctor-profile">${list.d_name}</a> 
+										<a href="doctor_profile">${list.d_name}</a> 
 										<i class="fas fa-check-circle verified"></i>
 									</h3>
 		                             <p class="speciality">${list.departmentDTO.dep_name}</p>
@@ -209,14 +209,14 @@ width:auto !important;
 									      </c:otherwise>
 									   </c:choose>   
 									</c:forEach>
-										<span class="d-inline-block average-rating">${list.doc_ReviewDTO.review_rating }</span>
+										<span class="d-inline-block average-rating">${list.doc_ReviewDTO.review_rating}</span>
 									</div>
 									<div class="row row-sm">
 										<div class="col-6">
-											<a href="doctor-profile?doctor_num=${list.doctor_num }" class="btn view-btn">상세보기</a>
+											<a href="doctor_profile?doctor_num=${list.doctor_num}" class="btn view-btn">상세보기</a>
 										</div>
 										<div class="col-6">
-											<a href="booking?doctor_num=${list.doctor_num }" class="btn book-btn">예약하기</a>
+											<a href="patients/booking?doctor_num=${list.doctor_num}" class="btn book-btn">예약하기</a>
 										</div>
 									</div>
 								</div>
@@ -333,42 +333,55 @@ width:auto !important;
 <!-- Custom JS -->
 <script src="${path}/resources/assets/js/script.js"></script>
 <script type="text/javascript">
-$(function(){
-	
-	window.onload = function () {
-        if (window.Notification) {
-            Notification.requestPermission();
-        }
-    }
 
-    function calculate() {
-        setTimeout(function () {
-            notify();
-        }, 5000);
-    }
+	$(function() {
 
-    function notify() {
-        if (Notification.permission !== 'granted') {
-            alert('notification is disabled');
-        }
-        else {
-        	var notification = new Notification('💕진료 예약 알림💕', {
-                icon: '${path}/resources/assets/img/favicon.png',
-                body: '곧 진료가 시작됩니다. 진료실에 입장해주세요',
-                requireInteraction:true
-                //timestamp: dts
-            });
+		var uid = '${sessionScope.user.p_name}';
 
-        	notification.onclick = function () {
-                window.open('#');
-            };
-            
-           /*  notification.onclose = function () {
-                window.open('#');
-            }; */
-        }
-    }
-});
+		$('.book-btn').click(function() {
+			if (uid == '' || uid == null) {
+				if (confirm("로그인이 필요한 서비스 입니다. \n 지금 로그인 하시겠습니까 ?")) {
+					$(this).attr('href', 'login')
+				} else {
+					$(this).attr('href', '')
+				}
+			} else if (uid != '' || uid != null) {
+			}
+		}) // click
+
+		window.onload = function() {
+			if (window.Notification) {
+				Notification.requestPermission();
+			}
+		}
+
+		function calculate() {
+			setTimeout(function() {
+				notify();
+			}, 5000);
+		}
+
+		function notify() {
+			if (Notification.permission !== 'granted') {
+				alert('notification is disabled');
+			} else {
+				var notification = new Notification('💕진료 예약 알림💕', {
+					icon : '${path}/resources/assets/img/favicon.png',
+					body : '곧 진료가 시작됩니다. 진료실에 입장해주세요',
+					requireInteraction : true
+				//timestamp: dts
+				});
+
+				notification.onclick = function() {
+					window.open('#');
+				};
+
+				/*  notification.onclose = function () {
+				     window.open('#');
+				 }; */
+			}
+		}
+	});
 </script>		
 	</body>
 </html>

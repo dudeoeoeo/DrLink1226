@@ -21,7 +21,7 @@ public class DoctorProfileController {
 	@Autowired
 	private ReviewService reviewService;
 	
-	@RequestMapping(value = "doctor-profile")
+	@RequestMapping(value = "doctor_profile")
 	public String doctor_profile(HttpServletRequest request, DoctorDTO vo, Model model) {
 		
 	  try {

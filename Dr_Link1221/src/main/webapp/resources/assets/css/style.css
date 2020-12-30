@@ -1729,7 +1729,7 @@ button.bg-danger:hover {
 }
 .main-nav li a {
 	display: block;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
 }
 .main-nav li.login-link {
