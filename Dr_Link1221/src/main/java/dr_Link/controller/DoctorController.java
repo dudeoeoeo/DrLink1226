@@ -72,6 +72,12 @@ public class DoctorController {
 		System.out.println("로그인");
 		return "login";
 	}
+	
+	@RequestMapping(value = "/doctor_profile")
+	public String doctor_profile() {
+		System.out.println("의사페이지");
+		return "redirect:/doctor_profile";
+	}
 
 	/* 김다유 : add_prescription 페이지로 이동 */
 	@RequestMapping(value = "/add_prescription") 
@@ -148,9 +154,8 @@ public class DoctorController {
 	/* 김다유 : 의사 프로필세팅 완료 후 페이지 이동 */
 	@RequestMapping(value = "/setting_ok" )
 	public String setting_ok(DoctorDTO vo, HttpServletRequest req, HttpServletResponse resp,Model model){
-		vo.setD_pwd(req.getParameter("chg_pwd"));
 		doc_dao.doctor_profile_update(vo);
-		return "/doctor/doctor_dashboard.page";
+		return "redirect:/doctor/doctor_profile_settings.page";
 	}
 	
 	

@@ -130,7 +130,7 @@
 											<div class="doc-info-cont">
 												<h4 class="doc-name"><a href="doctor-profile?doctor_num=${list.doctor_num }">${list.d_name }</a></h4>
 												<p class="doc-speciality" style="padding-right: 15px;">${list.departmentDTO.dep_name }<br></p>
-												<h5 class="doc-department"><img src="resources/img/specialities/specialities-05.png" class="img-fluid" alt="Speciality">${list.d_licence }</h5>
+												<h5 class="doc-department"><i class="fa fa-stethoscope" aria-hidden="true"></i> ${list.d_licence }</h5>
 												<div class="rating">
 												<c:forEach begin="0" end="4" step="1" varStatus="i">
 												   <c:choose>

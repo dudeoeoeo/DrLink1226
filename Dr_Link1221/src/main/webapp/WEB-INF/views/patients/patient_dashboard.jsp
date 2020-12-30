@@ -140,10 +140,10 @@
 																<tr class="text-center" >
 																	<td>
 																		<h2 class="table-avatar">
-																			<a href="doctor-profile?doctor_num=${bookingList.doctorDTO.doctor_num }" class="avatar avatar-sm mr-2">
+																			<a href="doctor_profile?doctor_num=${bookingList.doctorDTO.doctor_num }" class="avatar avatar-sm mr-2">
 																				<img class="avatar-img rounded-circle" src="${path}/resources/doctor/doctorImg/${bookingList.doctorDTO.d_photo}" alt="User Image">
 																			</a>
-																			<a href="doctor-profile?doctor_num=${bookingList.doctorDTO.doctor_num}">Dr. ${bookingList.doctorDTO.d_name }  <span>${bookingList.departmentDTO.dep_name }</span></a>
+																			<a href="doctor_profile?doctor_num=${bookingList.doctorDTO.doctor_num}">Dr. ${bookingList.doctorDTO.d_name }  <span>${bookingList.departmentDTO.dep_name }</span></a>
 																		</h2>
 																	</td>
 																	<td>${bookingList.appointment_date} <span class="d-block text-info">${bookingList.appointment_time}</span></td>
@@ -245,7 +245,7 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-01.jpg" alt="User Image">
+																				<img class="avatar-img rounded-circle" src="${path}/resource/assets/img/doctors/doctor-thumb-01.jpg" alt="User Image">
 																			</a>
 																			<a href="doctor-profile">${payment_record.doctorDTO.d_name}<span>${payment_record.departmentDTO.dep_name}</span></a>
 																		</h2>

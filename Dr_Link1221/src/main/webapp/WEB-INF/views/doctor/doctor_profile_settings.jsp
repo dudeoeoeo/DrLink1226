@@ -209,15 +209,14 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<label>성별</label>
-												${doctorinfo.d_gender}
 												<c:set var="d_gender" value="${doctorinfo.d_gender}" />
 												<select class="form-control select"  name="d_gender" >
 												<c:choose>
-												<c:when test="${'1' eq doctorinfo.d_gender  }">
+												<c:when test="${'1 ' eq doctorinfo.d_gender  }">
 											        <option value="${doctorinfo.d_gender}" selected="selected">남</option>
 											        <option value="2" >여</option>
 												</c:when>
-												<c:when test="${'2' eq doctorinfo.d_gender  }">
+												<c:when test="${'2 ' eq doctorinfo.d_gender  }">
 											        <option value="${doctorinfo.d_gender}" selected="selected">여</option>
 											        <option value="1" >남</option>
 												</c:when>

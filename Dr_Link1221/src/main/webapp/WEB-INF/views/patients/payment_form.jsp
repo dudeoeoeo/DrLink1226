@@ -95,7 +95,7 @@
 											<form id ="payment_form" method="post">
 											<div class="submit-section mt-4">
 											<input type="hidden" name="prescription_num" value="${prescription.prescription_num}">
-												<button id ="paybtn" class="btn btn-primary submit-btn">결제하기</button>
+												<button id ="paybtn" class="btn btn-primary submit-btn" disabled="disabled">결제하기</button>
 											</div>
 											</form>
 											<!-- /Submit Section -->
@@ -121,7 +121,7 @@
 									<!-- Booking Doctor Info -->
 									<div class="booking-doc-info">
 										<a href="doctor-profile" class="booking-doc-img">
-											<img src="${pageContext.request.contextPath}/resources/img/doctorProfileImage/${prescription.doctorDTO.d_photo}" alt="Doctor Image">
+											<img src="${path}/resource/assets/img/doctorProfileImage/${prescription.doctorDTO.d_photo}" alt="Doctor Image">
 										</a>
 										<div class="booking-info">
 											<h4><a href="doctor-profile">${prescription.doctorDTO.d_name}</a></h4>
@@ -165,7 +165,9 @@
 			</div>		
 			<!-- /Page Content -->
 
-											
+			
+			 
+
 <script type="text/javascript">
 	$(function(){
 		var patient_num = ${sessionScope.user.patient_num};
@@ -180,21 +182,18 @@
 			$('#payment_form').append('<input type="hidden" name="price" value="'+ price +'">');
 			$('#payment_form').append('<input type="hidden" name="payment_way" value="card">');
 			$('#payment_form').append('<input type="hidden" name="dep_num" value="'+dep_num+'">');
-			
+			alert("들어옴")
 			$('#payment_form').attr('action', 'payment_success')
 			$('#payment_form').submit();
 		}) // click
 		
-	}) // ready
-	
-	$(function(){
-		$("#paybtn").hover(function(){
+		$('input:checkbox[name=terms_accept_1]').click(function(){
 			if($('input:checkbox[name=terms_accept_1]').is(':checked')){
-				$("#paybtn").removeAttr("disabled");
-			}else{
-				$("#paybtn").attr("disabled", "disabled");
+				$('#paybtn').prop('disabled', false)
+			} else {
+				$('#paybtn').prop('disabled', true)
 			}
-		});
-	});
+		}) // click
+	}) // ready
 	
 </script>
