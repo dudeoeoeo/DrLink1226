@@ -127,9 +127,9 @@ width:auto !important;
 					<li class="has-submenu">
 						<a href="${path}/health-blog">건강정보</a>
 					</li>
-					<li class="has-submenu">
+					<!-- <li class="has-submenu">
 						<a href="#">FAQ</a>
-					</li>
+					</li> -->
 					<li class="has-submenu">
 						<a>AI 진단<i class="fas fa-chevron-down"></i></a>
 						<ul class="submenu">
