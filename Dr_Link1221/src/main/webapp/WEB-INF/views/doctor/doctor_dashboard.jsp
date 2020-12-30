@@ -27,13 +27,13 @@
                         <div class="widget-profile pro-widget-content">
                            <div class="profile-info-widget">
                               <a href="#" class="booking-doc-img">
-                                 <img src="${path}/resources/assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+                                 <img src="${path}/resources/doctor/doctorImg/${sessionScope.doctor.d_photo}" class="img-fluid" alt="User Image">
                               </a>
                               <div class="profile-det-info">
                                  <h3>${sessionScope.doctor.d_name} 의사</h3>
                                  
                                  <div class="patient-details">
-                                    <h5 class="mb-0">진료과 DB 가져오기 </h5>
+                                    <h5 class="mb-0">${sessionScope.doctor.dep_no}</h5>
                                  </div>
                               </div>
                            </div>

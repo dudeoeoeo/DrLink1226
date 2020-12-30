@@ -245,7 +245,7 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${path}/resource/assets/img/doctors/doctor-thumb-01.jpg" alt="User Image">
+																				<img class="avatar-img rounded-circle" src="${path}/resources/doctor/doctorImg/${payment_record.doctorDTO.d_photo}" alt="User Image">
 																			</a>
 																			<a href="doctor-profile">${payment_record.doctorDTO.d_name}<span>${payment_record.departmentDTO.dep_name}</span></a>
 																		</h2>
