@@ -2,6 +2,7 @@ package dr_Link.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -343,8 +344,8 @@ public class MainController {
 	@RequestMapping(value="/search") 
 	public String listSearch(PageDTO svo, Model model, HttpServletRequest request){
 		System.out.println("search 요청");
-		List<String> d_genderList=null;
-		List<String> dep_numList=null;
+		List<String> d_genderList= new ArrayList<String>();
+		List<String> dep_numList= new ArrayList<String>();
 		Map<String, List<String>> map = new HashMap<String, List<String>>();
 		String [] temp=null;
 		

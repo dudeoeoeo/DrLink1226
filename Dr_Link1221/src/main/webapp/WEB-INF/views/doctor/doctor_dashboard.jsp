@@ -178,7 +178,6 @@
                               <!-- /Appointment Tab -->
                               
                               <div class="tab-content">
-                              
                                  <!-- Upcoming Appointment Tab -->
                                  <div class="tab-pane show active" id="upcoming-appointments">
                                     <div class="card card-table mb-0">
@@ -191,12 +190,10 @@
                                                       <th>예약시간</th>
                                                       <th>증상</th>
                                                       <th>구분</th>
-                                                      <th class="text-center">금액</th>
                                                       <th></th>
                                                    </tr>
                                                 </thead>
                                                 <c:set var="index" value="0"/>
-                                                
                                                 <c:forEach var="dash" items="${dashList}" varStatus="status">
                                                 <c:if test="${status.index lt cnt }">
                                                 <tbody>
@@ -214,16 +211,15 @@
                                                          <c:when test="${!empty afterTreat }">
                                                             <c:forEach var="at" items="${afterTreat}">
                                                                <c:if test="${at.appointment_num eq dash.appointment_num}">
-                                                                  again
+                                                                  재방문 환자
                                                                </c:if>
                                                             </c:forEach>
                                                          </c:when>
                                                          <c:when test="${at.appointment_num ne dash.appointment_num}">
-                                                            first
+                                                            새로 온 환자
                                                          </c:when>
                                                       </c:choose>
                                                       </td>
-                                                      <td class="text-center">25,000원</td>
                                                       <td class="text-right">
                                                          <div class="appointment-action">
                                                          <a href="#" class="btn btn-sm bg-info-light btn_today" data-toggle="modal" data-target="#appt_details_today${status.count }">
@@ -236,7 +232,7 @@
                                                    </c:if>
                                                 </tbody>
                                                 </c:forEach>
-                                             </table>      
+                                             </table> 
                                           </div>
                                        </div>
                                     </div>
@@ -278,7 +274,6 @@
                                                       <th>예약시간</th>
                                                       <th>증상</th>
                                                       <th>구분</th>
-                                                      <th class="text-center">금액</th>
                                                       <th></th>
                                                    </tr>
                                                 </thead>
@@ -292,23 +287,22 @@
                                                             <a href="patient-profile">${dash.patients[index].p_name } <!-- <span>#33333</span> --></a>
                                                          </h2>
                                                       </td>
-                                                      <td>2020-12-05 <span class="d-block text-info">9:00 AM</span></td>
+                                                      <td>${dash.appointment_date}<span class="d-block text-info">${dash.appointment_time}</span></td>
                                                       <td>불면증</td>
                                                       <td>
                                                          <c:choose>
                                                             <c:when test="${!empty afterTreat }">
                                                                <c:forEach var="at" items="${afterTreat}">
                                                                   <c:if test="${at.appointment_num eq dash.appointment_num}">
-                                                                     again
+                                                                     재방문 환자
                                                                   </c:if>
                                                                </c:forEach>
                                                             </c:when>
                                                             <c:when test="${at.appointment_num ne dash.appointment_num}">
-                                                               first
+                                                               새로 온 환자
                                                             </c:when>
                                                          </c:choose>
                                                       </td>
-                                                      <td class="text-center">30,000원</td>
                                                       <td class="text-right">
                                                          <div class="table-action">
                                                             <a href="javascript:void(0);" class="btn btn-sm bg-info-light btn_tomorrow" data-toggle="modal" data-target="#appt_details${status.count }">

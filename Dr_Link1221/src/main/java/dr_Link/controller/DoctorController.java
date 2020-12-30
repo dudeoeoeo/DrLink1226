@@ -41,6 +41,13 @@ public class DoctorController {
 
 	@Autowired	
 	private DoctorDaoInter doc_dao;
+
+	@RequestMapping(value = "/main")
+	public String indexRq() {
+		System.out.println("index 요청: ");
+		return "redirect:/main";
+	}
+	
 	
 	@RequestMapping(value = "{step}")
 	public String accessAnyFiles(@PathVariable String step) {
@@ -105,7 +112,7 @@ public class DoctorController {
 		model.addAttribute("medi_detail",medi_detail);
 		model.addAttribute("drlinkinfo",drlinkinfo);
 		
-		return "/doctor/end_prescription";
+		return "/doctor/end_prescription.page";
 		
 	}
 

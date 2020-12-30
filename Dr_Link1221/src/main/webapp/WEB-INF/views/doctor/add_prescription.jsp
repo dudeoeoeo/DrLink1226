@@ -276,7 +276,6 @@ $(function(){
 	    		console.log($(this).val());
 	    		medi_num.push($(this).val());
 	    	}) // each
-	    	alert(medi_num);
 	    	$('#prescription_form').append('<input type="hidden" name="medi_num" value="'+medi_num+'">');
 	    	$('#prescription_form').attr('action', 'end_prescription').submit();
 	    }) // click

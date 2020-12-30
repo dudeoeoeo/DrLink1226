@@ -31,39 +31,39 @@
 													<div class="col-md-6">
 														<div class="form-group card-label">
 															<label for="card_name">카드에 명시된 이름</label>
-															<input class="form-control" id="card_name" name="card_name"  type="text" >
+															<input class="form-control" id="card_name" name="card_name"  type="text" value="김다다">
 															
 														</div>
 													</div>
 													<div class="col-md-6">
 														<div class="form-group card-label">
 															<label for="card_num">카드 번호</label>
-															<input class="form-control" id="card_num" name="card_num"  placeholder="ex) 1234  5678  9876  5432" type="text">
+															<input class="form-control" id="card_num" name="card_num"  placeholder="ex) 1234  5678  9876  5432" type="text" value="1234567898765432">
 														</div>
 													</div>
 													
 													<div class="col-md-4">
 														<div class="form-group card-label">
 															<label for="card_month">카드 유효기간</label>
-															<input class="form-control" id="card_month" name="card_month"  placeholder="월 ex) 10" type="text">
+															<input class="form-control" id="card_month" name="card_month"  placeholder="월 ex) 10" type="text" value="10">
 														</div>
 													</div>
 													<div class="col-md-4">
 														<div class="form-group card-label">
 															<label for="card_year">카드 유효기간</label>
-															<input class="form-control" id="card_year"  name="card_year" placeholder="년 ex) 24" type="text">
+															<input class="form-control" id="card_year"  name="card_year" placeholder="년 ex) 24" type="text" value="10">
 														</div>
 													</div>
 													<div class="col-md-4">
 														<div class="form-group card-label">
 															<label for="card_month">만료일</label>
-															<input class="form-control" id="card_month" name="cdata"  placeholder="ex) 2025" type="text">
+															<input class="form-control" id="card_month" name="cdata"  placeholder="ex) 2025" type="text" value="2025">
 														</div>
 													</div>
 													<div class="col-md-4">
 														<div class="form-group card-label">
 															<label for="card_cvv">CVV</label>
-															<input class="form-control" id="card_cvv"  name="card_cvv" placeholder="카드 뒷면 참고 ex) 654" type="text">
+															<input class="form-control" id="card_cvv" name="card_cvv" placeholder="카드 뒷면 참고 ex) 654" type="text" value="654">
 														</div>
 													</div>
 												</div>

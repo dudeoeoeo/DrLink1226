@@ -60,11 +60,13 @@ public class PrescriptionServiceImpl implements PrescriptionService{
 	}
 	
 	@Override
-	public void payment_success(Pay_recordDTO pay_dto) {
-		System.out.println("service insertPay_record요청");
+	public PrescriptionDTO payment_success(Pay_recordDTO pay_dto) {
+		System.out.println("service payment_success-insertPay_record요청");
 		pre_dao.insertPayment_record(pay_dto);
-		System.out.println("service payment_success요청");
+		System.out.println("service payment_success-updatePayment_check요청");
 		pre_dao.updatePayment_check(pay_dto.getPrescription_num());
+		System.out.println("service payment_success-patient_detail_prescription요청");
+		return pre_dao.patient_detail_prescription(pay_dto.getPrescription_num());
 	}
 	
 	@Override

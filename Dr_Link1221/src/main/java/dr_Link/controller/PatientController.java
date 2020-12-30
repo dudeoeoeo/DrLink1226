@@ -141,9 +141,9 @@ public class PatientController {
 	public String end_prescription(PrescriptionDTO pre_vo,Model model, MedicineDTO medi_vo,HttpSession session, DrLinkDTO drlinkVO) {
 		PrescriptionDTO prescription = pre_dao.patient_detail_prescription(pre_vo.getPrescription_num());
 		String url = "";
-		String pay_chk = "0";
-		if(pay_chk.equals(prescription.getPayment_check())) {
-			System.out.println("if문"+pay_chk);
+		String pay_chk = prescription.getPayment_check().trim();
+		if(pay_chk.equals("0")) {
+			System.out.println("if문"+pay_chk+"들어온거");
 			url="/patients/payment_form";
 		} else {
 			System.out.println("else문"+pay_chk);
@@ -154,7 +154,6 @@ public class PatientController {
 			url="/patients/detail_prescription";
 		}
 		model.addAttribute("prescription",prescription);
-		System.out.println(prescription.getDepartmentDTO().getDep_name());
 		System.out.println("controller detail_prescription 실행 완료");
 		    
 		return url+".page";
@@ -184,7 +183,9 @@ public class PatientController {
 	@RequestMapping(value = "/payment_success", method = RequestMethod.POST)
 	public ModelAndView payment_success(Pay_recordDTO pay, HttpSession session) {
 		ModelAndView mv = new ModelAndView("/patients/payment_success.page");
-		prescriptionService.payment_success(pay);
+		PrescriptionDTO prescription = prescriptionService.payment_success(pay);
+		mv.addObject("prescription",prescription);
+		System.out.println("결제한 처방전"+prescription.getPrescription_num());
 		return mv;
 	}
 }

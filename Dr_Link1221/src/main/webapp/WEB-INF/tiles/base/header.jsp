@@ -42,6 +42,10 @@
 <script src="${path}/resources/assets/js/slick.js"></script>
 
 
+<!-- Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.js" ></script>
+
 <!-- Daterangepikcer JS 
 <script src="${path}/resources/assets/js/moment.min.js"></script>
 <script src="${path}/resources/assets/plugins/daterangepicker/daterangepicker.js"></script>
@@ -115,30 +119,16 @@ width:auto !important;
 				
 				<ul class="main-nav" >
 					<li class="has-submenu">
-						<a href="${path}/search">의료진 소개</a>
+						<a href="${path}/search">의료진 소개 및 예약</a>
 					</li>
 					<li class="has-submenu">
-						<a href="${path}/notice">공지사항<!-- <i class="fas fa-chevron-down"></i> --></a>
-						<!-- <ul class="submenu">
-							<li><a href="doctor-dashboard">Doctor Dashboard</a></li>
-							<li class="has-submenu">
-								<a href="doctor-blog">Blog</a>
-								<ul class="submenu">
-									<li><a href="doctor-blog">Blog</a></li>
-									<li><a href="blog-details">Blog view</a></li>
-									<li><a href="doctor-add-blog">Add Blog</a></li>
-								</ul>
-							</li>
-						</ul> -->
+						<a href="${path}/notice">공지사항
 					</li>	
 					<li class="has-submenu">
 						<a href="${path}/health-blog">건강정보</a>
 					</li>
 					<li class="has-submenu">
-						<a href="${path}/question">FAQ</a>
-					</li>
-					<li class="has-submenu">
-						<a href="${path}/search">화상진료예약</a>
+						<a href="#">FAQ</a>
 					</li>
 					<li class="has-submenu">
 						<a>AI 진단<i class="fas fa-chevron-down"></i></a>

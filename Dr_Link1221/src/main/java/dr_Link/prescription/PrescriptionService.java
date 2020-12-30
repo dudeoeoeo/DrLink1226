@@ -26,7 +26,7 @@ public interface PrescriptionService {
 	
 	
 	public DrLinkDTO drLink_info(DrLinkDTO vo);
-	public void payment_success(Pay_recordDTO pay);
+	public PrescriptionDTO payment_success(Pay_recordDTO pay);
 	public PrescriptionDTO end_prescription(PrescriptionDTO vo);
 
 }
