@@ -11,8 +11,8 @@
 						<div class="col-md-12 col-12">
 							<nav aria-label="breadcrumb" class="page-breadcrumb">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">MyPage</li>
+									<li class="breadcrumb-item"><a href="${path }">홈</a></li>
+									<li class="breadcrumb-item active" aria-current="page">마이페이지</li>
 								</ol>
 							</nav>
 							<h2 class="breadcrumb-title">마이페이지</h2>
@@ -148,7 +148,7 @@
 																	</td>
 																	<td>${bookingList.appointment_date} <span class="d-block text-info">${bookingList.appointment_time}</span></td>
 																	<td>${bookingList.reg_date}</td>
-																	<td><span class="badge badge-pill bg-success-light">정상</span></td>
+																	<td><span class="badge badge-pill bg-success-light">예약정상</span></td>
 																</tr>
 																<!-- / end for -->
 															</c:forEach>
@@ -245,7 +245,7 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a href="doctor-profile" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="${pageContext.request.contextPath}/resources/img/doctors/doctor-thumb-01.jpg" alt="User Image">
+																				<img class="avatar-img rounded-circle" src="${path}/resources/doctor/doctorImg/${payment_record.doctorDTO.d_photo}" alt="User Image">
 																			</a>
 																			<a href="doctor-profile">${payment_record.doctorDTO.d_name}<span>${payment_record.departmentDTO.dep_name}</span></a>
 																		</h2>

@@ -8,7 +8,7 @@
 <mapper namespace="patient">
 	
 	<update id="updatePatient" parameterType="patientDTO">
-		update dl_user set bloodtype=#{bloodtype}, p_phone_num=#{p_phone_num}, p_email=#{p_email}, p_zipcode=#{p_zipcode}, p_address1=#{p_address1}, p_address2=#{p_address2}, p_photo=#{p_photo} where patient_num=#{patient_num} 
+		update dl_user set bloodtype=#{bloodtype}, p_email=#{p_email}, p_zipcode=#{p_zipcode}, p_address1=#{p_address1}, p_address2=#{p_address2}, height=#{height}, weight=#{weight}, allergy=#{allergy}, p_photo=#{p_photo} where patient_num=#{patient_num} 
 	</update>
 
 	<select id="getPatient" parameterType="int" resultType="patientDTO">

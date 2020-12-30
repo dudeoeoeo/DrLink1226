@@ -38,7 +38,7 @@
 								<h4>성별</h4>
 								<div>
 									<label class="custom_check"> <input type="checkbox"
-										name="d_gender" value="남"
+										name="d_gender" value="1"
 										<c:forEach var="gender" items="${d_genderList}">
 													<c:if test="${fn:trim(gender) eq '1' }">checked</c:if>
 												</c:forEach>
@@ -47,7 +47,7 @@
 								</div>
 								<div>
 									<label class="custom_check"> <input type="checkbox"
-										name="d_gender" value="여"
+										name="d_gender" value="2"
 										<c:forEach var="gender" items="${d_genderList}">
 													<c:if test="${fn:trim(gender) eq '2' }">checked</c:if>
 												</c:forEach>>
@@ -105,16 +105,16 @@
 							<c:forEach var="list" items="${list}" varStatus="listStatus">
 								<!-- Doctor Widget -->
 								<div class="card-body">
-									<div class="doctor-widget">
+									<div class="doctor-widget" style="margin: 0px 73px 0px 30px;">
 										<div class="doc-info-left">
-											<div class="doctor-img">
+											<div class="doctor-img" style="margin: 14px 84px 5px 34px;">
 												<a href="doctor_profile?doctor_num=${list.doctor_num }">
 													<img
 													src="${path}/resources/doctor/doctorImg/${list.d_photo}"
 													class="img-fluid" alt="User Image">
 												</a>
 											</div>
-											<div class="doc-info-cont">
+											<div class="doc-info-cont" style="margin: 14px 0px 0px 0px;">
 												<h4 class="doc-name">
 													<a href="doctor_profile?doctor_num=${list.doctor_num }">${list.d_name }</a>
 												</h4>
@@ -156,7 +156,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="doc-info-right">
+										<div class="doc-info-right" >
 											<div class="clini-infos">
 												<!-- <ul>
 													<li><i class="far fa-thumbs-up"></i> 98%</li>

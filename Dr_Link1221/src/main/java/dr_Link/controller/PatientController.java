@@ -76,8 +76,9 @@ public class PatientController {
 		try {
 //			String r_path = session.getServletContext().getRealPath("/");
 //			System.out.println("r_path :" + r_path);
-			String img_path = request.getSession().getServletContext().getRealPath("resources/patient/profileImg")+"/";
-			System.out.println("img_path :" + img_path);
+			String r_path = session.getServletContext().getRealPath("resources/patient/profileImg")+"\\";
+//			String img_path = request.getSession().getServletContext().getRealPath("resources/patient/profileImg")+"/";
+//			System.out.println("img_path :" + img_path);
 //			StringBuffer path = new StringBuffer();
 			/*
 			path.append(r_path).append(img_path);
@@ -87,7 +88,7 @@ public class PatientController {
 			String oriFn = p_photo.getOriginalFilename();
 			
 			StringBuffer newpath = new StringBuffer();
-			newpath.append(img_path);
+			newpath.append(r_path);
 			newpath.append(oriFn);
 			vo.setP_photo(oriFn);
 			File f = new File(newpath.toString()); 
@@ -106,16 +107,16 @@ public class PatientController {
 				e.printStackTrace();
 			}
 			
-		return "redirect:/patients/profile-settings?patient_num="+vo.getPatient_num();
+		return "redirect:/patients/profile_settings?patient_num="+vo.getPatient_num();
 	}
 	
 	/* 김다유 : 환자 프로필 수정 페이지 */
-	@RequestMapping("profile-settings")
+	@RequestMapping("profile_settings")
 	public String profile_setting(HttpSession session, Model model) {
 		int patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
 		PatientDTO patient_profile = patientService.getPatientDTO(patient_num);
 		model.addAttribute("patient_profile", patient_profile);
-		return "/patients/profile-settings.page";
+		return "/patients/profile_settings.page";
 	}
 	
 	/* 김다유 : patient_dashboard 페이지로 이동 - 처방기록리스트 */
@@ -133,8 +134,8 @@ public class PatientController {
 			
 			// 진료기록
 			List<TreatmentRecordDTO> treatmentList = patientDaoInter.treatmentRecordList(patient_num);
-			System.out.println(treatmentList.get(0).getDep_num());
-			System.out.println(treatmentList.get(0).getDepartmentDTO().getDep_name());
+			//System.out.println(treatmentList.get(0).getDep_num());
+			//System.out.println(treatmentList.get(0).getDepartmentDTO().getDep_name());
 			model.addAttribute("treatmentList", treatmentList);
 			
 			//처방전
@@ -212,13 +213,12 @@ public class PatientController {
 			pt.setP_id(pp.getP_id());
 			pt.setP_pwd(Integer.toString(old_pwd));
 			result = patientDaoInter.patient_check_pwd(pt);
-			System.out.println("가져온 result: "+ result);
+			System.out.println("patient_check_pwd 가져온 result: "+ result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("success", result);
-		System.out.println("+++++++++++++++++++++++++++++++++++++");
 		return map;
 	}
 	
@@ -235,6 +235,16 @@ public class PatientController {
 		
 		return mv;
 	}
+
+	//김성민 : 환자 회원탈퇴 페이지
+	@RequestMapping(value = "/patient_delete_account")
+	public String patient_delete_account(Model model, HttpSession session) {
+		int patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
+		PatientDTO patient_profile = patientService.getPatientDTO(patient_num);
+		model.addAttribute("patient_profile",patient_profile);
+		
+		return "/patients/patient_delete_account.page";
+	}
 	
 	// 김성민 : 환자 회원 탈퇴
 	@RequestMapping(value = "/patientDeleteAccount")
@@ -247,7 +257,7 @@ public class PatientController {
 		model.addAttribute("patient_profile",patient_profile);
 		model.addAttribute("patient_pwd",patient_pwd);
 		
-		return "/patients/patient_delete_account.page";
+		return "${path}";
 	}
 	
 	

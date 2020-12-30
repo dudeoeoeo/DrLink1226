@@ -69,25 +69,13 @@ public class PatientServiceImpl implements PatientServiceInter{
 		String msg = "";
 		System.out.println("send_mail 서비스 임플까지옴");
 		
-		if(div.equals("join")) {
-			// 회원가입 메일 내용
-			subject = "Spring Homepage 회원가입 인증 메일입니다.";
+		if(div.equals("find_pw")) {
+			subject = "DrLink 온라인 병원 임시 비밀번호 입니다.";
 			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
-			msg += "<h3 style='color: blue;'>";
-			msg += dto.getP_id() + "님 회원가입을 환영합니다.</h3>";
-			msg += "<div style='font-size: 130%'>";
-			msg += "하단의 인증 버튼 클릭 시 정상적으로 회원가입이 완료됩니다.</div><br/>";
-			msg += "<form method='post' action='http://localhost:8081/homepage/member/approval_member.do'>";
-			msg += "<input type='hidden' name='email' value='" + dto.getP_email() + "'>";
-			//이게 필요한건지 모르겟음...	re.회원가입시 인증용		msg += "<input type='hidden' name='approval_key' value='" + dto.getApproval_key() + "'>";
-			msg += "<input type='submit' value='인증'></form><br/></div>";
-		}else if(div.equals("find_pw")) {
-			subject = "Spring Homepage 임시 비밀번호 입니다.";
-			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
-			msg += "<h3 style='color: blue;'>";
-			msg += dto.getP_id() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
-			msg += "<p>임시 비밀번호 : ";
-			msg += dto.getP_pwd() + "</p></div>";
+			msg += "<h3>";
+			msg += dto.getP_id() + "님의 임시 비밀번호 입니다. 비밀번호를 <span style='color: red;'>변경</span>하여 사용하세요.</h3>";
+			msg += "<h1>임시 비밀번호 : ";
+			msg += dto.getP_pwd() + "</h1></div>";
 		}
 		// 받는 사람 E-Mail 주소
 		String mail = dto.getP_email();

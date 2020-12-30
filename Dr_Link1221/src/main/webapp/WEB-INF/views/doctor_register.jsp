@@ -319,7 +319,7 @@
 														<div class="upload-img">
 															<div class="change-photo-btn">
 																<span><i class="fa fa-upload"></i> 사진 업로드</span>
-																<input type="file" class="upload" id="file" name="file" onchange="readURL(this);">
+																<input type="file" class="upload" id="file" name="file" onchange="readURL(this);" required>
 															</div>
 															<small class="form-text text-muted">이미지 파일 형식 JPG, GIF, PNG. <br>최대 크기는 2MB</small>
 														</div>
@@ -439,19 +439,19 @@
 																<div class="col-12 col-md-6 col-lg-4">
 																	<div class="form-group">
 																		<label>출신대학</label>
-																		<input type="text" class="form-control" name="d_graduation" value="서울대학교" required>
+																		<input type="text" class="form-control" name="d_graduation" value="서울대학교" placeholder="ex)서울대학교" required>
 																	</div> 
 																</div>
 																<div class="col-12 col-md-6 col-lg-4">
 																	<div class="form-group">
 																		<label>학과</label>
-																		<input type="text" class="form-control" name="d_graduation" value="의학과" required>
+																		<input type="text" class="form-control" name="d_graduation" value="의학과" placeholder="ex)의학과" required>
 																	</div> 
 																</div>
 																<div class="col-12 col-md-6 col-lg-4">
 																	<div class="form-group">
 																		<label>졸업년도</label>
-																		<input type="text" class="form-control" name="d_graduation" value="2002" required>
+																		<input type="text" class="form-control" name="d_graduation" value="2002" placeholder="ex)2020" required>
 																	</div> 
 																</div>
 															</div>
@@ -471,19 +471,19 @@
 																<div class="col-12 col-md-6 col-lg-4">
 																	<div class="form-group">
 																		<label>병원이름</label>
-																		<input type="text" class="form-control" name="d_career"  value="">
+																		<input type="text" class="form-control" name="d_career" placeholder="ex)한국대학종합병원" value="">
 																	</div> 
 																</div>
 																<div class="col-12 col-md-6 col-lg-4">
 																	<div class="form-group">
 																		<label>직함</label>
-																		<input type="text" class="form-control" name="d_career" value="">
+																		<input type="text" class="form-control" name="d_career" placeholder="ex)내과 과장" value="">
 																	</div> 
 																</div>
 																<div class="col-12 col-md-6 col-lg-4">
 																	<div class="form-group">
 																		<label>활동년도</label>
-																		<input type="text" class="form-control" name="d_career" value="">
+																		<input type="text" class="form-control" name="d_career" placeholder="ex)2000~2006" value="">
 																	</div> 
 																</div>
 															</div>

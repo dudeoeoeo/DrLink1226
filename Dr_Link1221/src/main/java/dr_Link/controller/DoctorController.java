@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,19 +19,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import dr_Link.doctor.DoctorDaoInter;
 import dr_Link.doctorProfile.DoctorDTO;
+import dr_Link.dto.AppointmentDTO;
 import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
+import dr_Link.dto.TreatmentRecordDTO;
 import dr_Link.prescription.PrescriptionDTO;
-import dr_Link.prescription.PrescriptionDaoInter;
 import dr_Link.prescription.PrescriptionService;
 import dr_Link.review.Doc_ReviewDTO;
-import dr_Link.dto.AppointmentDTO;
-import dr_Link.dto.TreatmentRecordDTO;
 
 
 @Controller

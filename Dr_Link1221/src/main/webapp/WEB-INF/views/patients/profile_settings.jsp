@@ -6,6 +6,9 @@
 <!-- 우편번호 API -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+
+		
 <script>
 function execPostCode() {
 	
@@ -83,8 +86,9 @@ function execPostCode() {
 						<div class="col-md-12 col-12">
 							<nav aria-label="breadcrumb" class="page-breadcrumb">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">마이페이지</li>
+									<li class="breadcrumb-item"><a href="${path }">홈</a></li>
+									<li class="breadcrumb-item"><a href="patient_dashboard">마이페이지</a></li>
+									<li class="breadcrumb-item active" aria-current="page">개인정보 수정</li>
 								</ol>
 							</nav>
 							<h2 class="breadcrumb-title">개인정보 수정</h2>
@@ -225,7 +229,7 @@ function execPostCode() {
 											</div>
 											<div class="col-12 col-md-6">
 												<div class="form-group">
-													<label>Email</label>
+													<label>이메일</label>
 													<input type="email" class="form-control" value="${patient_profile.p_email }" name="p_email">
 												</div>
 											</div>
@@ -233,6 +237,33 @@ function execPostCode() {
 												<div class="form-group">
 													<label>핸드폰</label>
 													<input type="text" value="${patient_profile.p_phone_num }" name="p_phone_num" class="form-control">
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+												<label class="">키<span class="text-danger">*</span></label>
+												<input id="height" name="height" class="form-control" maxlength="3" size="40" value="180" type="text" placeholder="cm 단위로 입력해주세요." required>
+												<div class="check_font" id="height_check"></div>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+												<label class="">몸무게<span class="text-danger">*</span></label>
+												<input id="weight" name="weight" class="form-control" maxlength="3" size="40" value="80" type="text" placeholder="kg 단위로 입력해주세요." required>
+												<div class="check_font" id="weight_check"></div>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+												<label class="">알레르기<span class="text-danger">*</span></label>
+													<div class="btn-group btn-group-toggle" data-toggle="buttons">
+														<label class="btn btn-primary" style="width: 100px">
+															<input type="radio" name="allergy" id="allergy" value="0" > 있음
+														</label>
+														<label class="btn btn-primary" style="width: 100px">
+															<input type="radio" name="allergy" id="allergy" value="1" checked="checked"> 없음
+														</label>
+													</div>
 												</div>
 											</div>
 											<div class="col-12 ">
@@ -250,22 +281,9 @@ function execPostCode() {
 													<input type="text" id="p_address2" name="p_address2" class="addr2 form-control" size="40" placeholder="상세주소" value="${patient_profile.p_address2 }">
 												</div>
 											</div>
-											<div class="col-12 col-md-6">
-												<div class="form-group">
-													<label>현재 비밀번호</label>
-													<input type="password" class="form-control">
-												</div>
-												<br>
-											</div>
-											<div class="col-12 col-md-6">
-												<div class="form-group">
-													<label>변경할 비밀번호</label>
-													<input type="password" class="form-control">
-												</div>
-											</div>
-										</div>
 										<div class="submit-section">
 											<button type="submit" class="btn btn-primary submit-btn">변경 저장하기</button>
+										</div>
 										</div>
 									</form>
 									<!-- /Profile Settings Form -->
