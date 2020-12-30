@@ -187,4 +187,14 @@
 		
 	}) // ready
 	
+	$(function(){
+		$("#paybtn").hover(function(){
+			if($('input:checkbox[name=terms_accept_1]').is(':checked')){
+				$("#paybtn").removeAttr("disabled");
+			}else{
+				$("#paybtn").attr("disabled", "disabled");
+			}
+		});
+	});
+	
 </script>

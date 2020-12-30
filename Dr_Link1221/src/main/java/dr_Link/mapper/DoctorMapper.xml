@@ -95,7 +95,7 @@
  	<!-- 김성민 -->
  	<!-- 로그인 -->
 	<select id="loginchk" parameterType="doctorDTO" resultType="doctorDTO">
-		select doctor_num, d_id, d_name, dep_num, d_retire_date from dl_doctor where d_id=#{d_id} and d_pwd=#{d_pwd}
+		select doctor_num, d_id, d_name, dep_num, d_retire_date, d_pwd from dl_doctor where d_id=#{d_id} and d_pwd=#{d_pwd}
 	</select>
 	
  	<!-- 회원가입 -->
@@ -123,8 +123,13 @@
 		select d_id from dl_doctor where d_email = #{email}
 	</select>
 
-	<!-- 비밀번호 변경 -->
+	<!-- 비밀번호 변경(비번찾기용) -->
 	<update id="update_pw" parameterType="doctorDTO">
+		update dl_doctor set d_pwd = #{d_pwd} where d_id = #{d_id}
+	</update>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="update_doctorpwd" parameterType="doctorDTO">
 		update dl_doctor set d_pwd = #{d_pwd} where d_id = #{d_id}
 	</update>
 

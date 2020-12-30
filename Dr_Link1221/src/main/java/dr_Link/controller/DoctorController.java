@@ -173,15 +173,44 @@ public class DoctorController {
 		System.out.println(reviewList.get(0).getReview_content());
 		return "/doctor/reviews.page";
 	}
-	
-	
-	/* 김다유 : 의사 비밀번호 변경 성민오빠 여기서 해주세요!!!! */
-	@RequestMapping(value = "/doctor_change_password" )
+
+	//김성민 : 의사 비밀번호 변경 페이지
+	@RequestMapping(value = "/doctor_change_password")
 	public String doctor_change_password(DoctorDTO vo, Model model, HttpSession session) {
+		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
+		DoctorDTO doctorinfo = pre_service.doctor_info(doctor_num);
+		model.addAttribute("doctorinfo",doctorinfo);
+		
 		return "/doctor/doctor_change_password.page";
 	}
 	
+	//김성민 : 의사 비번 변경
+	@RequestMapping(value = "/doctorChangePwd", method = RequestMethod.POST)
+	public ModelAndView doctorChangePwd(DoctorDTO dto, String old_pwd, HttpSession session, Model model) {
+		ModelAndView mv = new ModelAndView("/doctor/doctor_change_password.page");
+		String doctor_pwd = ((DoctorDTO) session.getAttribute("doctor")).getD_pwd();
+		String doctor_id = ((DoctorDTO) session.getAttribute("doctor")).getD_id();
+		dto.setD_id(doctor_id);
+		doc_dao.update_doctorpwd(dto);
+		System.out.println("비번변경 기능 들어왓는가?");
+		System.out.println("id :"+doctor_id);
+		
+		return mv;
+	}
 	
+	// 김성민 : 의사 회원 탈퇴
+	@RequestMapping(value = "/doctorDeleteAccount")
+	public ModelAndView doctorDeleteAccount(DoctorDTO dto, HttpSession session) {
+		ModelAndView mv = new ModelAndView("main.page");
+		String doctor_pwd = ((DoctorDTO) session.getAttribute("doctor")).getD_pwd();
+		String doctor_id = ((DoctorDTO) session.getAttribute("doctor")).getD_id();
+		dto.setD_pwd(doctor_pwd);
+		System.out.println("id :"+doctor_id);
+		System.out.println(doctor_pwd+"doctor_pwddoctor_pwddoctor_pwddoctor_pwddoctor_pwddoctor_pwd");
+		System.out.println(dto.getD_id()+"getD_idgetD_idgetD_idgetD_idgetD_idgetD_idgetD_idgetD_idgetD_idgetD_id");
+		
+		return mv;
+	}
 	
 	// 예약현황
 	@RequestMapping(value = "/appointments")

@@ -129,11 +129,16 @@ public class DoctorDaoImp implements DoctorDaoInter {
 		return ss.selectOne("doctor.find_id", email);
 	}
 	
-	// 비밀번호 변경
+	// 비밀번호 변경(비번찾기용)
 	@Transactional
 	public int update_pw(DoctorDTO dto) throws Exception{
 		System.out.println("update_pw 다오 임플까지옴");
 		return ss.update("doctor.update_pw", dto);
+	}
+	
+	// 비밀번호 변셩
+	public int update_doctorpwd(DoctorDTO dto) {
+		return ss.update("doctor.update_doctorpwd", dto);
 	}
 	
 	// 이메일 검사

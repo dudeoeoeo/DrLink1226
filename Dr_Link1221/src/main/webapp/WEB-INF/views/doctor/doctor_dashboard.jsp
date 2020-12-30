@@ -79,7 +79,7 @@
                                     </a>
                                  </li>
 								<li>
-                               		<a href="#">
+                               		<a href="doctor_delete_account">
 										<i class="fas fa-ban"></i>
 										<span>회원탈퇴</span>
 									</a>

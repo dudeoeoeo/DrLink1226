@@ -49,45 +49,6 @@
 			} 
 		} 
 		
-		
-
-		
-		//비밀번호 유효성 및 중복확인
-		$(function(){ 
-			$('#chg_pwd').blur(function(){
-				var chg_pwd = $("#chg_pwd").val(); 
-				var old_pwd = "${doctorinfo.d_pwd}";
-				if(old_pwd == chg_pwd){
-					$("#old_pwd_check").text("이전과 같은 비밀번호 입니다.");
-					$('#old_pwd_check').css('color', 'red');
-		    	    $('#chg_pwd').val('');
-		         	$('#chg_pwd').focus();
-			      }else{
-					$("#old_pwd_check").text("");
-			 	  }
-			});
-		});
-		
-		$(function(){ 
-			$('#chg_pwd2').blur(function(){
-				var getPwd = RegExp(/^[a-zA-z0-9]{4,12}$/);
-				if(!getPwd.test($("#chg_pwd2").val())){
-					$("#pwd_check").html("영문 대소문자와 숫자 4~12자리로 입력해야합니다.");
-					$('#pwd_check').css('color', 'red');
-			        $("#chg_pwd").val("");
-			        $("#chg_pwd2").val("");
-			        $("#chg_pwd").focus();
-			      }else if($('#chg_pwd').val() != $('#chg_pwd2').val()){
-					$("#pwd_check").text("비밀번호가 일치하지 않습니다.");
-					$('#pwd_check').css('color', 'red');
-		    	    $('#chg_pwd2').val('');
-		         	$('#chg_pwd2').focus();
-			      }else{
-					$("#pwd_check").text("비밀번호가 일치합니다.");
-					$('#pwd_check').css('color', 'green');
-			 	  }
-			});
-		});
 		</script>
 	</head>
 	<body>
@@ -222,15 +183,15 @@
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<label>아이디 <span class="text-danger">*</span></label>
+												<label>아이디</label>
 												<input type="text" class="form-control" name="d_id" readonly value="${doctorinfo.d_id}">
 												<input type="hidden" class="form-control" name="doctor_num" readonly value="${doctorinfo.doctor_num}">
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<label>이메일 <span class="text-danger">*</span></label>
-												<input type="email" class="form-control" name="d_email" value="${doctorinfo.d_email}">
+												<label>이메일<span class="text-danger">*</span></label>
+												<input type="email" class="form-control" name="d_email" value="${doctorinfo.d_email}" required>
 											</div>
 										</div>
 										<div class="col-md-6">
@@ -241,8 +202,8 @@
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<label>휴대전화</label>
-												<input type="text" class="form-control"  name="d_phone_num" value="${doctorinfo.d_phone_num}">
+												<label>휴대전화<span class="text-danger">*</span></label>
+												<input type="text" class="form-control"  name="d_phone_num" value="${doctorinfo.d_phone_num}" required>
 											</div>
 										</div>
 										<div class="col-md-6">
@@ -291,13 +252,8 @@
 							<div class="card services-card">
 								<div class="card-body">
 									<h4 class="card-title">진료과목</h4>
-									<div class="form-group">
-										<label>진료과</label>
-										<input type="text" data-role="tagsinput" class="input-tags form-control" placeholder="진료과를 입력하세요." name="dep_name" value="${doctorinfo.departmentDTO.dep_name}" id="services">
-										<small class="form-text text-muted">알림 : 새로운 진료과목을 추가하시려면 엔터를 누르세요.</small>
-									</div> 
 									<div class="form-group mb-0">
-										<label>전문진료분야 </label>
+										<label>전문진료분야</label>
 										<input class="input-tags form-control" type="text" data-role="tagsinput" placeholder="진료분야를 입력하세요." name="d_field" value="${doctorinfo.d_field}" id="specialist">
 										<small class="form-text text-muted">알림 : 새로운 진료과목을 추가하시려면 엔터를 누르세요.</small>
 									</div> 
@@ -308,7 +264,7 @@
 							<!-- Education -->
 							<div class="card">
 								<div class="card-body">
-									<h4 class="card-title">학력</h4>
+									<h4 class="card-title">학력<span class="text-danger">*</span></h4>
 									<div class="education-info">
 										<div class="row form-row education-cont">
 											<div class="col-12 col-md-10 col-lg-11">
@@ -319,19 +275,19 @@
 													<div class="col-12 col-md-6 col-lg-4">
 														<div class="form-group">
 															<label>출신대학</label>
-															<input type="text" class="form-control" name="d_graduation" value="${m[0][status.index]}">
+															<input type="text" class="form-control" name="d_graduation" value="${m[0][status.index]}" required>
 														</div> 
 													</div>
 													<div class="col-12 col-md-6 col-lg-4">
 														<div class="form-group">
 															<label>학과</label>
-															<input type="text" class="form-control" name="d_graduation" value="${m[0][status.index+1]}">
+															<input type="text" class="form-control" name="d_graduation" value="${m[0][status.index+1]}" required>
 														</div> 
 													</div>
 													<div class="col-12 col-md-6 col-lg-4">
 														<div class="form-group">
 															<label>졸업년도</label>
-															<input type="text" class="form-control" name="d_graduation" value="${m[0][status.index+2]}">
+															<input type="text" class="form-control" name="d_graduation" value="${m[0][status.index+2]}" required>
 														</div> 
 													</div>
 													</c:forEach>
@@ -397,7 +353,7 @@
 
 							<div class="card">
 								<div class="card-body">
-									<h4 class="card-title">면허정보</h4>
+									<h4 class="card-title">면허정보<span class="text-danger">*</span></h4>
 									<div class="registrations-info">
 										<div class="row form-row reg-cont">
 											<div class="col-12 col-md-10 col-lg-11">
@@ -405,7 +361,7 @@
 											
 													<div class="col-12 col-md-6 col-lg-4">
 												<div class="form-group">
-												<label class="">진료과<span class="text-danger">*</span></label>
+												<label class="">진료과</label>
 												<select id="dep_num" name="dep_num" class="form-control" required>
 												<c:choose>
 												<c:when test="${doctorinfo.dep_num eq '10'}">
@@ -430,7 +386,7 @@
 												
 													<div class="col-12 col-md-6 col-lg-4">
 												<div class="form-group">
-												<label class="">전공과목<span class="text-danger">*</span></label>
+												<label class="">전공과목</label>
 												<select id="d_licence" name="d_licence" class="form-control" required>
 												    <option value="${doctorinfo.d_licence}" selected="selected">${doctorinfo.d_licence}</option>
 												    <option value="가정의학과">가정의학과</option>
@@ -466,7 +422,7 @@
 											</div>
 													<div class="col-12 col-md-6 col-lg-4">
 												<div class="form-group">
-												<label class="">면허번호<span class="text-danger">*</span></label>
+												<label class="">면허번호</label>
 												<input id="d_licence_num" name="d_licence_num" class="form-control" maxlength="30" value="548732155485" type="text" placeholder="면허번호를 입력해주세요." required />
 												<div class="check_font" id="d_licence_num"></div>
 												</div>
@@ -478,39 +434,6 @@
 							</div>
 							</div>
 							<!-- /Registrations -->
-							
-							<!-- password -->
-							<div class="card">
-								<div class="card-body">
-									<h4 class="card-title">비밀번호 변경</h4>
-									<div class="registrations-info">
-										<div class="row form-row reg-cont">
-											<div class="col-2">
-												<div class="form-group">
-													<label>현재비밀번호</label>
-													<input type="password" name="old_pwd" id="old_pwd" class="form-control" value="${doctorinfo.d_pwd}" readonly="readonly">
-													<div class="check_font" id="old_pwd_check"></div>
-												</div> 
-											</div>
-											<div class="col-12 col-md-5">
-												<div class="form-group">
-													<label>변경비밀번호</label>
-													<input type="password" name="chg_pwd" id="chg_pwd" class="form-control">
-												</div> 
-											</div>
-											<div class="col-12 col-md-5">
-												<div class="form-group">
-													<label>변경비밀번호 확인</label>
-													<input type="password" name="chg_pwd2" id="chg_pwd2" class="form-control">
-													<div class="check_font" id="pwd_check"></div>
-												</div> 
-											</div>
-										</div>
-									</div>
-									
-								</div>
-							</div>
-							<!-- /password -->
 							<div class="submit-section submit-btn-bottom">
                         <button type="submit" class="btn btn-primary submit-btn" value="전송" >변경 저장하기</button>
                      </div>
