@@ -196,5 +196,10 @@
 		resultType="patientDTO">
 		select * from dl_user where p_id = #{id}
 	</select>
+	
+	<!-- 회원탈퇴 -->
+	<update id="deletePatient" parameterType="int">
+		update dl_user set p_retire_date = sysdate where patient_num = #{patient_num}
+	</update>
 
 </mapper>

@@ -54,8 +54,6 @@ public class PatientController {
 	
 	@Autowired
 	private PrescriptionDaoInter pre_dao;
-	@Autowired
-	private DoctorProfileDAO doctorProfileDAO;
 	
 	@RequestMapping(value = "{step}")
 	public String accessAnyFiles(@PathVariable String step) {
@@ -73,10 +71,9 @@ public class PatientController {
 	@RequestMapping("updatePatient")
 	public String updatePatient(PatientDTO vo, HttpSession session, HttpServletRequest request) {
 		
-		try {
+
 //			String r_path = session.getServletContext().getRealPath("/");
 //			System.out.println("r_path :" + r_path);
-			String r_path = session.getServletContext().getRealPath("resources/patient/profileImg")+"\\";
 //			String img_path = request.getSession().getServletContext().getRealPath("resources/patient/profileImg")+"/";
 //			System.out.println("img_path :" + img_path);
 //			StringBuffer path = new StringBuffer();
@@ -84,30 +81,35 @@ public class PatientController {
 			path.append(r_path).append(img_path);
 			path.append(oriFn);
 			*/
-			MultipartFile p_photo = vo.getFile();
-			String oriFn = p_photo.getOriginalFilename();
-			
-			StringBuffer newpath = new StringBuffer();
-			newpath.append(r_path);
-			newpath.append(oriFn);
-			vo.setP_photo(oriFn);
-			File f = new File(newpath.toString()); 
-			
-			p_photo.transferTo(f);
 			PatientDTO p_num = (PatientDTO) session.getAttribute("user");
 			vo.setPatient_num(p_num.getPatient_num());
-			
-			patientService.updatePatient(vo);
-			
-			} catch (NullPointerException e) {
-				e.printStackTrace();
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			if(vo.getFile() != null) {
+				String r_path = session.getServletContext().getRealPath("resources/patient/profileImg")+"\\";
+				MultipartFile file = vo.getFile();
+				String oriFn = file.getOriginalFilename();
+				System.out.println("들어온 oriFn: "+oriFn);
+				if(oriFn != null && oriFn != "") {
+					vo.setP_photo(oriFn);
+					StringBuffer newpath = new StringBuffer();
+					newpath.append(r_path);
+					newpath.append(oriFn);
+					File f = new File(newpath.toString());
+					try {
+						file.transferTo(f);
+					} catch (IllegalStateException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} else {
+					vo.setP_photo(vo.getP_photo());
+				}
+				System.out.println("if문 : "+ vo.getP_photo());
+				patientService.updatePatient(vo);
+			} 
 			
 		return "redirect:/patients/profile_settings?patient_num="+vo.getPatient_num();
+
 	}
 	
 	/* 김다유 : 환자 프로필 수정 페이지 */
@@ -249,15 +251,12 @@ public class PatientController {
 	// 김성민 : 환자 회원 탈퇴
 	@RequestMapping(value = "/patientDeleteAccount")
 	public String patientDeleteAccount(PatientDTO vo, Model model, HttpSession session) {
-		String patient_pwd = ((PatientDTO) session.getAttribute("user")).getP_pwd();
 		int patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
-		System.out.println(patient_num+"patient_num");
-		System.out.println(patient_pwd+"patient_pwd");
-		PatientDTO patient_profile = patientService.getPatientDTO(patient_num);
-		model.addAttribute("patient_profile",patient_profile);
-		model.addAttribute("patient_pwd",patient_pwd);
 		
-		return "${path}";
+		patientDaoInter.deletePatient(patient_num);
+		session.removeAttribute("user");
+		
+		return "main.page";
 	}
 	
 	

@@ -155,6 +155,7 @@ public class PatientServiceImpl implements PatientServiceInter{
 	@Override
 	public void deletePatient(int patient_num) {
 		// TODO Auto-generated method stub
+		patientDaoImpl.deletePatient(patient_num);
 		
 	}
 }

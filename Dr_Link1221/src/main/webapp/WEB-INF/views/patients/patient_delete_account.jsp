@@ -125,12 +125,12 @@
 										<h3>정말 탈퇴하시겠습니까?</h3>
 										<div class="form-group">
 											<label>비밀번호</label>
-											<input type="password" name="p_pwd" id="p_pwd" class="form-control">
+											<input type="password" name="p_pwd" id="p_pwd" class="form-control" required>
 											<div class="check_font" id="pwd_check"></div>
 										</div>
 										<div class="terms-accept">
 											<div class="custom-checkbox">
-											   <input type="checkbox" id="terms_accept_1" name="terms_accept_1" >
+											   <input type="checkbox" id="terms_accept_1" name="terms_accept_1" required>
 											   <label for="terms_accept"><a href="#">위 내용을 </a><span>모두 확인했으며, 회원탈퇴에 동의합니다.</span></label>
 											</div>
 										</div>
@@ -150,17 +150,14 @@
 <script>
 $(function(){
 	$('#p_pwd').blur(function(){
-		var old_pwd = "${patient_pwd.p_pwd}";
+		var old_pwd = "${patient_profile.p_pwd}";
 		if($('#p_pwd').val() != old_pwd){
-			alert(old_pwd);
 			$("#submit-btn").attr("disabled", "disabled");
 			$("#pwd_check").text("비밀번호가 일치하지 않습니다.");
 			$('#pwd_check').css('color', 'red');
 		    $('#p_pwd').val('');
 	     	$('#p_pwd').focus();
 		}else{
-			alert(${patient_pwd.p_pwd});
-			$("#submit-btn").removeAttr("disabled");
 			$("#pwd_check").text("");
 		}
 	});

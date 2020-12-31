@@ -70,16 +70,17 @@
 		      }else if($('#p_pwd').val() != $('#p_pwd2').val()){
 				$("#pwd_check").text("비밀번호가 일치하지 않습니다.");
 				$('#pwd_check').css('color', 'red');
-	    	    $('#p_pwd2').val('');
+		        $("#p_pwd").val("");
+		        $("#p_pwd2").val("");
 	         	$('#p_pwd2').focus();
 		      }else if($("#old_pwd").val() == $("#p_pwd").val()){
 				$("#submit-btn").attr("disabled", "disabled");
 				$("#pwd_check").text("이전과 같은 비밀번호 입니다.");
 				$('#pwd_check').css('color', 'red');
-	    	    $('#p_pwd').val('');
+		        $("#p_pwd").val("");
+		        $("#p_pwd2").val("");
 	         	$('#p_pwd').focus();
 		      }else{
-				$("#submit-btn").removeAttr("disabled");
 				$("#pwd_check").text("비밀번호가 알맞습니다.");
 				$('#pwd_check').css('color', 'green');
 		 	  }

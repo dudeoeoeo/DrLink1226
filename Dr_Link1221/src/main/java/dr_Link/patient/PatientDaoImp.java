@@ -116,6 +116,7 @@ public class PatientDaoImp implements PatientDaoInter{
 	@Override
 	public void deletePatient(int patient_num) {
 		// TODO Auto-generated method stub
+		ss.update("patient.deletePatient", patient_num);
 		
 	}
 
