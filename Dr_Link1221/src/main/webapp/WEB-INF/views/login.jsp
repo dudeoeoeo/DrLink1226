@@ -58,33 +58,33 @@
 							<img src="${path}/resources/assets/img/login-banner.png"
 								class="img-fluid" alt="Doccure Login">
 						</div>
-						<div class="col-md-12 col-lg-6 login-right">
+						<div class="col-md-7 col-lg-6 mw-100 login-right">
 							<div class="login-header">
 								<h3>
 									Dr.Link <span>로그인</span>
 								</h3>
 							</div>
 							<div class="row align-items-center">
-								<div class="col-md-5 text-center">
+								<div class="col-md-6 h-100 text-center">
 									<a class="btn btn-primary btn-outline-dark m-3 "
 										href="patient_login" role="button" rel="nofollow"
 										>일반회원<br>로그인
 									</a>
 								</div>
-								<div class="col-md-5 text-center">
+								<div class="col-md-6 h-100 text-center">
 									<a class="btn btn-primary btn-outline-dark m-3"
 										href="patient_register" role="button">일반회원<br>회원가입
 									</a>
 								</div>
 							</div>
 							<div class="row align-items-center">
-								<div class="col-md-5 text-center">
-									<a class="btn btn-primary btn-outline-dark m-3"
+								<div class="col-md-6 h-100 text-center">
+									<a class="btn btn-light btn-outline-dark m-3"
 										href="doctor_login" role="button">의사회원<br>로그인
 									</a>
 								</div>
-								<div class="col-md-5 text-center">
-									<a class="btn btn-primary btn-outline-dark m-3"
+								<div class="col-md-6 h-100 text-center">
+									<a class="btn btn-light btn-outline-dark m-3"
 										href="doctor_verify" role="button">의사회원<br>회원가입
 									</a>
 								</div>

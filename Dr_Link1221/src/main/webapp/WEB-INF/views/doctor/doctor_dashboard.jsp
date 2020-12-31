@@ -27,7 +27,6 @@
 
                <div class="row">
                   <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-                     
                      <!-- Profile Sidebar -->
                     <div class="profile-sidebar">
                         <div class="widget-profile pro-widget-content">
@@ -39,7 +38,7 @@
                                  <h3>${sessionScope.doctor.d_name} 의사</h3>
                                  
                                  <div class="patient-details">
-                                    <h5 class="mb-0">${sessionScope.doctor.dep_no}</h5>
+                                    <h5 class="mb-0">${sessionScope.doctor.dep_num}</h5>
                                  </div>
                               </div>
                            </div>
@@ -206,7 +205,8 @@
                                                    <tr>
                                                       <td>
                                                          <h2 class="table-avatar">
-                                                            <a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${path}/resources/assets/img/patients/patient.jpg" alt="User Image"></a>
+                                                            <a href="patient-profile" class="avatar avatar-sm mr-2">
+                                                            <img class="avatar-img rounded-circle" src="${path}/resources/patient/profileImg/${dash.patients[index].p_photo}" alt="User Image"></a>
                                                             <a href="patient-profile.jsp">${dash.patients[index].p_name } <!-- <span>#12345</span> --></a>
                                                          </h2>
                                                       </td>
@@ -289,7 +289,7 @@
                                                    <tr>
                                                       <td>
                                                          <h2 class="table-avatar">
-                                                            <a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${path}/resources/assets/img/patients/patient6.jpg" alt="User Image"></a>
+                                                            <a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${path}/resources/patient/profileImg/${dash.patients[index].p_photo}" alt="User Image"></a>
                                                             <a href="patient-profile">${dash.patients[index].p_name } <!-- <span>#33333</span> --></a>
                                                          </h2>
                                                       </td>

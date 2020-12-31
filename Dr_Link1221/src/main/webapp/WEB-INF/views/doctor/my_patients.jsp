@@ -151,42 +151,58 @@ body {
 							
 						</div>
 						<div class="col-md-7 col-lg-8 col-xl-9">
-						
-							<div class="row row-grid">
-							
-								<!-- 환자리스트 반복 시작 -->
-                                <c:forEach var="patient" items="${my_patients_list}" varStatus="status">
+
+						<div class="row row-grid">
+							<c:if test="${empty reviewList }">
+								<div class="col-md-6 col-lg-4 col-xl-3">
+									<div class="card text-center widget-profile pat-widget-profile" style="width: 80em;">
+										<div class="card-body">나의 환자가 없습니다.</div>
+									</div>
+								</div>
+							</c:if>
+							<!-- 환자리스트 반복 시작 -->
+							<c:forEach var="patient" items="${my_patients_list}"
+								varStatus="status">
 								<div class="col-md-6 col-lg-4 col-xl-3">
 									<div class="card widget-profile pat-widget-profile">
 										<div class="card-body">
 											<div class="pro-widget-content">
 												<div class="profile-info-widget">
-													<a href="patient-profile" class="booking-doc-img">
-														<img src="${path}/resources/assets/img/patients/patient.jpg" alt="User Image">
+													<a href="patient-profile" class="booking-doc-img"> <img
+														src="${path}/resources/assets/img/patients/patient.jpg"
+														alt="User Image">
 													</a>
 													<div class="profile-det-info">
-														<h3><a href="#">${patient.patientDTO.p_name}</a></h3>
-														
+														<h3>
+															<a href="#">${patient.patientDTO.p_name}</a>
+														</h3>
+
 														<div class="patient-details">
-															<h5><b>Patient ID :</b> ${patient.patientDTO.patient_num}</h5>
-															<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i>${patient.patientDTO.profileAddress}</h5>
+															<h5>
+																<b>Patient ID :</b> ${patient.patientDTO.patient_num}
+															</h5>
+															<h5 class="mb-0">
+																<i class="fas fa-map-marker-alt"></i>${patient.patientDTO.profileAddress}</h5>
 														</div>
 													</div>
 												</div>
 											</div>
-											<div class="patient-info" style="text-align : center;">
-												<h6>${patient.patientDTO.birth}, ${patient.patientDTO.p_gender}</h6>
-												<h6><b>혈액형 :</b> ${patient.patientDTO.bloodtype}</h6>
+											<div class="patient-info" style="text-align: center;">
+												<h6>${patient.patientDTO.birth},
+													${patient.patientDTO.p_gender}</h6>
+												<h6>
+													<b>혈액형 :</b> ${patient.patientDTO.bloodtype}
+												</h6>
 											</div>
 										</div>
 									</div>
 								</div>
-								</c:forEach>
-								<!-- 환자리스트 반복 끝 -->
-								
-							</div>
+							</c:forEach>
+							<!-- 환자리스트 반복 끝 -->
 
 						</div>
+
+					</div>
 					</div>
 
 				</div>

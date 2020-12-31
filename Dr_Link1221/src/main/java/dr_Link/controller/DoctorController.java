@@ -168,7 +168,6 @@ public class DoctorController {
 		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
 		List<TreatmentRecordDTO> my_patients_list = doc_dao.my_patients_list(doctor_num);
 		model.addAttribute("my_patients_list", my_patients_list);
-		System.out.println(my_patients_list.get(0).getPatientDTO().getP_name());
 		return "/doctor/my_patients.page";
 	}
 	
@@ -178,7 +177,6 @@ public class DoctorController {
 		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
 		List<Doc_ReviewDTO> reviewList = doc_dao.reviewList(doctor_num);
 		model.addAttribute("reviewList", reviewList);
-		System.out.println(reviewList.get(0).getReview_content());
 		return "/doctor/reviews.page";
 	}
 
@@ -290,8 +288,6 @@ public class DoctorController {
 		List<TreatmentRecordDTO> tr_dto = doc_dao.getAP_num();
 		List<AppointmentDTO> apList = doc_dao.get_D_board(doctor.getDoctor_num());
 		int cnt=0;
-		System.out.println("대시보드 가져온 : "+apList.size());
-		
 		try {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			String day = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));

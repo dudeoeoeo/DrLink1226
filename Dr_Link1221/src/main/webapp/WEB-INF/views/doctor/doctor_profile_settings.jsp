@@ -62,13 +62,6 @@
 				<div class="container-fluid">
 					<div class="row align-items-center">
 						<div class="col-md-12 col-12">
-							<nav aria-label="breadcrumb" class="page-breadcrumb">
-								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="${path }">홈</a></li>
-									<li class="breadcrumb-item"><a href="doctor_dashboard">마이페이지</a></li>
-									<li class="breadcrumb-item active" aria-current="page">내 정보 수정</li>
-								</ol>
-							</nav>
 							<h2 class="breadcrumb-title">내 정보 수정</h2>
 						</div>
 					</div>
@@ -216,19 +209,16 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<label>성별</label>
-												<c:set var="d_gender" value="${doctorinfo.d_gender}" />
-												<select class="form-control select"  name="d_gender" >
 												<c:choose>
-												<c:when test="${'1 ' eq doctorinfo.d_gender  }">
-											        <option value="${doctorinfo.d_gender}" selected="selected">남</option>
-											        <option value="2" >여</option>
+												<c:when test="${doctorinfo.d_gender eq '1'}">
+												<input type="text" class="form-control" readonly value="남성">
+												<input type="hidden" class="form-control" name="d_gender" readonly value="${doctorinfo.d_gender}">
 												</c:when>
-												<c:when test="${'2 ' eq doctorinfo.d_gender  }">
-											        <option value="${doctorinfo.d_gender}" selected="selected">여</option>
-											        <option value="1" >남</option>
+												<c:when test="${doctorinfo.d_gender eq '2'}">
+												<input type="text" class="form-control" readonly value="여성">
+												<input type="hidden" class="form-control" name="d_gender" readonly value="${doctorinfo.d_gender}">
 												</c:when>
 												</c:choose>
-												</select>
 											</div>
 										</div>
 										<div class="col-md-6">
