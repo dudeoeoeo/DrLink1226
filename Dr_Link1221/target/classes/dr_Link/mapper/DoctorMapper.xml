@@ -47,6 +47,7 @@
 		<result column="height" property="height" />
 		<result column="weight" property="weight" />
 		<result column="p_birth" property="p_birth" />
+		<result column="p_photo" property="p_photo" />
 		<result column="p_gender" property="p_gender" />
 		<result column="p_zipcode" property="p_zipcode" />
 		<result column="p_address1" property="p_address1" />
@@ -371,7 +372,7 @@ order by am.appointment_date
 <select id="getApList" parameterType="int" resultMap="d_dash_board">
 
 select rownum, a.* from (
-select p.p_name p_name, p.p_address1 p_address1, p.p_address2 p_address2, p.p_email p_email, am.appointment_num appointment_num,
+select p.p_name p_name, p.p_photo p_photo, p.p_address1 p_address1, p.p_address2 p_address2, p.p_email p_email, am.appointment_num appointment_num,
         p.p_phone_num p_phone_num, p.p_gender p_gender, am.appointment_date appointment_date,am.appointment_time appointment_time, 
 ( select count(*) from appointment where doctor_num = #{doctor_num} and appointment_date >= to_char(sysdate, 'YYYY-MM-DD') ) total_cnt
 from dl_user p, appointment am

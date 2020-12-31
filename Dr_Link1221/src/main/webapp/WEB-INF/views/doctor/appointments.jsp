@@ -165,7 +165,7 @@ body {
 								<div class="appointment-list">
 									<div class="profile-info-widget">
 										<a href="patient-profile" class="booking-doc-img">
-											<img src="${path}/resources/assets/img/patients/patient.jpg" alt="User Image">
+										   <img class="avatar-img rounded-circle" src="${path}/resources/patient/profileImg/${ap.patients[0].p_photo}" alt="User Image"></a>
 										</a>
 										<div class="profile-det-info">
 											<h3><a href="patient-profile"> ${ap.patients[0].p_name}</a></h3>

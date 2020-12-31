@@ -120,7 +120,6 @@ h2:not(.u-subtitle) {
 						<div class="footer-widget footer-menu">
 							<h2 class="footer-title"><a href="notice" class="footer-menu">공지사항</a></h2>
 							<h2 class="footer-title"><a href="health-care" class="footer-menu">건강정보</a></h2>
-							<h2 class="footer-title"><a href="question" class="footer-menu">FAQ</a></h2>
 							<h2 class="footer-title"><a href="search" class="footer-menu">의료진 소개</a></h2>
 						</div>
 						<!-- /Footer Widget -->

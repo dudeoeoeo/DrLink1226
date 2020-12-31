@@ -166,10 +166,8 @@ body {
 										<div class="card-body">
 											<div class="pro-widget-content">
 												<div class="profile-info-widget">
-													<a href="patient-profile" class="booking-doc-img"> <img
-														src="${path}/resources/assets/img/patients/patient.jpg"
-														alt="User Image">
-													</a>
+													<a href="patient-profile" class="booking-doc-img"> 
+                                                          <img class="avatar-img rounded-circle" src="${path}/resources/patient/profileImg/${patient.patientDTO.p_photo}" alt="User Image"></a>
 													<div class="profile-det-info">
 														<h3>
 															<a href="#">${patient.patientDTO.p_name}</a>
