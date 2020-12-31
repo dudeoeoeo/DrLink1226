@@ -79,8 +79,7 @@
 									<li class="page-item disabled"><a class="page-link"
 										href="#" tabindex="-1"><i class="fas fa-angle-double-left"></i></a>
 									</li>
-									<!-- <li class="page-item"><a class="page-link"
-										href="health-blog?d_page=1">1</a></li> -->
+									<!-- 페이지가 5개 이상으로 넘어가면 어떻게 처리해야할지는 아직 안함ㅠ -->
 									<c:choose>
 										<c:when test="${page_num == 1}">
 										 <li class="page-item"><a class="page-link" href="notice?d_page=${page_num}">${page_num}</a></li>
