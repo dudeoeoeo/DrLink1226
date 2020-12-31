@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -65,6 +66,7 @@ public class PatientController {
 	public String doctor_profile(HttpServletRequest request, Model model, RedirectAttributes re) {
 		int doctor_num = Integer.parseInt(request.getParameter("doctor_num"));
 		re.addFlashAttribute("doctor_num", doctor_num);
+		System.out.println("PatientController 의사프로필");
 		return "redirect:/doctor_profile";
 	}
 	
@@ -227,14 +229,13 @@ public class PatientController {
 	//김성민 : 환자 비번 변경
 	@RequestMapping(value = "/patientChangePwd", method = RequestMethod.POST)
 	public ModelAndView patientChangePwd(PatientDTO dto, String old_pwd, HttpSession session, Model model) {
-		ModelAndView mv = new ModelAndView("/patients/patient_change_password.page");
+		ModelAndView mv = new ModelAndView("redirect:patient_dashboard");
 		//String patient_pwd = ((PatientDTO) session.getAttribute("user")).getP_pwd();
 		String patient_id = ((PatientDTO) session.getAttribute("user")).getP_id();
 		dto.setP_id(patient_id);
 		patientDaoInter.update_patientpwd(dto);
 		System.out.println("비번변경 기능 들어왓는가?");
 		System.out.println("id :"+patient_id);
-		
 		return mv;
 	}
 

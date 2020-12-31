@@ -151,7 +151,7 @@ body {
 							
 						</div>
 					<div class="col-md-7 col-lg-8 col-xl-9">
-						<c:if test="${empty reviewList }">
+						<c:if test="${empty my_patients_list }">
 							<div class="card text-center">
 								<p style="margin: 10px; padding: 10px;">나의 환자가 없습니다.</p>
 							</div>

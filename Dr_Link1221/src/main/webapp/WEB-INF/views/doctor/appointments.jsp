@@ -147,7 +147,7 @@ body {
 						</div>
 						
 						<div class="col-md-7 col-lg-8 col-xl-9">
-						<c:if test="${empty reviewList }">
+						<c:if test="${empty apList }">
 							<div class="card text-center">
 								<p style="margin: 10px; padding: 10px;">진료 일정이 없습니다.</p>
 							</div>

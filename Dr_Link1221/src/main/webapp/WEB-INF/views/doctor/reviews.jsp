@@ -134,7 +134,7 @@
 																		<i class="fas fa-star filled"></i>	
 																	</c:when>
 																	<c:otherwise>
-																		<i class="fas fa-star"></i>
+																		<i class="fas fa-star"></i>(${review.review_rating})
 																	</c:otherwise>
 																</c:choose>	
 															</c:forEach>

@@ -160,7 +160,7 @@
 						<div class="col-md-7 col-lg-8 col-xl-9">
 						
 							<!-- Basic Information -->
-							<form id="doctor_profile_settings" action="setting_ok"  method="post" enctype="multipart/for-data">
+							<form id="doctor_profile_settings" action="setting_ok?doctor_num=${doctorinfo.doctor_num}"  method="post" enctype="multipart/for-data">
 							<div class="card">
 								<div class="card-body">
 									<h4 class="card-title">기본 정보</h4>
@@ -185,7 +185,7 @@
 											<div class="form-group">
 												<label>아이디</label>
 												<input type="text" class="form-control" name="d_id" readonly value="${doctorinfo.d_id}">
-												<input type="hidden" class="form-control" name="doctor_num" readonly value="${doctorinfo.doctor_num}">
+												<input type="hidden" class="form-control" name="doctor_num" value="${doctorinfo.doctor_num}">
 											</div>
 										</div>
 										<div class="col-md-6">

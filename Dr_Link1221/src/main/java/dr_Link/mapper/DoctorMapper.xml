@@ -68,11 +68,11 @@
   
   <!-- 김다유 : 의사 프로필 업데이트 d_photo=#{d_photo}, -->
 	<update id="doctor_profile_settings" parameterType="doctorDTO">
-		update dl_doctor set d_pwd = #{d_pwd} , 
-		d_name = #{d_name} , d_gender = #{d_gender}, d_phone_num=#{d_phone_num}, d_email=#{d_email}, 
+		update dl_doctor set d_email = #{d_email} , 
+		d_name = #{d_name} , d_phone_num = #{d_phone_num}, d_content=#{d_content}, d_field=#{d_field}, 
 		d_graduation=#{d_graduation}, 
-		d_career=#{d_career}, d_licence=#{d_licence}, d_licence_num=#{d_licence_num}, 
-		d_content=#{d_content}, d_field=#{d_field} where doctor_num = #{doctor_num}
+		d_career=#{d_career}, dep_num=#{dep_num}, d_licence=#{d_licence}, 
+		d_licence_num=#{d_licence_num} where doctor_num = #{doctor_num}
 	</update>
    
 	<!-- 김다유 : 의사 정보 -->
