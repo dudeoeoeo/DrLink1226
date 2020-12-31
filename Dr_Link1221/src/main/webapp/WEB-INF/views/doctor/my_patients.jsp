@@ -150,16 +150,14 @@ body {
 							<!-- /Profile Sidebar -->
 							
 						</div>
-						<div class="col-md-7 col-lg-8 col-xl-9">
-
+					<div class="col-md-7 col-lg-8 col-xl-9">
+						<c:if test="${empty reviewList }">
+							<div class="card text-center">
+								<p style="margin: 10px; padding: 10px;">나의 환자가 없습니다.</p>
+							</div>
+						</c:if>
 						<div class="row row-grid">
-							<c:if test="${empty reviewList }">
-								<div class="col-md-6 col-lg-4 col-xl-3">
-									<div class="card text-center widget-profile pat-widget-profile" style="width: 80em;">
-										<div class="card-body">나의 환자가 없습니다.</div>
-									</div>
-								</div>
-							</c:if>
+
 							<!-- 환자리스트 반복 시작 -->
 							<c:forEach var="patient" items="${my_patients_list}"
 								varStatus="status">
@@ -203,7 +201,7 @@ body {
 						</div>
 
 					</div>
-					</div>
+				</div>
 
 				</div>
 

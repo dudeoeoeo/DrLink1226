@@ -114,11 +114,9 @@
 							<div class="doc-review review-listing">
 									<ul class="comments-list">
 										<c:if test="${empty reviewList }">
-											<div class="col-md-6 col-lg-4 col-xl-3">
-												<div class="card text-center widget-profile pat-widget-profile" style="width: 80em;">
-													<div class="card-body">나에게 남겨진 후기가 없습니다.</div>
-												</div>
-											</div>
+										<div class="card text-center">
+										<p style="margin: 10px; padding: 10px;">나에게 남겨진 후기가 없습니다.</p>
+										</div>
 										</c:if>
 										<c:forEach var="review" items="${reviewList}">
 										<!-- Comment List -->

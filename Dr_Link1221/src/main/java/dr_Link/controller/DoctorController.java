@@ -259,6 +259,8 @@ public class DoctorController {
 			}
 		} catch (NullPointerException e) {
 			e.printStackTrace();
+		} catch (IndexOutOfBoundsException e) {
+			e.printStackTrace();
 		}
 			
 		/*
