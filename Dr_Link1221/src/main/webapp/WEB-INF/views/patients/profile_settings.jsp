@@ -81,210 +81,223 @@ function execPostCode() {
 	} 		
 </script>
 <!-- Breadcrumb -->
-<div class="breadcrumb-bar">
-	<div class="container-fluid">
-		<div class="row align-items-center">
-			<div class="col-md-12 col-12">
-				<h2 class="breadcrumb-title">개인정보 수정</h2>
+
+			<div class="breadcrumb-bar">
+				<div class="container-fluid">
+					<div class="row align-items-center">
+						<div class="col-md-12 col-12">
+							<nav aria-label="breadcrumb" class="page-breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="${path }">홈</a></li>
+									<li class="breadcrumb-item"><a href="patient_dashboard">마이페이지</a></li>
+									<li class="breadcrumb-item active" aria-current="page">개인정보 수정</li>
+								</ol>
+							</nav>
+							<h2 class="breadcrumb-title">개인정보 수정</h2>
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
-</div>
-<!-- /Breadcrumb -->
+			<!-- /Breadcrumb -->
+			
+			<!-- Page Content -->
+			<div class="content">
+				<div class="container-fluid">
+					<div class="row">
+					
+						<!-- Profile Sidebar -->
+						<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+							<div class="profile-sidebar">
+								<div class="widget-profile pro-widget-content">
+									<div class="profile-info-widget">
+										<a href="#" class="booking-doc-img">
+											<img src="${path}/resources/patient/profileImg/${patient_profile.p_photo}">
+										</a>
+										<div class="profile-det-info">
+											<h3>${patient_profile.p_name }</h3>
+											<div class="patient-details">
+												<h5><i class="fas fa-birthday-cake"></i> ${patient_profile.birth}</h5>
+												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> ${patient_profile.profileAddress}</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="dashboard-widget">
+									<nav class="dashboard-menu">
+										<ul>
+											<li>
+												<a href="patient_dashboard">
+													<i class="fas fa-columns"></i>
+													<span>진료확인</span>
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													<i class="fas fa-bookmark"></i>
+													<span>즐겨찾는 의사(준비중)</span>
+												</a>
+											</li>
+											<li class="active">
+												<a href="profile_settings">
+													<i class="fas fa-user-cog"></i>
+													<span>개인정보 수정</span>
+												</a>
+											</li>
+											<li>
+                                  				<a href="patient_change_password">
+													<i class="fas fa-key"></i>
+													<span>비밀번호 수정</span>
+												</a>
+											</li>
+											<li>
+                                  				<a href="patient_delete_account">
+													<i class="fas fa-ban"></i>
+													<span>회원탈퇴</span>
+												</a>
+											</li>
+											<li>
+                                  				<a href="${path}/logout">
+													<i class="fas fa-sign-out-alt"></i>
+													<span>로그아웃</span>
+												</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
 
-<!-- Page Content -->
-<div class="content">
-	<div class="container-fluid">
-		<div class="row">
 
-			<!-- Profile Sidebar -->
-			<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-				<div class="profile-sidebar">
-					<div class="widget-profile pro-widget-content">
-						<div class="profile-info-widget">
-							<a href="#" class="booking-doc-img"> <img
-								src="${path}/resources/patient/profileImg/${patient_profile.p_photo}">
-							</a>
-							<div class="profile-det-info">
-								<h3>${patient_profile.p_name }</h3>
-								<div class="patient-details">
-									<h5>
-										<i class="fas fa-birthday-cake"></i> ${patient_profile.birth}
-									</h5>
-									<h5 class="mb-0">
-										<i class="fas fa-map-marker-alt"></i>
-										${patient_profile.profileAddress}
-									</h5>
+							</div>
+						</div>
+						<!-- / Profile Sidebar -->
+						
+						<div class="col-md-7 col-lg-8 col-xl-9">
+							<div class="card">
+								<div class="card-body">
+									
+									<!-- Profile Settings Form -->
+									<form action="updatePatient" method="post" enctype="multipart/form-data" >
+										<div class="row form-row">
+											<div class="col-12 col-md-12">
+												<div class="form-group">
+													<div class="change-avatar">
+														<div class="profile-img">
+															<img id="blah" src="${path }/resources/patient/profileImg/${patient_profile.p_photo}" alt="User Image">
+															<input type="hidden" name="p_photo" value="${patient_profile.p_photo}">
+														</div>
+														<div class="upload-img">
+															<div class="change-photo-btn">
+																<span><i class="fa fa-upload"></i> 사진 첨부</span>
+																<input type="file" class="upload" id="file" name="file" onchange="readURL(this);">
+															</div>
+															<small class="form-text text-muted">JPG, GIF, PNG만 허용됩니다. 최대 사이즈 2MB</small>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+													<label>성</label>
+													<input type="text" class="form-control" value="${fn:substring(patient_profile.p_name,0,1)}" readonly >
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+													<label>이름</label>
+													<input type="text" class="form-control" value="${fn:substring(patient_profile.p_name,1,3)}" readonly >
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+													<label>생년월일</label>
+													<div class="cal-icon">
+														<input type="text" class="form-control datetimepicker" value="${fn:substring(patient_profile.birth,0,13)}" readonly >
+													</div>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+													<input type="hidden" class="pre_bloodtype" value="${fn:trim(patient_profile.bloodtype) }">
+													<label>혈액형</label>
+													<select class="form-control select" name="bloodtype" required>
+														<option value="" selected="selected">- 혈액형 선택 -</option>
+														<option value="A-">A-</option>
+														<option value="A+">A+</option>
+														<option value="B-">B-</option>
+														<option value="B+">B+</option>
+														<option value="AB-">AB-</option>
+														<option value="AB+">AB+</option>
+														<option value="O-">O-</option>
+														<option value="O+">O+</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+													<label>이메일<span class="text-danger">*</span></label>
+													<input type="email" class="form-control" value="${patient_profile.p_email }" name="p_email" id="p_email" required>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+													<label>핸드폰<span class="text-danger">*</span></label>
+													<input type="text" value="${patient_profile.p_phone_num }" name="p_phone_num" id="p_phone_num" class="form-control" required>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+												<label class="">키<span class="text-danger">*</span></label>
+												<input id="height" name="height" class="form-control" maxlength="3" size="40" value="180" type="text" placeholder="cm 단위로 입력해주세요." required>
+												<div class="check_font" id="height_check"></div>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+												<label class="">몸무게<span class="text-danger">*</span></label>
+												<input id="weight" name="weight" class="form-control" maxlength="3" size="40" value="80" type="text" placeholder="kg 단위로 입력해주세요." required>
+												<div class="check_font" id="weight_check"></div>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-group">
+												<label class="">알레르기<span class="text-danger">*</span></label>
+													<div class="btn-group btn-group-toggle" data-toggle="buttons">
+														<label class="btn btn-primary" style="width: 100px">
+															<input type="radio" name="allergy" id="allergy" value="0" > 있음
+														</label>
+														<label class="btn btn-primary" style="width: 100px">
+															<input type="radio" name="allergy" id="allergy" value="1" checked="checked"> 없음
+														</label>
+													</div>
+												</div>
+											</div>
+											<div class="col-12 ">
+												<div class="form-group">
+													<label>주소<span class="text-danger">*</span></label>
+													<div class="form-inline">
+														<input type="text" name="p_zipcode" id="p_zipcode" class="zipcode form-control" placeholder="우편번호"  value="${patient_profile.p_zipcode }" required>
+														<input type="button" onclick="execPostCode()" id="zipcode_btn" class="form-control " value="우편번호 찾기">
+													</div>
+												</div>
+												<div class="form-group">
+													<input type="text" id="p_address1" name="p_address1" class="addr1 form-control" size="40" placeholder="주소" value="${patient_profile.p_address1 }" required>
+												</div>
+												<div class="form-group">
+													<input type="text" id="p_address2" name="p_address2" class="addr2 form-control" size="40" placeholder="상세주소" value="${patient_profile.p_address2 }" required>
+												</div>
+											</div>
+										<div class="submit-section">
+											<button type="submit" class="btn btn-primary submit-btn">변경 저장하기</button>
+										</div>
+										</div>
+									</form>
+									<!-- /Profile Settings Form -->
+									
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="dashboard-widget">
-						<nav class="dashboard-menu">
-							<ul>
-								<li><a href="patient_dashboard"> <i
-										class="fas fa-columns"></i> <span>진료확인</span>
-								</a></li>
-								<li><a href="#"> <i class="fas fa-bookmark"></i> <span>즐겨찾는
-											의사(준비중)</span>
-								</a></li>
-								<li class="active"><a href="profile_settings"> <i
-										class="fas fa-user-cog"></i> <span>개인정보 수정</span>
-								</a></li>
-								<li><a href="patient_change_password"> <i
-										class="fas fa-key"></i> <span>비밀번호 수정</span>
-								</a></li>
-								<li><a href="patient_delete_account"> <i
-										class="fas fa-ban"></i> <span>회원탈퇴</span>
-								</a></li>
-								<li><a href="${path}/logout"> <i
-										class="fas fa-sign-out-alt"></i> <span>로그아웃</span>
-								</a></li>
-							</ul>
-						</nav>
-					</div>
-
 				</div>
-			</div>
-			<!-- / Profile Sidebar -->
 
-			<div class="col-md-7 col-lg-8 col-xl-9">
-				<div class="card">
-					<div class="card-body">
-
-						<!-- Profile Settings Form -->
-						<form action="updatePatient" method="post"
-							enctype="multipart/form-data">
-							<div class="row form-row">
-								<div class="col-12 col-md-12">
-									<div class="form-group">
-										<div class="change-avatar">
-											<div class="profile-img">
-												<img id="blah"
-													src="${path }/resources/patient/profileImg/${patient_profile.p_photo}"
-													alt="User Image">
-											</div>
-											<div class="upload-img">
-												<div class="change-photo-btn">
-													<span><i class="fa fa-upload"></i> 사진 첨부</span> <input
-														type="file" class="upload" name="file"
-														onchange="readURL(this);">
-												</div>
-												<small class="form-text text-muted">JPG, GIF, PNG만
-													허용됩니다. 최대 사이즈 2MB</small>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-12 col-md-6">
-									<div class="form-group">
-										<label>성</label> <input type="text" class="form-control"
-											value="${fn:substring(patient_profile.p_name,0,1)}" readonly>
-									</div>
-								</div>
-								<div class="col-12 col-md-6">
-									<div class="form-group">
-										<label>이름</label> <input type="text" class="form-control"
-											value="${fn:substring(patient_profile.p_name,1,3)}" readonly>
-									</div>
-								</div>
-								<div class="col-12 col-md-6">
-									<div class="form-group">
-										<label>생년월일</label>
-										<div class="cal-icon">
-											<input type="text" class="form-control datetimepicker"
-												value="${fn:substring(patient_profile.birth,0,13)}" readonly>
-										</div>
-									</div>
-								</div>
-								<div class="col-12 col-md-6">
-									<div class="form-group">
-									 <label>혈액형</label>
-										<input type="text" class="pre_bloodtype form-control"
-											value="${fn:trim(patient_profile.bloodtype)}" readonly>
-									</div>
-								</div>
-								<div class="col-12 col-md-6">
-									<div class="form-group">
-										<label>이메일</label> <input type="email" class="form-control"
-											value="${patient_profile.p_email }" name="p_email">
-									</div>
-								</div>
-								<div class="col-12 col-md-6">
-									<div class="form-group">
-										<label>핸드폰</label> <input type="text"
-											value="${patient_profile.p_phone_num }" name="p_phone_num"
-											class="form-control">
-									</div>
-								</div>
-								<div class="col-12 col-md-6">
-									<div class="form-group">
-										<label class="">키<span class="text-danger">*</span></label> <input
-											id="height" name="height" class="form-control" maxlength="3"
-											size="40" value="180" type="text"
-											placeholder="cm 단위로 입력해주세요." required>
-										<div class="check_font" id="height_check"></div>
-									</div>
-								</div>
-								<div class="col-12 col-md-6">
-									<div class="form-group">
-										<label class="">몸무게<span class="text-danger">*</span></label>
-										<input id="weight" name="weight" class="form-control"
-											maxlength="3" size="40" value="80" type="text"
-											placeholder="kg 단위로 입력해주세요." required>
-										<div class="check_font" id="weight_check"></div>
-									</div>
-								</div>
-								<div class="col-12 col-md-6">
-									<div class="form-group">
-										<label class="">알레르기<span class="text-danger">*</span></label>
-										<div class="btn-group btn-group-toggle" data-toggle="buttons">
-											<label class="btn btn-primary" style="width: 100px">
-												<input type="radio" name="allergy" id="allergy" value="0">
-												있음
-											</label> <label class="btn btn-primary" style="width: 100px">
-												<input type="radio" name="allergy" id="allergy" value="1"
-												checked="checked"> 없음
-											</label>
-										</div>
-									</div>
-								</div>
-								<div class="col-12 ">
-									<div class="form-group">
-										<label>주소</label>
-										<div class="form-inline">
-											<input type="text" name="p_zipcode" id="p_zipcode"
-												class="zipcode form-control" placeholder="우편번호"
-												value="${patient_profile.p_zipcode }"> <input
-												type="button" onclick="execPostCode()" id="zipcode_btn"
-												class="form-control " value="우편번호 찾기">
-										</div>
-									</div>
-									<div class="form-group">
-										<input type="text" id="p_address1" name="p_address1"
-											class="addr1 form-control" size="40" placeholder="주소"
-											value="${patient_profile.p_address1 }">
-									</div>
-									<div class="form-group">
-										<input type="text" id="p_address2" name="p_address2"
-											class="addr2 form-control" size="40" placeholder="상세주소"
-											value="${patient_profile.p_address2 }">
-									</div>
-								</div>
-								<div class="submit-section">
-									<button type="submit" class="btn btn-primary submit-btn">변경
-										저장하기</button>
-								</div>
-							</div>
-						</form>
-						<!-- /Profile Settings Form -->
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-</div>
-<!-- /Page Content -->
-
+			</div>		
+			<!-- /Page Content -->
+   
