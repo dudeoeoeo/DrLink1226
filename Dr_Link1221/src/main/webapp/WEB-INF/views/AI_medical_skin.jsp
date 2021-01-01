@@ -122,25 +122,20 @@
 			<div class="col-lg-7 mb-3" style="margin-right: 30px !important;">
 				<h3>●아토피</h3>
 				<p class="">
-					<a
-						class="u-active-none u-border-none u-btn u-button-style u-hover-none u-none u-text-palette-1-base wiki-link-internal u-btn-1"
+					<a class="active text-info"
 						href="https://namu.wiki/w/%ED%94%BC%EB%B6%80%EB%B3%91"
 						title="피부병">피부병</a>의 일종. 아토피란 말은 선천적으로 과민한
-					<a
-						class="u-active-none u-border-none u-btn u-button-style u-hover-none u-none u-text-palette-1-base wiki-link-internal u-btn-2"
+					<a class="active text-info"
 						href="https://namu.wiki/w/%EC%95%8C%EB%A0%88%EB%A5%B4%EA%B8%B0"
 						title="알레르기">알레르기</a> 성질을 갖고 있다는 뜻이다. 여기에 '<a
-						class="u-active-none u-border-none u-btn u-button-style u-hover-none u-none u-text-palette-1-base wiki-link-internal u-btn-3"
 						href="https://namu.wiki/w/%EC%97%BC%EC%A6%9D" title="염증">염증</a>'이
 					더해진 만성 피부 질환을 통틀어 아토피성 피부염이라 부른다. 흔히 '아토피 피부염', 더 줄여서는 그냥
 					'아토피'라고도 부른다. 쉽게 낫지 않는
-					<a
-						class="u-active-none u-border-none u-btn u-button-style u-hover-none u-none u-text-palette-1-base wiki-link-internal u-btn-4"
+					<a class="active text-info"
 						href="https://namu.wiki/w/%EB%82%9C%EC%B9%98%EB%B3%91"
 						title="난치병">난치병</a>으로 실제로 한 번 이 병에 걸린 사람은 성인이 되어서도 고생하는 경우가
 					허다하다. 전염성은 없지만,
-					<a
-						class="u-active-none u-border-none u-btn u-button-style u-hover-none u-none u-text-palette-1-base wiki-link-internal u-btn-5"
+					<a class="active text-info"
 						href="https://namu.wiki/w/%EB%B9%84%EC%97%BC" title="비염">비염</a>과
 					거의 동급으로 고생을 어마어마하게 한다.
 				 </p>
@@ -163,8 +158,8 @@
 			<div class="col-lg-7 mb-3" style="margin-right: 30px !important;">
 				<h3>●콜린성 두드러기</h3>
 				<p class="u-text u-text-8">
-					상대적으로 체온이 높아질 때 나는 <a class="wiki-link-internal" href="/w/%EB%91%90%EB%93%9C%EB%9F%AC%EA%B8%B0" title="두드러기">두드러기</a>.
-					콜린성 <a class="wiki-link-internal" href="/w/%EC%95%8C%EB%9F%AC%EC%A7%80" title="알러지">알러지</a>라
+					상대적으로 체온이 높아질 때 나는 <a class="active text-info" href="/w/%EB%91%90%EB%93%9C%EB%9F%AC%EA%B8%B0" title="두드러기">두드러기</a>.
+					콜린성 <a class="active text-info" href="/w/%EC%95%8C%EB%9F%AC%EC%A7%80" title="알러지">알러지</a>라
 					하는 경우도 있으나 항원이 없으니 엄밀히는 틀린 말이다. 땀은 몸의 체온이 올랐을 경우 이를 내려주는 냉각액의
 					역할을 하는데, 선천적으로 땀이 잘 나지 않거나 땀으로 배출될 수 있는 수분의 양이 체내에 부족한 경우, 피부
 					내 온도가 상승하면서 열이 비만세포를 자극해 따끔거림과 가려움을 동반하는 현상이다. 대부분의 경우 습한
