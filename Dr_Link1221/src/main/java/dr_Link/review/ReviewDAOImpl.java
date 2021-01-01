@@ -19,15 +19,14 @@ public class ReviewDAOImpl implements ReviewDAO {
 	}
 
 	@Override
-	public void updateReview(Doc_ReviewDTO vo) {
-		// TODO Auto-generated method stub
-
+	public int updateReview(Doc_ReviewDTO review) {
+		System.out.println("updateReview요청");
+		return ss.insert("doc_review.updateReview", review);
 	}
-
 	@Override
-	public void deleteReview(Doc_ReviewDTO vo) {
-		// TODO Auto-generated method stub
-
+	public int deleteReview(Doc_ReviewDTO review) {
+		System.out.println("deleteReview요청");
+		return ss.delete("doc_review.deleteReview", review);
 	}
 
 	@Override

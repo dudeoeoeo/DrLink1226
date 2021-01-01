@@ -58,6 +58,7 @@ public class MainController {
 
 	@Autowired
 	private DoctorServiceInter doctor_service;
+	
 
 	@RequestMapping(value = { "/", "index" })
 	public String indexRq() {
@@ -444,4 +445,5 @@ public class MainController {
 		System.out.println("map: " + map.get("url"));
 		return map;
 	}
+	
 }

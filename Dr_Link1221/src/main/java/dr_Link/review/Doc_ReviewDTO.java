@@ -10,10 +10,18 @@ public class Doc_ReviewDTO {
 	private String review_content;
 	private int review_rating;
 	private String review_date;
+	private String review_handling;
 	private DoctorDTO doctorDTO;
 	private PatientDTO patientDTO;
 	private int ratingAvg;
 	
+	
+	public String getReview_handling() {
+		return review_handling;
+	}
+	public void setReview_handling(String review_handling) {
+		this.review_handling = review_handling;
+	}
 	public int getRatingAvg() {
 		return ratingAvg;
 	}

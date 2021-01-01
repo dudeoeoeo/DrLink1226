@@ -236,6 +236,9 @@ f<%@ page language="java" contentType="text/html; charset=UTF-8"
 											<div class="comment-body"
 												style="width: -webkit-fill-available;">
 												<div class="meta-data">
+												<input type="hidden" name="review_num" value="${review.review_num}">
+												<input type="hidden" name="doctor_num" value="${review.doctor_num}">
+												<input type="hidden" name="review_rating" value="${review.review_rating}">
 													<span class="comment-author">${review.patientDTO.p_name }</span>
 													<span class="comment-date">${review.review_date}</span>
 													<div class="review-count rating">
@@ -260,6 +263,13 @@ f<%@ page language="java" contentType="text/html; charset=UTF-8"
 															class="far fa-thumbs-down"></i> 비추천
 														</a>
 													</p>
+													<c:if test="${sessionScope.user.patient_num eq review.patient_num}">
+														<a class="comment-btn"> <i class="fas fa-pen-fancy"></i><span>수정</span>
+														</a>
+														<button type="button" class="close comment-btn" aria-label="Close">
+														  <span aria-hidden="true">&times;</span>
+														</button>
+													</c:if>
 												</div>
 											</div>
 										</div>
@@ -440,5 +450,94 @@ $(function() {
 		}
 	}) // click
 
+	var do_text;
+	var doctor_num;
+	var review_num;
+	var review_rating;
+	$('.comment-btn').click(function() {
+			// 어떤 요청인지 체크
+			do_text = $(this).find('span').text();
+			// 수정일 시 textarea에 채울 내용
+			var comment_text = $(this).parents('div.comment-body').find('p.comment-content').text();
+			// 현재 댓글 번호
+			review_num = $('input[name="review_num"]').val();
+			doctor_num = $('input[name="doctor_num"]').val();
+			review_rating = $('input[name="review_rating"]').val();
+			if (do_text == '수정') {
+				$('#review_desc').text(comment_text);
+				$('input[value="'+review_rating+'"]').prop('checked', true);
+			} else if (do_text == '×') {
+				if (confirm("정말 삭제하시겠습니까 ?")) {
+					delete_repl(review_num, do_text, doctor_num);
+				}
+			} else {
+				if ($(this).find('input[name="repl_num"]')
+						.val() != null) {
+					review_num = $('input[name="review_num"]').val();
+				}
+				$('#comments_box').text("");
+			}
+	}); // click
+	
+	$('.submit-btn').click(function() {
+		if($('#review_desc').val()=="" || $('#review_desc').val()==null){
+			alert("내용을 입력해주세요");
+			return;
+		}else{
+		var form = {
+			review_content : $('#review_desc').val(),
+			review_num : review_num,
+			review_rating : review_rating,
+			review_handling : do_text,
+		};
+		alert("form 내용 : " + form);
+		alert("수정리뷰번호" + review_num + "현재 요청: " + do_text);
+		$.ajax({
+			url : "delete_review",
+			type : "POST",
+			contentType : "application/json; charset=utf-8;",
+			async : false,
+			dataType : "json",
+			data : JSON.stringify(form),
+			success : function(data) {
+				if (data != null) {
+					alert(do_text + data.success);
+					location.href(data.url);
+				}
+			},
+			error : function(err) {
+				alert(do_text + err);
+			}
+		}); //ajax
+		};//else
+		
+	}) // click
+
 });
+
+function delete_repl(review_num, do_text, doctor_num) {
+	var form = {
+		review_num : review_num,
+		doctor_num : doctor_num,
+		review_handling : do_text
+	};
+	
+	$.ajax({
+		url : "delete_review",
+		type : "POST",
+		data : JSON.stringify(form),
+		async : false,
+		contentType : "application/json; charset=utf-8;",
+		dataType : "json",
+		success : function(data) {
+			if (data != null) {
+				//alert(do_text + data.success);
+				location.href = data.url;
+			}
+		},
+		error : function(err) {
+			//alert(do_text + err);
+		}
+	}); //ajax
+}
 </script>

@@ -18,15 +18,13 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public void updateReview(Doc_ReviewDTO vo) {
-		// TODO Auto-generated method stub
-
+	public int updateReview(Doc_ReviewDTO vo) {
+		return reviewDao.updateReview(vo);
 	}
 
 	@Override
-	public void deleteReview(Doc_ReviewDTO vo) {
-		// TODO Auto-generated method stub
-
+	public int deleteReview(Doc_ReviewDTO vo) {
+		return reviewDao.deleteReview(vo);
 	}
 
 	@Override

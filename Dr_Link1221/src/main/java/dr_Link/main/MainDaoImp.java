@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import dr_Link.dto.Hospital_boardDTO;
 import dr_Link.dto.NewsDTO;
 import dr_Link.dto.NewsReplDTO;
+import dr_Link.review.Doc_ReviewDTO;
 
 @Repository
 public class MainDaoImp implements MainDaoInter {
