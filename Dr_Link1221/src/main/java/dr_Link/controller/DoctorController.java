@@ -112,7 +112,6 @@ public class DoctorController {
 		String pre_date = arrayJoin(",", request.getParameterValues("prescription_date"));
 		pre_vo.setPre_date(pre_date);
 		pre_vo.setPrice((int) (pre_vo.getPrice() * 0.9));
-		System.out.println(pre_vo.getPrice());
 		/* 트랜잭션 처리 한 serviece 메소드 호출, insert, select 동시 작업 */
 		PrescriptionDTO prescription = pre_service.end_prescription(pre_vo);
 
@@ -122,6 +121,7 @@ public class DoctorController {
 		model.addAttribute("prescription", prescription);
 		model.addAttribute("medi_detail", medi_detail);
 		model.addAttribute("drlinkinfo", drlinkinfo);
+		System.out.println("end_prescription 페이지 이동");
 
 		return "/doctor/end_prescription.page";
 
@@ -167,7 +167,6 @@ public class DoctorController {
 		int doctor_num = Integer.parseInt(reqest.getParameter("doctor_num"));
 		re.addFlashAttribute("doctor_num", doctor_num);
 		doc_dao.doctor_profile_update(vo);
-		System.out.println("리턴 전***********");
 		return "redirect:doctor_profile_settings";
 	}
 
@@ -288,6 +287,7 @@ public class DoctorController {
 	public ModelAndView doctor_dashboard(HttpSession session, HttpServletRequest rq) {
 		// 의사가 대시보드로 이동할 때 세션에 있는 의사의 pk 번호를 가져온다.
 		DoctorDTO doctor = (DoctorDTO) session.getAttribute("doctor");
+		System.out.println(doctor.getDepartmentDTO().getDep_name());
 		ModelAndView mv = new ModelAndView("/doctor/doctor_dashboard.page");
 		AppointmentDTO ap_dto = doc_dao.get_total_cnt(doctor.getDoctor_num());
 		List<TreatmentRecordDTO> tr_dto = doc_dao.getAP_num();

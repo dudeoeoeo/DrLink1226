@@ -4,13 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="doctor">
-  	
-   	<resultMap type="departmentDTO" id="d_departmentMap">
-		<id property="dep_num" column="dep_num" javaType="int" />
+   
+   	<resultMap type="departmentDTO" id="departmentMap">
+	<id property="dep_num" column="dep_num" javaType="int" />
 		<result column="dep_name" property="dep_name"/>
 	</resultMap>
-
-	<resultMap type="doctorDTO" id="d_doctorMap">
+  
+  	
+	<resultMap type="doctorDTO" id="doctorMap">
 		<id property="doctor_num" column="doctor_num" javaType="int" />
 		<result column="d_id" property="d_id" />
 		<result column="d_pwd" property="d_pwd" />
@@ -27,14 +28,16 @@
 		<result column="d_licence_num" property="d_licence_num" />
 		<result column="d_regdate" property="d_regdate" />
 		<result column="d_content" property="d_content" />
-		<result column="d_imgfile" property="d_imgfile" />
+		<result column="d_photo" property="d_photo" />
 		<result column="d_graduation" property="d_graduation" />
 		<result column="d_career" property="d_career" />
 		<result column="d_field" property="d_field" />
 		<result column="d_retire_date" property="d_retire_date" />
+		<collection property="departmentDTO" resultMap="departmentMap"/>
+		<collection property="doc_ReviewDTO" resultMap="reviewMap"/>
 	</resultMap>
 
-	<resultMap type="patientDTO" id="d_patientMap">
+	<resultMap type="patientDTO" id="patientMap">
 		<id property="patient_num" column="patient_num" javaType="int" />
 		<result column="p_id" property="p_id" />
 		<result column="p_pwd" property="p_pwd" />
@@ -62,9 +65,9 @@
 		<result column="dep_num" property="dep_num"/>
 		<result column="monitoring_time" property="monitoring_time"/>
 		<result column="start_treatment_time" property="start_treatment_time"/>
-		<collection property="doctorDTO" resultMap="d_doctorMap"/>
-		<collection property="patientDTO" resultMap="d_patientMap"/>
-		<collection property="departmentDTO" resultMap="d_departmentMap"/>
+		<collection property="doctorDTO" resultMap="doctorMap"/>
+		<collection property="patientDTO" resultMap="patientMap"/>
+		<collection property="departmentDTO" resultMap="departmentMap"/>
 	</resultMap>
   
   <!-- 김다유 : 의사 프로필 업데이트 d_photo=#{d_photo}, -->
@@ -95,8 +98,8 @@
    
  	<!-- 김성민 -->
  	<!-- 로그인 -->
-	<select id="loginchk" parameterType="doctorDTO" resultType="doctorDTO">
-		select doctor_num, d_id, d_name, dep_num, d_retire_date, d_pwd from dl_doctor where d_id=#{d_id} and d_pwd=#{d_pwd}
+	<select id="loginchk" parameterType="doctorDTO" resultMap="doctorMap">
+	select * from dl_doctor a, department b where a.dep_num = b.dep_num and a.d_id=#{d_id} and a.d_pwd=#{d_pwd}
 	</select>
 	
  	<!-- 회원가입 -->
@@ -219,59 +222,9 @@
 		</where>
 		order by D_NAME
 	</select>
-   
-   	<resultMap type="departmentDTO" id="departmentMap">
-	<id property="dep_num" column="dep_num" javaType="int" />
-		<result column="dep_name" property="dep_name"/>
-	</resultMap>
-
-	<resultMap type="doctorDTO" id="doctorMap">
-	<id property="doctor_num" column="doctor_num" javaType="int" />
-		<result column="d_id" property="d_id" />
-		<result column="d_pwd" property="d_pwd" />
-		<result column="d_name" property="d_name" />
-		<result column="d_jumin_num" property="d_jumin_num" />
-		<result column="d_phone_num" property="d_phone_num" />
-		<result column="d_gender" property="d_gender" />
-		<result column="d_zipcode" property="d_zipcode" />
-		<result column="d_address1" property="d_address1" />
-		<result column="d_address2" property="d_address2" />
-		<result column="d_email" property="d_email" />
-		<result column="d_licence" property="d_licence" />
-		<result column="d_licence_num" property="d_licence_num" />
-		<result column="d_regdate" property="d_regdate" />
-		<result column="d_content" property="d_content" />
-		<result column="d_photo" property="d_photo" />
-		<result column="d_graduation" property="d_graduation" />
-		<result column="d_career" property="d_career" />
-		<result column="d_field" property="d_field" />
-		<collection property="departmentDTO" resultMap="departmentMap"/>
-		<collection property="doc_ReviewDTO" resultMap="reviewMap"/>
-	</resultMap>
 	
 	<resultMap type="doc_ReviewDTO" id="reviewMap">
 		<result column="review_rating" property="review_rating"/>		
-	</resultMap>
-
-	<resultMap type="patientDTO" id="patientMap">
-	<id property="patient_num" column="patient_num" javaType="int" />
-		<result column="p_id" property="p_id" />
-		<result column="p_pwd" property="p_pwd" />
-		<result column="p_name" property="p_name" />
-		<result column="p_jumin_num" property="p_jumin_num" />
-		<result column="p_phone_num" property="p_phone_num" />
-		<result column="bloodtype" property="bloodtype" />
-		<result column="allergy" property="allergy" />
-		<result column="p_email" property="p_email" />
-		<result column="height" property="height" />
-		<result column="weight" property="weight" />
-		<result column="p_birth" property="p_birth" />
-		<result column="p_gender" property="p_gender" />
-		<result column="p_zipcode" property="p_zipcode" />
-		<result column="p_address1" property="p_address1" />
-		<result column="p_address2" property="p_address2" />
-		<result column="p_phone" property="p_phone" />
-		<result column="p_regdate" property="p_regdate" />
 	</resultMap>
    
    
@@ -301,11 +254,6 @@
       <result property="d_gender" column="d_gender"/>
    </resultMap>
    
-   <resultMap type="departmentDTO" id="departResult">
-      <id property="dep_num" column="dep_num" javaType="int"/>
-      <result property="dep_name" column="dep_name"/>
-   </resultMap>
-   
    <resultMap type="treatmentRecordDTO" id="treatResult">
       <id property="treatment_num" column="treatment_num" javaType="int"/>
       <result property="patient_num" column="patient_num"/>
@@ -324,13 +272,11 @@
       <result property="dep_num" column="dep_num"/>
       <result property="reg_time" column="reg_time"/>
       <result property="total_cnt" column="total_cnt"/>
-      
       <collection property="patients" javaType="java.util.List" resultMap="patientResult" ofType="patientDTO"/>
    </resultMap>
   <!-- resultMap 끝-->
   
   <!-- doctor_dashboard 로 갈 때 필요한 데이터들 -->
-  
   <select id="dash_total_cnt" parameterType="int" resultType="appointmentDTO">
   
     select doctor_num,
@@ -366,7 +312,7 @@ order by am.appointment_date
    <result property="reg_time" column="reg_time"/>
    
    <collection property="patients" javaType="java.util.List" resultMap="patientResult" ofType="patientDTO"/>
-   <collection property="departments" javaType="java.util.List" resultMap="departResult" ofType="departmentDTO"/>
+   <collection property="departments" javaType="java.util.List" resultMap="departmentMap" ofType="departmentDTO"/>
 </resultMap> 
 
 <select id="getApList" parameterType="int" resultMap="d_dash_board">

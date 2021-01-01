@@ -74,13 +74,13 @@ body {
                         <div class="widget-profile pro-widget-content">
                            <div class="profile-info-widget">
                               <a href="#" class="booking-doc-img">
-                                 <img src="${path}/resources/assets/img/doctors/doctor-thumb-02.jpg" alt="User Image">
+                                 <img src="${path}/resources/doctor/doctorImg/${sessionScope.doctor.d_photo}" class="img-fluid" alt="User Image">
                               </a>
                               <div class="profile-det-info">
                                  <h3>${sessionScope.doctor.d_name} 의사</h3>
                                  
                                  <div class="patient-details">
-                                    <h5 class="mb-0">진료과 DB 가져오기 </h5>
+                                    <h5 class="mb-0">${sessionScope.doctor.departmentDTO.dep_name}</h5>
                                  </div>
                               </div>
                            </div>
@@ -126,7 +126,7 @@ body {
                                     </a>
                                  </li>
 								<li>
-                               		<a href="#">
+                               		<a href="doctor_delete_account">
 										<i class="fas fa-ban"></i>
 										<span>회원탈퇴</span>
 									</a>
@@ -184,9 +184,18 @@ body {
 												</div>
 											</div>
 											<div class="patient-info" style="text-align: center;">
+												<c:choose>
+												<c:when test="${patient.patientDTO.p_gender eq '1'}">
 												<h6>${patient.patientDTO.birth},
-													${patient.patientDTO.p_gender}</h6>
+													<i class="fas fa-mars" style="color:blue;"></i></h6>
 												<h6>
+												</c:when>
+												<c:when test="${patient.patientDTO.p_gender eq '2'}">
+												<h6>${patient.patientDTO.birth},
+													<i class="fas fa-venus" style="color:pink;"></i></h6>
+												<h6>
+												</c:when>
+												</c:choose>
 													<b>혈액형 :</b> ${patient.patientDTO.bloodtype}
 												</h6>
 											</div>

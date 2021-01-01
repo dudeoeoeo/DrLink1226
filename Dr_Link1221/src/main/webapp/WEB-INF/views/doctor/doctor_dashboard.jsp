@@ -38,7 +38,7 @@
                                  <h3>${sessionScope.doctor.d_name} 의사</h3>
                                  
                                  <div class="patient-details">
-                                    <h5 class="mb-0">${sessionScope.doctor.dep_num}</h5>
+                                    <h5 class="mb-0">${sessionScope.doctor.departmentDTO.dep_name}</h5>
                                  </div>
                               </div>
                            </div>

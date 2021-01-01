@@ -138,8 +138,6 @@ public class PatientController {
 			
 			// 진료기록
 			List<TreatmentRecordDTO> treatmentList = patientDaoInter.treatmentRecordList(patient_num);
-			//System.out.println(treatmentList.get(0).getDep_num());
-			//System.out.println(treatmentList.get(0).getDepartmentDTO().getDep_name());
 			model.addAttribute("treatmentList", treatmentList);
 			
 			//처방전

@@ -37,7 +37,7 @@
 											<img src="${path}/resources/patient/profileImg/${patient_profile.p_photo}">
 										</a>
 										<div class="profile-det-info">
-											<h3>${patient_profile.p_name }</h3>
+											<h3>${patient_profilep_name }</h3>
 											<div class="patient-details">
 												<h5><i class="fas fa-birthday-cake"></i> ${patient_profile.birth}</h5>
 												<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> ${patient_profile.profileAddress}</h5>

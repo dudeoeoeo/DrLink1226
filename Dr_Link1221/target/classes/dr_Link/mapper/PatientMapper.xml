@@ -144,7 +144,7 @@
 
 	<!-- 로그인 -->
 	<select id="loginchk" parameterType="patientDTO" resultType="patientDTO">
-		select patient_num, p_id, p_name, p_retire_date, p_pwd from dl_user where p_id=#{p_id} and p_pwd=#{p_pwd}
+		select * from dl_user where p_id=#{p_id} and p_pwd=#{p_pwd}
 	</select>
 
 
