@@ -87,6 +87,17 @@
 				$('#pwd_check').css('color', 'green');
 			}
 		});
+
+		
+		$('.submit-btn').click(function(){
+			if($('#old_pwd').val()=="" || $('#d_pwd').val()=="" || $('#d_pwd2').val()==""){
+				alert("빈칸이 있습니다.");
+				return;
+			}else{
+				alert('비밀번호가 성공적으로 수정되었습니다.')	
+			}
+					
+		});
 	});
 </script>
 </head>
