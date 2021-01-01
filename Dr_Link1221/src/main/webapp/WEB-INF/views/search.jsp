@@ -114,7 +114,7 @@
 													class="img-fluid" alt="User Image">
 												</a>
 											</div>
-											<div class="doc-info-cont" style="margin: 14px 60px 0px 0px; width:80%;">
+											<div class="doc-info-cont" style="margin: 14px 60px 0px 0px; width:230px;">
 												<h4 class="doc-name">
 													<a href="doctor_profile?doctor_num=${list.doctor_num }">${list.d_name }</a>
 												</h4>
@@ -138,7 +138,7 @@
 													</c:forEach>
 													<span class="d-inline-block average-rating">${list.doc_ReviewDTO.review_rating }</span>
 												</div>
-												<div class="clinic-services">
+												<%-- <div class="clinic-services">
 													<c:choose>
 														<c:when test="${empty list.d_fields}">
 					                                    아직 정보가 입력되지 않았습니다.
@@ -153,11 +153,30 @@
 														</c:otherwise>
 
 													</c:choose>
-												</div>
+												</div> --%>
 											</div>
 											
-											<div class="text-right">
-											옆에 써지려나?
+											<div class="row text-right align-items-center">
+											<ul style="list-style:none; line-height: 2em;">
+											<li>
+											진료시간 평일 09:00~18:00
+											</li>
+											<li class="clinic-services">
+											<c:choose>
+													<c:when test="${empty list.d_fields}">
+			                                    아직 정보가 입력되지 않았습니다.
+			                                </c:when>
+
+													<c:otherwise>
+														<c:forEach var="d_field" items="${list.d_fields }">
+															<c:if test="${not empty d_field and d_field != ''}">
+																<span>${d_field}</span>
+															</c:if>
+														</c:forEach>
+													</c:otherwise>
+
+												</c:choose></li>
+												</ul>
 											</div>
 										</div>
 										<div class="doc-info-right" >

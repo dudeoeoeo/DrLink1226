@@ -122,7 +122,7 @@
 								<div class="card-body">
 								
 									<!-- Booking Doctor Info -->
-									<div class="booking-doc-info">
+									<div class="booking-doc-info" style="margin-bottom: 1em;">
 										<a href="doctor-profile" class="booking-doc-img">
 											<img src="${path}/resources/doctor/doctorImg/${prescription.doctorDTO.d_photo}" alt="Doctor Image">
 										</a>
@@ -139,7 +139,7 @@
 										<div class="booking-item-wrap">
 											<ul class="booking-date">
 												<li >진료일 <span>${prescription.prescription_date}</span></li>
-												<li>진료시작 시간 <span>${prescription.treatmentRecordDTO.monitoring_time} 분</span></li>
+												<li>진료시간 <span>${prescription.treatmentRecordDTO.monitoring_time} 분</span></li>
 												
 											</ul>
 											<ul class="booking-fee">

@@ -138,7 +138,7 @@
 						<div class="dashboard-widget">
 							<nav class="dashboard-menu">
 								<ul>
-									<li class="active"><a href="doctor_dashboard"> <i
+									<li><a href="doctor_dashboard"> <i
 											class="fas fa-columns"></i> <span>마이페이지</span>
 									</a></li>
 									<li><a href="appointments"> <i
@@ -159,7 +159,7 @@
 									<li><a href="doctor_delete_account"> <i
 											class="fas fa-ban"></i> <span>회원탈퇴</span>
 									</a></li>
-									<li><a href="doctor_change_password"> <i
+									<li class="active"><a href="doctor_change_password"> <i
 											class="fas fa-key"></i> <span>비밀번호 수정</span>
 									</a></li>
 									<li><a href="${path}/logout"> <i

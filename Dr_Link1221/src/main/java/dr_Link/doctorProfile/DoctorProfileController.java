@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import dr_Link.review.Doc_ReviewDTO;
 import dr_Link.review.ReviewService;
 
 @Controller
@@ -30,12 +31,15 @@ public class DoctorProfileController {
 	    
 	  try {
 		  Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(request);  
-		  DoctorDTO doctor_profile = new DoctorDTO();  
+		  DoctorDTO doctor_profile = new DoctorDTO();
+		  List<Doc_ReviewDTO> reviewList = new ArrayList<Doc_ReviewDTO>();
 	 //의사번호를 던져서 가져온 값을 doctor_profile에 저장 후 model 에 담아 jsp 전송
 		  if( redirectMap  != null ){
 			  doctor_profile = doctorProfileDAO.doctor_info((int)redirectMap.get("doctor_num"));  // 오브젝트 타입이라 캐스팅해줌
+			  reviewList = reviewService.getReviewList((int)redirectMap.get("doctor_num"));
 		  } else if (request.getParameter("doctor_num") != null) {
 			  doctor_profile = doctorProfileDAO.doctor_info(Integer.parseInt(request.getParameter("doctor_num")));
+			  reviewList = reviewService.getReviewList(Integer.parseInt(request.getParameter("doctor_num")));
 		  }
 	  
 	  model.addAttribute("doctor_profile",doctor_profile);
@@ -59,7 +63,7 @@ public class DoctorProfileController {
 	  model.addAttribute("m",m);
 	  
 	  //리뷰리스트에 의사번호를 던져 값을 model에 담아 jsp로 전달
-	  model.addAttribute("reviewList", reviewService.getReviewList(Integer.parseInt(request.getParameter("doctor_num"))));
+	  model.addAttribute("reviewList", reviewList);
 	  
 	  System.out.println("의사상세프로필 이동");
 	  

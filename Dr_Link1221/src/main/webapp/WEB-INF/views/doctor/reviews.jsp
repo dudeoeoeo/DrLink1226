@@ -49,7 +49,7 @@
 					<div class="dashboard-widget">
 						<nav class="dashboard-menu">
 							<ul>
-								<li class="active"><a href="doctor_dashboard"> <i
+								<li><a href="doctor_dashboard"> <i
 										class="fas fa-columns"></i> <span>마이페이지</span>
 								</a></li>
 								<li><a href="appointments"> <i
@@ -58,7 +58,7 @@
 								<li><a href="my_patients"> <i
 										class="fas fa-user-injured"></i> <span>나의 환자</span>
 								</a></li>
-								<li><a href="reviews"> <i class="fas fa-star"></i> <span>나의
+								<li class="active"><a href="reviews"> <i class="fas fa-star"></i> <span>나의
 											후기</span>
 								</a></li>
 								<li><a href="#"> <i class="fas fa-comments"></i> <span>메세지</span>

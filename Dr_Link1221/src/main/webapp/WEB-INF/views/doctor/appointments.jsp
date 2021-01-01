@@ -98,10 +98,10 @@ body {
 							<div class="dashboard-widget">
 								<nav class="dashboard-menu">
 									<ul>
-										<li class="active"><a href="doctor_dashboard"> <i
+										<li><a href="doctor_dashboard"> <i
 												class="fas fa-columns"></i> <span>마이페이지</span>
 										</a></li>
-										<li><a href="appointments"> <i
+										<li class="active" ><a href="appointments"> <i
 												class="fas fa-calendar-check"></i> <span>진료일정</span>
 										</a></li>
 										<li><a href="my_patients"> <i
@@ -144,13 +144,13 @@ body {
 								<!-- Appointment List -->
 								<div class="appointment-list">
 									<div class="profile-info-widget">
-										<a href="patient-profile" class="booking-doc-img"> <img
+										<a class="booking-doc-img"> <img
 											class="avatar-img rounded-circle"
 											src="${path}/resources/patient/profileImg/${ap.patients[0].p_photo}"
-											alt="User Image"></a> </a>
+											alt="User Image"></a>
 										<div class="profile-det-info">
 											<h3>
-												<a href="patient-profile"> ${ap.patients[0].p_name}</a>
+												${ap.patients[0].p_name}
 
 											</h3>
 											<c:choose>
@@ -158,13 +158,11 @@ body {
 													<h6>
 														<i class="fas fa-mars" style="color: blue;"></i>
 													</h6>
-													<h6>
 												</c:when>
 												<c:when test="${ap.patients[0].p_gender eq '2'}">
 													<h6>
 														<i class="fas fa-venus" style="color: pink;"></i>
 													</h6>
-													<h6>
 												</c:when>
 											</c:choose>
 											<div class="patient-details">
@@ -189,9 +187,10 @@ body {
 									</div>
 									<div class="appointment-action">
 										<!-- data-target="#appt_details" -->
-										<a href="#" class="btn btn-sm bg-info-light"
-											data-toggle="modal"> 
-											<input type="hidden" name="detail_num" value="${status.count}"> 
+										<a href="#"
+											class="btn btn-sm bg-info-light" data-toggle="modal"
+											data-target="#appt_details${status.count }"> <input
+											type="hidden" name="detail_num" value="${status.count}">
 											<i class="far fa-eye"></i> 상세보기
 										</a>
 									</div>
@@ -217,7 +216,7 @@ body {
 
 	<c:forEach var="ap" items="${apList}" varStatus="status">
 		<!-- Appointment Details Modal -->
-		<div class="modal fade custom-modal" id="appt_details${status.count }">
+		<div class="modal fade custom-modal" id="appt_details${status.count}">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -235,17 +234,14 @@ body {
 								<div class="details-header">
 									<div class="row">
 										<div class="col-md-6">
-											<span class="title">진료일정</span> <span class="text">${ap.appointment_time }</span>
+											<span class="title">진료일정</span> 
+											<span class="text">${ap.appointment_time }</span>
 										</div>
-										<!-- <div class="col-md-6">
-											<div class="text-right">
-												<button type="button" class="btn bg-success-light btn-sm" id="topup_status">Completed</button>
-											</div>
-										</div> -->
 									</div>
 								</div>
 							</li>
-							<li><span class="title">환자이름:</span> <span class="text">${ap.patients[index].p_name}</span>
+							<li><span class="title">환자이름:</span>
+							<span class="text">${ap.patients[index].p_name}</span>
 							</li>
 							<li><span class="title">환자성별:</span> <span class="text">${ap.patients[index].p_gender}</span>
 							</li>

@@ -81,7 +81,7 @@ body {
 						<div class="profile-sidebar">
 							<div class="widget-profile pro-widget-content">
 								<div class="profile-info-widget">
-									<a href="#" class="booking-doc-img"> <img
+									<a class="booking-doc-img"> <img
 										src="${path}/resources/doctor/doctorImg/${sessionScope.doctor.d_photo}"
 										class="img-fluid" alt="User Image">
 									</a>
@@ -97,13 +97,13 @@ body {
 							<div class="dashboard-widget">
 								<nav class="dashboard-menu">
 									<ul>
-										<li class="active"><a href="doctor_dashboard"> <i
+										<li><a href="doctor_dashboard"> <i
 												class="fas fa-columns"></i> <span>마이페이지</span>
 										</a></li>
 										<li><a href="appointments"> <i
 												class="fas fa-calendar-check"></i> <span>진료일정</span>
 										</a></li>
-										<li><a href="my_patients"> <i
+										<li class="active"><a href="my_patients"> <i
 												class="fas fa-user-injured"></i> <span>나의 환자</span>
 										</a></li>
 										<li><a href="reviews"> <i class="fas fa-star"></i> <span>나의
@@ -147,13 +147,13 @@ body {
 										<div class="card-body">
 											<div class="pro-widget-content">
 												<div class="profile-info-widget">
-													<a href="patient-profile" class="booking-doc-img"> 
+													<a class="booking-doc-img"> 
 													<img class="avatar-img rounded-circle"
 														src="${path}/resources/patient/profileImg/${patient.patientDTO.p_photo}"
 														alt="User Image"></a>
 													<div class="profile-det-info">
 														<h3>
-															<a href="#">${patient.patientDTO.p_name}</a>
+															${patient.patientDTO.p_name}
 														</h3>
 
 														<div class="patient-details">
@@ -172,17 +172,14 @@ body {
 														<h6>${patient.patientDTO.birth},
 															<i class="fas fa-mars" style="color: blue;"></i>
 														</h6>
-														<h6>
 													</c:when>
 													<c:when test="${patient.patientDTO.p_gender eq '2'}">
 														<h6>${patient.patientDTO.birth},
 															<i class="fas fa-venus" style="color: pink;"></i>
 														</h6>
-														<h6>
 													</c:when>
 												</c:choose>
 												<b>혈액형 :</b> ${patient.patientDTO.bloodtype}
-												</h6>
 											</div>
 										</div>
 									</div>
@@ -200,134 +197,6 @@ body {
 		</div>
 		<!-- /Page Content -->
 
-		<!-- Footer -->
-		<footer class="footer">
-
-			<!-- Footer Top -->
-			<div class="footer-top">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-lg-3 col-md-6">
-
-							<!-- Footer Widget -->
-							<div class="footer-widget footer-about">
-								<div class="footer-logo">
-									<h1 id="drlink" style="color: #fff;">Dr.Link</h1>
-								</div>
-								<div class="footer-about-content">
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-										sed do eiusmod tempor incididunt ut labore et dolore magna
-										aliqua.</p>
-									<div class="social-icon">
-										<ul>
-											<li><a href="#" target="_blank"><i
-													class="fab fa-facebook-f"></i> </a></li>
-											<li><a href="#" target="_blank"><i
-													class="fab fa-twitter"></i> </a></li>
-											<li><a href="#" target="_blank"><i
-													class="fab fa-linkedin-in"></i></a></li>
-											<li><a href="#" target="_blank"><i
-													class="fab fa-instagram"></i></a></li>
-											<li><a href="#" target="_blank"><i
-													class="fab fa-dribbble"></i> </a></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<!-- /Footer Widget -->
-
-						</div>
-
-						<div class="col-lg-3 col-md-6">
-
-							<!-- Footer Widget -->
-							<div class="footer-widget footer-menu">
-								<h2 class="footer-title">
-									<a href="notice" class="footer-menu">공지사항</a>
-								</h2>
-								<h2 class="footer-title">
-									<a href="booking" class="footer-menu">온라인 예약</a>
-								</h2>
-								<h2 class="footer-title">
-									<a href="health-care" class="footer-menu">건강정보</a>
-								</h2>
-							</div>
-							<!-- /Footer Widget -->
-
-						</div>
-
-						<div class="col-lg-3 col-md-6">
-
-							<!-- Footer Widget -->
-							<div class="footer-widget footer-menu">
-								<h2 class="footer-title">
-									<a href="" class="footer-menu">온라인 간편 진단</a>
-								</h2>
-								<ul>
-									<li><a href="AI_medical_eye">안과 진단</a></li>
-									<li><a href="AI_medical_skin">피부과 진단</a></li>
-								</ul>
-							</div>
-							<!-- /Footer Widget -->
-
-						</div>
-
-						<div class="col-lg-3 col-md-6">
-
-							<!-- Footer Widget -->
-							<div class="footer-widget footer-contact">
-								<h2 class="footer-title">Contact Us</h2>
-								<div class="footer-contact-info">
-									<div class="footer-address">
-										<span><i class="fas fa-map-marker-alt"></i></span>
-										<p>서울 금천구 가산디지털2로 123 월드메르디앙벤처센터II</p>
-									</div>
-									<p>
-										<i class="fas fa-phone-alt"></i> 02-2025-4119
-									</p>
-									<p class="mb-0">
-										<i class="fas fa-envelope"></i> drlink@naver.com
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- /Footer Widget -->
-
-				</div>
-
-			</div>
-	</div>
-	</div>
-	<!-- /Footer Top -->
-
-	<!-- Footer Bottom -->
-	<div class="footer-bottom"
-		style="margin: 5px !important; padding: 10px !important;">
-		<div class="container-fluid">
-
-			<!-- Copyright -->
-			<div class="copyright">
-				<div class="row">
-					<div class="col-md-7 col-lg-7">
-						<div class="copyright-text">
-							<p>Copyright &copy; by Dr.Link All Rights Reserved.</p>
-						</div>
-					</div>
-
-					<!-- /Copyright Menu -->
-
-				</div>
-			</div>
-		</div>
-		<!-- /Copyright -->
-
-	</div>
-	</div>
-	<!-- /Footer Bottom -->
-
-	</footer>
-	<!-- /Footer -->
 	</div>
 	<!-- /Main Wrapper -->
 

@@ -31,7 +31,7 @@
                     <div class="profile-sidebar">
                         <div class="widget-profile pro-widget-content">
                            <div class="profile-info-widget">
-                              <a href="#" class="booking-doc-img">
+                              <a class="booking-doc-img">
                                  <img src="${path}/resources/doctor/doctorImg/${sessionScope.doctor.d_photo}" class="img-fluid" alt="User Image">
                               </a>
                               <div class="profile-det-info">
@@ -205,9 +205,9 @@
                                                    <tr>
                                                       <td>
                                                          <h2 class="table-avatar">
-                                                            <a href="patient-profile" class="avatar avatar-sm mr-2">
+                                                            <a class="avatar avatar-sm mr-2">
                                                             <img class="avatar-img rounded-circle" src="${path}/resources/patient/profileImg/${dash.patients[index].p_photo}" alt="User Image"></a>
-                                                            <a href="patient-profile.jsp">${dash.patients[index].p_name } <!-- <span>#12345</span> --></a>
+                                                            ${dash.patients[index].p_name }
                                                          </h2>
                                                       </td>
                                                       <td>${dash.appointment_date}<span class="d-block text-info">${dash.appointment_time}</span></td>
@@ -289,8 +289,8 @@
                                                    <tr>
                                                       <td>
                                                          <h2 class="table-avatar">
-                                                            <a href="patient-profile" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${path}/resources/patient/profileImg/${dash.patients[index].p_photo}" alt="User Image"></a>
-                                                            <a href="patient-profile">${dash.patients[index].p_name } <!-- <span>#33333</span> --></a>
+                                                            <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="${path}/resources/patient/profileImg/${dash.patients[index].p_photo}" alt="User Image"></a>
+                                                            ${dash.patients[index].p_name }
                                                          </h2>
                                                       </td>
                                                       <td>${dash.appointment_date}<span class="d-block text-info">${dash.appointment_time}</span></td>
