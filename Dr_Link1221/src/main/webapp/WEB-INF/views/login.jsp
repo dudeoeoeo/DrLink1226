@@ -45,7 +45,7 @@
 
 
 
-<div class="content">
+<div class="content" style="background-color: white;">
 	<div class="container-fluid">
 
 		<div class="row">
@@ -67,25 +67,25 @@
 							</div>
 							<div class="row align-items-center"  style="height:10em;">
 								<div class="col-md-6 text-center">
-									<a class="btn btn-primary btn-outline-dark m-3 "
+									<a class="btn btn-primary btn-outline-dark btn-lg"
 										href="patient_login" role="button" rel="nofollow"
 										>일반회원<br>로그인
 									</a>
 								</div>
 								<div class="col-md-6 text-center">
-									<a class="btn btn-primary btn-outline-dark m-3"
+									<a class="btn btn-primary btn-outline-dark btn-lg"
 										href="patient_register" role="button">일반회원<br>회원가입
 									</a>
 								</div>
 							</div>
 							<div class="row align-items-center" style="height:10em;">
 								<div class="col-md-6 text-center">
-									<a class="btn btn-light btn-outline-dark m-3"
+									<a class="btn btn-light btn-outline-dark btn-lg"
 										href="doctor_login" role="button">의사회원<br>로그인
 									</a>
 								</div>
 								<div class="col-md-6 text-center">
-									<a class="btn btn-light btn-outline-dark m-3"
+									<a class="btn btn-light btn-outline-dark btn-lg" 
 										href="doctor_verify" role="button">의사회원<br>회원가입
 									</a>
 								</div>
