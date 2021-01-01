@@ -101,7 +101,7 @@ body {
 										<li><a href="doctor_dashboard"> <i
 												class="fas fa-columns"></i> <span>마이페이지</span>
 										</a></li>
-										<li class="active" ><a href="appointments"> <i
+										<li class="active"><a href="appointments"> <i
 												class="fas fa-calendar-check"></i> <span>진료일정</span>
 										</a></li>
 										<li><a href="my_patients"> <i
@@ -151,44 +151,40 @@ body {
 										<div class="profile-det-info">
 											<h3>
 												${ap.patients[0].p_name}
+												<c:choose>
+													<c:when test="${ap.patients[0].p_gender eq '1'}">
+														&nbsp;<i class="fas fa-mars" style="color: blue;"></i>
+													</c:when>
+													<c:when test="${ap.patients[0].p_gender eq '2'}">
+														&nbsp;<i class="fas fa-venus" style="color: pink;"></i>
+													</c:when>
+												</c:choose>
 
 											</h3>
-											<c:choose>
-												<c:when test="${ap.patients[0].p_gender eq '1'}">
-													<h6>
-														<i class="fas fa-mars" style="color: blue;"></i>
-													</h6>
-												</c:when>
-												<c:when test="${ap.patients[0].p_gender eq '2'}">
-													<h6>
-														<i class="fas fa-venus" style="color: pink;"></i>
-													</h6>
-												</c:when>
-											</c:choose>
+
 											<div class="patient-details">
 												<h5>
-													<i class="far fa-clock"></i> ${ap.appointment_date }
+													<i class="far fa-clock"></i> <span>예약날짜 : </span>${ap.appointment_date }
 												</h5>
 												<h5>
-													<i class="far fa-clock"></i> ${ap.appointment_time }
+													<i class="far fa-clock"></i> <span>예약날짜 : </span>${ap.appointment_time }
 												</h5>
 												<h5>
-													<i class="fas fa-map-marker-alt"></i>
-													${ap.patients[0].p_address1}
+													<i class="fas fa-map-marker-alt"></i> <span>주 소 : </span>${ap.patients[0].p_address1}
 												</h5>
 												<h5>
-													<i class="fas fa-envelope"></i> ${ap.patients[0].p_email}
+													<i class="fas fa-envelope"></i> <span>이메일 : </span>${ap.patients[0].p_email}
 												</h5>
 												<h5 class="mb-0">
-													<i class="fas fa-phone"></i> ${ap.patients[0].p_phone_num}
+													<i class="fas fa-phone"></i> <span>연락처 : </span>${ap.patients[0].p_phone_num}
 												</h5>
 											</div>
 										</div>
 									</div>
 									<div class="appointment-action">
 										<!-- data-target="#appt_details" -->
-										<a href="#"
-											class="btn btn-sm bg-info-light" data-toggle="modal"
+										<a href="#" class="btn btn-sm bg-info-light"
+											data-toggle="modal"
 											data-target="#appt_details${status.count }"> <input
 											type="hidden" name="detail_num" value="${status.count}">
 											<i class="far fa-eye"></i> 상세보기
@@ -234,23 +230,21 @@ body {
 								<div class="details-header">
 									<div class="row">
 										<div class="col-md-6">
-											<span class="title">진료일정</span> 
-											<span class="text">${ap.appointment_time }</span>
+											<span class="title">진료일정</span> <span class="text">${ap.appointment_time }</span>
 										</div>
 									</div>
 								</div>
 							</li>
-							<li><span class="title">환자이름:</span>
-							<span class="text">${ap.patients[index].p_name}</span>
+							<li><span class="title">환자이름:</span> <span class="text">${ap.patients[index].p_name}</span>
 							</li>
 							<li><span class="title">환자성별:</span> <span class="text">${ap.patients[index].p_gender}</span>
 							</li>
 							<li><span class="title">알러지여부:</span> <c:choose>
 									<c:when test='${ap.patients[index].allergy eq "1"}'>
-										<span class="text">있음</span>
+										있음
 									</c:when>
 									<c:otherwise>
-										<span class="text">없음</span>
+										없음
 									</c:otherwise>
 								</c:choose></li>
 						</ul>
