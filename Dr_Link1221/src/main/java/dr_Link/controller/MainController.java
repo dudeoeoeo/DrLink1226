@@ -304,8 +304,8 @@ public class MainController {
 		ModelAndView mv = new ModelAndView("notice.page");
 		List<Hospital_boardDTO> li;
 		// dao.getAll(); 나중에 수정해야 할 사항
-		int pageAll = main_dao.getBoardCnt();
-		pageAll = (pageAll % 10 == 0) ? pageAll % 10 : (pageAll / 10) + 1;
+		double pageCnt = main_dao.getBoardCnt();
+		int pageAll = (int)Math.ceil((pageCnt / 10));
 		try {
 			if (request.getParameter("d_page") != null) {
 				li = main_dao.getAllHospitalBoards(Integer.parseInt(request.getParameter("d_page")));
@@ -381,21 +381,19 @@ public class MainController {
 	public ModelAndView getHealth_Board(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("health-blog.page");
 		List<NewsDTO> nt;
-		System.out.println("health 페이지로 가기");
 		try {
 			if (request.getParameter("d_page") != null) {
-				nt = main_dao.getNewsPage(Integer.parseInt(request.getParameter("d_page")));
+				int p_num = Integer.parseInt(request.getParameter("d_page"));
+				nt = main_dao.getNewsPage(p_num);
 			} else {
 				nt = main_dao.getAllNewsBoards();
 			}
-
 			for (int i = 0; i < nt.size(); i++) {
 				String regdate = nt.get(i).getNews_regdate().substring(0, 10).replace("-", ".");
 				nt.get(i).setNews_regdate(regdate);
 			}
-			int page_num = nt.get(0).getGetCnt();
-
-			page_num = (page_num % 4 == 0) ? page_num / 4 : (page_num / 4) + 1;
+			double pageCnt = (nt.size() > 0) ? nt.get(0).getGetCnt() : 0;
+			int page_num = (int)Math.ceil((pageCnt / 10));
 			mv.addObject("newsList", nt);
 			mv.addObject("p_num", page_num);
 		} catch (Exception e) {
@@ -408,23 +406,13 @@ public class MainController {
 	public ModelAndView getHealth_BoardDetail(HttpServletRequest request, NewsReplDTO news) {
 		ModelAndView mv = new ModelAndView("health-blog-detail.page");
 		try {
-			if (request.getParameter("b_num") != null) {
-				NewsDTO dto = main_dao.getNewsBoardsDetail(Integer.parseInt(request.getParameter("b_num")));
-				List<NewsReplDTO> nr = main_dao.getNewsRepl(Integer.parseInt(request.getParameter("b_num")));
-
-				mv.addObject("n_board", dto);
-				mv.addObject("n_repl", nr);
-				for (NewsReplDTO n : nr) {
-					// System.out.println("가져온 값: "+ nr.get(0).getN_comments_num());
-				}
-				System.out.println("ajax");
-			} else {
-
-			}
+			NewsDTO dto = main_dao.getNewsBoardsDetail(Integer.parseInt(request.getParameter("b_num")));
+			List<NewsReplDTO> nr = main_dao.getNewsRepl(Integer.parseInt(request.getParameter("b_num")));
+			mv.addObject("n_board", dto);
+			mv.addObject("n_repl", nr);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
-
 		return mv;
 	}
 

@@ -108,7 +108,7 @@
 									
 									
 							<hr/>
-										<a href="aiTest-success" class="btn btn-primary view-inv-btn">진단결과보기</a>
+										<a href="aiTestSuccess" class="btn btn-primary view-inv-btn">진단결과보기</a>
 									
 							<hr/>
 							

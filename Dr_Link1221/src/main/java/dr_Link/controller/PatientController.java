@@ -161,10 +161,8 @@ public class PatientController {
 		String url = "";
 		String pay_chk = prescription.getPayment_check().trim();
 		if(pay_chk.equals("0")) {
-			System.out.println("if문"+pay_chk+"들어온거");
 			url="/patients/payment_form";
 		} else {
-			System.out.println("else문"+pay_chk);
 			DrLinkDTO drlinkinfo = prescriptionService.drLink_info(drlinkVO);
 			List<MedicineDTO> medi_detail = pre_dao.medicine_detail_info(prescription.getMedicine_num());
 			model.addAttribute("medi_detail",medi_detail);
@@ -184,7 +182,6 @@ public class PatientController {
 		Pay_recordDTO payrec = pre_dao.pay_record(pre_vo.getPrescription_num());
 		DrLinkDTO drlinkinfo = prescriptionService.drLink_info(drlinkVO);
 		List<MedicineDTO> medi_detail = pre_dao.medicine_detail_info(prescription.getMedicine_num());
-		System.out.println(payrec.getPaydate());
 		model.addAttribute("medi_detail",medi_detail);
 		model.addAttribute("drlinkinfo",drlinkinfo);
 		model.addAttribute("prescription",prescription);
@@ -211,11 +208,9 @@ public class PatientController {
 		int result = 0;
 		try {
 			PatientDTO pp = (PatientDTO)session.getAttribute("user");
-			System.out.println("pp: "+pp.getP_id());
 			pt.setP_id(pp.getP_id());
 			pt.setP_pwd(Integer.toString(old_pwd));
 			result = patientDaoInter.patient_check_pwd(pt);
-			System.out.println("patient_check_pwd 가져온 result: "+ result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

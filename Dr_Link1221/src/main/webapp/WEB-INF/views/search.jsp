@@ -164,7 +164,7 @@
 											<li class="clinic-services">
 											<c:choose>
 													<c:when test="${empty list.d_fields}">
-			                                    아직 정보가 입력되지 않았습니다.
+			                                   <span> 아직 정보가 입력되지 않았습니다.</span>
 			                                </c:when>
 
 													<c:otherwise>
