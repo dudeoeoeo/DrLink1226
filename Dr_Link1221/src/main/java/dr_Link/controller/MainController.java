@@ -349,14 +349,11 @@ public class MainController {
 					System.out.println("else if for: " + i);
 				}
 			}
-			System.out.println("맨 밑");
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
 
-		System.out.println("list 바로 위에 매핑");
 		List<DoctorDTO> list = doctorProfileDAO.getList(map);
-		System.out.println("여기까지 오케이");
 
 		model.addAttribute("d_genderList", d_genderList);
 		model.addAttribute("dep_numList", dep_numList);

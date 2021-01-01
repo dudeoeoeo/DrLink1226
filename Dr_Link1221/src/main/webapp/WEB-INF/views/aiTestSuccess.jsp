@@ -34,6 +34,9 @@
 						</div>
 						<!-- 카드헤더 -->
 
+						<div class="mb-3">
+							<p class="lead text-center m-3"><mark>[]%</mark>의 확률로 <mark>[]</mark>입니다.</p>
+						</div>
 						<div class="card-body">
 							<div class="row">
 								<div class="col-lg-7 mb-3"
@@ -65,35 +68,6 @@
 							</div>
 							<!-- row1 -->
 
-							<div class="row">
-								<div class="col-lg-7 mb-3"
-									style="margin-right: 30px !important;">
-									<h3>●결막염</h3>
-									<p class="">
-										세균성 결막염은 씻지 않은 손이나 더러운 표면에 있는 세균이 눈에 닿아서 주로 발생한다. <br /> 세균성
-										결막염에 의해 염증이 생길 경우 심한 통증을 유발할 수 있으며, 눈에서 고름(황색 분비물)이 나올 수 있다. <br />눈이
-										세균에 감염되면 <strong style="color: red !important;">즉시
-											치료를 받아야 한다.</strong>
-									</p>
-								</div>
-								<!-- 증상설명 -->
-								<div class="col-lg-4 mb-3">
-									<div class="text-center"
-										style="width: 80% !important; margin-left: 50px;">
-										<div class="card text-center doctor-book-card">
-											<img src="${path}/resources/assets/img/eyeExample2.jpg"
-												alt="" class="img-fluid">
-											<div class="doctor-book-card-content tile-card-content-1">
-												<div>
-													<h3 class="card-title mb-0">사진 예시</h3>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- 사진예시 -->
-							</div>
-							<!-- row2 -->
 						</div>
 						<!-- 카드바디 -->
 
