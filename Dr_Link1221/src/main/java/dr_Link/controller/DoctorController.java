@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import dr_Link.doctor.DoctorDaoInter;
 import dr_Link.doctorProfile.DoctorDTO;
@@ -130,12 +128,13 @@ public class DoctorController {
 	/* 김다유 : 의사 프로필 수정 페이지 */
 	@RequestMapping(value = "/doctor_profile_settings")
 	public String profile_settings(DoctorDTO vo, Model model, HttpSession session, HttpServletRequest request) {
-		Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(request);
+//		Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(request);
 		DoctorDTO doctorinfo = new DoctorDTO();
 		// 의사번호를 던져서 가져온 값을 doctor_profile에 저장 후 model 에 담아 jsp 전송
-		if (redirectMap != null) {
-			doctorinfo = pre_service.doctor_info((int) redirectMap.get("doctor_num")); // 오브젝트 타입이라 캐스팅해줌
-		} else if (request.getParameter("doctor_num") != null) {
+//		if (redirectMap != null) {
+//			doctorinfo = pre_service.doctor_info((int) redirectMap.get("doctor_num")); // 오브젝트 타입이라 캐스팅해줌
+//		} else 
+			if (request.getParameter("doctor_num") != null) {
 			doctorinfo = pre_service.doctor_info(Integer.parseInt(request.getParameter("doctor_num")));
 		} else {
 			doctorinfo = pre_service.doctor_info(((DoctorDTO) session.getAttribute("doctor")).getDoctor_num());
@@ -164,10 +163,11 @@ public class DoctorController {
 	/* 김다유 : 의사 프로필세팅 완료 후 페이지 이동 */
 	@RequestMapping(value = "/setting_ok")
 	public String setting_ok(DoctorDTO vo, HttpServletRequest reqest, RedirectAttributes re) {
-		int doctor_num = Integer.parseInt(reqest.getParameter("doctor_num"));
-		re.addFlashAttribute("doctor_num", doctor_num);
+//		int doctor_num = Integer.parseInt(reqest.getParameter("doctor_num"));
+		System.out.println("setting_ok 실행");
+//		re.addFlashAttribute("doctor_num", doctor_num);
 		doc_dao.doctor_profile_update(vo);
-		return "redirect:doctor_profile_settings";
+		return "redirect:/doctor/doctor_profile_settings";
 	}
 
 	/* 김다유 : 의사대시보드 나의 환자 */

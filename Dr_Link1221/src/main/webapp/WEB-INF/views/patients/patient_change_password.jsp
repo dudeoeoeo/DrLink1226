@@ -83,6 +83,7 @@
 		      }else{
 				$("#pwd_check").text("비밀번호가 알맞습니다.");
 				$('#pwd_check').css('color', 'green');
+				$("#submit-btn").removeAttr("disabled");
 		 	  }
 		});
 	

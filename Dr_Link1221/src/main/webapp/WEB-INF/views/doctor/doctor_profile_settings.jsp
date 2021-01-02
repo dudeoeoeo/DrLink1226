@@ -145,11 +145,9 @@
 
 					</div>
 					<div class="col-md-7 col-lg-8 col-xl-9">
-
 						<!-- Basic Information -->
-						<form id="doctor_profile_settings"
-							action="setting_ok?doctor_num=${doctorinfo.doctor_num}"
-							method="post" enctype="multipart/for-data">
+						<form id="doctor_profile_settings" action="setting_ok" method="post" enctype="multipart/form-data">
+							<input type="hidden" value="${doctorinfo.doctor_num}" name="doctor_num">
 							<div class="card">
 								<div class="card-body">
 									<h4 class="card-title">기본 정보</h4>
@@ -159,7 +157,7 @@
 												<div class="change-avatar">
 													<div class="profile-img">
 														<img id="blah"
-															src="${path }/resources/doctor/doctorImg/${doctorinfo.d_photo}"
+															src="${path}/resources/doctor/doctorImg/${doctorinfo.d_photo}"
 															alt="프로필 사진">
 													</div>
 													<div class="upload-img">

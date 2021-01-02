@@ -65,7 +65,7 @@ body {
 								<div class="card-body">
 									<div class="success-cont">
 										<i class="fas fa-check"></i>
-										<h3>결제가 완료되었습니다.!</h3>
+										<h3>결제가 완료되었습니다!</h3>
 									</div>
 								</div>
 							</div>

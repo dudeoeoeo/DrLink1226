@@ -264,11 +264,11 @@ f<%@ page language="java" contentType="text/html; charset=UTF-8"
 														</a>
 													</p>
 													<c:if test="${sessionScope.user.patient_num eq review.patient_num}">
-														<a class="comment-btn"> <i class="fas fa-pen-fancy"></i><span>수정</span>
+														<a class="comment-btn" style="cursor:pointer !important;"> <i class="fas fa-pen-fancy"></i><span>수정</span>
 														</a>
-														<button type="button" class="close comment-btn" aria-label="Close">
-														  <span aria-hidden="true">&times;</span>
-														</button>
+														<a class="close comment-btn" style="cursor:pointer !important;margin-right: 37rem;margin-top: 2px; opacity:unset !important; color:red !important">
+														  삭제<span>&times;</span>
+														</a>
 													</c:if>
 												</div>
 											</div>
