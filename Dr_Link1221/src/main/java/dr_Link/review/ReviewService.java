@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface ReviewService {
 	
-	void addReview(Doc_ReviewDTO vo);
+	int addReview(Doc_ReviewDTO vo);
 	
 	int updateReview(Doc_ReviewDTO vo);
 	

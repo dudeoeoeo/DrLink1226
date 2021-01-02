@@ -12,9 +12,9 @@ public class ReviewServiceImpl implements ReviewService {
 	private ReviewDAO reviewDao;
 
 	@Override
-	public void addReview(Doc_ReviewDTO vo) {
+	public int addReview(Doc_ReviewDTO vo) {
 		// TODO Auto-generated method stub
-		reviewDao.addReview(vo);
+		return reviewDao.addReview(vo);
 	}
 
 	@Override

@@ -34,15 +34,21 @@ public class ReviewController {
 
 		int result = 0;
 		int doctor_num = review.getDoctor_num();
-		System.out.println(review.getReview_handling());
+		System.out.println("review.getReview_handling() : "+review.getReview_handling());
 		try {
 			String handle_repl = review.getReview_handling();
 			if (handle_repl.equals("수정")) {
 				result = reviewService.updateReview(review);
-			} else {
+				System.out.println("댓글 수정");
+			} else if(handle_repl.equals("×")) {
 				result = reviewService.deleteReview(review);
+				System.out.println("댓글 삭제");
+			} else {
+				review.setPatient_num(((PatientDTO)session.getAttribute("user")).getPatient_num());
+				result = reviewService.addReview(review);
+				System.out.println("댓글 등록");
 			}
-		} catch (NullPointerException e) {
+				} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
 

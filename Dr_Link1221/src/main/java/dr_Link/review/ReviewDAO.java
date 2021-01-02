@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface ReviewDAO {
 	
-	void addReview(Doc_ReviewDTO vo);
+	int addReview(Doc_ReviewDTO vo);
 	
 	int updateReview(Doc_ReviewDTO vo);
 	

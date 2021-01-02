@@ -13,9 +13,9 @@ public class ReviewDAOImpl implements ReviewDAO {
 	private SqlSessionTemplate ss;
 
 	@Override
-	public void addReview(Doc_ReviewDTO vo) {
+	public int addReview(Doc_ReviewDTO vo) {
 		// TODO Auto-generated method stub
-		ss.insert("doc_review.addReview", vo);
+		return ss.insert("doc_review.addReview", vo);
 	}
 
 	@Override

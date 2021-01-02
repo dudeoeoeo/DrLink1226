@@ -236,9 +236,6 @@ f<%@ page language="java" contentType="text/html; charset=UTF-8"
 											<div class="comment-body"
 												style="width: -webkit-fill-available;">
 												<div class="meta-data">
-												<input type="hidden" name="review_num" value="${review.review_num}">
-												<input type="hidden" name="doctor_num" value="${review.doctor_num}">
-												<input type="hidden" name="review_rating" value="${review.review_rating}">
 													<span class="comment-author">${review.patientDTO.p_name }</span>
 													<span class="comment-date">${review.review_date}</span>
 													<div class="review-count rating">
@@ -256,6 +253,9 @@ f<%@ page language="java" contentType="text/html; charset=UTF-8"
 												</div>
 												<p class="comment-content">${review.review_content}</p>
 												<div class="comment-reply">
+												<input type="hidden" name="review_num" value="${review.review_num}">
+												<input type="hidden" name="doctor_num" value="${review.doctor_num}">
+												<input type="hidden" name="review_rating" value="${review.review_rating}">
 													<p class="recommend-btn">
 														<span>도움이 되는 후기였나요?</span> <a href="#" class="like-btn">
 															<i class="far fa-thumbs-up"></i> 추천
@@ -295,8 +295,9 @@ f<%@ page language="java" contentType="text/html; charset=UTF-8"
 							<c:if test="${not empty sessionScope.user }">
 								<h4>후기를 남겨주세요</h4>
 
-								<!-- Write Review Form -->
-								<form action="addReview.do" method="post">
+								<!-- Write Review Form 
+								<form action="addReview.do" method="post">-->
+								<form method="post" id="review_form">
 									<input type="hidden" name="doctor_num"
 										value="${doctor_profile.doctor_num}" />
 									<div class="form-group">
@@ -460,22 +461,17 @@ $(function() {
 			// 수정일 시 textarea에 채울 내용
 			var comment_text = $(this).parents('div.comment-body').find('p.comment-content').text();
 			// 현재 댓글 번호
-			review_num = $('input[name="review_num"]').val();
-			doctor_num = $('input[name="doctor_num"]').val();
-			review_rating = $('input[name="review_rating"]').val();
+			review_num = $(this).parents('div.comment-reply').find('input[name="review_num"]').val();
+			doctor_num = $(this).parents('div.comment-reply').find('input[name="doctor_num"]').val();
+			review_rating = $(this).parents('div.comment-reply').find('input[name="review_rating"]').val();
 			if (do_text == '수정') {
 				$('#review_desc').text(comment_text);
+				$('#review_desc').focus();
 				$('input[value="'+review_rating+'"]').prop('checked', true);
 			} else if (do_text == '×') {
 				if (confirm("정말 삭제하시겠습니까 ?")) {
 					delete_repl(review_num, do_text, doctor_num);
 				}
-			} else {
-				if ($(this).find('input[name="repl_num"]')
-						.val() != null) {
-					review_num = $('input[name="review_num"]').val();
-				}
-				$('#comments_box').text("");
 			}
 	}); // click
 	
@@ -483,15 +479,13 @@ $(function() {
 		if($('#review_desc').val()=="" || $('#review_desc').val()==null){
 			alert("내용을 입력해주세요");
 			return;
-		}else{
+		}else if(do_text !=null){
 		var form = {
 			review_content : $('#review_desc').val(),
 			review_num : review_num,
-			review_rating : review_rating,
+			review_rating : $('input[name="review_rating"]:checked').val(),
 			review_handling : do_text,
 		};
-		alert("form 내용 : " + form);
-		alert("수정리뷰번호" + review_num + "현재 요청: " + do_text);
 		$.ajax({
 			url : "delete_review",
 			type : "POST",
@@ -509,6 +503,9 @@ $(function() {
 				alert(do_text + err);
 			}
 		}); //ajax
+		}else{
+			$("#review_form").attr("action", "addReview.do");
+			$("#review_form").submit();
 		};//else
 		
 	}) // click
