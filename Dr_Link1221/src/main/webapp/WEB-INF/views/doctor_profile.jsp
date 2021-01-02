@@ -478,7 +478,13 @@ $(function() {
 	$('.submit-btn').click(function() {
 		if($('#review_desc').val()=="" || $('#review_desc').val()==null){
 			alert("내용을 입력해주세요");
-			return;
+			return false;
+		}else if ($("input:checkbox[id=terms_accept]").is(":checked") == false){
+			alert("체크박스를 선택해주세요");
+			return false;			
+		}else if ($("input:radio").is(":checked") == false){
+			alert("별점을 선택해주세요");
+			return false;			
 		}else if(do_text !=null){
 		var form = {
 			review_content : $('#review_desc').val(),
