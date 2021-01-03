@@ -22,4 +22,6 @@ public interface DoctorServiceInter {
 	// 이메일 중복 검사
 	public void doctor_check_email(String d_email, HttpServletResponse response) throws Exception;
 
+	// 의사 정보 다시 가져오기
+	public DoctorDTO getDoctorDTO(int doctor_num);
 }

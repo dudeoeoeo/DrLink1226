@@ -43,9 +43,10 @@ public class DoctorDaoImp implements DoctorDaoInter {
 		
 	}
 
+	//의사 회원탈퇴
 	@Override
-	public void deleteDoctor(DoctorDTO vo) {
-		
+	public void deleteDoctor(int doctor_num) {
+		ss.update("doctor.deleteDoctor", doctor_num);
 	}
 
 	@Override
@@ -150,7 +151,14 @@ public class DoctorDaoImp implements DoctorDaoInter {
 		System.out.println("emailCheck 다오 임플까지옴");
 		return ss.selectOne("doctor.emailCheck", id);
 	}
-		
+	
+	// 의사 정보 다시 가져오기
+	@Override
+	public DoctorDTO getDoctorDTO(int doctor_num) {
+		// TODO Auto-generated method stub
+		return ss.selectOne("doctor.getDoctor", doctor_num);
+	}
+	
 	/*@Override
 	 * public List<SearchDTO> getSearch() {
 	 * System.out.println("===> ss getSearch() 실행"); return

@@ -1,5 +1,8 @@
 package dr_Link.doctorProfile;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import dr_Link.dto.DepartmentDTO;
@@ -40,7 +43,36 @@ public class DoctorDTO {
 	private Doc_ReviewDTO doc_ReviewDTO;
 	private String[] d_fields;
 	private String d_retire_date;
-	
+	private String birth;
+	private String profileAddress;
+
+	public String getProfileAddress() {
+		String[] address = this.d_address1.split(" ");
+		String result = address[0]+", "+address[1];
+		return result;
+	}
+	public void setProfileAddress(String profileAddress) {
+		this.profileAddress = profileAddress;
+	}
+	public String getBirth() {
+		String birth="";
+		Date time = new Date();
+		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy");
+		int this_year=Integer.parseInt(format1.format(time.getTime()));
+		if(this.d_jumin_num.substring(6, 7).equals("1") || this.d_jumin_num.substring(6, 7).equals("2")) {
+			int my_year=Integer.parseInt("19"+this.d_jumin_num.substring(0, 2));
+			int my_age=this_year - my_year;
+			birth=my_year+"년 "+this.d_jumin_num.substring(2,4)+"월 "+this.d_jumin_num.substring(4,6)+"일, 만"+my_age+"세"; 
+		}else {
+			int my_year=Integer.parseInt("20"+this.d_jumin_num.substring(0, 2));
+			int my_age=this_year - my_year;
+			birth=my_year+"년 "+this.d_jumin_num.substring(2,4)+"월 "+this.d_jumin_num.substring(4,6)+"일, 만"+my_age+"세";
+		}
+		return birth;
+	}
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
 		
 	public String getD_retire_date() {
 		return d_retire_date;

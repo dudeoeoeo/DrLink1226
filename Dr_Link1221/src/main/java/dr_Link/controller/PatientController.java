@@ -106,7 +106,6 @@ public class PatientController {
 				} else {
 					vo.setP_photo(vo.getP_photo());
 				}
-				System.out.println("if문 : "+ vo.getP_photo());
 				patientService.updatePatient(vo);
 			} 
 			

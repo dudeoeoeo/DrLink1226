@@ -67,10 +67,16 @@
 									class="img-fluid" alt="User Image">
 								</a>
 								<div class="profile-det-info">
-									<h3>${sessionScope.doctor.d_name}의사</h3>
-
 									<div class="patient-details">
 										<h5 class="mb-0">${sessionScope.doctor.departmentDTO.dep_name}</h5>
+										<h3>${doctorinfo.d_name}의사</h3>
+										<h5>
+											<i class="fas fa-birthday-cake"></i> ${doctorinfo.birth}
+										</h5>
+										<h5 class="mb-0">
+											<i class="fas fa-map-marker-alt"></i>
+											${doctorinfo.profileAddress}
+										</h5>
 									</div>
 								</div>
 							</div>
@@ -120,19 +126,20 @@
 							<form action="doctorDeleteAccount" method="post">
 								<h3>정말 탈퇴하시겠습니까?</h3>
 								<div class="form-group">
-									<label>비밀번호</label> <input type="password" name="d_pwd"
-										id="d_pwd" class="form-control">
+									<label>비밀번호</label> 
+									<input type="password" name="d_pwd"	id="d_pwd" class="form-control" required>
+									<div class="check_font" id="pwd_check"></div>
 								</div>
 								<div class="terms-accept">
 									<div class="custom-checkbox">
 										<input type="checkbox" id="terms_accept_1"
-											name="terms_accept_1"> <label for="terms_accept"><a
+											name="terms_accept_1" disabled required> <label for="terms_accept"><a
 											href="#">위 내용을 </a><span>모두 확인했으며, 회원탈퇴에 동의합니다.</span></label>
 									</div>
 								</div>
 								<div class="submit-section">
 									<button type="submit" class="btn btn-primary submit-btn"
-										id="submit-btn">탈퇴하기</button>
+										id="submit-btn" disabled>탈퇴하기</button>
 								</div>
 							</form>
 							<!-- /Change Password Form -->
@@ -146,13 +153,27 @@
 	</div>
 	<!-- /Page Content -->
 	<script>
-		$(function() {
-			$("#submit-btn").hover(function() {
-				if ($('input:checkbox[name=terms_accept_1]').is(':checked')) {
-					$("#submit-btn").removeAttr("disabled");
-				} else {
-					$("#submit-btn").attr("disabled", "disabled");
-				}
-			});
+	$(function(){
+		$('#d_pwd').blur(function(){
+			var old_pwd = "${doctorinfo.d_pwd}";
+			if($('#d_pwd').val() == old_pwd){
+				$("#pwd_check").text("정말 탈퇴하시겠습니까?");
+				$('#pwd_check').css('color', 'red');
+				$("#terms_accept_1").removeAttr("disabled");
+			}else{
+				$("#pwd_check").text("비밀번호가 일치하지 않습니다.");
+				$('#pwd_check').css('color', 'red');
+			    $('#p_pwd').val('');
+		     	$('#p_pwd').focus();
+			}
 		});
+		
+		$("#submit-btn").hover(function(){
+			if($('input:checkbox[name=terms_accept_1]').is(':checked')){
+				$("#submit-btn").removeAttr("disabled");
+			}else{
+				$("#submit-btn").attr("disabled", "disabled");
+			}
+		});
+	});
 	</script>

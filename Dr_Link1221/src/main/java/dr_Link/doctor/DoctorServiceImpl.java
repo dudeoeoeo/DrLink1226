@@ -140,4 +140,11 @@ public class DoctorServiceImpl implements DoctorServiceInter{
 			out.close();
 		}
 	}
+	
+	// 의사 정보 다시 가져오기
+	@Override
+	public DoctorDTO getDoctorDTO(int doctor_num) {
+		// TODO Auto-generated method stub
+		return doctorDaoImpl.getDoctorDTO(doctor_num);
+	}
 }

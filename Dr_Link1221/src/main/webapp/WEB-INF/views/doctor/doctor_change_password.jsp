@@ -30,65 +30,65 @@
 			<script src="${path}/resources/assets/js/html5shiv.min.js"></script>
 			<script src="${path}/resources/assets/js/respond.min.js"></script>
 		<![endif]-->
-<script>
+		<script>
+
 	//비밀번호 유효성 및 중복확인
-	$(function() {
+ 	$(function(){ 
 		$('#old_pwd').blur(function() {
 			$.ajax({
 				url : "doctor_check_pwd",
-				dataType : 'json',
-				async : false,
+				dataType:'json',
+				async: false,
 				type : "POST",
 				data : {
 					old_pwd : $("#old_pwd").val()
 				},
 				success : function(result) {
 					if (result.success > 0) {
-						console.log("result: " + result.success)
+						console.log("result: "+result.success)
+						$("#d_pwd").removeAttr("disabled");
+						$("#d_pwd2").removeAttr("disabled");
 						$("#old_pwd_check").text("");
 						$("#pwd_ch").val("비밀번호가 같습니다");
-						$("#submit-btn").removeAttr("disabled");
 					} else {
-						$("#submit-btn").attr("disabled", "disabled");
 						$("#old_pwd_check").text("기존 비밀번호와 다릅니다.");
 						$('#old_pwd_check').css('color', 'red');
-						return;
+			         	return;
 					}
-				},
-				error : function(e) {
+				},error : function(e) {
 					console.log(e)
 				}
 			})
 		});
-
-		//비밀번호 유효성 및 중복확인
-		$('#d_pwd2').blur(function() {
+		
+	//비밀번호 유효성 및 중복확인
+		$('#d_pwd2').blur(function(){
 			var getPwd = RegExp(/^[a-zA-z0-9]{4,12}$/);
-			if (!getPwd.test($("#d_pwd2").val())) {
+			if(!getPwd.test($("#d_pwd2").val())){
 				$("#pwd_check").html("영문 대소문자와 숫자 4~12자리로 입력해야합니다.");
 				$('#pwd_check').css('color', 'red');
-				$("#d_pwd").val("");
-				$("#d_pwd2").val("");
-				$("#d_pwd").focus();
-			} else if ($('#d_pwd').val() != $('#d_pwd2').val()) {
+		        $("#d_pwd").val("");
+		        $("#d_pwd2").val("");
+		        $("#d_pwd").focus();
+		      }else if($('#d_pwd').val() != $('#d_pwd2').val()){
 				$("#pwd_check").text("비밀번호가 일치하지 않습니다.");
 				$('#pwd_check').css('color', 'red');
-				$('#d_pwd2').val('');
-				$('#d_pwd2').focus();
-			} else if ($("#old_pwd").val() == $("#d_pwd").val()) {
-				$("#submit-btn").attr("disabled", "disabled");
+		        $("#d_pwd").val("");
+		        $("#d_pwd2").val("");
+	         	$('#d_pwd').focus();
+		      }else if($("#old_pwd").val() == $("#d_pwd").val()){
 				$("#pwd_check").text("이전과 같은 비밀번호 입니다.");
 				$('#pwd_check').css('color', 'red');
-				$('#d_pwd').val('');
-				$('#d_pwd').focus();
-			} else {
-				$("#submit-btn").removeAttr("disabled");
+		        $("#d_pwd").val("");
+		        $("#d_pwd2").val("");
+	         	$('#d_pwd').focus();
+		      }else{
 				$("#pwd_check").text("비밀번호가 알맞습니다.");
 				$('#pwd_check').css('color', 'green');
-			}
+				$("#submit-btn").removeAttr("disabled");
+		 	  }
 		});
-
-		
+	
 		$('.submit-btn').click(function(){
 			if($('#old_pwd').val()=="" || $('#d_pwd').val()=="" || $('#d_pwd2').val()==""){
 				alert("빈칸이 있습니다.");
@@ -99,7 +99,7 @@
 					
 		});
 	});
-</script>
+	</script>
 </head>
 <body>
 
@@ -138,10 +138,16 @@
 									class="img-fluid" alt="User Image">
 								</a>
 								<div class="profile-det-info">
-									<h3>${sessionScope.doctor.d_name}의사</h3>
-
 									<div class="patient-details">
 										<h5 class="mb-0">${sessionScope.doctor.departmentDTO.dep_name}</h5>
+										<h3>${doctorinfo.d_name}의사</h3>
+										<h5>
+											<i class="fas fa-birthday-cake"></i> ${doctorinfo.birth}
+										</h5>
+										<h5 class="mb-0">
+											<i class="fas fa-map-marker-alt"></i>
+											${doctorinfo.profileAddress}
+										</h5>
 									</div>
 								</div>
 							</div>
@@ -196,16 +202,16 @@
 								</div>
 								<div class="form-group">
 									<label>새 비밀번호</label> <input type="password" name="d_pwd"
-										id="d_pwd" class="form-control" required>
+										id="d_pwd" class="form-control" disabled required >
 								</div>
 								<div class="form-group">
 									<label>비밀번호 확인</label> <input type="password" name="d_pwd2"
-										id="d_pwd2" class="form-control" required>
+										id="d_pwd2" class="form-control" disabled required>
 									<div class="check_font" id="pwd_check"></div>
 								</div>
 								<div class="submit-section">
 									<button type="submit" id="submit-btn"
-										class="btn btn-primary submit-btn">비밀번호 변경</button>
+										class="btn btn-primary submit-btn" disabled >비밀번호 변경</button>
 								</div>
 							</form>
 							<!-- /Change Password Form -->

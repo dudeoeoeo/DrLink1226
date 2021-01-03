@@ -1,5 +1,7 @@
 package dr_Link.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dr_Link.doctor.DoctorDaoInter;
+import dr_Link.doctor.DoctorServiceInter;
 import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.dto.AppointmentDTO;
 import dr_Link.dto.DrLinkDTO;
@@ -43,6 +47,9 @@ public class DoctorController {
 
 	@Autowired
 	private DoctorDaoInter doc_dao;
+	
+	@Autowired
+	private DoctorServiceInter doc_service;
 
 	@RequestMapping(value = "/main")
 	public String indexRq() {
@@ -127,34 +134,54 @@ public class DoctorController {
 
 	/* 김다유 : 의사 프로필 수정 페이지 */
 	@RequestMapping(value = "/doctor_profile_settings")
-	public String profile_settings(DoctorDTO vo, Model model, HttpSession session, HttpServletRequest request) {
+	public String profile_settings(Model model, HttpSession session, HttpServletRequest request) {
 //		Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(request);
 		DoctorDTO doctorinfo = new DoctorDTO();
 		// 의사번호를 던져서 가져온 값을 doctor_profile에 저장 후 model 에 담아 jsp 전송
 //		if (redirectMap != null) {
 //			doctorinfo = pre_service.doctor_info((int) redirectMap.get("doctor_num")); // 오브젝트 타입이라 캐스팅해줌
 //		} else 
-			if (request.getParameter("doctor_num") != null) {
-			doctorinfo = pre_service.doctor_info(Integer.parseInt(request.getParameter("doctor_num")));
-		} else {
-			doctorinfo = pre_service.doctor_info(((DoctorDTO) session.getAttribute("doctor")).getDoctor_num());
-		}
+//			if (request.getParameter("doctor_num") != null) {
+//				int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
+//				doctorinfo = doc_service.getDoctorDTO(doctor_num);
+//				
+//				System.out.println(doctorinfo.getD_photo()+"사진이름이 업뎃되엇나????");
+//		
+//			doctorinfo = pre_service.doctor_info(Integer.parseInt(request.getParameter("doctor_num")));
+//		
+//		} else {
+//			System.out.println("else라면?????");
+//			doctorinfo = pre_service.doctor_info(((DoctorDTO) session.getAttribute("doctor")).getDoctor_num());
+//		}
+			
+
+		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
+		doctorinfo = doc_service.getDoctorDTO(doctor_num);
 
 		List<String[]> m = new ArrayList<String[]>();
 		String[] d_graduation = doctorinfo.getD_graduation().split(",");
 		String[] d_career = doctorinfo.getD_career().split(",");
-		String[] d_content = null;
+		//String[] d_content = doctorinfo.getD_content().split(",");
 		String[] d_field = null;
 		m.add(d_graduation);
 		m.add(d_career);
-		if (doctorinfo.getD_content() != null) {
-			d_content = doctorinfo.getD_content().split(".");
-			m.add(d_content);
-		}
+//		if (doctorinfo.getD_content() != null) {
+//			d_content = doctorinfo.getD_content().split(".");
+//			m.add(d_content);
+//		}
 		if (doctorinfo.getD_field() != null) {
-			d_field = doctorinfo.getD_field().split(",");
+			d_career = doctorinfo.getD_field().split(",");
+			m.add(d_career);
+		}
+		if (doctorinfo.getD_career() != null) {
+			d_graduation = doctorinfo.getD_career().split(",");
+			m.add(d_graduation);
+		}
+		if (doctorinfo.getD_graduation() != null) {
+			d_field = doctorinfo.getD_graduation().split(",");
 			m.add(d_field);
 		}
+		System.out.println(doctorinfo.getD_photo()+"사진이름이 정말로 업뎃되엇나????");
 		model.addAttribute("m", m);
 		model.addAttribute("doctorinfo", doctorinfo);
 		return "/doctor/doctor_profile_settings.page";
@@ -162,12 +189,37 @@ public class DoctorController {
 
 	/* 김다유 : 의사 프로필세팅 완료 후 페이지 이동 */
 	@RequestMapping(value = "/setting_ok")
-	public String setting_ok(DoctorDTO vo, HttpServletRequest reqest, RedirectAttributes re) {
-//		int doctor_num = Integer.parseInt(reqest.getParameter("doctor_num"));
+	public String setting_ok(DoctorDTO vo, HttpSession session, HttpServletRequest request) {
+//		int doctor_num = Integer.parseInt(request.getParameter("doctor_num"));
 		System.out.println("setting_ok 실행");
 //		re.addFlashAttribute("doctor_num", doctor_num);
-		doc_dao.doctor_profile_update(vo);
-		return "redirect:/doctor/doctor_profile_settings";
+		DoctorDTO doctor_num = (DoctorDTO) session.getAttribute("doctor");
+		vo.setDoctor_num(doctor_num.getDoctor_num());
+		if(vo.getFile() != null) {
+			String r_path = session.getServletContext().getRealPath("resources/doctor/doctorImg")+"\\";
+			MultipartFile file = vo.getFile();
+			String oriFn = file.getOriginalFilename();
+			System.out.println("들어온 oriFn: "+oriFn);
+			if(oriFn != null && oriFn != "") {
+				vo.setD_photo(oriFn);
+				StringBuffer newpath = new StringBuffer();
+				newpath.append(r_path);
+				newpath.append(oriFn);
+				File f = new File(newpath.toString());
+				try {
+					file.transferTo(f);
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				vo.setD_photo(vo.getD_photo());
+			}
+			System.out.println(vo.getD_photo()+"사진 업로드되엇나?????");
+			doc_dao.doctor_profile_update(vo);
+		} 
+		return "redirect:/doctor/doctor_profile_settings?doctor_num="+vo.getDoctor_num();
 	}
 
 	/* 김다유 : 의사대시보드 나의 환자 */
@@ -176,6 +228,12 @@ public class DoctorController {
 		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
 		List<TreatmentRecordDTO> my_patients_list = doc_dao.my_patients_list(doctor_num);
 		model.addAttribute("my_patients_list", my_patients_list);
+		
+		DoctorDTO doctorinfo = new DoctorDTO();
+//		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
+		doctorinfo = doc_service.getDoctorDTO(doctor_num);
+		model.addAttribute("doctorinfo", doctorinfo);
+		
 		return "/doctor/my_patients.page";
 	}
 
@@ -184,6 +242,12 @@ public class DoctorController {
 	public String reviews(DoctorDTO vo, Model model, HttpSession session) {
 		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
 		List<Doc_ReviewDTO> reviewList = doc_dao.reviewList(doctor_num);
+		
+		DoctorDTO doctorinfo = new DoctorDTO();
+//		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
+		doctorinfo = doc_service.getDoctorDTO(doctor_num);
+		model.addAttribute("doctorinfo", doctorinfo);
+		
 		model.addAttribute("reviewList", reviewList);
 		return "/doctor/reviews.page";
 	}
@@ -223,7 +287,7 @@ public class DoctorController {
 	// 김성민 : 의사 비번 변경
 	@RequestMapping(value = "/doctorChangePwd", method = RequestMethod.POST)
 	public ModelAndView doctorChangePwd(DoctorDTO dto, String old_pwd, HttpSession session, Model model) {
-		ModelAndView mv = new ModelAndView("/doctor/doctor_change_password.page");
+		ModelAndView mv = new ModelAndView("redirect:doctor_dashboard");
 		// String doctor_pwd = ((DoctorDTO) session.getAttribute("doctor")).getD_pwd();
 		String doctor_id = ((DoctorDTO) session.getAttribute("doctor")).getD_id();
 		dto.setD_id(doctor_id);
@@ -234,23 +298,30 @@ public class DoctorController {
 		return mv;
 	}
 
+	//김성민 : 의사 회원탈퇴 페이지
+	@RequestMapping(value = "/doctor_delete_account")
+	public String doctor_delete_account(Model model, HttpSession session) {
+		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
+		DoctorDTO doctorinfo = pre_service.doctor_info(doctor_num);
+		model.addAttribute("doctorinfo", doctorinfo);
+		
+		return "/doctor/doctor_delete_account.page";
+	}
+
 	// 김성민 : 의사 회원 탈퇴
 	@RequestMapping(value = "/doctorDeleteAccount")
-	public ModelAndView doctorDeleteAccount(DoctorDTO dto, HttpSession session) {
-		ModelAndView mv = new ModelAndView("main.page");
-		String doctor_pwd = ((DoctorDTO) session.getAttribute("doctor")).getD_pwd();
-		String doctor_id = ((DoctorDTO) session.getAttribute("doctor")).getD_id();
-		dto.setD_pwd(doctor_pwd);
-		System.out.println("id :" + doctor_id);
-		System.out.println(doctor_pwd + "doctor_pwddoctor_pwddoctor_pwddoctor_pwddoctor_pwddoctor_pwd");
-		System.out.println(dto.getD_id() + "getD_idgetD_idgetD_idgetD_idgetD_idgetD_idgetD_idgetD_idgetD_idgetD_id");
-
-		return mv;
+	public String doctorDeleteAccount(DoctorDTO dto, Model model, HttpSession session) {
+		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
+		
+		doc_dao.deleteDoctor(doctor_num);
+		session.removeAttribute("doctor");
+		
+		return "main.page";
 	}
 
 	// 예약현황
 	@RequestMapping(value = "/appointments")
-	public ModelAndView goAPPage(HttpSession session, HttpServletRequest rq) {
+	public ModelAndView goAPPage(Model model, HttpSession session, HttpServletRequest rq) {
 		// 페이징 처리를 위해 들어오는 넘버
 		String page_num = rq.getParameter("p_num");
 		int p_num = page_num == null ? 1 : Integer.parseInt(page_num);
@@ -269,7 +340,11 @@ public class DoctorController {
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
 		}
-
+		
+		DoctorDTO doctorinfo = new DoctorDTO();
+		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
+		doctorinfo = doc_service.getDoctorDTO(doctor_num);
+		model.addAttribute("doctorinfo", doctorinfo);
 		/*
 		 * try { Date today = new Date(); SimpleDateFormat format6, format7; format6 =
 		 * new SimpleDateFormat("오늘은 yyyy년의 w주차이며 D번째 날입니다."); format7 = new
@@ -284,7 +359,7 @@ public class DoctorController {
 
 	/* 김다유 & 고현영 : 의사대시보드 */
 	@RequestMapping(value = "/doctor_dashboard")
-	public ModelAndView doctor_dashboard(HttpSession session, HttpServletRequest rq) {
+	public ModelAndView doctor_dashboard(Model model, HttpSession session, HttpServletRequest rq) {
 		// 의사가 대시보드로 이동할 때 세션에 있는 의사의 pk 번호를 가져온다.
 		DoctorDTO doctor = (DoctorDTO) session.getAttribute("doctor");
 		System.out.println(doctor.getDepartmentDTO().getDep_name());
@@ -309,6 +384,12 @@ public class DoctorController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+		DoctorDTO doctorinfo = new DoctorDTO();
+		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
+		doctorinfo = doc_service.getDoctorDTO(doctor_num);
+		model.addAttribute("doctorinfo", doctorinfo);
 
 		mv.addObject("allCnt", ap_dto);
 		mv.addObject("afterTreat", tr_dto);

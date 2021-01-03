@@ -43,11 +43,11 @@
 				success : function(result) {
 					if (result.success > 0) {
 						console.log("result: "+result.success)
+						$("#d_pwd").removeAttr("disabled");
+						$("#d_pwd2").removeAttr("disabled");
 						$("#old_pwd_check").text("");
 						$("#pwd_ch").val("비밀번호가 같습니다");
-						$("#submit-btn").removeAttr("disabled");
 					} else {
-						$("#submit-btn").attr("disabled", "disabled");
 						$("#old_pwd_check").text("기존 비밀번호와 다릅니다.");
 						$('#old_pwd_check').css('color', 'red');
 			         	return;
@@ -72,9 +72,8 @@
 				$('#pwd_check').css('color', 'red');
 		        $("#p_pwd").val("");
 		        $("#p_pwd2").val("");
-	         	$('#p_pwd2').focus();
+	         	$('#p_pwd').focus();
 		      }else if($("#old_pwd").val() == $("#p_pwd").val()){
-				$("#submit-btn").attr("disabled", "disabled");
 				$("#pwd_check").text("이전과 같은 비밀번호 입니다.");
 				$('#pwd_check').css('color', 'red');
 		        $("#p_pwd").val("");
@@ -203,15 +202,15 @@
 												</div>
 												<div class="form-group">
 													<label>새 비밀번호</label>
-													<input type="password" name="p_pwd" id="p_pwd" class="form-control" required>
+													<input type="password" name="p_pwd" id="p_pwd" class="form-control" disabled required>
 												</div>
 												<div class="form-group">
 													<label>비밀번호 확인</label>
-													<input type="password" name="p_pwd2" id="p_pwd2" class="form-control" required>
+													<input type="password" name="p_pwd2" id="p_pwd2" class="form-control" disabled required>
 													<div class="check_font" id="pwd_check"></div>
 												</div>
 												<div class="submit-section">
-													<button type="submit" id="submit-btn" class="btn btn-primary submit-btn">비밀번호 변경</button>
+													<button type="submit" id="submit-btn" class="btn btn-primary submit-btn" disabled >비밀번호 변경</button>
 												</div>
 											</form>
 											<!-- /Change Password Form -->

@@ -13,7 +13,8 @@ public interface DoctorDaoInter {
 		
 	void updateDoctor(DoctorDTO vo);
 	
-	void deleteDoctor(DoctorDTO vo);
+	//의사 회원탈퇴
+	public void deleteDoctor(int doctor_num);
 	
 	// read //doctor_info 에서 doctor_profile 로 수정
 	DoctorDTO doctor_profile(int doctor_num);
@@ -72,6 +73,9 @@ public interface DoctorDaoInter {
 	
 	//이메일 중복검사(회원가입용)
 	public int check_email(String d_email) throws Exception;
+	
+	// 의사 정보 다시 가져오기
+	public DoctorDTO getDoctorDTO(int doctor_num);
 	
 	public List<AppointmentDTO> getApList(int doctor_num, int p_num);
 	public List<AppointmentDTO> get_D_board(int doctor_num);

@@ -130,12 +130,12 @@
 										</div>
 										<div class="terms-accept">
 											<div class="custom-checkbox">
-											   <input type="checkbox" id="terms_accept_1" name="terms_accept_1" required>
+											   <input type="checkbox" id="terms_accept_1" name="terms_accept_1" disabled required>
 											   <label for="terms_accept"><a href="#">위 내용을 </a><span>모두 확인했으며, 회원탈퇴에 동의합니다.</span></label>
 											</div>
 										</div>
 										<div class="submit-section">
-											<button type="submit" class="btn btn-primary submit-btn" id="submit-btn">탈퇴하기</button>
+											<button type="submit" class="btn btn-primary submit-btn" id="submit-btn" disabled>탈퇴하기</button>
 										</div>
 									</form>
 									<!-- /Change Password Form -->
@@ -151,14 +151,15 @@
 $(function(){
 	$('#p_pwd').blur(function(){
 		var old_pwd = "${patient_profile.p_pwd}";
-		if($('#p_pwd').val() != old_pwd){
-			$("#submit-btn").attr("disabled", "disabled");
+		if($('#p_pwd').val() == old_pwd){
+			$("#pwd_check").text("정말 탈퇴하시겠습니까?");
+			$('#pwd_check').css('color', 'red');
+			$("#terms_accept_1").removeAttr("disabled");
+		}else{
 			$("#pwd_check").text("비밀번호가 일치하지 않습니다.");
 			$('#pwd_check').css('color', 'red');
 		    $('#p_pwd').val('');
 	     	$('#p_pwd').focus();
-		}else{
-			$("#pwd_check").text("");
 		}
 	});
 	

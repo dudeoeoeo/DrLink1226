@@ -95,14 +95,20 @@
 							<div class="widget-profile pro-widget-content">
 								<div class="profile-info-widget">
 									<a href="#" class="booking-doc-img"> <img
-										src="${path}/resources/doctor/doctorImg/${sessionScope.doctor.d_photo}"
+										src="${path}/resources/doctor/doctorImg/${doctorinfo.d_photo}"
 										class="img-fluid" alt="User Image">
 									</a>
 									<div class="profile-det-info">
-										<h3>${sessionScope.doctor.d_name}의사</h3>
-
 										<div class="patient-details">
 											<h5 class="mb-0">${sessionScope.doctor.departmentDTO.dep_name}</h5>
+											<h3>${doctorinfo.d_name}의사</h3>
+											<h5>
+												<i class="fas fa-birthday-cake"></i> ${doctorinfo.birth}
+											</h5>
+											<h5 class="mb-0">
+												<i class="fas fa-map-marker-alt"></i>
+												${doctorinfo.profileAddress}
+											</h5>
 										</div>
 									</div>
 								</div>
@@ -146,7 +152,7 @@
 					</div>
 					<div class="col-md-7 col-lg-8 col-xl-9">
 						<!-- Basic Information -->
-						<form id="doctor_profile_settings" action="setting_ok" method="post" enctype="multipart/form-data">
+						<form action="setting_ok" method="post" enctype="multipart/form-data">
 							<input type="hidden" value="${doctorinfo.doctor_num}" name="doctor_num">
 							<div class="card">
 								<div class="card-body">
@@ -156,9 +162,8 @@
 											<div class="form-group">
 												<div class="change-avatar">
 													<div class="profile-img">
-														<img id="blah"
-															src="${path}/resources/doctor/doctorImg/${doctorinfo.d_photo}"
-															alt="프로필 사진">
+														<img id="blah"src="${path}/resources/doctor/doctorImg/${doctorinfo.d_photo}" alt="프로필 사진">
+														<input type="hidden" name="d_photo" value="${doctorinfo.d_photo}">
 													</div>
 													<div class="upload-img">
 														<div class="change-photo-btn">
@@ -183,21 +188,21 @@
 										<div class="col-md-6">
 											<div class="form-group">
 												<label>이메일<span class="text-danger">*</span></label> <input
-													type="email" class="form-control" name="d_email"
+													type="email" class="form-control" name="d_email" maxlength="50"
 													value="${doctorinfo.d_email}" required>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<label>이름<span class="text-danger">*</span></label> <input
+												<label>이름</label> <input
 													type="text" class="form-control" name="d_name"
-													value="${doctorinfo.d_name}">
+													value="${doctorinfo.d_name}" readonly>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
 												<label>휴대전화<span class="text-danger">*</span></label> <input
-													type="text" class="form-control" name="d_phone_num"
+													type="text" class="form-control" name="d_phone_num" maxlength="11"
 													value="${doctorinfo.d_phone_num}" required>
 											</div>
 										</div>
@@ -235,9 +240,8 @@
 							<!-- About Me -->
 							<div class="card">
 								<div class="card-body">
-									<h4 class="card-title">경력사항</h4>
+									<h4 class="card-title">자기소개</h4>
 									<div class="form-group mb-0">
-										<label>자기소개</label>
 										<textarea class="form-control" rows="5" name="d_content">${doctorinfo.d_content}</textarea>
 									</div>
 								</div>
@@ -247,7 +251,7 @@
 							<!-- Services and Specialization -->
 							<div class="card services-card">
 								<div class="card-body">
-									<h4 class="card-title">진료과목</h4>
+									<h4 class="card-title">진료과목<span class="text-danger">*</span></h4>
 									<div class="form-group mb-0">
 										<label>전문진료분야</label> <input class="input-tags form-control"
 											type="text" data-role="tagsinput" placeholder="진료분야를 입력하세요."
