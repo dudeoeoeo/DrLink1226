@@ -119,7 +119,7 @@ ul .bxslider {
 									<option value="eye">눈 질병</option>
 									<option value="skin">피부 질병</option>
 									<option value="hair">탈모</option>
-								</select> <span class="form-text">AI 진단을 받을 항목을 선택해주세요.</span>
+								</select> <span class="form-text" style="font-size: 15px;">AI 진단을 받을 항목을 선택해주세요.</span>
 							</div>
 
 							<button class="btn btn-primary search-btn">
@@ -270,7 +270,7 @@ ul .bxslider {
 				<!-- Section Header -->
 				<div class="section-header text-center">
 					<h2>건강 소식</h2>
-					<p class="sub-title">병원에서 제공하는 다양한 정보를 통해 건강한 삶을 누리세요.</p>
+					<p class="sub-title" style="font-size: 18px;">병원에서 제공하는 다양한 정보를 통해 건강한 삶을 누리세요.</p>
 				</div>
 				<!-- /Section Header -->
 
@@ -310,12 +310,10 @@ ul .bxslider {
 									</div>
 								</c:otherwise>
 							</c:choose>
-								<div class="blog-content" style="height:50px">
-									<c:forEach var="c" items="${news.news_title}">
-										<p class="mb-0">
-											<a href="health-blog-detail?b_num=${news.news_board_num}">${c}</a>
+								<div class="blog-content d-flex justify-content-center" style="height:50px;">
+										<p class="mb-0 " style="font-size: 18px;">
+											<a href="health-blog-detail?b_num=${news.news_board_num}">${news.news_title}</a>
 										</p>
-									</c:forEach>
 								</div>
 							</div>
 							<!-- /Blog Post -->

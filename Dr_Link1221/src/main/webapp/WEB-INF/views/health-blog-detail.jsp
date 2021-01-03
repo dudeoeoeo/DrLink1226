@@ -40,17 +40,9 @@
 										<a href="health-blog-detail?n_num=${n_board.news_board_num}"><img
 											class="img-fluid"
 											src="${path}/resources/assets/img/blog/${n_board.news_photo}"
-											alt="Post Image" style="height:400px"></a>
+											alt="Post Image" style="height:500px"></a>
 									</div>
 								</c:when>
-								<c:otherwise>
-									<div class="blog-image">
-										<a href="health-blog-detail?n_num=${n_board.news_board_num}"><img
-											class="img-fluid"
-											src="${path}/resources/assets/img/blog/blog-02.jpg"
-											alt="Post Image"></a>
-									</div>
-								</c:otherwise>
 							</c:choose>
 						<h3 class="blog-title">${n_board.news_title }</h3>
 						<div class="blog-info clearfix">
@@ -64,9 +56,7 @@
 							</div>
 						</div>
 						<div class="blog-content">
-							<c:forEach var="n" items="${n_board.news_content}">
-								<p>${n}</p>
-							</c:forEach>
+								<p>${n_board.news_content}</p>
 						</div>
 
 					</div>

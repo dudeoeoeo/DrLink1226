@@ -82,10 +82,13 @@ public class MainController {
 
 	/* 김다유 : */
 	@RequestMapping(value = "main")
-	public String main(Model model) {
+	public String main(Model model, HttpServletRequest request) {
 		
 
 		List<NewsDTO> newsList = main_dao.getAllNewsBoards();
+		for(NewsDTO n : newsList) {
+			System.out.println("가져온 데이터는: "+ n.getNews_content());
+		}
 		model.addAttribute("newsList", newsList);
 
 		Map<String, List<String>> map = new HashMap<String, List<String>>();
@@ -94,8 +97,10 @@ public class MainController {
 
 		List<Hospital_boardDTO> h_boardList = main_dao.getAllHospitalBoards();
 		for (int i=0;i<h_boardList.size();i++) {
+			System.out.println("가져온 공지사항: "+ h_boardList.get(i).getHospital_content());
 			h_boardList.get(i).setHospital_regdate(h_boardList.get(i).getHospital_regdate().substring(0,11));
 		}
+		
 		model.addAttribute("h_boardList", h_boardList);
 
 		return "main.page";
