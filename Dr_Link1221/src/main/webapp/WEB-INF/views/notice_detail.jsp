@@ -21,11 +21,14 @@
 									<h3 class="blog-title">${h_board.hospital_title}</h3>
 								<br>
 								<hr>
-									<div class="blog-content text-center">
-										<c:forEach var="c" items="${h_board.hospital_content}">
-										<p> ${c}</p>
-										</c:forEach>
+									<div class="blog-content text-left">
+										${h_board.hospital_content}
 									</div>
+									<c:if test="${!empty h_board.hospital_photo}">
+									<div class="blog-content text-center">
+										<img src="${path}/resources/assets/img/${h_board.hospital_photo}" class="rounded text-center">
+									</div>
+									</c:if>
 								</div>
 								<div class="submit-section" style="margin-bottom: 5px; float: right;">
 									<a href="notice"><button class="btn btn-dark btn-sm">목록</button></a>

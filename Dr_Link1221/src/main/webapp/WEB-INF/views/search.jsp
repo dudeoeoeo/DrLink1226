@@ -105,16 +105,16 @@
 							<c:forEach var="list" items="${list}" varStatus="listStatus">
 								<!-- Doctor Widget -->
 								<div class="card-body">
-									<div class="doctor-widget" style="margin: 0px 73px 0px 30px;">
+									<div class="doctor-widget" style="margin: 0px 50px 0px 30px;">
 										<div class="doc-info-left">
-											<div class="doctor-img w-40" style="margin: 14px 84px 5px 34px;">
+											<div class="doctor-img w-40" style="margin: 14px 60px 5px 34px;">
 												<a href="doctor_profile?doctor_num=${list.doctor_num }">
 													<img
 													src="${path}/resources/doctor/doctorImg/${list.d_photo}"
 													class="img-fluid" alt="User Image">
 												</a>
 											</div>
-											<div class="doc-info-cont" style="margin: 14px 60px 0px 0px; width:230px;">
+											<div class="doc-info-cont" style="margin: 14px 60px 0px 0px; width:200px;">
 												<h4 class="doc-name">
 													<a href="doctor_profile?doctor_num=${list.doctor_num }">${list.d_name }</a>
 												</h4>

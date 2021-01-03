@@ -80,7 +80,8 @@ public class MainController {
 	/* 김다유 : */
 	@RequestMapping(value = "main")
 	public String main(Model model) {
-
+		
+		
 		List<NewsDTO> newsList = main_dao.getAllNewsBoards();
 		model.addAttribute("newsList", newsList);
 
@@ -366,12 +367,19 @@ public class MainController {
 
 	@RequestMapping(value = "notice_detail")
 	public ModelAndView getH_BoardDetail(HttpServletRequest request) {
+
 		ModelAndView mv = new ModelAndView("notice_detail.page");
 		int h_b_num = Integer.parseInt(request.getParameter("b_num"));
 		main_dao.plusWatchCnt(h_b_num);
 		Hospital_boardDTO dto = main_dao.getDetailHospitalBoard(h_b_num);
-		mv.addObject("h_board", dto);
+		try {
+			dto.setHospital_content(dto.getHospital_content().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
+			System.out.println(dto.getHospital_photo());
 
+		} catch (NullPointerException e) {
+		}
+
+		mv.addObject("h_board", dto);
 		return mv;
 	}
 

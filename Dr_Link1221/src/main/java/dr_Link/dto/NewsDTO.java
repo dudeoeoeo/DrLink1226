@@ -5,7 +5,7 @@ public class NewsDTO {
     private int news_board_num;
     private String news_url, news_photo;
     private String news_title, news_regdate;
-    private String [] news_content;
+    private String news_content;
     private int watched, getCnt;
     
     
@@ -39,11 +39,11 @@ public class NewsDTO {
 	public void setNews_title(String news_title) {
 		this.news_title = news_title;
 	}
-	public String [] getNews_content() {
+	public String getNews_content() {
 		return news_content;
 	}
 	public void setNews_content(String news_content) {
-		this.news_content = news_content.split("\n");
+		this.news_content = news_content;
 	}
 	public String getNews_regdate() {
 		return news_regdate;

@@ -4,12 +4,19 @@ public class Hospital_boardDTO {
 
 	private int hospital_board_num;
 	private String hospital_title; 
-	private String [] hospital_content;
+	private String hospital_photo; 
+	private String hospital_content;
 	private String hospital_regdate;
 	private int h_watched;
 	private int getCnt;
 	
 	
+	public String getHospital_photo() {
+		return hospital_photo;
+	}
+	public void setHospital_photo(String hospital_photo) {
+		this.hospital_photo = hospital_photo;
+	}
 	public int getGetCnt() {
 		return getCnt;
 	}
@@ -28,11 +35,11 @@ public class Hospital_boardDTO {
 	public void setHospital_title(String hospital_title) {
 		this.hospital_title = hospital_title;
 	}
-	public String[] getHospital_content() {
+	public String getHospital_content() {
 		return hospital_content;
 	}
 	public void setHospital_content(String hospital_content) {
-		this.hospital_content = hospital_content.split("\n");
+		this.hospital_content = hospital_content;
 	}
 	public String getHospital_regdate() {
 		return hospital_regdate;
