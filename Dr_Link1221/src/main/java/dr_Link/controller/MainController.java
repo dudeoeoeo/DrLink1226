@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -100,6 +101,7 @@ public class MainController {
 		return "main.page";
 	}
 
+	/* origin
 	//환자 로그인 체크
 	@RequestMapping(value = "loginCheck")
 	public String loginCheck(PatientDTO dto, HttpSession session, Model model) {
@@ -117,6 +119,26 @@ public class MainController {
 			return "redirect:/";
 		}
 	}
+	*/
+	//환자 로그인 체크
+		@RequestMapping(value = "loginCheck")
+		public String loginfCheck(HttpSession session, HttpServletRequest request, 
+				@RequestHeader("User-Agent") String userAgent, PatientDTO dto, Model model) {
+			System.out.println("===> dao로 가자!");
+			PatientDTO result = patientDAO.loginCheckPatient(dto);
+			if(result == null) {
+				System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
+				model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
+				return "patient_login.page";
+			} else if(result.getP_retire_date() != null) {
+				model.addAttribute("message", "<p style='color:red'> 이미 탈퇴한 계정입니다. </p>");
+				return "patient_login.page";
+			} else {
+				session.setAttribute("user", result);
+				return "redirect:/";
+			}
+		}
+	
 
 	//환자 의사 로그아웃
 	@RequestMapping("logout")

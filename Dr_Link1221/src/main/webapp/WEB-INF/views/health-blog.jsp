@@ -42,8 +42,8 @@
 									<div class="blog-image">
 										<a href="health-blog-detail?n_num=${n.news_board_num}"><img
 											class="img-fluid"
-											src="${path}/resources/assets/img/${n.news_photo}"
-											alt="Post Image"></a>
+											src="${path}/resources/assets/img/blog/${n.news_photo}"
+											alt="Post Image" style="height:300px"></a>
 									</div>
 								</c:when>
 								<c:otherwise>

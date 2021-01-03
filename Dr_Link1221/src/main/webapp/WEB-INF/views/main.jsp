@@ -269,7 +269,7 @@ ul .bxslider {
 
 				<!-- Section Header -->
 				<div class="section-header text-center">
-					<h2>우리 병원 소식</h2>
+					<h2>건강 소식</h2>
 					<p class="sub-title">병원에서 제공하는 다양한 정보를 통해 건강한 삶을 누리세요.</p>
 				</div>
 				<!-- /Section Header -->
@@ -281,16 +281,36 @@ ul .bxslider {
 
 							<!-- Blog Post -->
 							<div class="blog grid-blog">
-								<div class="blog-image">
-									<div class="video-wrap">
-										<iframe width="100%" height="315" src="${news.news_url}"
-											frameborder="0"
-											allow="accelerometer; autoplay; clipboard-write; 
-							encrypted-media; gyroscope; picture-in-picture"
-											allowfullscreen></iframe>
+							<c:choose>
+								<c:when test="${news.news_url != null }">
+									<div class="blog-image">
+										<div class="video-wrap">
+											<iframe width="100%" height="315" src="${news.news_url}"
+												frameborder="0"
+												allow="accelerometer; autoplay; clipboard-write; 
+											encrypted-media; gyroscope; picture-in-picture"
+												allowfullscreen></iframe>
+										</div>
 									</div>
-								</div>
-								<div class="blog-content">
+								</c:when>
+								<c:when test="${news.news_photo != null }">
+									<div class="blog-image">
+										<a href="health-blog-detail?n_num=${news.news_board_num}"><img
+											class="img-fluid"
+											src="${path}/resources/assets/img/blog/${news.news_photo}"
+											alt="Post Image" style="height:250px"></a>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="blog-image">
+										<a href="health-blog-detail?n_num=${news.news_board_num}"><img
+											class="img-fluid"
+											src="${path}/resources/assets/img/blog/blog-02.jpg"
+											alt="Post Image"></a>
+									</div>
+								</c:otherwise>
+							</c:choose>
+								<div class="blog-content" style="height:50px">
 									<c:forEach var="c" items="${news.news_title}">
 										<p class="mb-0">
 											<a href="health-blog-detail?b_num=${news.news_board_num}">${c}</a>
@@ -325,16 +345,16 @@ ul .bxslider {
 					<table class="table table-hover mb-0">
 						<thead>
 							<tr>
-								<th style="text-align: left">No.</th>
-								<th style="text-align: left">제목</th>
-								<th style="text-align: left">등록일자</th>
-								<th style="text-align: left">조회수</th>
+								<th style="text-align: center">No.</th>
+								<th style="text-align: center">제목</th>
+								<th style="text-align: center">등록일자</th>
+								<th style="text-align: center">조회수</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="board" end="4" items="${h_boardList}">
 								<tr>
-									<td>공지</td>
+									<td style="text-align: center">공지</td>
 									<td style="text-align: left"><a
 										href="notice_detail?b_num=${board.hospital_board_num}">${board.hospital_title}</a></td>
 									<td style="text-align: center">${board.hospital_regdate}</td>

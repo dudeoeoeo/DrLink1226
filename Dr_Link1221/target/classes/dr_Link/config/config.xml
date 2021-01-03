@@ -22,5 +22,6 @@
        <typeAlias type="dr_Link.dto.Hospital_boardDTO" alias="h_boardDTO"/>
        <typeAlias type="dr_Link.dto.NewsDTO" alias="newsDTO"/>
        <typeAlias type="dr_Link.dto.NewsReplDTO" alias="newsReplDTO"/>
+       <typeAlias type="dr_Link.dto.DrPLoggerDTO" alias="drPLoggerDTO"/>
     </typeAliases>
  </configuration>

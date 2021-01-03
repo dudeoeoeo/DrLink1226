@@ -24,26 +24,34 @@
 				<div class="blog-view">
 					<div class="blog blog-single-post">
 						<c:choose>
-							<c:when test="${empty n_board.news_photo }">
-								<div class="blog-image">
-									<div class="video-wrap">
-										<a href="javascript:void(0);"> <iframe width="100%"
-												height="315" src="${n_board.news_url }" frameborder="0"
+								<c:when test="${n_board.news_url != null }">
+									<div class="blog-image">
+										<div class="video-wrap">
+											<iframe width="100%" height="315" src="${n_board.news_url}"
+												frameborder="0"
 												allow="accelerometer; autoplay; clipboard-write; 
 											encrypted-media; gyroscope; picture-in-picture"
 												allowfullscreen></iframe>
-										</a>
+										</div>
 									</div>
-								</div>
-							</c:when>
-							<c:otherwise>
-								<div class="blog-image">
-									<a href="javascript:void(0);"><img alt=""
-										src="${path}/resources/img/blog/${n_board.news_photo}"
-										class="img-fluid"></a>
-								</div>
-							</c:otherwise>
-						</c:choose>
+								</c:when>
+								<c:when test="${n_board.news_photo != null }">
+									<div class="blog-image">
+										<a href="health-blog-detail?n_num=${n_board.news_board_num}"><img
+											class="img-fluid"
+											src="${path}/resources/assets/img/blog/${n_board.news_photo}"
+											alt="Post Image" style="height:400px"></a>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="blog-image">
+										<a href="health-blog-detail?n_num=${n_board.news_board_num}"><img
+											class="img-fluid"
+											src="${path}/resources/assets/img/blog/blog-02.jpg"
+											alt="Post Image"></a>
+									</div>
+								</c:otherwise>
+							</c:choose>
 						<h3 class="blog-title">${n_board.news_title }</h3>
 						<div class="blog-info clearfix">
 							<div class="post-left">
