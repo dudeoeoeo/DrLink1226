@@ -49,6 +49,13 @@ public class MainDaoImp implements MainDaoInter {
 		ss.update("board.plusCnt", h_b_num);
 	}
 	
+
+	public void news_plus_cnt(int b_num) {  				// 공지사항 게시판 조회수 증가
+		System.out.println("news_plus_cnt 요청");
+		ss.update("board.news_plus_cnt", b_num);
+	}
+	
+	
 	public List<NewsDTO> getAllNewsBoards() {   				// 건강정보 게시판 들어갈 때
 		System.out.println("getAllNewsBoards 요청");
 		return ss.selectList("board.getAllNewsBoards");

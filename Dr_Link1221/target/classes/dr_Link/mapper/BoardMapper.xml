@@ -21,7 +21,7 @@
   
   <select id="boardListPage" parameterType="int" resultType="h_boardDTO">
   select hh.* from
-(SELECT h.*, ROWNUM as rnum FROM ( SELECT * from hospital_board ORDER BY hospital_board_num) h) hh 
+(SELECT h.*, ROWNUM as rnum FROM ( SELECT * from hospital_board ORDER BY hospital_board_num desc) h) hh 
 WHERE rnum between #{start} and #{end}
   </select>
   
@@ -54,6 +54,12 @@ WHERE rnum between #{start} and #{end}
   	SELECT getCnt, nb.*  FROM ( SELECT COUNT(*) getCnt from news_repl where news_board_num = #{b_num} ) nr, 
   	news_board nb WHERE news_board_num = #{b_num}
   </select>
+  
+  <update id="news_plus_cnt" parameterType="int">
+  	update news_board set watched = watched+1 where news_board_num=#{b_num}   
+  </update>
+  
+  
 	
 <resultMap type="patientDTO" id="patientResult">
 	<id property="patient_num" column="patient_num" javaType="int"/>

@@ -12,6 +12,7 @@ public interface MainDaoInter {
 	public List<Hospital_boardDTO> getAllHospitalBoards(int p_num);
 	public Hospital_boardDTO getDetailHospitalBoard(int h_b_num);
 	public void plusWatchCnt(int h_b_num);
+	public void news_plus_cnt(int b_num);
 	public int getBoardCnt();
 	
 	//public List<Hospital_boardDTO> getAllHealthBoards();

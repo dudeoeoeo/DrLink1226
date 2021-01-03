@@ -325,17 +325,17 @@ ul .bxslider {
 					<table class="table table-hover mb-0">
 						<thead>
 							<tr>
-								<th>No.</th>
-								<th>제목</th>
-								<th>등록일자</th>
-								<th>조회수</th>
+								<th style="text-align: left">No.</th>
+								<th style="text-align: left">제목</th>
+								<th style="text-align: left">등록일자</th>
+								<th style="text-align: left">조회수</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="board" end="4" items="${h_boardList}">
 								<tr>
 									<td>공지</td>
-									<td style="text-align: center"><a
+									<td style="text-align: left"><a
 										href="notice_detail?b_num=${board.hospital_board_num}">${board.hospital_title}</a></td>
 									<td style="text-align: center">${board.hospital_regdate}</td>
 									<td style="text-align: center">${board.h_watched}</td>

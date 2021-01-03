@@ -2,8 +2,10 @@ package dr_Link.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,7 +83,7 @@ public class MainController {
 	@RequestMapping(value = "main")
 	public String main(Model model) {
 		
-		
+
 		List<NewsDTO> newsList = main_dao.getAllNewsBoards();
 		model.addAttribute("newsList", newsList);
 
@@ -90,6 +92,9 @@ public class MainController {
 		model.addAttribute("list", list);
 
 		List<Hospital_boardDTO> h_boardList = main_dao.getAllHospitalBoards();
+		for (int i=0;i<h_boardList.size();i++) {
+			h_boardList.get(i).setHospital_regdate(h_boardList.get(i).getHospital_regdate().substring(0,11));
+		}
 		model.addAttribute("h_boardList", h_boardList);
 
 		return "main.page";
@@ -303,8 +308,10 @@ public class MainController {
 	
 	@RequestMapping(value = "notice")
 	public ModelAndView getH_BoardList(HttpServletRequest request, HttpSession session) {
+
+		System.out.println("공지사항 실행");
 		ModelAndView mv = new ModelAndView("notice.page");
-		List<Hospital_boardDTO> li;
+		List<Hospital_boardDTO> li = new ArrayList<Hospital_boardDTO>();
 		// dao.getAll(); 나중에 수정해야 할 사항
 		double pageCnt = main_dao.getBoardCnt();
 		int pageAll = (int)Math.ceil((pageCnt / 10));
@@ -312,14 +319,21 @@ public class MainController {
 			if (request.getParameter("d_page") != null) {
 				li = main_dao.getAllHospitalBoards(Integer.parseInt(request.getParameter("d_page")));
 			} else {
-				li = main_dao.getAllHospitalBoards();
+				int b_num = 1;
+				li = main_dao.getAllHospitalBoards(b_num);
 			}
+			for (Hospital_boardDTO l : li) {
+				System.out.println("b_num: "+l.getHospital_board_num());
+			}
+			
 			mv.addObject("h_boardList", li);
 			mv.addObject("page_num", pageAll);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
-
+		for (int i=0;i<li.size();i++) {
+			li.get(i).setHospital_regdate(li.get(i).getHospital_regdate().substring(0,11));
+		}
 		return mv;
 	}
 
@@ -367,15 +381,12 @@ public class MainController {
 
 	@RequestMapping(value = "notice_detail")
 	public ModelAndView getH_BoardDetail(HttpServletRequest request) {
-
 		ModelAndView mv = new ModelAndView("notice_detail.page");
 		int h_b_num = Integer.parseInt(request.getParameter("b_num"));
 		main_dao.plusWatchCnt(h_b_num);
 		Hospital_boardDTO dto = main_dao.getDetailHospitalBoard(h_b_num);
 		try {
 			dto.setHospital_content(dto.getHospital_content().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-			System.out.println(dto.getHospital_photo());
-
 		} catch (NullPointerException e) {
 		}
 
@@ -386,7 +397,7 @@ public class MainController {
 	@RequestMapping(value = "health-blog")
 	public ModelAndView getHealth_Board(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("health-blog.page");
-		List<NewsDTO> nt;
+		List<NewsDTO> nt = new ArrayList<NewsDTO>();
 		try {
 			if (request.getParameter("d_page") != null) {
 				int p_num = Integer.parseInt(request.getParameter("d_page"));
@@ -411,9 +422,12 @@ public class MainController {
 	@RequestMapping(value = "health-blog-detail")
 	public ModelAndView getHealth_BoardDetail(HttpServletRequest request, NewsReplDTO news) {
 		ModelAndView mv = new ModelAndView("health-blog-detail.page");
+		int b_num = Integer.parseInt(request.getParameter("b_num"));
 		try {
-			NewsDTO dto = main_dao.getNewsBoardsDetail(Integer.parseInt(request.getParameter("b_num")));
-			List<NewsReplDTO> nr = main_dao.getNewsRepl(Integer.parseInt(request.getParameter("b_num")));
+			main_dao.news_plus_cnt(b_num);
+			NewsDTO dto = main_dao.getNewsBoardsDetail(b_num);
+			List<NewsReplDTO> nr = main_dao.getNewsRepl(b_num);
+			dto.setNews_content(dto.getNews_content().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
 			mv.addObject("n_board", dto);
 			mv.addObject("n_repl", nr);
 		} catch (NullPointerException e) {

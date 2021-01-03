@@ -57,7 +57,7 @@
 								<c:forEach var="board" items="${h_boardList}">
 									<tr>
 										<td style="text-align: center">${board.hospital_board_num}</td>
-										<td style="text-align: center"><a
+										<td style="text-align: left"><a
 											href="notice_detail?b_num=${board.hospital_board_num}">${board.hospital_title}</a></td>
 										<td style="text-align: center">${board.hospital_regdate}</td>
 										<td style="text-align: center">${board.h_watched}</td>
@@ -82,11 +82,13 @@
 									<!-- 페이지가 5개 이상으로 넘어가면 어떻게 처리해야할지는 아직 안함ㅠ -->
 									<c:choose>
 										<c:when test="${page_num == 1}">
-										 <li class="page-item"><a class="page-link" href="notice?d_page=${page_num}">${page_num}</a></li>
+											<li class="page-item"><a class="page-link"
+												href="notice?d_page=${page_num}">${page_num}</a></li>
 										</c:when>
 										<c:when test="${page_num != 1 }">
 											<c:forEach begin="1" end="${page_num}" var="p">
-											 <li class="page-item"><a class="page-link" href="notice?d_page=${p}">${p}</a></li>
+												<li class="page-item"><a class="page-link"
+													href="notice?d_page=${p}">${p}</a></li>
 											</c:forEach>
 										</c:when>
 									</c:choose>
@@ -105,9 +107,8 @@
 						</div>
 						-->
 			</div>
+		</section>
 	</div>
 
-	</section>
-</div>
 </div>
 <!-- /notice Table -->

@@ -20,7 +20,7 @@
 	<div class="container">
 
 		<div class="row">
-			<div class="col-lg-8 col-md-12">
+			<div class="col-lg-12 col-md-12">
 				<div class="blog-view">
 					<div class="blog blog-single-post">
 						<c:choose>
@@ -39,7 +39,7 @@
 							<c:otherwise>
 								<div class="blog-image">
 									<a href="javascript:void(0);"><img alt=""
-										src="${path}/resources/img/blog/${n_board.news_photo}.png"
+										src="${path}/resources/img/blog/${n_board.news_photo}"
 										class="img-fluid"></a>
 								</div>
 							</c:otherwise>

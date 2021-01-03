@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
 <!-- Breadcrumb -->
@@ -29,12 +30,20 @@
 								<c:when test="${n.news_url != null }">
 									<div class="blog-image">
 										<div class="video-wrap">
-											<iframe width="100%" height="315" src="${n.news_url }"
+											<iframe width="100%" height="315" src="${n.news_url}"
 												frameborder="0"
 												allow="accelerometer; autoplay; clipboard-write; 
 											encrypted-media; gyroscope; picture-in-picture"
 												allowfullscreen></iframe>
 										</div>
+									</div>
+								</c:when>
+								<c:when test="${n.news_photo != null }">
+									<div class="blog-image">
+										<a href="health-blog-detail?n_num=${n.news_board_num}"><img
+											class="img-fluid"
+											src="${path}/resources/assets/img/${n.news_photo}"
+											alt="Post Image"></a>
 									</div>
 								</c:when>
 								<c:otherwise>
@@ -50,14 +59,15 @@
 								<ul class="entry-meta meta-item">
 									<li><i class="far fa-clock"></i> ${n.news_regdate}</li>
 									<li><i class="fa fa-eye" aria-hidden="true"></i>조회수
-										${n.watched }</li>
+										${n.watched}</li>
 								</ul>
 								<h3 class="blog-title">
-									<a href="health-blog-detail?b_num=${n.news_board_num}">${n.news_title }</a>
+									<a href="health-blog-detail?b_num=${n.news_board_num}">${n.news_title}</a>
 								</h3>
-								<c:forEach var="c" items="${n.news_content}">
-									<p class="mb-0">${c}</p>
-								</c:forEach>
+									<c:choose>
+										<c:when test="${fn:length(n.news_content)>=35}">${fn:substring(n.news_content,0,35)}...</c:when>
+										<c:otherwise>${n.news_content}</c:otherwise>
+									</c:choose>
 							</div>
 						</div>
 						<!-- /Blog Post -->
