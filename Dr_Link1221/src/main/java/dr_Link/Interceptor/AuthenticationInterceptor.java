@@ -1,7 +1,5 @@
 package dr_Link.Interceptor;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,9 +26,10 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
         session.setAttribute("requestSession", requestURI);
        	if(requestURI.contains("patients")) {
             response.sendRedirect("/Dr_Link1221/patient_login");
-       		
-       	}else {
+       	}else if(requestURI.contains("doctor")){
             response.sendRedirect("/Dr_Link1221/doctor_login");
+       	}else {
+            response.sendRedirect("/Dr_Link1221/login");
        	}
 //       	String contextPath = request.getContextPath();
 //       	System.out.println(contextPath+": contextPath");
