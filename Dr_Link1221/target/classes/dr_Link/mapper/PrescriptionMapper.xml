@@ -118,7 +118,7 @@
    values (prescription_num.nextval, #{patient_num},#{doctor_num},
    #{medi_num, jdbcType=VARCHAR},default,102,
    #{dsg, jdbcType=VARCHAR},#{qty, jdbcType=VARCHAR},
-   #{tdate, jdbcType=VARCHAR},#{pre_date, jdbcType=VARCHAR},#{price})
+   #{tdate, jdbcType=VARCHAR},sysdate,#{price})
    </insert>
 
  <!-- 김다유 : 처방전 약품 검색 -->
