@@ -5,6 +5,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="booking">
+	
+<!-- 2021-01-04 -->
+	<!-- ①이미 예약했는지 체크 -->
+	<select id="alreadyBookingCheck" parameterType="bookingDTO" resultMap="bookingMap">
+		select * from appointment 
+		where doctor_num=#{doctor_num} and patient_num=#{patient_num} 
+		and appointment_date=#{appointment_date} and appointment_time=#{appointment_time}
+	</select>
+	
+	<!-- ③예약인원 체크 -->
+	<select id="bookingCount" parameterType="bookingDTO" resultType="int">
+		select count(*) from appointment
+		where doctor_num=#{doctor_num} and appointment_date=#{appointment_date} and appointment_time=#{appointment_time}
+	</select>
+	
+<!-- /2021-01-04 -->
 
 	<insert id="addBooking" parameterType="bookingDTO">
 		insert into appointment values(appointment_num.nextval, #{patient_num}, #{doctor_num}, #{dep_num}, #{appointment_date}, #{appointment_time}, sysdate)
