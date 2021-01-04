@@ -138,27 +138,11 @@
 													</c:forEach>
 													<span class="d-inline-block average-rating">${list.doc_ReviewDTO.review_rating }</span>
 												</div>
-												<%-- <div class="clinic-services">
-													<c:choose>
-														<c:when test="${empty list.d_fields}">
-					                                    아직 정보가 입력되지 않았습니다.
-					                                </c:when>
-
-														<c:otherwise>
-															<c:forEach var="d_field" items="${list.d_fields }">
-																<c:if test="${not empty d_field and d_field != ''}">
-																	<span>${d_field}</span>
-																</c:if>
-															</c:forEach>
-														</c:otherwise>
-
-													</c:choose>
-												</div> --%>
 											</div>
 											
-											<div class="row text-right align-items-center">
-											<ul style="list-style:none; line-height: 2em;">
-											<li>
+											<div class="row align-items-center" style="margin-right: auto;">
+											<ul class="" style="list-style:none; line-height: 2em;">
+											<li class="">
 											진료시간 평일 09:00~18:00
 											</li>
 											<li class="clinic-services">
