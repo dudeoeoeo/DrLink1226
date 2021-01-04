@@ -3,6 +3,7 @@ package dr_Link.booking;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.doctorProfile.DoctorProfileDAO;
@@ -30,6 +32,10 @@ public class BookingController {
 
 	@Autowired
 	private BookingService bookingService;
+	
+	//테스트용
+	@Autowired
+	private BookingDAOTest bookingDAOTest;
 
 	public String dayOfWeek(int dayOfWeek) {
 		String day = "";
@@ -119,6 +125,59 @@ public class BookingController {
 		model.addAttribute("bookingInfo", vo);
 
 		return "patients/booking-success.page";
+	}
+	
+	@RequestMapping("patients/bookingCheck.do")
+	@ResponseBody
+	public String bookingCheck(BookingDTO vo, HttpSession session, Model model) {	
+		vo.setPatient_num(((PatientDTO)session.getAttribute("user")).getPatient_num());
+		String data = "0"; // jsp로 보낼 데이타
+		
+		//--①이미 예약했는지 체크
+		try {
+			BookingDTO result = bookingDAOTest.alreadyBookingCheck(vo);
+			if(result != null) {
+				data = "1";
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//--②예약시간까지 1시간 이상 남았는지 체크
+		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+		Calendar cal = Calendar.getInstance();
+		String today = mSimpleDateFormat.format(cal.getTime());
+		boolean flag = true; 
+		
+		if(today.equals(vo.getAppointment_date())) {
+			SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+			Date date = new Date();
+			int current_time = Integer.parseInt(timeFormat.format(date).split(":")[0]); // 9
+			int booking_time = Integer.parseInt(vo.getAppointment_time().split(":")[0]); // 10 10-9=1 false;
+			if((booking_time-current_time) <= 1)
+				flag = false;
+		}
+		
+		if(flag == false) {
+			data = "2";
+			return data;
+		}
+
+		
+		//--③예약인원 체크
+		try {
+			int cnt = bookingDAOTest.bookingCount(vo);
+			if(cnt >= 2) {
+				data = "3";
+				return data;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return data;				
 	}
 
 }

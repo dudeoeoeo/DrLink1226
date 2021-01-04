@@ -120,8 +120,15 @@ public class MainController {
 			model.addAttribute("message", "<p style='color:red'> 이미 탈퇴한 계정입니다. </p>");
 			return "patient_login.page";
 		} else {
-			session.setAttribute("user", result);
-			return "redirect:/";
+			Object requestSession = session.getAttribute("requestSession");
+			if(requestSession==null) {
+				session.setAttribute("user", result);
+				return "redirect:/";
+			}else {
+				System.out.println(requestSession.toString()+"requestSession.toString()");
+				session.setAttribute("user", result);
+				return "redirect:"+requestSession.toString();
+			}
 		}
 	}
 	*/
@@ -139,19 +146,27 @@ public class MainController {
 				model.addAttribute("message", "<p style='color:red'> 이미 탈퇴한 계정입니다. </p>");
 				return "patient_login.page";
 			} else {
-				session.setAttribute("user", result);
-				return "redirect:/";
+				Object requestSession = session.getAttribute("requestSession");
+				if(requestSession==null) {
+					session.setAttribute("user", result);
+					return "redirect:/";
+				}else {
+					System.out.println(requestSession.toString()+"requestSession.toString()");
+					session.setAttribute("user", result);
+					return "redirect:"+requestSession.toString();
+				}
 			}
 		}
 	
 
 	//환자 의사 로그아웃
 	@RequestMapping("logout")
-	public String logout(HttpSession session) {
-		session.removeAttribute("user");
-		session.removeAttribute("doctor");
+	public String logout(HttpSession session) {        
+		session.invalidate(); // 세션 전체를 날려버림
+//		session.removeAttribute("user");
+//		session.removeAttribute("doctor");
 
-		return "redirect:/";
+		return "redirect:/main.page";
 	}
 	
 	//의사 로그인 체크
@@ -167,8 +182,15 @@ public class MainController {
 			model.addAttribute("message", "<p style='color:red'> 이미 탈퇴한 계정입니다. </p>");
 			return "doctor_login.page";
 		} else {
+			Object requestSession = session.getAttribute("requestSession");
+			if(requestSession==null) {
 			session.setAttribute("doctor", result);
 			return "redirect:/";
+			}else {
+				System.out.println(requestSession.toString()+"requestSession.toString()");
+				session.setAttribute("doctor", result);
+				return "redirect:"+requestSession.toString();
+			}
 		}
 	}
 	

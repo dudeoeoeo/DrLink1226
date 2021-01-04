@@ -6,10 +6,47 @@
 <!DOCTYPE html> 
 <script>
 $(document).ready(function(){
-	// 시간 선택
+	// 시간 선택 - 예약 유효성
 	$(".timing").click(function(){
-		$(".timing").attr("class","timing");
-		$(this).attr("class","timing selected");
+		var bthis = $(this);
+		var bindex = $(this).closest('li').index();
+		var bdate = $(".day-slot > ul > li:eq(" + bindex + ")").find("span:eq(1)").text();		
+		var btime = $(this).find('span').text();
+		var bdoctor_num = $(".doctor_num").val();
+		
+//		alert(bdate + ", " + btime);  
+		$.ajax({
+            async: true,
+            type : 'POST',
+            data : { 
+            	'appointment_date' : bdate,
+            	'appointment_time' : btime,
+            	'doctor_num' : bdoctor_num
+            },
+            url : "bookingCheck.do",
+            dataType : "text",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success : function(data) {
+//            	alert(data);
+            	if(data == 1){
+            		alert('이미 예약되었습니다. 마이페이지에서 확인 해 주세요.');
+            	}else if(data == 2){
+            		alert('예약이 마감되었습니다. 다른 날을 이용 해 주세요.')
+            	}else if(data == 3){
+            		alert('당일 예약은 한 시간 전부터 가능합니다.')
+            	}else{
+            		$(".timing").attr("class","timing");
+            		bthis.attr("class","timing selected");
+            	}
+            	
+            },
+            error : function(error) {              
+                alert("error : " + error);
+            }
+            
+        });
+		
+		
 	});
 	// 예약하기 버튼
 	$(".bookingForm").submit(function(){
@@ -62,7 +99,7 @@ function myFunction() {
 											<img src="${path}/resources/doctor/doctorImg/${doctor_profile.d_photo}" alt="User Image">
 										</a>
 										<div class="booking-info">
-											<h4><a href="doctor-profile">${doctor_profile.d_name} 의사</a></h4>
+											<h4><a href="doctor-profile">${doctor_profile.d_name } 의사</a></h4>
 											<div class="rating">
 											<c:forEach begin="0" end="4" step="1" varStatus="i">
 											   <c:choose>
@@ -316,10 +353,11 @@ function myFunction() {
 								• 당일 진료 시간을 지키지 못하시는 경우 다음 번 이용에 제한이 될 수 있습니다.</p>
 								<br>
 								<p>&nbsp;</p>
+								
                                  </div>
 							</div>
 						<form action="bookingSave" method="post" class="bookingForm">
-							<input type="hidden" name="doctor_num" value="${doctor_profile.doctor_num }" />
+							<input type="hidden" name="doctor_num" class="doctor_num" value="${doctor_profile.doctor_num }" />
 							<input type="hidden" name="dep_num" value="${doctor_profile.dep_num}" />						
 							<input type="hidden" name="appointment_date" class="appointment_date" value="" />
 							<input type="hidden" name="appointment_time" class="appointment_time" value="" />

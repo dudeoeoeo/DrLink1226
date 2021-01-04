@@ -71,4 +71,25 @@
 		<beans:constructor-arg value="C://Users//tnpdl//OneDrive//Documents//simg"></beans:constructor-arg>
 	</beans:bean>
 	
+
+	<context:component-scan base-package="dr_Link" />
+	
+    <!-- 인터셉터 객체 생성 -->
+    <beans:bean id="authenticationInterceptor" class="dr_Link.Interceptor.AuthenticationInterceptor">
+    </beans:bean>
+    <!-- Interceptor 설정 -->
+    <interceptors>
+        <interceptor>
+            <mapping path="/health-blog"/>
+            <mapping path="/doctor/*"/>
+            <mapping path="/patients/*"/>
+            <beans:ref bean="authenticationInterceptor"/>
+        </interceptor>
+    </interceptors>
+     
+    <context:component-scan base-package="dr_Link.web" />
+    <context:component-scan base-package="dr_Link.controller" />
+	
+	
+	
 </beans:beans>
