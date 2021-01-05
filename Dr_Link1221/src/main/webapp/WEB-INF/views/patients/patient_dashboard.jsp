@@ -339,8 +339,8 @@
 //삭제 버튼 누르면 삭제할 것이냐고 묻고 삭제한다고 하면 주소이동(BoardController의 remove 메소드 호출)
 	$(function(){
 		$('#cancel_booking').click(function(){
-			if(confirm("Are u sure?")){
-				self.location.href = "/board/remove?bno=${boardVO.bno}";
+			if(confirm("정말로 예약을 취소하시겠습니까?")){
+				self.location.href = "${path}/patients/cancelbooking";
 			}
 		});
 	});

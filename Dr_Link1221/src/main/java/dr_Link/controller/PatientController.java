@@ -261,4 +261,8 @@ public class PatientController {
 		System.out.println("결제한 처방전"+prescription.getPrescription_num());
 		return mv;
 	}
+	
+	//예약취소
+//	@RequestMapping(value = "/cancelbooking")
+//	public String cancelbooking()
 }

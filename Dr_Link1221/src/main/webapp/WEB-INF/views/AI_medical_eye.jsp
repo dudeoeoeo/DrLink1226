@@ -82,9 +82,6 @@
 				</div>
 
 				<hr />
-				<a href="aiTestSuccess" class="btn btn-primary view-inv-btn">진단결과보기</a>
-
-				<hr />
 
 				<form class="file-input-frm" action="aiTest" method="post"
 					enctype="multipart/form-data">
@@ -114,6 +111,9 @@
 					</div>
 				</div>
 
+
+				<hr />
+				<a href="aiTestSuccess" class="btn btn-primary view-inv-btn">진단결과보기</a>
 
 				<hr />
 
