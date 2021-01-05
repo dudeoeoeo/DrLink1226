@@ -26,7 +26,7 @@
 									</div>
 									<c:if test="${!empty h_board.hospital_photo}">
 									<div class="blog-content text-center">
-										<img src="${path}/resources/assets/img/${h_board.hospital_photo}" class="rounded text-center">
+										<img src="${path}/resources/assets/img/${h_board.hospital_photo}" class="rounded text-center" style="width:50%">
 									</div>
 									</c:if>
 								</div>

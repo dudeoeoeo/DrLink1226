@@ -40,7 +40,7 @@
 								</c:when>
 								<c:when test="${n.news_photo != null }">
 									<div class="blog-image">
-										<a href="health-blog-detail?n_num=${n.news_board_num}"><img
+										<a href="health-blog-detail?b_num=${n.news_board_num}"><img
 											class="img-fluid"
 											src="${path}/resources/assets/img/blog/${n.news_photo}"
 											alt="Post Image" style="height:300px"></a>
@@ -48,9 +48,9 @@
 								</c:when>
 								<c:otherwise>
 									<div class="blog-image">
-										<a href="health-blog-detail?n_num=${n.news_board_num}"><img
+										<a href="health-blog-detail?b_num=${n.news_board_num}"><img
 											class="img-fluid"
-											src="${path}/resources/assets/img/blog/blog-02.jpg"
+											src="${path}/resources/assets/img/blog/blog-01.jpg"
 											alt="Post Image"></a>
 									</div>
 								</c:otherwise>
@@ -82,7 +82,7 @@
 									<li class="page-item disabled"><a class="page-link"
 										href="#" tabindex="-1"><i class="fas fa-angle-double-left"></i></a>
 									</li>
-									<c:forEach begin="1" end="${p_num }" var="p">
+									<c:forEach begin="1" end="${p_num}" var="p">
 										<li class="page-item"><a class="page-link"
 											href="health-blog?d_page=${p}">${p}</a></li>
 									</c:forEach>
