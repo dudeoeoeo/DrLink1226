@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,9 +22,11 @@ public class ReviewController {
 	private ReviewService reviewService;
 
 	@RequestMapping("addReview.do")
-	public String addReview(Doc_ReviewDTO vo, HttpSession session) {
+	public String addReview(Doc_ReviewDTO vo, HttpSession session, Model model) {
 		vo.setPatient_num(((PatientDTO) session.getAttribute("user")).getPatient_num());
 		reviewService.addReview(vo);
+		int rev = 1;
+		model.addAttribute("rev", rev);
 
 		return "redirect:/doctor_profile?doctor_num=" + vo.getDoctor_num();
 	}
@@ -51,7 +54,7 @@ public class ReviewController {
 		HashMap<String, String> map = new HashMap<String, String>();
 		if (result > 0) {
 			map.put("success", "작업이 완료되었습니다.");
-			map.put("url", "http://localhost:8080/Dr_Link1221/doctor_profile?doctor_num=" + doctor_num);
+			map.put("url", "redirecdt:/doctor_profile?doctor_num=" + doctor_num);
 		} else
 			map.put("err", "작업이 서버에 오류가 있어 수행되지 않았습니다.");
 		System.out.println("map: " + map.get("url"));

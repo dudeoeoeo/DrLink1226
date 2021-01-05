@@ -74,13 +74,14 @@
 
 	<context:component-scan base-package="dr_Link" />
 	
-    <!-- 인터셉터 객체 생성 -->
+    <!-- 인터셉터-->
     <beans:bean id="authenticationInterceptor" class="dr_Link.Interceptor.AuthenticationInterceptor">
     </beans:bean>
     <!-- Interceptor 설정 -->
     <interceptors>
         <interceptor>
             <mapping path="/health-blog"/>
+            <mapping path="/search"/>
             <mapping path="/doctor/*"/>
             <mapping path="/patients/*"/>
             <beans:ref bean="authenticationInterceptor"/>

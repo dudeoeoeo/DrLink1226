@@ -82,6 +82,7 @@
 	
 	<resultMap type="treatmentRecordDTO" id="treatmentRecordMap">
   	 	<id property="treatment_num" column="treatment_num" javaType="int" />
+		<result column="appointment_num" property="appointment_num"/>
 		<result column="patient_num" property="patient_num"/>
 		<result column="doctor_num" property="doctor_num"/>
 		<result column="dep_num" property="dep_num"/>

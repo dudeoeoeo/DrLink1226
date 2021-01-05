@@ -262,6 +262,47 @@ ul .bxslider {
 		<!-- /Popular Section -->
 
 
+		<!-- Blog Section -->
+		<section class="section section-blogs">
+			<div class="container-fluid">
+
+				<!-- Section Header -->
+				<div class="section-header text-center">
+					<h2>공지사항</h2>
+					<p class="sub-title">Dr.Link의 공지사항을 알려드립니다.</p>
+				</div>
+				<!-- /Section Header -->
+
+				<div class="table-responsive">
+					<table class="table table-hover mb-0">
+						<thead>
+							<tr>
+								<th style="text-align: center">No.</th>
+								<th style="text-align: center">제목</th>
+								<th style="text-align: center">등록일자</th>
+								<th style="text-align: center">조회수</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="board" end="4" items="${h_boardList}">
+								<tr>
+									<td style="text-align: center">${board.hospital_board_num}</td>
+									<td style="text-align: left"><a
+										href="notice_detail?b_num=${board.hospital_board_num}">${board.hospital_title}</a></td>
+									<td style="text-align: center">${board.hospital_regdate}</td>
+									<td style="text-align: center">${board.h_watched}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="view-all text-center">
+				<a href="notice" class="btn btn-primary">더보기</a>
+			</div>
+		</section>
+		<!-- /Blog Section -->
+
 
 		<!-- Blog Section -->
 		<section class="section section-blogs">
@@ -328,46 +369,7 @@ ul .bxslider {
 		</section>
 		<!-- /Blog Section -->
 
-		<!-- Blog Section -->
-		<section class="section section-blogs">
-			<div class="container-fluid">
 
-				<!-- Section Header -->
-				<div class="section-header text-center">
-					<h2>공지사항</h2>
-					<p class="sub-title">Dr.Link의 공지사항을 알려드립니다.</p>
-				</div>
-				<!-- /Section Header -->
-
-				<div class="table-responsive">
-					<table class="table table-hover mb-0">
-						<thead>
-							<tr>
-								<th style="text-align: center">No.</th>
-								<th style="text-align: center">제목</th>
-								<th style="text-align: center">등록일자</th>
-								<th style="text-align: center">조회수</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="board" end="4" items="${h_boardList}">
-								<tr>
-									<td style="text-align: center">공지</td>
-									<td style="text-align: left"><a
-										href="notice_detail?b_num=${board.hospital_board_num}">${board.hospital_title}</a></td>
-									<td style="text-align: center">${board.hospital_regdate}</td>
-									<td style="text-align: center">${board.h_watched}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="view-all text-center">
-				<a href="notice" class="btn btn-primary">더보기</a>
-			</div>
-		</section>
-		<!-- /Blog Section -->
 
 
 

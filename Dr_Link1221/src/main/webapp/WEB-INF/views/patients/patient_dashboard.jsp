@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmtt" uri="http://java.sun.com/jstl/fmt_rt" %>  
+<jsp:useBean id="now" class="java.util.Date"/>
+<fmtt:formatDate value="${now}" pattern="yyyy-MM-dd" var="sysdate"/>
+<fmtt:formatDate value="${now}" pattern="HHmm" var="sysdateTime"/>
 <!DOCTYPE html>
 <!-- Breadcrumb -->
 <div class="breadcrumb-bar">
@@ -123,7 +127,7 @@
 														</thead>
 														<tbody>
 															<!-- start for -->
-															<c:forEach var="bookingList" items="${bookingList}">
+															<c:forEach var="bookingList" items="${bookingList}" varStatus="status">
 																<tr class="text-center">
 																	<td>
 																		<h2 class="table-avatar">
@@ -142,8 +146,37 @@
 																	<td>${bookingList.appointment_date}<span
 																		class="d-block text-info">${bookingList.appointment_time}</span></td>
 																	<td>${bookingList.reg_date}</td>
-																	<td><span
-																		class="badge badge-pill bg-success-light">예약정상</span></td>
+																	<c:forEach var="treatmentList" items="${treatmentList}" varStatus="status">
+																	
+																	<c:set var="recordTimetrim" value="${fn:trim(bookingList.appointment_time)}" />
+																	<c:set var="recordTimecol" value="${fn:replace(recordTimetrim,':','')}" />
+																	<c:set var="recordTimeampm" value="${fn:replace(recordTimecol,'AM','')}" />
+																	<c:set var="recordTime" value="${fn:replace(recordTimeampm,'PM','')}" />
+																	
+																	<c:choose>
+																	<c:when test="${treatmentList.appointment_num eq bookingList.appointment_num}">
+																		<td><span class="badge badge-pill bg-success-light">진료완료</span></td>
+																	</c:when>
+																	<c:when test="${sysdate > bookingList.appointment_date}">
+																		<td><span class="badge badge-pill bg-warning-light">진료거부</span></td>
+																	</c:when>
+																	
+																	<c:when test="${sysdate == bookingList.appointment_date && sysdateTime > recordTime}">
+																		<td><span class="badge badge-pill bg-warning-light">진료거부</span></td>
+																	</c:when>
+																	
+																	<c:when test="${sysdate == bookingList.appointment_date && sysdateTime <= recordTime}">
+																		<td><span class="badge badge-pill bg-info-light">예약정상</span>
+																		<button id="cancel_booking" class="badge badge-pill bg-danger-light">예약취소</button></td>
+																	</c:when>
+																	
+																	<c:otherwise>
+																		<td><span class="badge badge-pill bg-info-light">예약정상</span>
+																		<button id="cancel_booking" class="badge badge-pill bg-danger-light">예약취소</button></td>
+																	</c:otherwise>
+																	
+																	</c:choose>
+																	</c:forEach>
 																</tr>
 																<!-- / end for -->
 															</c:forEach>
@@ -301,3 +334,14 @@
 
 </div>
 <!-- /Page Content -->
+
+<script>
+//삭제 버튼 누르면 삭제할 것이냐고 묻고 삭제한다고 하면 주소이동(BoardController의 remove 메소드 호출)
+	$(function(){
+		$('#cancel_booking').click(function(){
+			if(confirm("Are u sure?")){
+				self.location.href = "/board/remove?bno=${boardVO.bno}";
+			}
+		});
+	});
+</script>

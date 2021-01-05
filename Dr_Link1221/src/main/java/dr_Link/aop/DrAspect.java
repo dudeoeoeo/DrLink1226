@@ -11,17 +11,21 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
-import dr_Link.main.PatientAopInter;
 import dr_Link.dto.DrPLoggerDTO;
 import dr_Link.dto.PatientDTO;
+import dr_Link.main.PatientAopInter;
 
 @Component
 @Aspect
 public class DrAspect {
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private PatientAopInter patientAopInter;
@@ -108,6 +112,27 @@ public class DrAspect {
 		System.out.println("insert!******************");
 		System.out.println("rpath: "+rpath);
 		return rpath;
+	}
+	
+
+	@Around("execution(* dr_Link.controller.*Controller.*(..)) or execution(* dr_Link.*.service.*Impl.*(..)) or execution(* com.board..mapper.*Mapper.*(..))")
+	public Object printLog(ProceedingJoinPoint joinPoint) throws Throwable {
+
+		String type = "";
+		String name = joinPoint.getSignature().getDeclaringTypeName();
+
+		if (name.contains("Controller") == true) {
+			type = "Controller ===> ";
+
+		} else if (name.contains("Service") == true) {
+			type = "ServiceImpl ===> ";
+
+		} else if (name.contains("Mapper") == true) {
+			type = "Mapper ===> ";
+		}
+
+		logger.debug(type + name + "." + joinPoint.getSignature().getName() + "()");
+		return joinPoint.proceed();
 	}
 	
 }
