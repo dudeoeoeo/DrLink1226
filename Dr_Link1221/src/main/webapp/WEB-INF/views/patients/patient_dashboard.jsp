@@ -155,24 +155,24 @@
 																	
 																	<c:choose>
 																	<c:when test="${treatmentList.appointment_num eq bookingList.appointment_num}">
-																		<td><span class="badge badge-pill bg-success-light">진료완료</span></td>
+																		<td><span class="badge-pill bg-success-light">진료완료</span></td>
 																	</c:when>
 																	<c:when test="${sysdate > bookingList.appointment_date}">
-																		<td><span class="badge badge-pill bg-warning-light">진료거부</span></td>
+																		<td><span class="badge-pill bg-warning-light">진료거부</span></td>
 																	</c:when>
 																	
 																	<c:when test="${sysdate == bookingList.appointment_date && sysdateTime > recordTime}">
-																		<td><span class="badge badge-pill bg-warning-light">진료거부</span></td>
+																		<td><span class="badge-pill bg-warning-light">진료거부</span></td>
 																	</c:when>
 																	
 																	<c:when test="${sysdate == bookingList.appointment_date && sysdateTime <= recordTime}">
-																		<td><span class="badge badge-pill bg-info-light">예약정상</span>
-																		<button id="cancel_booking" class="badge badge-pill bg-danger-light">예약취소</button></td>
+																		<td><span class="badge-pill bg-info-light">예약정상</span>
+																		<a id="cancel_booking" class="badge-pill bg-danger-light" href="cancelbooking?appointment_num=${bookingList.appointment_num}">예약취소</a>
 																	</c:when>
 																	
 																	<c:otherwise>
-																		<td><span class="badge badge-pill bg-info-light">예약정상</span>
-																		<button id="cancel_booking" class="badge badge-pill bg-danger-light">예약취소</button></td>
+																		<td><span class="badge-pill bg-info-light">예약정상</span>
+																		<a id="cancel_booking" class="badge-pill bg-danger-light" href="cancelbooking?appointment_num=${bookingList.appointment_num}">예약취소</a>
 																	</c:otherwise>
 																	
 																	</c:choose>
@@ -336,12 +336,48 @@
 <!-- /Page Content -->
 
 <script>
-//삭제 버튼 누르면 삭제할 것이냐고 묻고 삭제한다고 하면 주소이동(BoardController의 remove 메소드 호출)
-	$(function(){
-		$('#cancel_booking').click(function(){
-			if(confirm("정말로 예약을 취소하시겠습니까?")){
-				self.location.href = "${path}/patients/cancelbooking";
-			}
-		});
+
+$(function(){
+	
+	$('#cancel_booking').click(function (){
+		if(confirm("정말로 예약을 취소하시겠습니까?")){
+			
+			location.href='/Dr_Link1221/patients/cancelbooking?appointment_num='+num;
+			
+		}
 	});
+});
+
+function del(num) {
+	
+	document.
+	
+	
+}
+
+/* 
+$.ajax({
+	url : "/patients/cancelbooking",
+	type : "POST",
+	data : {
+		p_id : $("#p_id").val(),
+		p_email : $("#p_email").val()
+	},
+	success : function(result) {
+		alert(result);
+	},
+}) */
+
+
+
+
+/*location.href='patients/cancelbooking?appointment_num='+appointment_num;
+
+
+function del(seq) {
+	var chk = confirm("정말 삭제하시겠습니까?");
+	if (chk) {
+		location.href='delete?seq='+seq;
+	}
+}	 */
 </script>

@@ -263,6 +263,10 @@ public class PatientController {
 	}
 	
 	//예약취소
-//	@RequestMapping(value = "/cancelbooking")
-//	public String cancelbooking()
+	@RequestMapping(value = "/cancelbooking")
+	public String cancelbooking(@RequestParam("appointment_num")int appointment_num) {
+		System.out.println("예약취소 컨트롤러왓는가?");
+		patientDaoInter.deleteAppointment(appointment_num);
+		return "redirect:/patients/patient_dashboard.page";
+	}
 }

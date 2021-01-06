@@ -119,5 +119,11 @@ public class PatientDaoImp implements PatientDaoInter{
 		ss.update("patient.deletePatient", patient_num);
 		
 	}
+	
+	//예약취소
+	@Override
+	public void deleteAppointment(int appointment_num) {
+		ss.delete("patient.deleteAppointment", appointment_num);
+	}
 
 }
