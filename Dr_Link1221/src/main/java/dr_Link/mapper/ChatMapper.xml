@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="chat">
+	<select id="getDoctorChatList" parameterType="int" resultMap="doctorMap">
+		select * from dl_doctor a, department b where a.dep_num = b.dep_num and doctor_num != #{doctor_num}
+	</select>
+	
+	<select id="getChatHistory" parameterType="java.util.List" resultMap="chatMap">
+		select * from doctor_chat a where sender in
+		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+		#{item}
+		</foreach> 
+		and RECEIVER in
+		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+		#{item}
+		</foreach>
+		and sender != receiver order by chat_num 
+	</select>
+	
+	<select id="getDoctorInfo" parameterType="int" resultMap="doctorMap">
+		select * from dl_doctor a, department b where a.dep_num = b.dep_num and a.doctor_num = #{doctor_num}
+	</select>
+	
+	<select id="lastChat" parameterType="chatDTO" resultType="chatDTO">
+		select rownum, x.* from (select a.* from doctor_chat a order by chat_num desc) x where sender = #{sender} and receiver = #{receiver} and rownum=1
+	</select>
+	
+	<insert id="insertChat" parameterType="chatDTO">
+		insert into doctor_chat values(chat_num_seq.nextval, #{sender}, #{receiver}, #{msg}, sysdate)
+	</insert>
+ 	
+ <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->	
+   	<resultMap type="departmentDTO" id="departmentMap">
+		<id property="dep_num" column="dep_num" javaType="int" />
+			<result column="dep_name" property="dep_name"/>
+	</resultMap>
+ 	
+	<resultMap type="doctorDTO" id="doctorMap">
+		<id property="doctor_num" column="doctor_num" javaType="int" />
+			<result column="d_id" property="d_id" />
+			<result column="d_pwd" property="d_pwd" />
+			<result column="d_name" property="d_name" />
+			<result column="dep_num" property="dep_num" />
+			<result column="d_jumin_num" property="d_jumin_num" />
+			<result column="d_phone_num" property="d_phone_num" />
+			<result column="d_address" property="d_address" />
+			<result column="d_email" property="d_email" />
+			<result column="d_career" property="d_career" />
+			<result column="d_licence" property="d_licence" />
+			<result column="d_photo" property="d_photo" />
+			<result column="d_regdate" property="d_regdate" />
+			<result column="d_graduation" property="d_graduation" />
+			<collection property="departmentDTO" resultMap="departmentMap"/>
+	</resultMap>
+	
+	<resultMap type="chatDTO" id="chatMap">
+		<id property="chat_num" column="chat_num" javaType="int" />
+			<result column="sender" property="sender"/>
+			<result column="receiver" property="receiver"/>
+			<result column="msg" property="msg"/>
+			<result column="chat_date" property="chat_date"/>
+			<collection property="doctorDTO" resultMap="doctorMap"/>
+	</resultMap>
+ 	
+</mapper>
