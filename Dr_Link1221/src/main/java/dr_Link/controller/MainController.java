@@ -2,10 +2,8 @@ package dr_Link.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,12 +24,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import dr_Link.doctor.DoctorDaoInter;
 import dr_Link.doctor.DoctorServiceInter;
 import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.doctorProfile.DoctorProfileDAO;
+import dr_Link.dto.AiRecordDTO;
 import dr_Link.dto.Hospital_boardDTO;
 import dr_Link.dto.NewsDTO;
 import dr_Link.dto.NewsReplDTO;
@@ -497,5 +499,85 @@ public class MainController {
 		System.out.println("map: " + map.get("url"));
 		return map;
 	}
+	
+	   //ai 진료
+	   @ResponseBody
+	   @RequestMapping(value = "aiTest")
+	   public String aiTest(@RequestParam("images") MultipartFile file, MultipartHttpServletRequest mtf) {
+	      System.out.println("ai진료 컨트롤러로 왓는가?");
+	      //ModelAndView mv = new ModelAndView("/aiTestSuccess.page");
+	      String oriFn = "";
+	      if(file != null) {
+	         //String r_path = session.getServletContext().getRealPath("resources/patient/profileImg")+"\\";
+	         String r_path = "\\\\192.168.0.8\\share\\aiTest\\"; //"Z:\\aiTest\\";  \\192.168.0.8\share\aiTest
+	         System.out.println("rpath: " + r_path);
+	         oriFn = file.getOriginalFilename();
+	         System.out.println("들어온 oriFn: "+oriFn);
+	         
+	         if(oriFn != null && oriFn != "") {
+	            StringBuffer newpath = new StringBuffer();
+	            newpath.append(r_path);
+	            newpath.append(oriFn);
+	            System.out.println("newpath: " + newpath);
+	            File f = new File(newpath.toString());
+	            try {
+	               file.transferTo(f);
+	            } catch (IllegalStateException e) {
+	               e.printStackTrace();
+	            } catch (IOException e) {
+	               e.printStackTrace();
+	            }
+	         }
+	      }
+	      return oriFn;
+	   }
+
+	   @RequestMapping(value = "aiSuccess")
+	   public ModelAndView aiSuccess(HttpServletRequest rq, RedirectAttributes re, HttpSession session, AiRecordDTO dto) {
+	      ModelAndView mv = new ModelAndView("redirect:aiTestSuccess");
+	      if(rq.getParameter("result") != null) {
+	    	 PatientDTO p_num = (PatientDTO) session.getAttribute("user");
+	    	 dto.setPatient_num(p_num.getPatient_num());
+	         System.out.println("들어온 이름: "+rq.getParameter("result"));
+	         System.out.println("disease : "+rq.getParameter("disease"));
+	         System.out.println("IMG : "+rq.getParameter("IMG"));
+	         System.out.println("DP : "+rq.getParameter("DP"));
+	         re.addFlashAttribute("predict", rq.getParameter("result"));
+	         re.addFlashAttribute("disease", rq.getParameter("disease"));
+	         re.addFlashAttribute("IMG", rq.getParameter("IMG"));
+	         re.addFlashAttribute("DP", rq.getParameter("DP"));
+	      } else {
+	         System.out.println("안 들어옴");
+	      }
+	      return mv;
+	   }
+	   
+	   @RequestMapping(value = "aiTestSuccess")
+	   public ModelAndView aiTestSuccess(HttpServletRequest rq, RedirectAttributes re, HttpSession session, Model model) {
+	      ModelAndView mv = new ModelAndView("aiTestSuccess.page");
+	      Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(rq);
+	      
+//김성민
+		int patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
+		AiRecordDTO patient_ai = service.getAiRecordDTO(patient_num);
+		model.addAttribute("patient_ai", patient_ai);
+	      
+	      
+	      try {
+	         if(redirectMap.get("predict") != null) {
+	            System.out.println(redirectMap.get("predict"));
+	            System.out.println(redirectMap.get("disease"));
+	            
+	            mv.addObject("predict", redirectMap.get("predict"));
+	            mv.addObject("disease", redirectMap.get("disease"));
+	         }
+	         //System.out.println("redirect: " + redirectMap.get("doctor_num"));
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      return mv;
+	   }
+	   
+	   
 	
 }

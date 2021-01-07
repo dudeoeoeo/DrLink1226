@@ -2,9 +2,6 @@ package dr_Link.dto;
 
 import java.util.List;
 
-import dr_Link.dto.DepartmentDTO;
-import dr_Link.dto.PatientDTO;
-
 public class AppointmentDTO {
 	private int appointment_num       ;
 	private int patient_num           ;
@@ -17,7 +14,14 @@ public class AppointmentDTO {
 	
 	private List<PatientDTO> patients;
 	private List<DepartmentDTO> departments;
+	private List<AiRecordDTO> airecords;
 	
+	public List<AiRecordDTO> getAirecords() {
+		return airecords;
+	}
+	public void setAirecords(List<AiRecordDTO> airecords) {
+		this.airecords = airecords;
+	}
 	public int getAppointment_num() {
 		return appointment_num;
 	}

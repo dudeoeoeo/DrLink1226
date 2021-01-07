@@ -219,7 +219,7 @@
                                                             새로 온 환자
                                                          </c:when>
 																		</c:choose></td>
-																	<td class="text-right">
+																	<td class="text-center">
 																		<%-- <div class="appointment-action">
 																			<a href="#"
 																				class="btn btn-sm bg-info-light btn_today"

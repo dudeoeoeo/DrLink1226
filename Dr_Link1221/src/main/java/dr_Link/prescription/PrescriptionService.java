@@ -3,7 +3,6 @@ package dr_Link.prescription;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.dto.DrLinkDTO;

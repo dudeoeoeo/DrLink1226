@@ -2,6 +2,7 @@ package dr_Link.patient;
 
 import javax.servlet.http.HttpServletResponse;
 
+import dr_Link.dto.AiRecordDTO;
 import dr_Link.dto.PatientDTO;
 
 public interface PatientServiceInter {
@@ -28,5 +29,7 @@ public interface PatientServiceInter {
 	
 	//회원탈퇴
 	public void deletePatient(int patient_num);
+	
+	public AiRecordDTO getAiRecordDTO(int patient_num);
 
 }

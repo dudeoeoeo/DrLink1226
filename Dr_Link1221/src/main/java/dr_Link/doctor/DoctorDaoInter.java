@@ -77,6 +77,8 @@ public interface DoctorDaoInter {
 	// 의사 정보 다시 가져오기
 	public DoctorDTO getDoctorDTO(int doctor_num);
 	
+	//public List<AiRecordDTO> getAiList(int doctor_num);
+	
 	public List<AppointmentDTO> getApList(int doctor_num, int p_num);
 	public List<AppointmentDTO> get_D_board(int doctor_num);
 	public List<TreatmentRecordDTO> getAP_num();

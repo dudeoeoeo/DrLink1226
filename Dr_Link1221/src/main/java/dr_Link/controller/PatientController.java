@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dr_Link.booking.BookingDTO;
 import dr_Link.booking.BookingService;
-import dr_Link.doctorProfile.DoctorProfileDAO;
 import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
@@ -264,8 +262,9 @@ public class PatientController {
 	
 	//예약취소
 	@RequestMapping(value = "/cancelbooking")
-	public String cancelbooking(@RequestParam("appointment_num")int appointment_num) {
+	public String cancelbooking(@RequestParam("appointment_num") int appointment_num) {
 		System.out.println("예약취소 컨트롤러왓는가?");
+		System.out.println("들어온 예약번호 : " + appointment_num);
 		patientDaoInter.deleteAppointment(appointment_num);
 		return "redirect:/patients/patient_dashboard.page";
 	}

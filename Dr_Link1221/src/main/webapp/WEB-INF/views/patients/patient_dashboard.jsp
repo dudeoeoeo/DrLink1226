@@ -167,12 +167,14 @@
 																	
 																	<c:when test="${sysdate == bookingList.appointment_date && sysdateTime <= recordTime}">
 																		<td><span class="badge-pill bg-info-light">예약정상</span>
-																		<a id="cancel_booking" class="badge-pill bg-danger-light" href="cancelbooking?appointment_num=${bookingList.appointment_num}">예약취소</a>
+																		<a class="badge-pill bg-danger-light cancel_booking" href="cancelbooking?appointment_num=${bookingList.appointment_num}">예약취소</a>
+																		</td>
 																	</c:when>
 																	
 																	<c:otherwise>
 																		<td><span class="badge-pill bg-info-light">예약정상</span>
-																		<a id="cancel_booking" class="badge-pill bg-danger-light" href="cancelbooking?appointment_num=${bookingList.appointment_num}">예약취소</a>
+																		<a class="badge-pill bg-danger-light cancel_booking" href="cancelbooking?appointment_num=${bookingList.appointment_num}">예약취소</a>
+																		</td>
 																	</c:otherwise>
 																	
 																	</c:choose>
@@ -338,22 +340,15 @@
 <script>
 
 $(function(){
-	
-	$('#cancel_booking').click(function (){
+	$('a.cancel_booking').click(function (e){
 		if(confirm("정말로 예약을 취소하시겠습니까?")){
 			
-			location.href='/Dr_Link1221/patients/cancelbooking?appointment_num='+num;
-			
+		} else {
+			e.preventDefault();
 		}
 	});
 });
 
-function del(num) {
-	
-	document.
-	
-	
-}
 
 /* 
 $.ajax({

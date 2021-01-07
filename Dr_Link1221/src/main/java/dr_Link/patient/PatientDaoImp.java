@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dr_Link.doctorProfile.DoctorDTO;
+import dr_Link.dto.AiRecordDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.dto.Pay_recordDTO;
 import dr_Link.dto.TreatmentRecordDTO;
@@ -106,6 +106,13 @@ public class PatientDaoImp implements PatientDaoInter{
 		// TODO Auto-generated method stub
 		return ss.selectOne("patient.getPatient", patient_num);
 	}
+	
+
+	@Override
+	public AiRecordDTO getAiRecordDTO(int patient_num) {
+		// TODO Auto-generated method stub
+		return ss.selectOne("patient.getAiRecordDTO", patient_num);
+	}
 
 	@Override
 	public void updatePatient(PatientDTO vo) {
@@ -124,6 +131,12 @@ public class PatientDaoImp implements PatientDaoInter{
 	@Override
 	public void deleteAppointment(int appointment_num) {
 		ss.delete("patient.deleteAppointment", appointment_num);
+	}
+	
+	//ai테스트 기록 저장
+	@Override
+	public void insertAiRecord(AiRecordDTO dto) {
+		ss.insert("patient.insertAiRecord",dto);
 	}
 
 }

@@ -197,4 +197,16 @@ public class DoctorDaoImp implements DoctorDaoInter {
 		return ss.selectList("doctor.getApList",map);
 	}
 	
+	
+//	public List<AiRecordDTO> getAiList(int doctor_num) {
+//		List<String> rr = ss.selectList("doctor.getPatientNum",doctor_num);
+//		AiRecordDTO tt = new AiRecordDTO();
+//		int cnt = 0;
+//		for(int i=0; i<rr.size(); i++) {
+//			++cnt;
+//			
+//			return tt.add(ss.selectOne("doctor.getLastAiRecord",cnt);
+//		}
+//	}
+	
 }
