@@ -1,4 +1,4 @@
-f<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -94,6 +94,20 @@ f<%@ page language="java" contentType="text/html; charset=UTF-8"
 							href="#doc_overview" data-toggle="tab">소개</a></li>
 						<li class="nav-item"><a class="nav-link" href="#doc_reviews"
 							data-toggle="tab">후기</a></li>
+<%-- 					<c:choose>
+					<c:when test="<%= request.getAttribute("rev") %>>0">
+						<li class="nav-item"><a class="nav-link"
+							href="#doc_overview" data-toggle="tab">소개</a></li>
+						<li class="nav-item"><a class="nav-link active" href="#doc_reviews"
+							data-toggle="tab">후기${rev }</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="nav-item"><a class="nav-link active"
+							href="#doc_overview" data-toggle="tab">소개</a></li>
+						<li class="nav-item"><a class="nav-link" href="#doc_reviews"
+							data-toggle="tab">후기${rev }</a></li>
+					</c:otherwise>
+					</c:choose> --%>
 						<!-- <li class="nav-item">
 										<a class="nav-link" href="#doc_business_hours" data-toggle="tab">진료시간</a>
 									</li> -->
@@ -366,7 +380,7 @@ f<%@ page language="java" contentType="text/html; charset=UTF-8"
 <!-- /Page Content -->
 
 
-</div>
+
 <!-- /Main Wrapper -->
 
 <!-- Voice Call Modal -->
@@ -438,6 +452,9 @@ f<%@ page language="java" contentType="text/html; charset=UTF-8"
 
 <script>
 $(function() {
+	var idx = '${rev}'
+	$('div.tabpanel').eq(idx)
+	
 	var uid = '${sessionScope.user.p_name}';
 
 	$('.apt-btn').click(function() {
@@ -535,7 +552,8 @@ function delete_repl(review_num, do_text, doctor_num) {
 		success : function(data) {
 			if (data != null) {
 				//alert(do_text + data.success);
-				location.href = data.url;
+				//location.href = data.url;
+				location.reload();
 			}
 		},
 		error : function(err) {

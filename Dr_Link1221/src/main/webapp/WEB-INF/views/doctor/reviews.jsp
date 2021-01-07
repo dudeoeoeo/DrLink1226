@@ -108,6 +108,7 @@
 										<div class="meta-data">
 											<span class="comment-author">${review.patientDTO.p_name }</span>
 											<span class="comment-date">${review.review_date}</span>
+										</div>
 											<div class="review-count rating">
 												<c:forEach begin="0" end="4" step="1" varStatus="i">
 													<c:choose>
@@ -120,7 +121,6 @@
 													</c:choose>
 												</c:forEach>
 											</div>
-										</div>
 										<p class="comment-content">${review.review_content}</p>
 									</div>
 								</div>

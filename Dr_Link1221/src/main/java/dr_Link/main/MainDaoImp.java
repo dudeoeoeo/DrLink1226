@@ -60,7 +60,7 @@ public class MainDaoImp implements MainDaoInter {
 		System.out.println("getAllNewsBoards 요청");
 		return ss.selectList("board.getAllNewsBoards");
 	}
-	public List<NewsDTO> getNewsPage(int p_num) {	// 건강정보 게시판 페이지 요청
+	public List<NewsDTO> getNewsPage(int p_num) {	// 건강정보 게시판 페이지 요청f
 		System.out.println("getNewsPage p_num 요청!");
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		if (p_num == 1) {

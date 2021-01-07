@@ -23,5 +23,6 @@
        <typeAlias type="dr_Link.dto.NewsDTO" alias="newsDTO"/>
        <typeAlias type="dr_Link.dto.NewsReplDTO" alias="newsReplDTO"/>
        <typeAlias type="dr_Link.dto.DrPLoggerDTO" alias="drPLoggerDTO"/>
+       <typeAlias type="dr_Link.chat.ChatDTO" alias="chatDTO"/>
     </typeAliases>
  </configuration>

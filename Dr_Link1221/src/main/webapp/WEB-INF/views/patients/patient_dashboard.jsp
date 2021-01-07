@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmtt" uri="http://java.sun.com/jstl/fmt_rt" %>  
+<jsp:useBean id="now" class="java.util.Date"/>
+<fmtt:formatDate value="${now}" pattern="yyyy-MM-dd" var="sysdate"/>
+<fmtt:formatDate value="${now}" pattern="HHmm" var="sysdateTime"/>
 <!DOCTYPE html>
 <!-- Breadcrumb -->
 <div class="breadcrumb-bar">
@@ -123,7 +127,7 @@
 														</thead>
 														<tbody>
 															<!-- start for -->
-															<c:forEach var="bookingList" items="${bookingList}">
+															<c:forEach var="bookingList" items="${bookingList}" varStatus="status">
 																<tr class="text-center">
 																	<td>
 																		<h2 class="table-avatar">
@@ -142,8 +146,37 @@
 																	<td>${bookingList.appointment_date}<span
 																		class="d-block text-info">${bookingList.appointment_time}</span></td>
 																	<td>${bookingList.reg_date}</td>
-																	<td><span
-																		class="badge badge-pill bg-success-light">예약정상</span></td>
+																	<c:forEach var="treatmentList" items="${treatmentList}" varStatus="status">
+																	
+																	<c:set var="recordTimetrim" value="${fn:trim(bookingList.appointment_time)}" />
+																	<c:set var="recordTimecol" value="${fn:replace(recordTimetrim,':','')}" />
+																	<c:set var="recordTimeampm" value="${fn:replace(recordTimecol,'AM','')}" />
+																	<c:set var="recordTime" value="${fn:replace(recordTimeampm,'PM','')}" />
+																	
+																	<c:choose>
+																	<c:when test="${treatmentList.appointment_num eq bookingList.appointment_num}">
+																		<td><span class="badge-pill bg-success-light">진료완료</span></td>
+																	</c:when>
+																	<c:when test="${sysdate > bookingList.appointment_date}">
+																		<td><span class="badge-pill bg-warning-light">진료거부</span></td>
+																	</c:when>
+																	
+																	<c:when test="${sysdate == bookingList.appointment_date && sysdateTime > recordTime}">
+																		<td><span class="badge-pill bg-warning-light">진료거부</span></td>
+																	</c:when>
+																	
+																	<c:when test="${sysdate == bookingList.appointment_date && sysdateTime <= recordTime}">
+																		<td><span class="badge-pill bg-info-light">예약정상</span>
+																		<a id="cancel_booking" class="badge-pill bg-danger-light" href="cancelbooking?appointment_num=${bookingList.appointment_num}">예약취소</a>
+																	</c:when>
+																	
+																	<c:otherwise>
+																		<td><span class="badge-pill bg-info-light">예약정상</span>
+																		<a id="cancel_booking" class="badge-pill bg-danger-light" href="cancelbooking?appointment_num=${bookingList.appointment_num}">예약취소</a>
+																	</c:otherwise>
+																	
+																	</c:choose>
+																	</c:forEach>
 																</tr>
 																<!-- / end for -->
 															</c:forEach>
@@ -301,3 +334,50 @@
 
 </div>
 <!-- /Page Content -->
+
+<script>
+
+$(function(){
+	
+	$('#cancel_booking').click(function (){
+		if(confirm("정말로 예약을 취소하시겠습니까?")){
+			
+			location.href='/Dr_Link1221/patients/cancelbooking?appointment_num='+num;
+			
+		}
+	});
+});
+
+function del(num) {
+	
+	document.
+	
+	
+}
+
+/* 
+$.ajax({
+	url : "/patients/cancelbooking",
+	type : "POST",
+	data : {
+		p_id : $("#p_id").val(),
+		p_email : $("#p_email").val()
+	},
+	success : function(result) {
+		alert(result);
+	},
+}) */
+
+
+
+
+/*location.href='patients/cancelbooking?appointment_num='+appointment_num;
+
+
+function del(seq) {
+	var chk = confirm("정말 삭제하시겠습니까?");
+	if (chk) {
+		location.href='delete?seq='+seq;
+	}
+}	 */
+</script>

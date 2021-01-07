@@ -39,7 +39,7 @@ WHERE rnum between #{start} and #{end}
 	WHERE rnum between 1 and 20
   </select>
   
-  <select id="getAllNewsBoards" parameterType="int" resultType="newsDTO">
+  <select id="getAllNewsBoards" parameterType="hashMap" resultType="newsDTO">
   	select nb.* from
 	(SELECT COUNT(*) OVER () getCnt, n.*, ROWNUM as rnum FROM ( SELECT * from news_board ORDER BY news_board_num) n) nb 
 	WHERE rnum

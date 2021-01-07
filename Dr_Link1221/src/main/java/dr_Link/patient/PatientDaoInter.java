@@ -53,6 +53,9 @@ public interface PatientDaoInter {
 	// 이메일 검사
 	public PatientDTO emailCheck(String id) throws Exception;
 	
+	//예약취소
+	public void deleteAppointment(int appointment_num);
+	
 	
 //	public void addTvo(PatientDTO dto);
 	

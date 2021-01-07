@@ -6,6 +6,10 @@
 
 
 <mapper namespace="patient">
+
+	<delete id="deleteAppointment" parameterType="int">
+		delete from appointment where appointment_num=#{appointment_num}
+	</delete>
 	
 	<update id="updatePatient" parameterType="patientDTO">
 		update dl_user set bloodtype=#{bloodtype}, p_email=#{p_email}, p_zipcode=#{p_zipcode}, p_address1=#{p_address1}, p_address2=#{p_address2}, height=#{height}, weight=#{weight}, allergy=#{allergy}, p_photo=#{p_photo} where patient_num=#{patient_num} 
@@ -82,6 +86,7 @@
 	
 	<resultMap type="treatmentRecordDTO" id="treatmentRecordMap">
   	 	<id property="treatment_num" column="treatment_num" javaType="int" />
+		<result column="appointment_num" property="appointment_num"/>
 		<result column="patient_num" property="patient_num"/>
 		<result column="doctor_num" property="doctor_num"/>
 		<result column="dep_num" property="dep_num"/>

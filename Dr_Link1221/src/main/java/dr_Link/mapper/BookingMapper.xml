@@ -43,8 +43,7 @@
  	<select id="getPatientBookingList" parameterType="int" resultMap="bookingMap">
  		select * 
  		from appointment a, dl_doctor b, department c 
- 		where a.doctor_num=b.doctor_num and b.dep_num=c.dep_num and patient_num=#{patient_num} 
- 		order by appointment_num desc
+ 		where a.doctor_num=b.doctor_num and b.dep_num=c.dep_num and patient_num=#{patient_num} order by appointment_date desc
  	</select>
  	
  	<!-- 의사 예약 리스트 -->

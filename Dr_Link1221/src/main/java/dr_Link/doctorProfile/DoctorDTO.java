@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import dr_Link.chat.ChatDTO;
 import dr_Link.dto.DepartmentDTO;
 import dr_Link.review.Doc_ReviewDTO;
 
@@ -45,7 +46,16 @@ public class DoctorDTO {
 	private String d_retire_date;
 	private String birth;
 	private String profileAddress;
+	private ChatDTO chatDTO;
+	
+	
 
+	public ChatDTO getChatDTO() {
+		return chatDTO;
+	}
+	public void setChatDTO(ChatDTO chatDTO) {
+		this.chatDTO = chatDTO;
+	}
 	public String getProfileAddress() {
 		String[] address = this.d_address1.split(" ");
 		String result = address[0]+", "+address[1];

@@ -261,4 +261,12 @@ public class PatientController {
 		System.out.println("결제한 처방전"+prescription.getPrescription_num());
 		return mv;
 	}
+	
+	//예약취소
+	@RequestMapping(value = "/cancelbooking")
+	public String cancelbooking(@RequestParam("appointment_num")int appointment_num) {
+		System.out.println("예약취소 컨트롤러왓는가?");
+		patientDaoInter.deleteAppointment(appointment_num);
+		return "redirect:/patients/patient_dashboard.page";
+	}
 }
