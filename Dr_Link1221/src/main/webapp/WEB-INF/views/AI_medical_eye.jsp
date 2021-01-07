@@ -140,7 +140,7 @@ function jsonpAjax(img_name){
             success : function(result){
             	alert("성공 ??");
             	alert( "성공: " + result.predict+ " 병명 : "+result.disease);
-            	var url = "aiSuccess?result="+result.predict+"&&disease="+result.disease
+            	var url = "aiSuccess?result="+result.predict+"&&disease="+result.disease+"&&IMG="img_name+"&&DP=10"
             	location.href = url 
                  },
             error : function(e) {

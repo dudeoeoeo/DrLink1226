@@ -522,7 +522,7 @@ public class MainController {
 	   //ai 진료
 	   @ResponseBody
 	   @RequestMapping(value = "aiTest")
-	   public String aiTest(@RequestParam("images") MultipartFile file, MultipartHttpServletRequest mtf, HttpSession session, AiRecordDTO dto) {
+	   public String aiTest(@RequestParam("images") MultipartFile file, MultipartHttpServletRequest mtf) {
 	      System.out.println("ai진료 컨트롤러로 왓는가?");
 	      //ModelAndView mv = new ModelAndView("/aiTestSuccess.page");
 	      String oriFn = "";
@@ -532,14 +532,6 @@ public class MainController {
 	         System.out.println("rpath: " + r_path);
 	         oriFn = file.getOriginalFilename();
 	         System.out.println("들어온 oriFn: "+oriFn);
-	         
-//김성민
-		      PatientDTO p_num = (PatientDTO) session.getAttribute("user");
-	        dto.setPatient_num(p_num.getPatient_num());
-	 		dto.setSymptom_photo(oriFn);
-//	 		dto.setDep_num(dep_num);
-//	 		dto.setAi_symptom(ai_symptom);
-	 		patientDAO.insertAiRecord(dto);
 	         
 	         if(oriFn != null && oriFn != "") {
 	            StringBuffer newpath = new StringBuffer();
@@ -560,13 +552,19 @@ public class MainController {
 	   }
 
 	   @RequestMapping(value = "aiSuccess")
-	   public ModelAndView aiSuccess(HttpServletRequest rq, RedirectAttributes re) {
+	   public ModelAndView aiSuccess(HttpServletRequest rq, RedirectAttributes re, HttpSession session, AiRecordDTO dto) {
 	      ModelAndView mv = new ModelAndView("redirect:aiTestSuccess");
 	      if(rq.getParameter("result") != null) {
+	    	 PatientDTO p_num = (PatientDTO) session.getAttribute("user");
+	    	 dto.setPatient_num(p_num.getPatient_num());
 	         System.out.println("들어온 이름: "+rq.getParameter("result"));
 	         System.out.println("disease : "+rq.getParameter("disease"));
+	         System.out.println("IMG : "+rq.getParameter("IMG"));
+	         System.out.println("DP : "+rq.getParameter("DP"));
 	         re.addFlashAttribute("predict", rq.getParameter("result"));
 	         re.addFlashAttribute("disease", rq.getParameter("disease"));
+	         re.addFlashAttribute("IMG", rq.getParameter("IMG"));
+	         re.addFlashAttribute("DP", rq.getParameter("DP"));
 	      } else {
 	         System.out.println("안 들어옴");
 	      }
