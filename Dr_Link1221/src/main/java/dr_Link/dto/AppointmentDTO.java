@@ -17,7 +17,14 @@ public class AppointmentDTO {
 	
 	private List<PatientDTO> patients;
 	private List<DepartmentDTO> departments;
+	private List<AiRecordDTO> airecords;
 	
+	public List<AiRecordDTO> getAirecords() {
+		return airecords;
+	}
+	public void setAirecords(List<AiRecordDTO> airecords) {
+		this.airecords = airecords;
+	}
 	public int getAppointment_num() {
 		return appointment_num;
 	}

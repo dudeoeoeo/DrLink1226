@@ -29,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import dr_Link.doctor.DoctorDaoInter;
 import dr_Link.doctor.DoctorServiceInter;
 import dr_Link.doctorProfile.DoctorDTO;
+import dr_Link.dto.AiRecordDTO;
 import dr_Link.dto.AppointmentDTO;
 import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
@@ -327,6 +328,32 @@ public class DoctorController {
 		int p_num = page_num == null ? 1 : Integer.parseInt(page_num);
 		DoctorDTO doctor = (DoctorDTO) session.getAttribute("doctor");
 
+		// 최근 ai기록
+//		List<AiRecordDTO> ar = doc_dao.getAiList(doctor.getDoctor_num());
+//		System.out.println("들어온 ar size: " + ar.size());
+//		List<AiRecordDTO> aiList = new ArrayList<AiRecordDTO>();
+//		List<Integer> p_numList = new ArrayList<Integer>();
+//		for (int i=0; i<ar.size(); i++) {
+//			int cnt = 0;
+//			if(p_numList.size() > 0) {
+//				for(int j=0; j<p_numList.size(); j++) {
+//					if(ar.get(i).getPatient_num() == p_numList.get(j)) {
+//						cnt++;
+//					}
+//				}
+//				if(cnt == 0) {
+//					aiList.add(ar.get(i));
+//				}
+//			}else {
+//				aiList.add(ar.get(i));
+//			}
+//		}
+//		System.out.println("aiList : "+aiList.size());
+//		mv.addObject("aiList", ar);
+		
+		
+		
+		
 		List<AppointmentDTO> ap = doc_dao.getApList(doctor.getDoctor_num(), p_num);
 		ModelAndView mv = new ModelAndView("/doctor/appointments.page");
 		mv.addObject("apList", ap);

@@ -8,6 +8,7 @@ import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dr_Link.dto.AiRecordDTO;
 import dr_Link.dto.PatientDTO;
 
 @Service("patientServiceInter")
@@ -143,6 +144,11 @@ public class PatientServiceImpl implements PatientServiceInter{
 		return patientDaoImpl.getPatientDTO(patient_num);
 	}
 
+	@Override
+	public AiRecordDTO getAiRecordDTO(int patient_num) {
+		// TODO Auto-generated method stub
+		return patientDaoImpl.getAiRecordDTO(patient_num);
+	}
 
 	@Override
 	public void updatePatient(PatientDTO vo) {

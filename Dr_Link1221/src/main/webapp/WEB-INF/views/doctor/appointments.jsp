@@ -149,13 +149,13 @@ body {
 						<div class="appointments">
 							<c:forEach var="ap" items="${apList}" varStatus="status">
 								<!-- Appointment List -->
-								<div class="appointment-list">
-									<div class="profile-info-widget">
+								<div class="appointment-list" >
+									<div class="profile-info-widget" style="margin: 0px 0px 0px 34px;">
 										<a class="booking-doc-img"> <img
 											class="avatar-img rounded-circle"
 											src="${path}/resources/patient/profileImg/${ap.patients[0].p_photo}"
 											alt="User Image"></a>
-										<div class="profile-det-info">
+										<div class="profile-det-info" style="margin: 0px 0px 0px 34px;">
 											<h3>
 												${ap.patients[0].p_name}
 												<c:choose>
@@ -169,13 +169,49 @@ body {
 
 											</h3>
 
-											<div class="patient-details">
+											<div class="patient-details" style="float: left; padding:10px; width: auto; margin-right: 50px">
 												<h5>
 													<i class="far fa-clock"></i> <span>예약날짜 : </span>${ap.appointment_date }
 												</h5>
 												<h5>
-													<i class="far fa-clock"></i> <span>예약날짜 : </span>${ap.appointment_time }
+													<i class="far fa-clock"></i> <span>예약시간 : </span>${ap.appointment_time }
 												</h5>
+												<h5 class="mb-0">
+													<i class="fas fa-info-circle"></i> <span>알러지여부 : </span>
+														<c:choose>
+															<c:when test='${ap.patients[index].allergy eq "1"}'>
+																있음
+															</c:when>
+															<c:otherwise>
+																없음
+															</c:otherwise>
+														</c:choose>
+												</h5>
+											
+											</div>
+											<div class="patient-details" style="float: left; padding:10px; width: auto; margin-right: 50px">
+											
+												<h5>
+													<i class="fas fa-map-marker-alt"></i> <span>AI 진단 여부 : </span>
+														<c:choose>
+															<c:when test='${ap.airecords[0].patient_num eq ap.patients[0].patient_num}'>
+																있음<%-- ${ap.airecords[0].patient_num}환자번호${ap.patients[0].patient_num} --%>
+															</c:when>
+															<c:otherwise>
+																없음<%-- ${ap.airecords[0].patient_num}환자번호${ap.patients[0].patient_num} --%>
+															</c:otherwise>
+														</c:choose>
+												</h5>
+												<h5>
+													<i class="fas fa-envelope"></i> <span>AI 진단 항목 : </span>${ap.airecords[0].dep_num}
+												</h5>
+												<h5 class="mb-0">
+													<i class="fas fa-phone"></i> <span>AI 진단 결과 : </span>${ap.airecords[0].ai_symptom}
+												</h5>
+											</div>
+											
+											<div class="patient-details" style="float: left; padding:10px; width: auto;">
+											
 												<h5>
 													<i class="fas fa-map-marker-alt"></i> <span>주 소 : </span>${ap.patients[0].p_address1}
 												</h5>
@@ -188,15 +224,16 @@ body {
 											</div>
 										</div>
 									</div>
-									<div class="appointment-action">
+<%-- 									<div class="appointment-action" style="margin: 0px 0px 0px 750px;">
 										<!-- data-target="#appt_details" -->
-										<a href="#" class="btn btn-sm bg-info-light"
+										<a href="#" class="btn btn-md bg-info-light"
 											data-toggle="modal"
-											data-target="#appt_details${status.count }"> <input
+											data-target="#appt_details${status.count}"> <input
 											type="hidden" name="detail_num" value="${status.count}">
 											<i class="far fa-eye"></i> 상세보기
 										</a>
-									</div>
+									</div> --%>
+									
 								</div>
 								<!-- /Appointment List -->
 							</c:forEach>
@@ -215,8 +252,54 @@ body {
 
 	</div>
 	<!-- /Main Wrapper -->
+	
+	
+	
+<!-- Modal -->
+<c:set value="0" var="index"></c:set>
+	<c:forEach var="ap" items="${apList}" varStatus="status">
+		<div class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel" tabindex="-1" aria-hidden="true" id="appt_details${status.count}" >
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		          <h4 class="modal-title" id="gridSystemModalLabel">예약 상세내역</h4>
+		        </div>
+		        <div class="modal-body">
+					<ul class="info-details">
+						<li>
+							<div class="details-header">
+								<div class="row">
+									<div class="col-md-6">
+										<span class="title">진료일정</span> <span class="text">${ap.appointment_time }</span>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li><span class="title">환자이름:</span> <span class="text">${ap.patients[index].p_name}</span>
+						</li>
+						<li><span class="title">환자성별:</span> <span class="text">${ap.patients[index].p_gender}</span>
+						</li>
+						<li><span class="title">알러지여부:</span> <c:choose>
+								<c:when test='${ap.patients[index].allergy eq "1"}'>
+									있음
+								</c:when>
+								<c:otherwise>
+									없음
+								</c:otherwise>
+							</c:choose></li>
+					</ul>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        </div>
+		      </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+		  </div><!-- /.modal -->
+	</c:forEach>
+	
 
-
+<%-- 
 	<c:forEach var="ap" items="${apList}" varStatus="status">
 		<!-- Appointment Details Modal -->
 		<div class="modal fade custom-modal" id="appt_details${status.count}">
@@ -262,8 +345,7 @@ body {
 			</div>
 		</div>
 		<!-- /Appointment Details Modal -->
-	</c:forEach>
-
+	</c:forEach> --%>
 	<!-- jQuery -->
 	<script src="${path}/resources/assets/js/jquery.min.js"></script>
 
@@ -281,13 +363,14 @@ body {
 	<script src="${path}/resources/assets/js/script.js"></script>
 
 	<script type="text/javascript">
-		$(function() {
+/* 		$(function() {
 			$('.bg-info-light').click(function() {
 				var idx = $(this).find('input[name="detail_num"]').val();
+				alert("idx: "+idx)
 				//$("#appt_details"+idx).modal()
 				$(this).attr('data-target', '#appt_details' + idx)
 			}) // click
-		}) // ready
+		}) // ready */
 	</script>
 </body>
 </html>

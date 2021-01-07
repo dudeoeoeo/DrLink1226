@@ -1,5 +1,6 @@
 package dr_Link.doctor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dr_Link.doctorProfile.DoctorDTO;
+import dr_Link.dto.AiRecordDTO;
 import dr_Link.dto.AppointmentDTO;
 import dr_Link.dto.PageDTO;
 import dr_Link.dto.TreatmentRecordDTO;
@@ -196,5 +198,17 @@ public class DoctorDaoImp implements DoctorDaoInter {
 		System.out.println("getApList 요청: "+ doctor_num + " "+ p_num);
 		return ss.selectList("doctor.getApList",map);
 	}
+	
+	
+//	public List<AiRecordDTO> getAiList(int doctor_num) {
+//		List<String> rr = ss.selectList("doctor.getPatientNum",doctor_num);
+//		AiRecordDTO tt = new AiRecordDTO();
+//		int cnt = 0;
+//		for(int i=0; i<rr.size(); i++) {
+//			++cnt;
+//			
+//			return tt.add(ss.selectOne("doctor.getLastAiRecord",cnt);
+//		}
+//	}
 	
 }

@@ -168,11 +168,13 @@
 																	<c:when test="${sysdate == bookingList.appointment_date && sysdateTime <= recordTime}">
 																		<td><span class="badge-pill bg-info-light">예약정상</span>
 																		<a id="cancel_booking" class="badge-pill bg-danger-light" href="cancelbooking?appointment_num=${bookingList.appointment_num}">예약취소</a>
+																		</td>
 																	</c:when>
 																	
 																	<c:otherwise>
 																		<td><span class="badge-pill bg-info-light">예약정상</span>
 																		<a id="cancel_booking" class="badge-pill bg-danger-light" href="cancelbooking?appointment_num=${bookingList.appointment_num}">예약취소</a>
+																		</td>
 																	</c:otherwise>
 																	
 																	</c:choose>

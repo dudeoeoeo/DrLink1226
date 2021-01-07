@@ -35,7 +35,7 @@
 						<!-- 카드헤더 -->
 
 						<div class="mb-3">
-							<p class="lead text-center m-3"><mark>[]%</mark>의 확률로 <mark>[]</mark>입니다.</p>
+							<p class="lead text-center m-3"><mark>[${predict}]%</mark>의 확률로 <mark>[${disease}]</mark>입니다.</p>
 						</div>
 						<div class="card-body">
 							<div class="row">

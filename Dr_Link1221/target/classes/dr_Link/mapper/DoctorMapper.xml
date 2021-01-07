@@ -69,6 +69,14 @@
 		<collection property="patientDTO" resultMap="patientMap"/>
 		<collection property="departmentDTO" resultMap="departmentMap"/>
 	</resultMap>
+	<resultMap type="aiRecordDTO" id="aiRecordMap">
+		<id property="patient_num" column="patient_num" javaType="int" />
+		<result column="doctor_num" property="doctor_num"/>
+		<result column="dep_num" property="dep_num"/>
+		<result column="ai_symptom" property="ai_symptom"/>
+		<result column="use_time" property="use_time"/>
+		<result column="symptom_photo" property="symptom_photo"/>
+	</resultMap>
   
   <!-- 김다유 : 의사 프로필 업데이트 d_photo=#{d_photo}, -->
 	<update id="doctor_profile_settings" parameterType="doctorDTO">
@@ -339,6 +347,13 @@ order by am.appointment_date ) a
 where rownum between #{start} and #{end}
 
 </select>    
- 
+
+<!-- <select id="getPatientNum" parameterType="int" resultType="java.util.list">
+	select DISTINCT patient_num from ai_record where doctor_num = #{doctor_num}
+</select>
+
+<select id="getLastAiRecord" parameterType="int" resultType="aiRecordDTO">
+	select rownum, a.* from (select * from ai_record where patient_num = #{patient_num} order by use_time) a where rownum=1;
+</select> -->
 
   </mapper>

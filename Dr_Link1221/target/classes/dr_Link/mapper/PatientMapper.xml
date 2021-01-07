@@ -206,5 +206,15 @@
 	<update id="deletePatient" parameterType="int">
 		update dl_user set p_retire_date = sysdate where patient_num = #{patient_num}
 	</update>
+	
+	<!-- ai기록 저장 -->
+<!-- 	<insert id="insertAiRecord" parameterType="aiRecordDTO">
+		insert into ai_record(AI_RECODE_NUM,patient_num,DEP_NUM,AI_SYMPTOM,USE_TIME,SYMPTOM_PHOTO)	
+	</insert> -->
+	
+	<select id="getAiRecordDTO" parameterType="int" resultType="AiRecordDTO">
+		select * from ai_record where patient_num=#{patient_num}
+	</select>
+	
 
 </mapper>

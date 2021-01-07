@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import dr_Link.doctorProfile.DoctorDTO;
+import dr_Link.dto.AiRecordDTO;
 import dr_Link.dto.AppointmentDTO;
 import dr_Link.dto.PageDTO;
 import dr_Link.dto.TreatmentRecordDTO;
@@ -76,6 +77,8 @@ public interface DoctorDaoInter {
 	
 	// 의사 정보 다시 가져오기
 	public DoctorDTO getDoctorDTO(int doctor_num);
+	
+	//public List<AiRecordDTO> getAiList(int doctor_num);
 	
 	public List<AppointmentDTO> getApList(int doctor_num, int p_num);
 	public List<AppointmentDTO> get_D_board(int doctor_num);

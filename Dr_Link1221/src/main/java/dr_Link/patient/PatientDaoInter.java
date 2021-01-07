@@ -2,6 +2,7 @@ package dr_Link.patient;
 
 import java.util.List;
 
+import dr_Link.dto.AiRecordDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.dto.Pay_recordDTO;
 import dr_Link.dto.TreatmentRecordDTO;
@@ -55,6 +56,11 @@ public interface PatientDaoInter {
 	
 	//예약취소
 	public void deleteAppointment(int appointment_num);
+	
+	//ai테스트 기록 저장
+	public void insertAiRecord(AiRecordDTO dto);
+	
+	public AiRecordDTO getAiRecordDTO(int patient_num);
 	
 	
 //	public void addTvo(PatientDTO dto);

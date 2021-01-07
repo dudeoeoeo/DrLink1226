@@ -261,12 +261,24 @@ function execPostCode() {
 												<div class="form-group">
 												<label class="">알레르기<span class="text-danger">*</span></label>
 													<div class="btn-group btn-group-toggle" data-toggle="buttons">
-														<label class="btn btn-primary" style="width: 100px">
+													<c:choose>
+													<c:when test="${patient_profile.allergy == 0 }">
+														<label class="btn btn-outline-primary" style="width: 100px">
+															<input type="radio" name="allergy" id="allergy" value="0" checked="checked"> 있음
+														</label>
+														<label class="btn btn-outline-primary" style="width: 100px">
+															<input type="radio" name="allergy" id="allergy" value="1" > 없음
+														</label>
+													</c:when>
+													<c:otherwise>
+														<label class="btn btn-outline-primary" style="width: 100px">
 															<input type="radio" name="allergy" id="allergy" value="0" > 있음
 														</label>
-														<label class="btn btn-primary" style="width: 100px">
+														<label class="btn btn-outline-primary" style="width: 100px">
 															<input type="radio" name="allergy" id="allergy" value="1" checked="checked"> 없음
 														</label>
+													</c:otherwise>
+													</c:choose>
 													</div>
 												</div>
 											</div>
