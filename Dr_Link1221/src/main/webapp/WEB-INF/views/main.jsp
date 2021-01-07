@@ -404,38 +404,8 @@ ul .bxslider {
 				}
 			}) // click
 
-			window.onload = function() {
-				if (window.Notification) {
-					Notification.requestPermission();
-				}
-			}
-
-			function calculate() {
-				setTimeout(function() {
-					notify();
-				}, 5000);
-			}
-
-			function notify() {
-				if (Notification.permission !== 'granted') {
-					alert('notification is disabled');
-				} else {
-					var notification = new Notification('💕진료 예약 알림💕', {
-						icon : '${path}/resources/assets/img/favicon.png',
-						body : '곧 진료가 시작됩니다. 진료실에 입장해주세요',
-						requireInteraction : true
-					//timestamp: dts
-					});
-
-					notification.onclick = function() {
-						window.open('#');
-					};
-
-					/*  notification.onclose = function () {
-					     window.open('#');
-					 }; */
-				}
-			}
+			
+			
 		});
 	</script>
 </body>

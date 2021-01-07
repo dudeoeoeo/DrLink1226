@@ -48,6 +48,18 @@
 		<result column="d_field" property="d_field" />
 	</resultMap>
 
+
+	<resultMap type="appointmentDTO" id="appointmentMap">
+		<id property="appointment_num" column="appointment_num" javaType="int" />
+		<result column="patient_num" property="patient_num"></result>
+		<result column="doctor_num" property="doctor_num"></result>
+		<result column="dep_num" property="dep_num"></result>
+		<result column="appointment_date" property="appointment_date"></result>
+		<result column="appointment_time" property="appointment_time"></result>
+		<result column="reg_date" property="reg_date"></result>
+		<result column="appointment_date" property="appointment_date"></result>
+	</resultMap>
+	
 	<resultMap type="patientDTO" id="patientMap">
 		<id property="patient_num" column="patient_num" javaType="int" />
 		<result column="p_id" property="p_id" />
@@ -66,8 +78,11 @@
 		<result column="p_address1" property="p_address1" />
 		<result column="p_address2" property="p_address2" />
 		<result column="p_phone" property="p_phone" />
-		<result column="p_regdate" property="p_regdate" />
+		<result column="p_regdate" property="p_regdate" />		
+		<collection property="appointmentDTO" resultMap="appointmentMap"/>
 	</resultMap>
+	
+	
 	
 	<resultMap type="prescriptionDTO" id="prescriptionMap">
 		<id property="prescription_num" column="prescription_num" javaType="int" />
@@ -148,8 +163,15 @@
 
 
 	<!-- 로그인 -->
-	<select id="loginchk" parameterType="patientDTO" resultType="patientDTO">
-		select * from dl_user where p_id=#{p_id} and p_pwd=#{p_pwd}
+	<select id="loginchk" parameterType="patientDTO" resultMap="patientMap">
+	select p.*, rownum from (
+	select *  from dl_user a join appointment b on a.patient_num = b.patient_num  where p_id=#{p_id} and p_pwd=#{p_pwd} 
+	and b.appointment_date || ' ' || substr(b.appointment_time, 1 , INSTR(b.appointment_time,' ')-1)
+	<![CDATA[
+	 >= to_char(sysdate, 'yyyy-mm-dd HH:MM')  order by b.appointment_date ) p 
+	 ]]> 
+	where rownum = 1
+		<!-- select * from dl_user a join appointment b on a.patient_num = b.patient_num  where p_id=#{p_id} and p_pwd=#{p_pwd} order by b.appointment_date -->
 	</select>
 
 

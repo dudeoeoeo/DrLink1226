@@ -174,163 +174,163 @@ function myFunction() {
 												<ul class="clearfix">
 													<li>
 														<a class="timing" href="#">
-															<span>9:00</span> <span>AM</span>
+															<span>9:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>10:00</span> <span>AM</span>
+															<span>10:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>11:00</span> <span>AM</span>
+															<span>11:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>12:00</span> <span>PM</span>
+															<span>12:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>14:00</span> <span>PM</span>
+															<span>14:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>15:00</span> <span>PM</span>
+															<span>15:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>16:00</span> <span>PM</span>
-														</a>
-													</li>
-													<li>
-														<a class="timing" href="#">
-															<span>9:00</span> <span>AM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>10:00</span> <span>AM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>11:00</span> <span>AM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>12:00</span> <span>PM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>14:00</span> <span>PM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>15:00</span> <span>PM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>16:00</span> <span>PM</span>
+															<span>16:00</span>
 														</a>
 													</li>
 													<li>
 														<a class="timing" href="#">
-															<span>9:00</span> <span>AM</span>
+															<span>9:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>10:00</span> <span>AM</span>
+															<span>10:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>11:00</span> <span>AM</span>
+															<span>11:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>12:00</span> <span>PM</span>
+															<span>12:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>14:00</span> <span>PM</span>
+															<span>14:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>15:00</span> <span>PM</span>
+															<span>15:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>16:00</span> <span>PM</span>
-														</a>
-													</li>
-													<li>
-														<a class="timing" href="#">
-															<span>9:00</span> <span>AM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>10:00</span> <span>AM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>11:00</span> <span>AM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>12:00</span> <span>PM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>14:00</span> <span>PM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>15:00</span> <span>PM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>16:00</span> <span>PM</span>
+															<span>16:00</span>
 														</a>
 													</li>
 													<li>
 														<a class="timing" href="#">
-															<span>9:00</span> <span>AM</span>
+															<span>9:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>10:00</span> <span>AM</span>
+															<span>10:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>11:00</span> <span>AM</span>
+															<span>11:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>12:00</span> <span>PM</span>
+															<span>12:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>14:00</span> <span>PM</span>
+															<span>14:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>15:00</span> <span>PM</span>
+															<span>15:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>16:00</span> <span>PM</span>
-														</a>
-													</li>
-													<li>
-														<a class="timing" href="#">
-															<span>9:00</span> <span>AM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>10:00</span> <span>AM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>11:00</span> <span>AM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>12:00</span> <span>PM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>14:00</span> <span>PM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>15:00</span> <span>PM</span>
-														</a>
-														<a class="timing" href="#">
-															<span>16:00</span> <span>PM</span>
+															<span>16:00</span>
 														</a>
 													</li>
 													<li>
 														<a class="timing" href="#">
-															<span>9:00</span> <span>AM</span>
+															<span>9:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>10:00</span> <span>AM</span>
+															<span>10:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>11:00</span> <span>AM</span>
+															<span>11:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>12:00</span> <span>PM</span>
+															<span>12:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>14:00</span> <span>PM</span>
+															<span>14:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>15:00</span> <span>PM</span>
+															<span>15:00</span> 
 														</a>
 														<a class="timing" href="#">
-															<span>16:00</span> <span>PM</span>
+															<span>16:00</span>
+														</a>
+													</li>
+													<li>
+														<a class="timing" href="#">
+															<span>9:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>10:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>11:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>12:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>14:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>15:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>16:00</span>
+														</a>
+													</li>
+													<li>
+														<a class="timing" href="#">
+															<span>9:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>10:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>11:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>12:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>14:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>15:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>16:00</span>
+														</a>
+													</li>
+													<li>
+														<a class="timing" href="#">
+															<span>9:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>10:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>11:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>12:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>14:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>15:00</span> 
+														</a>
+														<a class="timing" href="#">
+															<span>16:00</span>
 														</a>
 													</li>
 												</ul>

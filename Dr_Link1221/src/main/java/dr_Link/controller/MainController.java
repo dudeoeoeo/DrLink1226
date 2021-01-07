@@ -82,12 +82,11 @@ public class MainController {
 
 	/* 김다유 : */
 	@RequestMapping(value = "main")
-	public String main(Model model, HttpServletRequest request) {
+	public String main(Model model, HttpServletRequest request, HttpSession session) {
 		
 
 		List<NewsDTO> newsList = main_dao.getAllNewsBoards();
 		for(NewsDTO n : newsList) {
-			System.out.println("가져온 데이터는: "+ n.getNews_content());
 		}
 		model.addAttribute("newsList", newsList);
 
@@ -97,47 +96,29 @@ public class MainController {
 
 		List<Hospital_boardDTO> h_boardList = main_dao.getAllHospitalBoards();
 		for (int i=0;i<h_boardList.size();i++) {
-			System.out.println("가져온 공지사항: "+ h_boardList.get(i).getHospital_content());
 			h_boardList.get(i).setHospital_regdate(h_boardList.get(i).getHospital_regdate().substring(0,11));
 		}
 		
 		model.addAttribute("h_boardList", h_boardList);
+		try {
+			PatientDTO user = (PatientDTO)session.getAttribute("user");
+			System.out.println(user.getAppointmentDTO().getAppointment_date());
+		} catch (NullPointerException e) {
+			// TODO: handle exception
+		}
 
 		return "main.page";
 	}
-
-	/* origin
-	//환자 로그인 체크
-	@RequestMapping(value = "loginCheck")
-	public String loginCheck(PatientDTO dto, HttpSession session, Model model) {
-		System.out.println("===> dao로 가자!");
-		PatientDTO result = patientDAO.loginCheckPatient(dto);
-		if(result == null) {
-			System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
-			model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
-			return "patient_login.page";
-		} else if(result.getP_retire_date() != null) {
-			model.addAttribute("message", "<p style='color:red'> 이미 탈퇴한 계정입니다. </p>");
-			return "patient_login.page";
-		} else {
-			Object requestSession = session.getAttribute("requestSession");
-			if(requestSession==null) {
-				session.setAttribute("user", result);
-				return "redirect:/";
-			}else {
-				System.out.println(requestSession.toString()+"requestSession.toString()");
-				session.setAttribute("user", result);
-				return "redirect:"+requestSession.toString();
-			}
-		}
-	}
-	*/
 	//환자 로그인 체크
 		@RequestMapping(value = "loginCheck")
 		public String loginfCheck(HttpSession session, HttpServletRequest request, 
 				@RequestHeader("User-Agent") String userAgent, PatientDTO dto, Model model) {
 			System.out.println("===> dao로 가자!");
 			PatientDTO result = patientDAO.loginCheckPatient(dto);
+			String time = result.getAppointmentDTO().getAppointment_time();
+			result.getAppointmentDTO().setAppointment_time(time.substring(0,time.length()-2));
+			String appointment = result.getAppointmentDTO().getAppointment_date()+""+result.getAppointmentDTO().getAppointment_time();
+			result.setAppointment(appointment);
 			if(result == null) {
 				System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
 				model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");

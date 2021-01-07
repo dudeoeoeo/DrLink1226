@@ -18,8 +18,22 @@ public class PatientDTO {
 	private String birth;
 	private String profileAddress;
 	private String p_retire_date;
+	private String appointment;
+	private AppointmentDTO appointmentDTO;
 
 	
+	public String getAppointment() {
+		return appointment;
+	}
+	public void setAppointment(String appointment) {
+		this.appointment = appointment;
+	}
+	public AppointmentDTO getAppointmentDTO() {
+		return appointmentDTO;
+	}
+	public void setAppointmentDTO(AppointmentDTO appointmentDTO) {
+		this.appointmentDTO = appointmentDTO;
+	}
 	public String getP_retire_date() {
 		return p_retire_date;
 	}
