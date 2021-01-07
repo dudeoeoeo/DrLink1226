@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import dr_Link.doctorProfile.DoctorDTO;
-import dr_Link.dto.AiRecordDTO;
 import dr_Link.dto.AppointmentDTO;
 import dr_Link.dto.PageDTO;
 import dr_Link.dto.TreatmentRecordDTO;

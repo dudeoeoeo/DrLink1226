@@ -2,9 +2,6 @@ package dr_Link.dto;
 
 import java.util.List;
 
-import dr_Link.dto.DepartmentDTO;
-import dr_Link.dto.PatientDTO;
-
 public class AppointmentDTO {
 	private int appointment_num       ;
 	private int patient_num           ;

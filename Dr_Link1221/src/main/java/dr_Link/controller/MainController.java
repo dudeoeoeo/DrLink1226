@@ -2,10 +2,8 @@ package dr_Link.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -536,12 +534,12 @@ public class MainController {
 	         System.out.println("들어온 oriFn: "+oriFn);
 	         
 //김성민
-//		      PatientDTO p_num = (PatientDTO) session.getAttribute("user");
-//	        dto.setPatient_num(p_num.getPatient_num());
-//	 		dto.setSymptom_photo(oriFn);
+		      PatientDTO p_num = (PatientDTO) session.getAttribute("user");
+	        dto.setPatient_num(p_num.getPatient_num());
+	 		dto.setSymptom_photo(oriFn);
 //	 		dto.setDep_num(dep_num);
 //	 		dto.setAi_symptom(ai_symptom);
-//	 		patientDAO.insertAiRecord(dto);
+	 		patientDAO.insertAiRecord(dto);
 	         
 	         if(oriFn != null && oriFn != "") {
 	            StringBuffer newpath = new StringBuffer();
@@ -581,9 +579,9 @@ public class MainController {
 	      Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(rq);
 	      
 //김성민
-//		int patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
-//		AiRecordDTO patient_ai = service.getAiRecordDTO(patient_num);
-//		model.addAttribute("patient_profile", patient_ai);
+		int patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
+		AiRecordDTO patient_ai = service.getAiRecordDTO(patient_num);
+		model.addAttribute("patient_ai", patient_ai);
 	      
 	      
 	      try {

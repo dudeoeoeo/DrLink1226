@@ -41,12 +41,12 @@
 							<div class="row">
 								<div class="col-lg-7 mb-3"
 									style="margin-right: 30px !important;">
-									<h3>●다래끼</h3>
+									<h3>●${patient_ai.ai_symptom }</h3>
 									<p class="">
-										눈꺼풀에 생기는 화농성 염증의 통칭이다. <br />눈꺼풀에는 여러 종류의 분비샘이 있는데 이 분비샘에 발생한
-										급성 염증을 다래끼라고 한다.<br /> 심한 경우 고름집이 잡히기도 한다. 안과에 내원하는 환자들의 대부분은
-										이렇게 고름샘이 잡혀있는 상태로 온다. <br />눈꺼풀과 그 주위가 붓는 것은 물론이고 정말로 극심한 경우
-										얼굴 전체가 부어 오르기도 한다.
+									<img
+								src="\\\\192.168.0.8\\share\\aiTest\\${patient_ai.symptom_photo }"
+								class="img-fluid" alt="User Image">
+										
 									</p>
 								</div>
 								<!-- 증상설명 -->

@@ -24,12 +24,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dr_Link.doctor.DoctorDaoInter;
 import dr_Link.doctor.DoctorServiceInter;
 import dr_Link.doctorProfile.DoctorDTO;
-import dr_Link.dto.AiRecordDTO;
 import dr_Link.dto.AppointmentDTO;
 import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
