@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dr_Link.doctorProfile.DoctorDTO;
+import dr_Link.dto.AiRecordDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.dto.Pay_recordDTO;
 import dr_Link.dto.TreatmentRecordDTO;
