@@ -11,6 +11,11 @@
 			favoriteCheck();
 		});
 		
+		$(".btn.btn-primary.fav-btn").click(function(){
+//			alert('즐겨찾기 버튼 클릭');
+			favoriteCheck();
+		});
+		
 		function favoriteCheck(){
 //			alert($("#doctor_num").val());
 			$.ajax({
@@ -48,6 +53,7 @@
 	            contentType: "application/x-www-form-urlencoded; charset=utf-8",
 	            success : function(data) {
 //	            	alert('즐겨찾기 등록');
+	            	location.reload();
 	            },
 	            error : function(error) {              
 	                alert("error : " + error);
@@ -68,6 +74,7 @@
 	            contentType: "application/x-www-form-urlencoded; charset=utf-8",
 	            success : function(data) {
 //	            	alert('즐겨찾기 삭제');
+	            	location.reload();
 	            },
 	            error : function(error) {              
 	                alert("error : " + error);
@@ -143,7 +150,14 @@
 					<div class="doc-info-right">
 
 						<div class="doctor-action">
-							<a href="javascript:void(0)" class="btn btn-white fav-btn"
+							<a href="javascript:void(0)" 
+							<c:choose>
+								<c:when test="${fav_num == '1' }">
+									class="btn btn-primary fav-btn"
+								</c:when>
+								<c:otherwise>class="btn btn-white fav-btn"</c:otherwise>
+							</c:choose>
+							
 								style="margin-left: 80% !important; margin-bottom: 30% !important;">
 								<i class="far fa-bookmark"></i>
 							</a>

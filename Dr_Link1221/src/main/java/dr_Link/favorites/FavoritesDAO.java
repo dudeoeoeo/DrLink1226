@@ -16,7 +16,7 @@ public class FavoritesDAO {
 		return ss.selectList("favorites.selectFavoriteList", vo);
 	}
 	
-	int checkFavorite(FavoritesDTO vo) {
+	public int checkFavorite(FavoritesDTO vo) {
 		return ss.selectOne("favorites.checkFavorite", vo);
 	}
 	
