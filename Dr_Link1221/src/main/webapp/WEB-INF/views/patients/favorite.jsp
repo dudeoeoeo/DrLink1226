@@ -1,6 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>        
+<script>
+	$(document).ready(function(){
+		$('.fav-btn').click(function(){
+//			alert('');
+			var index = $(this).closest('.col-md-6.col-lg-4.col-xl-3').index();
+			var doctor_num = $(".doctor_num:eq("+index+")").val();
+//			alert(doctor_num);
+			deleteFavorite(doctor_num);
+			
+		});
+		
+		function deleteFavorite(doctor_num){
+			$.ajax({
+	            async: true,
+	            type : 'POST',
+	            data : { 
+	            	'doctor_num' : doctor_num
+	            },
+	            url : "deleteFavorite.do",
+	            dataType : "text",
+	            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+	            success : function(data) {
+	            	location.reload();
+	            },
+	            error : function(error) {              
+	                alert("error : " + error);
+	            }
+	            
+	        });
+		}
+		
+	});
+</script>
          <!-- Breadcrumb -->
          <div class="breadcrumb-bar">
             <div class="container-fluid">
@@ -90,6 +123,7 @@
                      <!-- start for -->
                      <c:forEach var="favorite" items="${favorites}" varStatus="i" >
                      	<div class="col-md-6 col-lg-4 col-xl-3">
+                     		<input type="hidden" class="doctor_num" value="${favorite.doctor_num }">
 									<div class="profile-widget">
 										<div class="doc-img">
 											<a href="doctor_profile?doctor_num=${favorite.doctor_num }">
@@ -103,12 +137,11 @@
 											<h3 class="title">
 												<a href="doctor_profile?doctor_num=${favorite.doctor_num }">Dr. ${favorite.doctorDTO.d_name }</a> 
 											</h3>
-											<p class="speciality">MDS - Periodontology and Oral Implantology, BDS</p>
+											<p class="speciality">${favorite.doctorDTO.departmentDTO.dep_name }</p>
 											<div class="rating">
 												<c:forEach begin="0" end="4" step="1" varStatus="i">
 													<c:choose>
-														<c:when
-															test="${favorite.doctorDTO.doc_ReviewDTO.review_rating > i.index}">
+														<c:when test="${favorite.doctorDTO.doc_ReviewDTO.review_rating > i.index}">
 															<i class="fas fa-star filled"></i>
 														</c:when>
 														<c:otherwise>
@@ -120,13 +153,8 @@
 											</div>
 											<ul class="available-info">
 												<li>
-													<i class="fas fa-map-marker-alt"></i> Florida, USA
-												</li>
-												<li>
-													<i class="far fa-clock"></i> Available on Fri, 22 Mar
-												</li>
-												<li>
-													<i class="far fa-money-bill-alt"></i> $300 - $1000 <i class="fas fa-info-circle" data-toggle="tooltip" title="" data-original-title="Lorem Ipsum"></i>
+												<c:if test="${empty favorite.doctorDTO.d_content }">입력된 자기소개가 없습니다.</c:if>
+												<c:if test="${not empty favorite.doctorDTO.d_content }">${favorite.doctorDTO.d_content }</c:if>
 												</li>
 											</ul>
 											<div class="row row-sm">

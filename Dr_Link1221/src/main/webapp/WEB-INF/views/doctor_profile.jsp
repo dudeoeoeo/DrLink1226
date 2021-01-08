@@ -98,6 +98,7 @@
 											</a> 
 										</div> -->
 						</div>
+						<input type="hidden" id="doctor_num" value="${doctor_profile.doctor_num }" >
 						<div class="doc-info-cont">
 							<h4 class="doc-name">${doctor_profile.d_name}</h4>
 							<p class="doc-speciality">${doctor_profile.departmentDTO.dep_name}</p>

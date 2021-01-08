@@ -32,7 +32,7 @@ public class FavoritesController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("deleteFavorite.do")
+	@RequestMapping(value = { "deleteFavorite.do", "patients/deleteFavorite.do" })
 	String deleteFavorite(FavoritesDTO vo, HttpSession session) {
 		vo.setPatient_num(((PatientDTO)session.getAttribute("user")).getPatient_num());	
 		favoritesDAO.deleteFavorite(vo);
