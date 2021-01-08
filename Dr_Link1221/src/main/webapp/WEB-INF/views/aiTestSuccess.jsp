@@ -40,10 +40,10 @@
 							<div class="row">
 								<div class="col-lg-7 mb-3"
 									style="margin-right: 30px !important;">
-									<h3>●${patient_ai.ai_symptom }</h3>
+									<h3>●${aiResult.symptom_result }</h3>
 									<p class="">
 									<img
-								src="//192.168.0.8/share/aiTest/${aiDTO.symptom_photo }"
+								src="${path}/resources/${path}/resources/aiTest/${aiDTO.symptom_photo }"
 								class="img-fluid" alt="User Image">
 										
 									</p>

@@ -232,14 +232,24 @@
 	
 	<!-- ai기록 저장 -->
 	<insert id="insertAiRecord" parameterType="aiRecordDTO">
-		insert into ai_record(ai_record_num,patient_num,dep_num,ai_symptom,use_time,symptom_photo)
-		values(ai_record_seq.nextval,#{patient_num}, #{dep_num}, #{ai_symptom},
-		sysdate, #{symptom_photo})
+		insert values(ai_record_num.nextval, 
+		<choose>
+			<when test="patient_num != 0">
+				#{patient_num}, null
+			</when>
+			<otherwise>
+				null, #{doctor_num}
+			</otherwise>
+		</choose>
+		 ,#{dep_num}, #{ai_symptom}, sysdate, #{symptom_photo})
 	</insert>
 	
 	<select id="getAiRecordDTO" parameterType="int" resultType="AiRecordDTO">
 		select * from ai_record where patient_num=#{patient_num}
 	</select>
 	
+	<select id="getAIResult" parameterType="String" resultType="aiResultDTO">
+		select SYMPTOM_RESULT * from AI_RESULT where symptom = #{symptom}	
+	</select>
 
 </mapper>
