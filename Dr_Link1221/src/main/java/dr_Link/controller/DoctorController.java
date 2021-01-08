@@ -89,7 +89,7 @@ public class DoctorController {
 	/* 김다유 : add_prescription 페이지로 이동 */
 	@RequestMapping(value = "/add_prescription")
 	public String add_prescription(HttpServletRequest request, PatientDTO patientVo, DoctorDTO doctorVo,
-			DrLinkDTO drlinkVo, MedicineDTO mediVo, Model model, HttpSession session) {
+		DrLinkDTO drlinkVo, MedicineDTO mediVo, Model model, HttpSession session) {
 		System.out.println("처방입력 페이지로 이동");
 
 		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();

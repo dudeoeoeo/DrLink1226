@@ -164,16 +164,10 @@ $(function() {
 		/* if(todayTime2 >= today && cnt == 0) {
 			flag = true;
 			alert('곧 진료가 시작됩니다')
-		} else if (todayTime4 <= todayTime && cnt == 0){
-			flag = false;
-			cnt += 1;
-			alert('진료시간이 초과되어 진료가 취소 되었습니다.')
-		} */ 
+		}  */ 
 		
 	},100*1000);
 	
-	
-
 	
 		
 		if(flag){

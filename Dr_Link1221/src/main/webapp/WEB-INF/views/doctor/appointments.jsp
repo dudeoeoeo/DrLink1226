@@ -26,24 +26,15 @@
 <!-- Main CSS -->
 <link rel="stylesheet" href="${path}/resources/assets/css/style.css">
 
-<!-- 구글폰트 -->
-<link
-	href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean"
-	rel="stylesheet">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap"
-	rel="stylesheet">
-
-<style>
-body {
-	font-family: "Nanum Gothic", sans-serif;
-}
-
-.footer-menu {
-	color: #fff;
-}
-</style>
+<script type="text/javascript">
+$(function(){
+	$('.treatmentBtn').click(function() {
+		alert(2)
+		window.open('https://192.168.0.44:3100/dr_linkVideo', 'Dr.Link 진료실');
+		location.href = 'add_prescription';
+	}); // click
+});//
+</script>
 
 </head>
 <body>
@@ -237,26 +228,17 @@ body {
 											
 											<c:when test="${nowDate == ap_date2 && nowTime <= ap_time2}">
 												<div class="patient-details" style="float: right; padding:10px; width: auto;">
-													<a href="https://192.168.0.44:3100/dr_linkVideo">
-														<span class="badge-pill bg-info-light">진료실 입장하기</span>
-													</a>
+			      									<button type="button" class="btn badge-pill bg-info-light treatmentBtn" data-dismiss="modal">진료실 입장하기</button>
 												</div>
 											</c:when>
 											<c:otherwise>
-											<span>예약시간이 다가오면 진료실이 열립니다😊</span>
+												<div class="patient-details" style="float: right; padding:10px; width: auto;">
+												<span>예약시간이 다가오면 진료실이 열립니다😊</span>
+												</div>
 											</c:otherwise>
 											</c:choose>
 										</div>
 									</div>
-<%-- 									<div class="appointment-action" style="margin: 0px 0px 0px 750px;">
-										<!-- data-target="#appt_details" -->
-										<a href="#" class="btn btn-md bg-info-light"
-											data-toggle="modal"
-											data-target="#appt_details${status.count}"> <input
-											type="hidden" name="detail_num" value="${status.count}">
-											<i class="far fa-eye"></i> 상세보기
-										</a>
-									</div> --%>
 									
 								</div>
 								<!-- /Appointment List -->
