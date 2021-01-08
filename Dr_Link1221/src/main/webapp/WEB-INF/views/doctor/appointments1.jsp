@@ -2,10 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="utf-8">
-<title>환자리스트-Dr.Link</title>
+<title>의사진료일정 - Dr.Link</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, user-scalable=0">
 
@@ -24,6 +24,7 @@
 
 <!-- Main CSS -->
 <link rel="stylesheet" href="${path}/resources/assets/css/style.css">
+
 <!-- 구글폰트 -->
 <link
 	href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean"
@@ -43,12 +44,13 @@ body {
 }
 </style>
 
-
 </head>
 <body>
 
 	<!-- Main Wrapper -->
 	<div class="main-wrapper">
+
+
 
 		<!-- Breadcrumb -->
 		<div class="breadcrumb-bar">
@@ -59,11 +61,10 @@ body {
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="${path }">홈</a></li>
 								<li class="breadcrumb-item"><a href="doctor_dashboard">마이페이지</a></li>
-								<li class="breadcrumb-item active" aria-current="page">나의
-									환자</li>
+								<li class="breadcrumb-item active" aria-current="page">진료일정</li>
 							</ol>
 						</nav>
-						<h2 class="breadcrumb-title">나의 환자</h2>
+						<h2 class="breadcrumb-title">진료일정</h2>
 					</div>
 				</div>
 			</div>
@@ -86,6 +87,7 @@ body {
 										class="img-fluid" alt="User Image">
 									</a>
 									<div class="profile-det-info">
+
 										<div class="patient-details">
 											<h5 class="mb-0">${sessionScope.doctor.departmentDTO.dep_name}</h5>
 											<h3>${doctorinfo.d_name}의사</h3>
@@ -106,16 +108,16 @@ body {
 										<li><a href="doctor_dashboard"> <i
 												class="fas fa-columns"></i> <span>마이페이지</span>
 										</a></li>
-										<li><a href="appointments"> <i
+										<li class="active"><a href="appointments"> <i
 												class="fas fa-calendar-check"></i> <span>진료일정</span>
 										</a></li>
-										<li class="active"><a href="my_patients"> <i
+										<li><a href="my_patients"> <i
 												class="fas fa-user-injured"></i> <span>나의 환자</span>
 										</a></li>
 										<li><a href="reviews"> <i class="fas fa-star"></i> <span>나의
 													후기</span>
 										</a></li>
-										<li><a href="chat"> <i class="fas fa-comments"></i> <span>메세지</span>
+										<li><a href="#"> <i class="fas fa-comments"></i> <span>메세지</span>
 												<small class="unread-msg">23</small>
 										</a></li>
 										<li><a href="doctor_profile_settings"> <i
@@ -137,64 +139,71 @@ body {
 						<!-- /Profile Sidebar -->
 
 					</div>
+
 					<div class="col-md-7 col-lg-8 col-xl-9">
-						<c:if test="${empty my_patients_list }">
+						<c:if test="${empty apList }">
 							<div class="card text-center">
-								<p style="margin: 10px; padding: 10px;">나의 환자가 없습니다.</p>
+								<p style="margin: 10px; padding: 10px;">진료 일정이 없습니다.</p>
 							</div>
 						</c:if>
-						<div class="row row-grid">
-
-							<!-- 환자리스트 반복 시작 -->
-							<c:forEach var="patient" items="${my_patients_list}"
-								varStatus="status">
-								<div class="col-md-6 col-lg-4 col-xl-3">
-									<div class="card widget-profile pat-widget-profile">
-										<div class="card-body">
-											<div class="pro-widget-content">
-												<div class="profile-info-widget">
-													<a class="booking-doc-img"> 
-													<img class="avatar-img rounded-circle"
-														src="${path}/resources/patient/profileImg/${patient.patientDTO.p_photo}"
-														alt="User Image"></a>
-													<div class="profile-det-info">
-														<h3>
-															${patient.patientDTO.p_name}
-														</h3>
-
-														<div class="patient-details">
-															<h5>
-																<b>Patient ID :</b> ${patient.patientDTO.patient_num}
-															</h5>
-															<h5 class="mb-0">
-																<i class="fas fa-map-marker-alt"></i>${patient.patientDTO.profileAddress}</h5>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="patient-info" style="text-align: center;">
+						<div class="appointments">
+							<c:forEach var="ap" items="${apList}" varStatus="status">
+								<!-- Appointment List -->
+								<div class="appointment-list">
+									<div class="profile-info-widget">
+										<a class="booking-doc-img"> <img
+											class="avatar-img rounded-circle"
+											src="${path}/resources/patient/profileImg/${ap.patients[0].p_photo}"
+											alt="User Image"></a>
+										<div class="profile-det-info">
+											<h3>
+												${ap.patients[0].p_name}
 												<c:choose>
-													<c:when test="${patient.patientDTO.p_gender eq '1'}">
-														<h6>${patient.patientDTO.birth},
-															<i class="fas fa-mars" style="color: blue;"></i>
-														</h6>
+													<c:when test="${ap.patients[0].p_gender eq '1'}">
+														&nbsp;<i class="fas fa-mars" style="color: blue;"></i>
 													</c:when>
-													<c:when test="${patient.patientDTO.p_gender eq '2'}">
-														<h6>${patient.patientDTO.birth},
-															<i class="fas fa-venus" style="color: pink;"></i>
-														</h6>
+													<c:when test="${ap.patients[0].p_gender eq '2'}">
+														&nbsp;<i class="fas fa-venus" style="color: pink;"></i>
 													</c:when>
 												</c:choose>
-												<b>혈액형 :</b> ${patient.patientDTO.bloodtype}
+
+											</h3>
+
+											<div class="patient-details">
+												<h5>
+													<i class="far fa-clock"></i> <span>예약날짜 : </span>${ap.appointment_date }
+												</h5>
+												<h5>
+													<i class="far fa-clock"></i> <span>예약날짜 : </span>${ap.appointment_time }
+												</h5>
+												<h5>
+													<i class="fas fa-map-marker-alt"></i> <span>주 소 : </span>${ap.patients[0].p_address1}
+												</h5>
+												<h5>
+													<i class="fas fa-envelope"></i> <span>이메일 : </span>${ap.patients[0].p_email}
+												</h5>
+												<h5 class="mb-0">
+													<i class="fas fa-phone"></i> <span>연락처 : </span>${ap.patients[0].p_phone_num}
+												</h5>
 											</div>
 										</div>
 									</div>
+									<div class="appointment-action">
+										<!-- data-target="#appt_details" -->
+										<a href="#" class="btn btn-sm bg-info-light"
+											data-toggle="modal"
+											data-target="#appt_details${status.count }"> <input
+											type="hidden" name="detail_num" value="${status.count}">
+											<i class="far fa-eye"></i> 상세보기
+										</a>
+									</div>
 								</div>
+								<!-- /Appointment List -->
 							</c:forEach>
-							<!-- 환자리스트 반복 끝 -->
+
+
 
 						</div>
-
 					</div>
 				</div>
 
@@ -203,8 +212,57 @@ body {
 		</div>
 		<!-- /Page Content -->
 
+
 	</div>
 	<!-- /Main Wrapper -->
+
+
+	<c:forEach var="ap" items="${apList}" varStatus="status">
+		<!-- Appointment Details Modal -->
+		<div class="modal fade custom-modal" id="appt_details${status.count}">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">예약 상세내역</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+
+					<div class="modal-body">
+						<ul class="info-details">
+							<li>
+								<div class="details-header">
+									<div class="row">
+										<div class="col-md-6">
+											<span class="title">진료일정</span> <span class="text">${ap.appointment_time }</span>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li><span class="title">환자이름:</span> <span class="text">${ap.patients[index].p_name}</span>
+							</li>
+							<li><span class="title">환자성별:</span> <span class="text">${ap.patients[index].p_gender}</span>
+							</li>
+							<li><span class="title">알러지여부:</span> <c:choose>
+									<c:when test='${ap.patients[index].allergy eq "1"}'>
+										있음
+									</c:when>
+									<c:otherwise>
+										없음
+									</c:otherwise>
+								</c:choose></li>
+						</ul>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+		<!-- /Appointment Details Modal -->
+	</c:forEach>
 
 	<!-- jQuery -->
 	<script src="${path}/resources/assets/js/jquery.min.js"></script>
@@ -222,5 +280,14 @@ body {
 	<!-- Custom JS -->
 	<script src="${path}/resources/assets/js/script.js"></script>
 
+	<script type="text/javascript">
+		$(function() {
+			$('.bg-info-light').click(function() {
+				var idx = $(this).find('input[name="detail_num"]').val();
+				//$("#appt_details"+idx).modal()
+				$(this).attr('data-target', '#appt_details' + idx)
+			}) // click
+		}) // ready
+	</script>
 </body>
 </html>

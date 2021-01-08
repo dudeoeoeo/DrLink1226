@@ -3,6 +3,7 @@
 <!DOCTYPE html> 
 <script type="text/javascript">
 	$(document).ready(function(){
+		var p_num = '${sessionScope.user.patient_num}'
 		$(".custom-file-input").on("change", function() {
 			  var fileName = $(this).val().split("\\").pop();
 			  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
@@ -19,59 +20,144 @@
 				reader.readAsDataURL(input.files[0]);
 			}
 		}
-		
-		
-	
-	$(".view-inv-btn").click(function(e){
-		ig = $('#images').val().split('\\').reverse()[0]; //.split("\");
-		alert("img_name: " + ig)
-		if($("#images").val() == null || $("#images").val() == "") {
-			alert("이미지를 등록해 주세요")
-			e.preventDefault();
-		} else {
-			var form = $("#aiForm")[0];
-		    var formData = new FormData(form);
-		    
-		    $.ajax({
-		          url : "aiTest",
-		        type: "POST",
-		        data: new FormData($("#aiForm")[0]),
-		        enctype: 'multipart/form-data',
-		        processData: false,
-		        contentType: false,
-		        cache: false,
-		        success:function(result) {
-		        	alert("성공");
-		        	alert("result: " + result);
-		        	jsonpAjax(ig);
-		        }
-		    });
-		} // else
-	}) // click
-		
-});
 
 
-function jsonpAjax(img_name){
-alert("img_name: "+ img_name);
-$.ajax({
-    url : "http://192.168.0.8:9000/survey/jsonAIT?callback&&img=" + img_name +"&&model=1",
-dataType : 'jsonp',
-type : 'GET',
-jsonp : 'callback',
- success : function(result){
-    alert("성공 ??");
-    alert( "성공: " + result.predict+ " 병명 : "+result.disease);
-    var url = "aiSuccess?result="+result.predict+"&&disease="+result.disease+"&&IMG="+img_name+"&&DP=20"
-    location.href = url 
-      },
- error : function(e) {
-    alert("서버의 문제가 있어 요청한 작업이 수행되지 않았습니다.");
- }
-});  // ajax
-}  
+		$(".view-inv-btn").click(function(e){
+			ig = $('#images').val().split('\\').reverse()[0]; //.split("\");
+			if($("#images").val() == null || $("#images").val() == "") {
+				alert("이미지를 등록해 주세요")
+				e.preventDefault()
+			} else if(p_num == null || p_num <= 0){
+				if(confirm("로그인이 필요한 서비스 입니다. \n 로그인 하시겠습니까 ?")) location.href = 'login';
+			} else {
+				var form = $("#aiForm")[0];
+			    var formData = new FormData(form);
+			    
+			    $.ajax({
+			          url : "aiTest",
+			        type: "POST",
+			        data: new FormData($("#aiForm")[0]),
+			        enctype: 'multipart/form-data',
+			        processData: false,
+			        contentType: false,
+			        cache: false,
+			        success:function(result) {
+			        	alert("성공");
+			        	alert("result: " + result);
+			        	jsonpAjax(ig);
+			        }
+			    });
+			} // else
+		}) // click
+	}) // ready
 
 </script>
+
+
+<script type="text/javascript">
+/*
+$.ajax({ 
+type: "GET", 
+enctype: 'multipart/form-data', // 필수 
+url: 'patients/aiTest', 
+data: formData, // 필수 
+processData: false, // 필수 
+contentType: false, // 필수 
+cache: false, 
+success: function (result) { 
+alert("성공")
+}, 
+error: function (e) { 
+alert("에러")
+} 
+});
+*/
+function promise_function(formData){
+return new Promise(function(resolve, reject, formData){
+  $.ajax({
+	    url : "aiTest",
+        type: "POST",
+        data: formData, //new FormData($("#aiForm")[0]),
+        enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+        cache: false,
+        success:function(result) {
+        	alert("성공")
+        },
+  		/*
+	    type: "GET", 
+		enctype: 'multipart/form-data', // 필수 
+		url: 'aiTest', 
+		data: formData, // 필수
+		processData: false, // 필수 
+		contentType: false, // 필수 
+		cache: false, 
+		success: function (result) { 
+			alert("성공")
+		}, */
+		error: function (e) { 
+			alert("에러")
+		} 
+  }); // ajax
+});
+}
+
+function jsonpAjax(img_name){
+	alert("img_name: "+ img_name);
+	$.ajax({
+   	  	url : "http://192.168.0.8:9000/survey/jsonAIT?callback&&img=" + img_name+"&&model=3",
+		dataType : 'jsonp',
+		type : 'GET',
+		jsonp : 'callback',
+        success : function(result){
+        	alert("성공 ??");
+        	alert( "성공: " + result.predict+ " 병명 : "+result.disease);
+        	var url = "aiSuccess?result="+result.predict+"&&disease="+result.disease+"&&IMG="+img_name+"&&DP=20"
+        	location.href = url 
+             },
+        error : function(e) {
+        	alert("서버의 문제가 있어 요청한 작업이 수행되지 않았습니다.");
+        }
+      });  // ajax
+}  
+
+function firstAjax(img_name){
+alert("img first: "+img_name)
+var ig = img_name
+return new Promise(function(resolve, reject, ){
+alert("img_name: "+ ig);
+$.ajax({
+	  	url : "http://192.168.0.87:9000/survey/jsonAIT?callback",
+	dataType : 'jsonp',
+	type : 'GET',
+	jsonp : 'callback',
+    success : function(result){
+    	alert("re2: "+ result.data2);
+            resolve(result.data2);
+         },
+    error : function(e) {
+    	alert("서버의 문제가 있어 요청한 작업이 수행되지 않았습니다.");
+    }
+  });  // ajax
+});
+}
+
+
+function successFunction(){
+alert('성공');
+return false;
+}
+function errorFunction(){
+alert('에러');
+return false;
+}
+
+</script>
+
+
+
+
 	<!-- Page Content -->
 			<div class="content">
 				<div class="container-fluid">
@@ -123,12 +209,20 @@ jsonp : 'callback',
 							
 							
 							
-							<form>
+							<!-- <form>
 							  <div class="custom-file">
-							    <input type="file" class="custom-file-input" name="images[]" id="images" multiple="" accept="image/jpeg, image/png, image/gif,"> 
+							    <input type="file" class="custom-file-input" name="images" id="images" multiple="" accept="image/jpeg, image/png, image/gif,"> 
 							    <label class="custom-file-label" for="customFile">이미지를 업로드 해주세요</label>
 							  </div>
+							</form> -->
+							<form class="file-input-frm" id="aiForm" enctype="multipart/form-data">
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" name="images"
+										id="images"> <label class="custom-file-label"
+										for="customFile">이미지를 업로드 해주세요</label>
+								</div>
 							</form>
+							
 							
 							<script>
 							// Add the following code if you want the name of the file appear on select
@@ -158,7 +252,8 @@ jsonp : 'callback',
 									
 							<hr/>
 										<button class="btn btn-primary view-inv-btn">진단결과보기</button>
-									
+										<!-- <a href="aiTestSuccess" class="btn btn-primary view-inv-btn">진단결과보기</a>
+									 -->
 							<hr/>
 							
 <div class="card">

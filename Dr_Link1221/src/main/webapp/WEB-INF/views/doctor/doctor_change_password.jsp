@@ -167,7 +167,7 @@
 									<li><a href="reviews"> <i class="fas fa-star"></i> <span>나의
 												후기</span>
 									</a></li>
-									<li><a href="#"> <i class="fas fa-comments"></i> <span>메세지</span>
+									<li><a href="chat"> <i class="fas fa-comments"></i> <span>메세지</span>
 											<small class="unread-msg">23</small>
 									</a></li>
 									<li><a href="doctor_profile_settings"> <i

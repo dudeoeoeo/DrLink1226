@@ -509,69 +509,80 @@ public class MainController {
 		return map;
 	}
 	
-	 //ai 진료
-    @ResponseBody
-    @RequestMapping(value = "aiTest")
-    public String aiTest(@RequestParam("images") MultipartFile file, MultipartHttpServletRequest mtf) {
-       String oriFn = "";
-       if(file != null) {
-          String r_path = "\\\\192.168.0.8\\share\\aiTest\\"; //"Z:\\aiTest\\";  \\192.168.0.8\share\aiTest
-          oriFn = file.getOriginalFilename();
-          
-          if(oriFn != null && oriFn != "") {
-             StringBuffer newpath = new StringBuffer();
-             newpath.append(r_path);
-             newpath.append(oriFn);
-             File f = new File(newpath.toString());
-             try {
-                file.transferTo(f);
-             } catch (IllegalStateException e) {
-                e.printStackTrace();
-             } catch (IOException e) {
-                e.printStackTrace();
-             }
-          }
-       }
-       return oriFn;
-    }
 
-    @RequestMapping(value = "aiSuccess")
-    public ModelAndView aiSuccess(HttpServletRequest rq, RedirectAttributes re, HttpSession session, AiRecordDTO dto) {
-        ModelAndView mv = new ModelAndView("redirect:aiTestSuccess");
-        try {
-          if(session.getAttribute("user") != null) {
-             PatientDTO p_num = (PatientDTO) session.getAttribute("user");
-              dto.setPatient_num(p_num.getPatient_num());
-          } else {
-             DoctorDTO d_num = (DoctorDTO) session.getAttribute("doctor");
-              dto.setDoctor_num(d_num.getDoctor_num());
-          }
-          dto.setDep_num(Integer.parseInt(rq.getParameter("DP")));
-           dto.setAi_symptom(rq.getParameter("disease"));
-           dto.setSymptom_photo(rq.getParameter("IMG"));
-           
-           re.addFlashAttribute("aiDTO", dto);
-    } catch (Exception e) {
-       e.printStackTrace();
-    }
+	   //ai 진료
+	   @ResponseBody
+	   @RequestMapping(value = "aiTest")
+	   public String aiTest(@RequestParam("images") MultipartFile file, MultipartHttpServletRequest mtf) {
+	      String oriFn = "";
+	      if(file != null) {
+	         String r_path = "\\\\192.168.0.8\\share\\aiTest\\"; //"Z:\\aiTest\\";  \\192.168.0.8\share\aiTest
+	         oriFn = file.getOriginalFilename();
+	         
+	         if(oriFn != null && oriFn != "") {
+	        	System.out.println("들어온 사진 이름 : " + oriFn);
+	            StringBuffer newpath = new StringBuffer();
+	            newpath.append(r_path);
+	            newpath.append(oriFn);
+	            File f = new File(newpath.toString());
+	            try {
+	               file.transferTo(f);
+	            } catch (IllegalStateException e) {
+	               e.printStackTrace();
+	            } catch (IOException e) {
+	               e.printStackTrace();
+	            }
+	         }
+	      }
+	      return oriFn;
+	   }
 
-       return mv;
-    }
-    
-    @RequestMapping(value = "aiTestSuccess")
-    public ModelAndView aiTestSuccess(HttpServletRequest rq, RedirectAttributes re, HttpSession session) {
-       ModelAndView mv = new ModelAndView("aiTestSuccess.page");
-       Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(rq);
-       try {
-          if(redirectMap.get("predict") != null) {
-             mv.addObject("aiDTO", redirectMap.get("aiDTO"));
 
-          }
-       } catch (Exception e) {
-          e.printStackTrace();
-       }
-       return mv;
-    }
+	   @RequestMapping(value = "aiSuccess")
+	   public ModelAndView aiSuccess(HttpServletRequest rq, RedirectAttributes re, HttpSession session, AiRecordDTO dto) {
+	       ModelAndView mv = new ModelAndView("redirect:aiTestSuccess");
+	       try {
+			   if(session.getAttribute("user") != null) {
+				   PatientDTO p_num = (PatientDTO) session.getAttribute("user");
+			       dto.setPatient_num(p_num.getPatient_num());
+			   } else {
+				   DoctorDTO d_num = (DoctorDTO) session.getAttribute("doctor");
+			       dto.setDoctor_num(d_num.getDoctor_num());
+			   }
+			   dto.setDep_num(Integer.parseInt(rq.getParameter("DP")));
+		       dto.setAi_symptom(rq.getParameter("disease"));
+		       dto.setSymptom_photo(rq.getParameter("IMG"));
+		       
+		       re.addFlashAttribute("predict", rq.getParameter("result"));
+		       re.addFlashAttribute("aiDTO", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	      return mv;
+	   }
 	   
-	
+	   @RequestMapping(value = "aiTestSuccess")
+	   public ModelAndView aiTestSuccess(HttpServletRequest rq, RedirectAttributes re, HttpSession session) {
+	      ModelAndView mv = new ModelAndView("aiTestSuccess.page");
+	      Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(rq);
+	      try {
+	         if(redirectMap.get("predict") != null) {
+	        	 System.out.println("predict : " + redirectMap.get("predict") + " Hair 야 헤어");
+	        	 System.out.println("들어온 aiDTO : " + redirectMap.get("aiDTO"));
+	        	 mv.addObject("aiDTO", redirectMap.get("aiDTO"));
+	        	 mv.addObject("predict", redirectMap.get("predict"));
+	         }
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      return mv;
+	   }
+	   
+//       re.addFlashAttribute("predict", rq.getParameter("result"));
+//       re.addFlashAttribute("disease", rq.getParameter("disease"));
+//       re.addFlashAttribute("IMG", rq.getParameter("IMG"));  
+//       mv.addObject("predict", redirectMap.get("predict"));
+//       mv.addObject("disease", redirectMap.get("disease"));
+//       mv.addObject("IMG", redirectMap.get("IMG"));
 }
