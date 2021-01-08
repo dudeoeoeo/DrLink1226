@@ -320,7 +320,7 @@ where p.patient_num = am.patient_num and am.doctor_num = #{doctor_num} and
 am.appointment_date >= to_char(sysdate, 'YYYY-MM-DD') and 
 am.appointment_date <= to_char(sysdate+1, 'YYYY-MM-DD')
 ]]>   
-order by am.appointment_date
+order by am.appointment_date, to_number(replace(am.appointment_time,':',''))
 
 </select>   
 

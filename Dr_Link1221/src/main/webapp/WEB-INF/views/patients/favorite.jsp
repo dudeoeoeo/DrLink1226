@@ -42,6 +42,7 @@
 					<nav aria-label="breadcrumb" class="page-breadcrumb">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="${path }">홈</a></li>
+							<li class="breadcrumb-item"><a href="patient_dashboard">마이페이지</a></li>
 							<li class="breadcrumb-item active" aria-current="page">즐겨찾는 의사</li>
 						</ol>
 					</nav>
