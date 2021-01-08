@@ -123,11 +123,21 @@
 																<th>진료일시</th>
 																<th>예약일자</th>
 																<th>상태</th>
+																<th>진료실 입장</th>
 															</tr>
 														</thead>
 														<tbody>
 															<!-- start for -->
 															<c:forEach var="bookingList" items="${bookingList}" varStatus="status">
+															
+																<c:set var="recordTimetrim" value="${fn:trim(bookingList.appointment_time)}" />
+																<c:set var="recordTimecol" value="${fn:replace(recordTimetrim,':','')}" />
+																<c:set var="recordTimeampm" value="${fn:replace(recordTimecol,'AM','')}" />
+																<c:set var="recordTime" value="${fn:replace(recordTimeampm,'PM','')}" />
+																
+																<c:set var="booking_datetrim" value="${fn:trim(bookingList.reg_date)}" />
+																<c:set var="bookingDate" value="${fn:substring(booking_datetrim,0,10)}" />
+																
 																<tr class="text-center">
 																	<td>
 																		<h2 class="table-avatar">
@@ -145,40 +155,21 @@
 																	</td>
 																	<td>${bookingList.appointment_date}<span
 																		class="d-block text-info">${bookingList.appointment_time}</span></td>
-																	<td>${bookingList.reg_date}</td>
-																	<c:forEach var="treatmentList" items="${treatmentList}" varStatus="status">
-																	
-																	<c:set var="recordTimetrim" value="${fn:trim(bookingList.appointment_time)}" />
-																	<c:set var="recordTimecol" value="${fn:replace(recordTimetrim,':','')}" />
-																	<c:set var="recordTimeampm" value="${fn:replace(recordTimecol,'AM','')}" />
-																	<c:set var="recordTime" value="${fn:replace(recordTimeampm,'PM','')}" />
-																	
+																	<td>${bookingDate}</td>
+																	<td><span class="badge-pill bg-info-light">예약정상</span>
+																		<a class="badge-pill bg-danger-light cancel_booking" href="cancelbooking?appointment_num=${bookingList.appointment_num}">예약취소</a>
+																	</td>										
 																	<c:choose>
-																	<c:when test="${treatmentList.appointment_num eq bookingList.appointment_num}">
-																		<td><span class="badge-pill bg-success-light">진료완료</span></td>
-																	</c:when>
-																	<c:when test="${sysdate > bookingList.appointment_date}">
-																		<td><span class="badge-pill bg-warning-light">진료거부</span></td>
-																	</c:when>
-																	
-																	<c:when test="${sysdate == bookingList.appointment_date && sysdateTime > recordTime}">
-																		<td><span class="badge-pill bg-warning-light">진료거부</span></td>
-																	</c:when>
-																	
-																	<c:when test="${sysdate == bookingList.appointment_date && sysdateTime <= recordTime}">
-																		<td><span class="badge-pill bg-info-light">예약정상</span>
-																		<a class="badge-pill bg-danger-light cancel_booking" href="cancelbooking?appointment_num=${bookingList.appointment_num}">예약취소</a>
-																		</td>
-																	</c:when>
-																	
-																	<c:otherwise>
-																		<td><span class="badge-pill bg-info-light">예약정상</span>
-																		<a class="badge-pill bg-danger-light cancel_booking" href="cancelbooking?appointment_num=${bookingList.appointment_num}">예약취소</a>
-																		</td>
+																	<c:when test="${sysdate == bookingList.appointment_date && sysdateTime <= recordTime}">  
+																	<%-- <c:when test="${sysdate == '2021-01-08' && sysdateTime <= '1600'}"> --%>
+																		<td><a href="https://192.168.0.44:3100/dr_linkVideo">
+																			<span class="badge-pill bg-info-light">진료실 입장하기</span>
+																		</a></td> 
+																	</c:when> 
+																	<c:otherwise>																		
+																		<td>예약시간이 다가오면 진료실이 열립니다😊</td> 
 																	</c:otherwise>
-																	
 																	</c:choose>
-																	</c:forEach>
 																</tr>
 																<!-- / end for -->
 															</c:forEach>
@@ -217,8 +208,11 @@
 														<tbody>
 															<c:forEach var="prescriptionRecord"
 																items="${prescriptionRecord}" varStatus="status">
+																
+																	<c:set var="prescription_datetrim" value="${fn:trim(prescriptionRecord.prescription_date)}" />
+																	<c:set var="precol" value="${fn:substring(prescription_datetrim,0,10)}" />
 																<tr>
-																	<td>${prescriptionRecord.prescription_date}</td>
+																	<td>${precol}</td>
 																	<td>
 																		<h2 class="table-avatar">
 																			<a

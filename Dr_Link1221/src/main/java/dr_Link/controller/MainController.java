@@ -117,28 +117,37 @@ public class MainController {
 				@RequestHeader("User-Agent") String userAgent, PatientDTO dto, Model model) {
 			System.out.println("===> dao로 가자!");
 			PatientDTO result = patientDAO.loginCheckPatient(dto);
-			String time = result.getAppointmentDTO().getAppointment_time();
-			result.getAppointmentDTO().setAppointment_time(time.substring(0,time.length()-2));
-			String appointment = result.getAppointmentDTO().getAppointment_date()+""+result.getAppointmentDTO().getAppointment_time();
-			result.setAppointment(appointment);
-			if(result == null) {
-				System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
-				model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
-				return "patient_login.page";
-			} else if(result.getP_retire_date() != null) {
-				model.addAttribute("message", "<p style='color:red'> 이미 탈퇴한 계정입니다. </p>");
-				return "patient_login.page";
-			} else {
-				Object requestSession = session.getAttribute("requestSession");
-				if(requestSession==null) {
-					session.setAttribute("user", result);
-					return "redirect:/";
-				}else {
-					System.out.println(requestSession.toString()+"requestSession.toString()");
-					session.setAttribute("user", result);
-					return "redirect:"+requestSession.toString();
+			String p_url = "";
+			try {
+				
+				if(result == null) {
+					System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
+					model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
+					p_url = "patient_login.page";
+				} else if(result.getP_retire_date() != null) {
+					model.addAttribute("message", "<p style='color:red'> 이미 탈퇴한 계정입니다. </p>");
+					p_url = "patient_login.page";
+				} else if (result != null) {
+					String time = result.getAppointmentDTO().getAppointment_time();
+					result.getAppointmentDTO().setAppointment_time(time.substring(0,time.length()-2));
+					String appointment = result.getAppointmentDTO().getAppointment_date()+""+result.getAppointmentDTO().getAppointment_time();
+					result.setAppointment(appointment);
+					p_url = "main.page";
+					Object requestSession = session.getAttribute("requestSession");
+					if(requestSession==null) {
+						session.setAttribute("user", result);
+						return "redirect:/";
+					}else {
+						System.out.println(requestSession.toString()+"requestSession.toString()");
+						session.setAttribute("user", result);
+						return "redirect:"+requestSession.toString();
+					}
 				}
-			}
+				
+			} catch (NullPointerException e) {
+				e.printStackTrace();
+			} 
+			return p_url;
 		}
 	
 
@@ -500,84 +509,69 @@ public class MainController {
 		return map;
 	}
 	
-	   //ai 진료
-	   @ResponseBody
-	   @RequestMapping(value = "aiTest")
-	   public String aiTest(@RequestParam("images") MultipartFile file, MultipartHttpServletRequest mtf) {
-	      System.out.println("ai진료 컨트롤러로 왓는가?");
-	      //ModelAndView mv = new ModelAndView("/aiTestSuccess.page");
-	      String oriFn = "";
-	      if(file != null) {
-	         //String r_path = session.getServletContext().getRealPath("resources/patient/profileImg")+"\\";
-	         String r_path = "\\\\192.168.0.8\\share\\aiTest\\"; //"Z:\\aiTest\\";  \\192.168.0.8\share\aiTest
-	         System.out.println("rpath: " + r_path);
-	         oriFn = file.getOriginalFilename();
-	         System.out.println("들어온 oriFn: "+oriFn);
-	         
-	         if(oriFn != null && oriFn != "") {
-	            StringBuffer newpath = new StringBuffer();
-	            newpath.append(r_path);
-	            newpath.append(oriFn);
-	            System.out.println("newpath: " + newpath);
-	            File f = new File(newpath.toString());
-	            try {
-	               file.transferTo(f);
-	            } catch (IllegalStateException e) {
-	               e.printStackTrace();
-	            } catch (IOException e) {
-	               e.printStackTrace();
-	            }
-	         }
-	      }
-	      return oriFn;
-	   }
+	 //ai 진료
+    @ResponseBody
+    @RequestMapping(value = "aiTest")
+    public String aiTest(@RequestParam("images") MultipartFile file, MultipartHttpServletRequest mtf) {
+       String oriFn = "";
+       if(file != null) {
+          String r_path = "\\\\192.168.0.8\\share\\aiTest\\"; //"Z:\\aiTest\\";  \\192.168.0.8\share\aiTest
+          oriFn = file.getOriginalFilename();
+          
+          if(oriFn != null && oriFn != "") {
+             StringBuffer newpath = new StringBuffer();
+             newpath.append(r_path);
+             newpath.append(oriFn);
+             File f = new File(newpath.toString());
+             try {
+                file.transferTo(f);
+             } catch (IllegalStateException e) {
+                e.printStackTrace();
+             } catch (IOException e) {
+                e.printStackTrace();
+             }
+          }
+       }
+       return oriFn;
+    }
 
-	   @RequestMapping(value = "aiSuccess")
-	   public ModelAndView aiSuccess(HttpServletRequest rq, RedirectAttributes re, HttpSession session, AiRecordDTO dto) {
-	      ModelAndView mv = new ModelAndView("redirect:aiTestSuccess");
-	      if(rq.getParameter("result") != null) {
-	    	 PatientDTO p_num = (PatientDTO) session.getAttribute("user");
-	    	 dto.setPatient_num(p_num.getPatient_num());
-	         System.out.println("들어온 이름: "+rq.getParameter("result"));
-	         System.out.println("disease : "+rq.getParameter("disease"));
-	         System.out.println("IMG : "+rq.getParameter("IMG"));
-	         System.out.println("DP : "+rq.getParameter("DP"));
-	         re.addFlashAttribute("predict", rq.getParameter("result"));
-	         re.addFlashAttribute("disease", rq.getParameter("disease"));
-	         re.addFlashAttribute("IMG", rq.getParameter("IMG"));
-	         re.addFlashAttribute("DP", rq.getParameter("DP"));
-	      } else {
-	         System.out.println("안 들어옴");
-	      }
-	      return mv;
-	   }
-	   
-	   @RequestMapping(value = "aiTestSuccess")
-	   public ModelAndView aiTestSuccess(HttpServletRequest rq, RedirectAttributes re, HttpSession session, Model model) {
-	      ModelAndView mv = new ModelAndView("aiTestSuccess.page");
-	      Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(rq);
-	      
-//김성민
-		int patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
-		AiRecordDTO patient_ai = service.getAiRecordDTO(patient_num);
-		model.addAttribute("patient_ai", patient_ai);
-	      
-	      
-	      try {
-	         if(redirectMap.get("predict") != null) {
-	            System.out.println(redirectMap.get("predict"));
-	            System.out.println(redirectMap.get("disease"));
-	            
-	            mv.addObject("predict", redirectMap.get("predict"));
-	            mv.addObject("disease", redirectMap.get("disease"));
-	         }
-	         //System.out.println("redirect: " + redirectMap.get("doctor_num"));
-	      } catch (Exception e) {
-	         e.printStackTrace();
-	      }
-	      return mv;
-	   }
-	   
+    @RequestMapping(value = "aiSuccess")
+    public ModelAndView aiSuccess(HttpServletRequest rq, RedirectAttributes re, HttpSession session, AiRecordDTO dto) {
+        ModelAndView mv = new ModelAndView("redirect:aiTestSuccess");
+        try {
+          if(session.getAttribute("user") != null) {
+             PatientDTO p_num = (PatientDTO) session.getAttribute("user");
+              dto.setPatient_num(p_num.getPatient_num());
+          } else {
+             DoctorDTO d_num = (DoctorDTO) session.getAttribute("doctor");
+              dto.setDoctor_num(d_num.getDoctor_num());
+          }
+          dto.setDep_num(Integer.parseInt(rq.getParameter("DP")));
+           dto.setAi_symptom(rq.getParameter("disease"));
+           dto.setSymptom_photo(rq.getParameter("IMG"));
+           
+           re.addFlashAttribute("aiDTO", dto);
+    } catch (Exception e) {
+       e.printStackTrace();
+    }
+
+       return mv;
+    }
+    
+    @RequestMapping(value = "aiTestSuccess")
+    public ModelAndView aiTestSuccess(HttpServletRequest rq, RedirectAttributes re, HttpSession session) {
+       ModelAndView mv = new ModelAndView("aiTestSuccess.page");
+       Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(rq);
+       try {
+          if(redirectMap.get("predict") != null) {
+             mv.addObject("aiDTO", redirectMap.get("aiDTO"));
+
+          }
+       } catch (Exception e) {
+          e.printStackTrace();
+       }
+       return mv;
+    }
 	   
 	
 }

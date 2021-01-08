@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -222,6 +223,29 @@ body {
 													<i class="fas fa-phone"></i> <span>연락처 : </span>${ap.patients[0].p_phone_num}
 												</h5>
 											</div>
+											
+											<jsp:useBean id="now" class="java.util.Date" />
+											<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="nowDate" /> 
+											<fmt:formatDate value="${now}" pattern="HH:mm" var="nowTime" />
+											
+											<fmt:parseDate value="${ap.appointment_date}" pattern="yyyy-MM-dd" var="ap_date" />  
+											<fmt:formatDate value="${ap_date}" pattern="yyyy-MM-dd" var="ap_date2" />
+										    <c:set var = "length" value = "${fn:length(ap.appointment_time)}"/>
+											<fmt:parseDate value="${ap.appointment_time}" pattern="HH:mm" var="ap_time" />  
+											<fmt:formatDate value="${ap_time}" pattern="HH:mm" var="ap_time2" />
+											<c:choose>
+											
+											<c:when test="${nowDate == ap_date2 && nowTime <= ap_time2}">
+												<div class="patient-details" style="float: right; padding:10px; width: auto;">
+													<a href="https://192.168.0.44:3100/dr_linkVideo">
+														<span class="badge-pill bg-info-light">진료실 입장하기</span>
+													</a>
+												</div>
+											</c:when>
+											<c:otherwise>
+											<span>예약시간이 다가오면 진료실이 열립니다😊</span>
+											</c:otherwise>
+											</c:choose>
 										</div>
 									</div>
 <%-- 									<div class="appointment-action" style="margin: 0px 0px 0px 750px;">

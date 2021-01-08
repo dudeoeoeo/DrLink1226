@@ -105,10 +105,13 @@ width:auto !important;
 <script type="text/javascript">
 $(function() {
 
-	//setInterval(function(){	
-		var uid = '${sessionScope.user.p_name}';
-				
+	var uid = '${sessionScope.user.p_name}';
+	var todayTime = new Date();
+	var flag = false;
+	var cnt = 0;
+	setInterval(function(){			
 		var now = new Date();   //현재시간
+		
 		var year = now.getFullYear();   //현재시간 중 4자리 연도
 		var month = now.getMonth();   //현재시간 중 달. 달은 0부터 시작하기 때문에 +1 
 		if((month+"").length < 2){
@@ -126,70 +129,95 @@ $(function() {
 		if((min+"").length < 2){
 			min="0"+min;      
 		}
-		var today = new Date(Number(year),Number(month),Number(date),Number(hour),Number(min))      //오늘 날짜 완성.
-		var m_today=moment(today).format('YY-MM-DD H:mm')
-		var today5 = new Date(Number(year),Number(month),Number(date),Number(hour),Number(min)-5)      
-		var m_today5=moment(today5).format('YY-MM-DD H:mm')
-		var today10 = new Date(Number(year),Number(month),Number(date),Number(hour),Number(min)-10)      
-		var m_today10=moment(today5).format('YY-MM-DD H:mm')
-		//5분전
-		//10분전
 		
+		var today = new Date(Number(year),Number(month),Number(date),Number(hour),Number(min))      //오늘 날짜 완성.
+		todayTime = moment(today).format('YY-MM-DD H:mm')
+		var today1 = new Date(Number(year),Number(month),Number(date),Number(hour),Number(min)-5)   
+		var todayTime2 = moment(today1).format('YY-MM-DD H:mm')
+		var today3 = new Date(Number(year),Number(month),Number(date),Number(hour),Number(min)+5)   
+		var todayTime4 = moment(today3).format('YY-MM-DD H:mm')
+		
+		/* var today5 = new Date(Number(year),Number(month),Number(date),Number(hour),Number(min)-5)      
+		var m_today5=moment(today5).format('YY-MM-DD H:mm')
+		
+		var today10 = new Date(Number(year),Number(month),Number(date),Number(hour),Number(min)-10)      
+		var m_today10=moment(today10).format('YY-MM-DD H:mm') */
 		
 		if (uid){	
 
-			var appointment ='${sessionScope.user.appointment}';
-				
+			var appointment ='${sessionScope.user.appointment}';				
 		    var yyyyMMdd = String(appointment);
 		    var ap_date = new Date(Number(yyyyMMdd.substring(0,4)), Number(yyyyMMdd.substring(5,7))-1, 
 		    		Number(yyyyMMdd.substring(8,10)), Number(yyyyMMdd.substring(10,12)), Number(yyyyMMdd.substring(13,15)));
-
 			var m_ap_date=moment(ap_date).format('YY-MM-DD H:mm')
+		    
+			var ap_date5 = new Date(Number(yyyyMMdd.substring(0,4)), Number(yyyyMMdd.substring(5,7))-1, 
+		    		Number(yyyyMMdd.substring(8,10)), Number(yyyyMMdd.substring(10,12)), Number(yyyyMMdd.substring(13,15))-5);
+			var m_ap_date5=moment(ap_date5).format('YY-MM-DD H:mm')
+		    
+			var ap_date10 = new Date(Number(yyyyMMdd.substring(0,4)), Number(yyyyMMdd.substring(5,7))-1, 
+		    		Number(yyyyMMdd.substring(8,10)), Number(yyyyMMdd.substring(10,12)), Number(yyyyMMdd.substring(13,15))-10);
+			var m_ap_date10=moment(ap_date10).format('YY-MM-DD H:mm')
 			
-			alert(m_today)
-			alert(m_today5)
-			alert(m_today10)
-			alert(m_ap_date)
-			//if('January 7th 2021, 18:04'==today){
-			if(ap_date==today){
-				window.onload = function () {
-			        if (window.Notification) {
-			            Notification.requestPermission();
-			        }
-			    }
-				
-				notify();
-				
-			    function calculate() {
-			        setTimeout(function () {
-			            notify();
-			        }, 3000);
-			    }
-			    
-				function notify() {
-					if (Notification.permission !== 'granted') {
-						alert('notification is disabled');
-					} else {
-						var notification = new Notification('💕진료 예약 알림💕', {
-							icon : '${path}/resources/assets/img/favicon.png',
-							body : '곧 진료가 시작됩니다. 진료실에 입장해주세요',
-							requireInteraction : true
-						//timestamp: dts
-						});
-			
-						notification.onclick = function() {
-							window.open('https://192.168.0.44:3100/dr_linkVideo');
-						};
-			
-						  notification.onclose = function () {
-						     window.open('https://192.168.0.44:3100/dr_linkVideo');
-						 };
-					}
-				}
-			};//if문
-		}//2번째if문
+		};//uid if문 
+		
+		/* if(todayTime2 >= today && cnt == 0) {
+			flag = true;
+			alert('곧 진료가 시작됩니다')
+		} else if (todayTime4 <= todayTime && cnt == 0){
+			flag = false;
+			cnt += 1;
+			alert('진료시간이 초과되어 진료가 취소 되었습니다.')
+		} */ 
+		
+	},100*1000);
+	
+	
 
-	 //},60*1000);//setInterval
+	
+		
+		if(flag){
+			notification()
+		};
+	
+		function notification(){
+			window.onload = function () {
+		        if (window.Notification) {
+		            Notification.requestPermission();
+		        }
+		    }
+			
+			notify();
+			
+		    function calculate() {
+		        setTimeout(function () {
+		            notify();
+		        }, 3000);
+		    }
+		    
+			function notify() {
+				if (Notification.permission !== 'granted') {
+					alert('notification is disabled');
+				} else {
+					var notification = new Notification('💕진료 예약 알림💕', {
+						icon : '${path}/resources/assets/img/favicon.png',
+						body : '곧 진료가 시작됩니다. 진료실에 입장해주세요',
+						requireInteraction : true
+					//timestamp: dts
+					});
+		
+					notification.onclick = function() {
+						window.open('https://192.168.0.44:3100/dr_linkVideo');
+					};
+		
+					  notification.onclose = function () {
+					     window.open('https://192.168.0.44:3100/dr_linkVideo');
+					 };
+				}
+			}
+		}
+		
+
 	});
 </script>
 		

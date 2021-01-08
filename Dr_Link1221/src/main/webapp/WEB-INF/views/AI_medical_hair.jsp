@@ -25,7 +25,56 @@
 					}
 				}
 
+		
+	$(".view-inv-btn").click(function(e){
+				ig = $('#images').val().split('\\').reverse()[0]; //.split("\");
+				alert("img_name: " + ig)
+				if($("#images").val() == null || $("#images").val() == "") {
+					alert("이미지를 등록해 주세요")
+					e.preventDefault();
+				} else {
+					var form = $("#aiForm")[0];
+				    var formData = new FormData(form);
+				    
+				    $.ajax({
+				          url : "aiTest",
+				        type: "POST",
+				        data: new FormData($("#aiForm")[0]),
+				        enctype: 'multipart/form-data',
+				        processData: false,
+				        contentType: false,
+				        cache: false,
+				        success:function(result) {
+				        	alert("성공");
+				        	alert("result: " + result);
+				        	jsonpAjax(ig);
+				        }
+				    });
+				} // else
+			}) // click
+				
 			});
+	
+	
+function jsonpAjax(img_name){
+    alert("img_name: "+ img_name);
+    $.ajax({
+            url : "http://192.168.0.8:9000/survey/jsonAIT?callback&&img=" + img_name +"&&model=1",
+       dataType : 'jsonp',
+       type : 'GET',
+       jsonp : 'callback',
+         success : function(result){
+            alert("성공 ??");
+            alert( "성공: " + result.predict+ " 병명 : "+result.disease);
+            var url = "aiSuccess?result="+result.predict+"&&disease="+result.disease+"&&IMG="+img_name+"&&DP=20"
+            location.href = url 
+              },
+         error : function(e) {
+            alert("서버의 문제가 있어 요청한 작업이 수행되지 않았습니다.");
+         }
+       });  // ajax
+}  
+
 </script>
 <!-- Page Content -->
 <div class="content">
@@ -125,7 +174,7 @@
 
 
 				<hr />
-				<a href="aiTestSuccess" class="btn btn-primary view-inv-btn">진단결과보기</a>
+				<button class="btn btn-primary view-inv-btn">진단결과보기</button>
 
 				<hr />
 

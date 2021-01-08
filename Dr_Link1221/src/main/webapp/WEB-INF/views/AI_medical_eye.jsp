@@ -19,9 +19,6 @@
 						reader.onload = function(e) {
 							$(".upload-images > img").attr("src", e.target.result);
 						}
-						//imgFile = input.files[0];
-						//alert("file: "+input.files)
-						//alert("files : "+imgFile)
 						reader.readAsDataURL(input.files[0]);
 					}
 				}
@@ -49,139 +46,31 @@
 				        	jsonpAjax(ig);
 				        }
 				    });
-				    /*
-				    promise_function(formData)
-		  			.then(firstAjax)
-		  			.catch(errorFunction);
-					
-					
-					//var formData = new FormData($('#aiForm'));
-					
-					var formData = new FormData();
-					formData.append( "file1", $("#images")[0].files[0] );
-					$.ajax({
-						type: "GET", 
-			    		enctype: 'multipart/form-data', // 필수 
-			    		url: 'aiTest', 
-			    		data: $('#aiTest'), // 필수
-			    		processData: false, // 필수 
-			    		contentType: false, // 필수 
-			    		cache: false, 
-			    		success: function (result) { 
-			    			alert("성공")
-			    		}, 
-			    		error: function (e) { 
-			    			alert("에러")
-			    		} 
-					}) // ajax
-					*/
 				} // else
 			}) // click
 				
-			});
-</script>
-
-<script type="text/javascript">
-/*
-$.ajax({ 
-	type: "GET", 
-	enctype: 'multipart/form-data', // 필수 
-	url: 'patients/aiTest', 
-	data: formData, // 필수 
-	processData: false, // 필수 
-	contentType: false, // 필수 
-	cache: false, 
-	success: function (result) { 
-		alert("성공")
-	}, 
-	error: function (e) { 
-		alert("에러")
-	} 
-});
-*/
-function promise_function(formData){
-    return new Promise(function(resolve, reject, formData){
-	      $.ajax({
-	    	    url : "aiTest",
-		        type: "POST",
-		        data: formData, //new FormData($("#aiForm")[0]),
-		        enctype: 'multipart/form-data',
-		        processData: false,
-		        contentType: false,
-		        cache: false,
-		        success:function(result) {
-		        	alert("성공")
-		        },
-	      		/*
-	    	    type: "GET", 
-	    		enctype: 'multipart/form-data', // 필수 
-	    		url: 'aiTest', 
-	    		data: formData, // 필수
-	    		processData: false, // 필수 
-	    		contentType: false, // 필수 
-	    		cache: false, 
-	    		success: function (result) { 
-	    			alert("성공")
-	    		}, */
-	    		error: function (e) { 
-	    			alert("에러")
-	    		} 
-	      }); // ajax
-    });
-  }
-  
+	});
+	
+	
 function jsonpAjax(img_name){
-    	alert("img_name: "+ img_name);
-    	$.ajax({
-       	  	url : "http://192.168.0.8:9000/survey/jsonAIT?callback&&img=" + img_name,
-    		dataType : 'jsonp',
-    		type : 'GET',
-    		jsonp : 'callback',
-            success : function(result){
-            	alert("성공 ??");
-            	alert( "성공: " + result.predict+ " 병명 : "+result.disease);
-            	var url = "aiSuccess?result="+result.predict+"&&disease="+result.disease+"&&IMG="img_name+"&&DP=10"
-            	location.href = url 
-                 },
-            error : function(e) {
-            	alert("서버의 문제가 있어 요청한 작업이 수행되지 않았습니다.");
-            }
-          });  // ajax
-  }  
-  
-function firstAjax(img_name){
-	alert("img first: "+img_name)
-	var ig = img_name
-    return new Promise(function(resolve, reject, ){
-    	alert("img_name: "+ ig);
-    	$.ajax({
-       	  	url : "http://192.168.0.87:9000/survey/jsonAIT?callback",
-    		dataType : 'jsonp',
-    		type : 'GET',
-    		jsonp : 'callback',
-            success : function(result){
-            	alert("re2: "+ result.data2);
-                    resolve(result.data2);
-                 },
-            error : function(e) {
-            	alert("서버의 문제가 있어 요청한 작업이 수행되지 않았습니다.");
-            }
-          });  // ajax
-    });
-  }
-  
-  
-function successFunction(){
-  alert('성공');
-  return false;
-}
-function errorFunction(){
-    alert('에러');
-    return false;
-  }
-
+    alert("img_name: "+ img_name);
+    $.ajax({
+            url : "http://192.168.0.8:9000/survey/jsonAIT?callback&&img=" + img_name +"&&model=1",
+       dataType : 'jsonp',
+       type : 'GET',
+       jsonp : 'callback',
+         success : function(result){
+            alert("성공 ??");
+            alert( "성공: " + result.predict+ " 병명 : "+result.disease);
+            var url = "aiSuccess?result="+result.predict+"&&disease="+result.disease+"&&IMG="+img_name+"&&DP=10"
+            location.href = url 
+              },
+         error : function(e) {
+            alert("서버의 문제가 있어 요청한 작업이 수행되지 않았습니다.");
+         }
+       });  // ajax
+}  
 </script>
-
 
 <!-- Page Content -->
 <div class="content">
