@@ -83,9 +83,9 @@
     <!-- Interceptor 설정 -->
     <interceptors>
         <interceptor>
-            <mapping path="/AI_medical_eye/*"/>
-            <mapping path="/AI_medical_hair/*"/>
-            <mapping path="/AI_medical_skin/*"/>
+            <mapping path="/AI_medical_eye"/>
+            <mapping path="/AI_medical_hair"/>
+            <mapping path="/AI_medical_skin"/>
             <mapping path="/doctor/*"/>
             <mapping path="/patients/*"/>
             <beans:ref bean="authenticationInterceptor"/>
