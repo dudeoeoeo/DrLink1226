@@ -344,7 +344,7 @@ where p.patient_num = am.patient_num and am.doctor_num = #{doctor_num} and
 <![CDATA[
 am.appointment_date >= to_char(sysdate, 'YYYY-MM-DD')
 ]]>
-order by am.appointment_date ) a
+order by am.appointment_date, to_number(replace(am.appointment_time,':','')) ) a
 where rownum between #{start} and #{end}
 
 </select>    
