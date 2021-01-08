@@ -39,13 +39,13 @@
             <div class="container-fluid">
                <div class="row align-items-center">
                   <div class="col-md-12 col-12">
-                     <nav aria-label="breadcrumb" class="page-breadcrumb">
-                        <ol class="breadcrumb">
-                           <li class="breadcrumb-item"><a href="index">Home</a></li>
-                           <li class="breadcrumb-item active" aria-current="page">Favourites</li>
-                        </ol>
-                     </nav>
-                     <h2 class="breadcrumb-title">Favourites</h2>
+					<nav aria-label="breadcrumb" class="page-breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="${path }">홈</a></li>
+							<li class="breadcrumb-item active" aria-current="page">즐겨찾는 의사</li>
+						</ol>
+					</nav>
+					<h2 class="breadcrumb-title">마이페이지</h2>
                   </div>
                </div>
             </div>
@@ -56,68 +56,58 @@
          <div class="content">
             <div class="container-fluid">
                <div class="row">
-                  <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-                     <div class="profile-sidebar">
-                        <div class="widget-profile pro-widget-content">
-                           <div class="profile-info-widget">
-                              <a href="#" class="booking-doc-img">
-                                 <img src="${pageContext.request.contextPath}/resources/img/patients/patient.jpg" alt="User Image">
-                              </a>
-                              <div class="profile-det-info">
-                                 <h3>Richard Wilson</h3>
-                                 <div class="patient-details">
-                                    <h5><i class="fas fa-birthday-cake"></i> 24 Jul 1983, 38 years</h5>
-                                    <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Newyork, USA</h5>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="dashboard-widget">
-                           <nav class="dashboard-menu">
-                              <ul>
-                                 <li>
-                                    <a href="patient-dashboard">
-                                       <i class="fas fa-columns"></i>
-                                       <span>Dashboard</span>
-                                    </a>
-                                 </li>
-                                 <li class="active">
-                                    <a href="favourites">
-                                       <i class="fas fa-bookmark"></i>
-                                       <span>즐겨찾는 의사</span>
-                                    </a>
-                                 </li>
-                                 <li>
-                                    <a href="chat">
-                                       <i class="fas fa-comments"></i>
-                                       <span>Message</span>
-                                       <small class="unread-msg">23</small>
-                                    </a>
-                                 </li>
-                                 <li>
-                                    <a href="profile-settings">
-                                       <i class="fas fa-user-cog"></i>
-                                       <span>Profile Settings</span>
-                                    </a>
-                                 </li>
-                                 <li>
-                                    <a href="change-password">
-                                       <i class="fas fa-lock"></i>
-                                       <span>Change Password</span>
-                                    </a>
-                                 </li>
-                                 <li>
-                                    <a href="index">
-                                       <i class="fas fa-sign-out-alt"></i>
-                                       <span>Logout</span>
-                                    </a>
-                                 </li>
-                              </ul>
-                           </nav>
-                        </div>
 
-                     </div>
-                  </div>
+			<!-- Profile Sidebar -->
+			<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+				<div class="profile-sidebar">
+					<div class="widget-profile pro-widget-content">
+						<div class="profile-info-widget">
+							<a class="booking-doc-img"> <img
+								src="${path}/resources/patient/profileImg/${patient_profile.p_photo}"
+								class="img-fluid" alt="User Image">
+							</a>
+							<div class="profile-det-info">
+								<h3>${patient_profilep_name }</h3>
+								<div class="patient-details">
+									<h5>
+										<i class="fas fa-birthday-cake"></i> ${patient_profile.birth}
+									</h5>
+									<h5 class="mb-0">
+										<i class="fas fa-map-marker-alt"></i>
+										${patient_profile.profileAddress}
+									</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="dashboard-widget">
+						<nav class="dashboard-menu">
+							<ul>
+								<li><a href="patient_dashboard"> <i
+										class="fas fa-columns"></i> <span>진료확인</span>
+								</a></li>
+								<li class="active"><a href="favorites"> <i class="fas fa-bookmark"></i> <span>즐겨찾는
+											의사</span>
+								</a></li>
+								<li><a href="profile_settings"> <i
+										class="fas fa-user-cog"></i> <span>개인정보 수정</span>
+								</a></li>
+								<li><a href="patient_change_password"> <i
+										class="fas fa-key"></i> <span>비밀번호 수정</span>
+								</a></li>
+								<li><a href="patient_delete_account"> <i
+										class="fas fa-ban"></i> <span>회원탈퇴</span>
+								</a></li>
+								<li><a href="${path}/logout"> <i
+										class="fas fa-sign-out-alt"></i> <span>로그아웃</span>
+								</a></li>
+							</ul>
+						</nav>
+					</div>
+
+				</div>
+			</div>
+			<!-- / Profile Sidebar -->
                   <div class="col-md-7 col-lg-8 col-xl-9">
                      <div class="row row-grid">
                      <!-- start for -->

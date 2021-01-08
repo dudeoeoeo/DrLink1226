@@ -118,9 +118,9 @@ h2:not(.u-subtitle) {
 					
 						<!-- Footer Widget -->
 						<div class="footer-widget footer-menu">
-							<h2 class="footer-title"><a href="notice" class="footer-menu">공지사항</a></h2>
-							<h2 class="footer-title"><a href="health-blog" class="footer-menu">건강정보</a></h2>
-							<h2 class="footer-title"><a href="search" class="footer-menu">의료진 소개</a></h2>
+							<h2 class="footer-title"><a href="${path }/notice" class="footer-menu">공지사항</a></h2>
+							<h2 class="footer-title"><a href="${path }/health-blog" class="footer-menu">건강정보</a></h2>
+							<h2 class="footer-title"><a href="${path }/search" class="footer-menu">의료진 소개</a></h2>
 						</div>
 						<!-- /Footer Widget -->
 						
@@ -130,11 +130,11 @@ h2:not(.u-subtitle) {
 					
 						<!-- Footer Widget -->
 						<div class="footer-widget footer-menu">
-							<h2 class="footer-title"><a href="" class="footer-menu">온라인 간편 진단</a></h2>
+							<h2 class="footer-title">온라인 간편 진단</h2>
 							<ul>
-								<li><a href="AI_medical_eye">안과 진단</a></li>
-								<li><a href="AI_medical_skin">피부과 진단</a></li>
-								<li><a href="AI_medical_hair">탈모 진단</a></li>
+								<li><a href="${path }/AI_medical_eye">안과 진단</a></li>
+								<li><a href="${path }/AI_medical_skin">피부과 진단</a></li>
+								<li><a href="${path }/AI_medical_hair">탈모 진단</a></li>
 							</ul>
 						</div>
 						<!-- /Footer Widget -->

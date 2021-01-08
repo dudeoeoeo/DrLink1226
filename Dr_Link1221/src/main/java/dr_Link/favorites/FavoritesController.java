@@ -9,15 +9,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dr_Link.dto.PatientDTO;
+import dr_Link.patient.PatientServiceInter;
 
 @Controller
 public class FavoritesController {
 	
 	@Autowired
 	private FavoritesDAO favoritesDAO;
+	@Autowired
+	private PatientServiceInter patientService;
 	
 	@RequestMapping("patients/favorites")
 	String favoritesPage(HttpSession session, FavoritesDTO vo, Model model) {
+		int patient_num = ((PatientDTO) session.getAttribute("user")).getPatient_num();
+		PatientDTO patient_profile = patientService.getPatientDTO(patient_num);
+		model.addAttribute("patient_profile",patient_profile);
 		vo.setPatient_num(((PatientDTO)session.getAttribute("user")).getPatient_num());
 		model.addAttribute("favorites", favoritesDAO.getFavoriteList(vo));
 		return "patients/favorite.page";
