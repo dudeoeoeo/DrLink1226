@@ -164,14 +164,14 @@
 
 	<!-- 로그인 -->
 	<select id="loginchk" parameterType="patientDTO" resultMap="patientMap">
-	<!-- select * from dl_user where p_id=#{p_id} and p_pwd=#{p_pwd} -->
- 	select p.*, rownum from (
+	select * from dl_user where p_id=#{p_id} and p_pwd=#{p_pwd}
+<!--  	select p.*, rownum from (
 	select *  from dl_user a join appointment b on a.patient_num = b.patient_num  where p_id=#{p_id} and p_pwd=#{p_pwd} 
 	and b.appointment_date || ' ' || substr(b.appointment_time, 1 , INSTR(b.appointment_time,' ')-1)
 	<![CDATA[
 	 >= to_char(sysdate, 'yyyy-mm-dd HH:MM')  order by b.appointment_date ) p 
-	 ]]> 
-	where rownum = 1
+	 ]]>  
+	where rownum = 1-->
 		<!-- select * from dl_user a join appointment b on a.patient_num = b.patient_num  where p_id=#{p_id} and p_pwd=#{p_pwd} order by b.appointment_date -->
 	</select>
 
