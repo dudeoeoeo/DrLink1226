@@ -12,7 +12,7 @@
 		});
 		
 		function favoriteCheck(){
-//			alert($("#doctor_num").val());
+			alert($("#doctor_num").val());
 			$.ajax({
 	            async: true,
 	            type : 'POST',
@@ -47,7 +47,7 @@
 	            dataType : "text",
 	            contentType: "application/x-www-form-urlencoded; charset=utf-8",
 	            success : function(data) {
-//	            	alert('즐겨찾기 등록');
+	            	alert('즐겨찾기 등록');
 	            },
 	            error : function(error) {              
 	                alert("error : " + error);
@@ -67,7 +67,7 @@
 	            dataType : "text",
 	            contentType: "application/x-www-form-urlencoded; charset=utf-8",
 	            success : function(data) {
-//	            	alert('즐겨찾기 삭제');
+	            	alert('즐겨찾기 삭제');
 	            },
 	            error : function(error) {              
 	                alert("error : " + error);
@@ -81,7 +81,7 @@
 <!-- Page Content -->
 <div class="content">
 	<div class="container">
-
+		<input type="hidden" id="doctor_num" value="${doctor_profile.doctor_num }">
 		<!-- Doctor Widget -->
 		<div class="card">
 			<div class="card-body">

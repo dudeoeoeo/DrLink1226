@@ -112,11 +112,13 @@ public class MainController {
 		@RequestMapping(value = "loginCheck")
 		public String loginfCheck(HttpSession session, HttpServletRequest request, 
 				@RequestHeader("User-Agent") String userAgent, PatientDTO dto, Model model) {
+			
 			System.out.println("===> dao로 가자!");
 			PatientDTO result = patientDAO.loginCheckPatient(dto);
 			String p_url = "";
 			try {
-				
+				System.out.println("들어온거 : "+ dto.getP_id());
+				System.out.println("들어온거 pw : " + dto.getP_pwd());
 				if(result == null) {
 					System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
 					model.addAttribute("message", "<p style='color:red'> 아이디나 비밀번호가 일치하지 않습니다. </p>");
@@ -125,10 +127,10 @@ public class MainController {
 					model.addAttribute("message", "<p style='color:red'> 이미 탈퇴한 계정입니다. </p>");
 					p_url = "patient_login.page";
 				} else if (result != null) {
-					String time = result.getAppointmentDTO().getAppointment_time();
-					result.getAppointmentDTO().setAppointment_time(time.substring(0,time.length()-2));
-					String appointment = result.getAppointmentDTO().getAppointment_date()+""+result.getAppointmentDTO().getAppointment_time();
-					result.setAppointment(appointment);
+//					String time = result.getAppointmentDTO().getAppointment_time();
+//					result.getAppointmentDTO().setAppointment_time(time.substring(0,time.length()-2));
+//					String appointment = result.getAppointmentDTO().getAppointment_date()+""+result.getAppointmentDTO().getAppointment_time();
+//					result.setAppointment(appointment);
 					p_url = "main.page";
 					Object requestSession = session.getAttribute("requestSession");
 					if(requestSession==null) {
