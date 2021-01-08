@@ -154,23 +154,10 @@
 																	<td>${bookingList.appointment_date}<span
 																		class="d-block text-info">${bookingList.appointment_time}</span></td>
 																	<td>${bookingDate}</td>
-																	<c:choose>
-																	<td>
-																	<c:when test="${treatmentList.appointment_num eq bookingList.appointment_num}">
-																		<span class="badge-pill bg-success-light">진료완료</span>
-																	</c:when>
-																	<c:when test="${sysdate > bookingList.appointment_date}">
-																		<span class="badge-pill bg-warning-light">진료거부</span>
-																	</c:when>
-																	<c:when test="${sysdate == bookingList.appointment_date && sysdateTime > recordTime}">
-																		<span class="badge-pill bg-warning-light">진료거부</span>
-																	</c:when>
-																	<c:otherwise>
-																		<span class="badge-pill bg-info-light">예약정상</span>
+																	<td><span class="badge-pill bg-info-light">예약정상</span>
 																		<a class="badge-pill bg-danger-light cancel_booking" href="cancelbooking?appointment_num=${bookingList.appointment_num}">예약취소</a>
-																	</c:otherwise>
-																	</td>	
-																	</c:choose>									
+																	</td>		
+																									
 																	<c:choose>
 																	<c:when test="${sysdate == bookingList.appointment_date && sysdateTime <= recordTime}">  
 																	<%-- <c:when test="${sysdate == '2021-01-08' && sysdateTime <= '1600'}"> --%>
