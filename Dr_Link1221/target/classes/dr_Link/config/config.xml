@@ -25,5 +25,6 @@
        <typeAlias type="dr_Link.dto.DrPLoggerDTO" alias="drPLoggerDTO"/>
        <typeAlias type="dr_Link.chat.ChatDTO" alias="chatDTO"/>
        <typeAlias type="dr_Link.dto.AiRecordDTO" alias="aiRecordDTO"/>
+       <typeAlias type="dr_Link.favorites.FavoritesDTO" alias="favoritesDTO"/>
     </typeAliases>
  </configuration>

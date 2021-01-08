@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="favorites">
+  
+  	<insert id="addFavorite" parameterType="favoritesDTO">
+  		insert into FAVORITE_DOCTOR values(fav_num_seq.nextval, #{patient_num}, #{doctor_num}, sysdate)
+  	</insert>
+  	
+  	<select id="selectFavoriteList" parameterType="favoritesDTO" resultMap="favoritesMap">
+  		select a.*, b.*, c.*, nvl(b.rating, 0) as review_rating from
+		favorite_doctor d, dl_doctor a,
+		(select doctor_num, round(avg(review_rating) ,0) as rating
+		from doc_review group by doctor_num) b,
+		department c  
+		where
+		d.patient_num=#{patient_num}
+		and d.doctor_num=a.doctor_num
+		and a.DEP_NUM=c.DEP_NUM 
+		and a.DOCTOR_NUM=b.doctor_num(+)
+  	</select>
+  
+  	<select id="checkFavorite" parameterType="favoritesDTO" resultType="int">
+  		select count(*) from FAVORITE_DOCTOR where patient_num=#{patient_num} and doctor_num=#{doctor_num}
+  	</select>
+  	
+  	<delete id="deleteFavorite" parameterType="favoritesDTO">
+  		delete from FAVORITE_DOCTOR where patient_num=#{patient_num} and doctor_num=#{doctor_num}
+  	</delete>
+  
+  <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+   	<resultMap type="departmentDTO" id="departmentMap">
+	<id property="dep_num" column="dep_num" javaType="int" />
+		<result column="dep_name" property="dep_name"/>
+	</resultMap>
+	
+	<resultMap type="doc_ReviewDTO" id="reviewMap">
+		<result column="review_rating" property="review_rating"/>		
+	</resultMap>
+	
+	<resultMap type="doctorDTO" id="doctorMap">
+		<id property="doctor_num" column="doctor_num" javaType="int" />
+		<result column="d_id" property="d_id" />
+		<result column="d_pwd" property="d_pwd" />
+		<result column="d_name" property="d_name" />
+		<result column="dep_num" property="dep_num" />
+		<result column="d_jumin_num" property="d_jumin_num" />
+		<result column="d_phone_num" property="d_phone_num" />
+		<result column="d_gender" property="d_gender" />
+		<result column="d_zipcode" property="d_zipcode" />
+		<result column="d_address1" property="d_address1" />
+		<result column="d_address2" property="d_address2" />
+		<result column="d_email" property="d_email" />
+		<result column="d_licence" property="d_licence" />
+		<result column="d_licence_num" property="d_licence_num" />
+		<result column="d_regdate" property="d_regdate" />
+		<result column="d_content" property="d_content" />
+		<result column="d_photo" property="d_photo" />
+		<result column="d_graduation" property="d_graduation" />
+		<result column="d_career" property="d_career" />
+		<result column="d_field" property="d_field" />
+		<result column="d_retire_date" property="d_retire_date" />
+		<collection property="departmentDTO" resultMap="departmentMap"/>
+		<collection property="doc_ReviewDTO" resultMap="reviewMap"/>
+	</resultMap>
+	
+	<resultMap type="favoritesDTO" id="favoritesMap">
+		<id property="fav_num" column="fav_num" javaType="int" />
+		<result column="doctor_num" property="doctor_num" />
+		<result column="patient_num" property="patient_num" />
+		<result column="fav_date" property="fav_date" />
+		<collection property="doctorDTO" resultMap="doctorMap"/>
+	</resultMap>
+  
+
+  
+  </mapper>

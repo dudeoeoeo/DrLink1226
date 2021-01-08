@@ -61,7 +61,7 @@
 								<li class="active"><a href="patient_dashboard"> <i
 										class="fas fa-columns"></i> <span>진료확인</span>
 								</a></li>
-								<li><a href="#"> <i class="fas fa-bookmark"></i> <span>즐겨찾는
+								<li><a href="favorites"> <i class="fas fa-bookmark"></i> <span>즐겨찾는
 											의사(준비중)</span>
 								</a></li>
 								<li><a href="profile_settings"> <i
