@@ -137,7 +137,7 @@ public class BookingController {
 		try {
 			BookingDTO result = bookingDAOTest.alreadyBookingCheck(vo);
 			if(result != null) {
-				data = "1";
+				return data = "1";
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -149,8 +149,8 @@ public class BookingController {
 		String today = mSimpleDateFormat.format(cal.getTime());
 		boolean flag = true; 
 		
-		if(today.equals(vo.getAppointment_date())) {
-			SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+		if(today.equals(vo.getAppointment_date())) { 
+			SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 			Date date = new Date();
 			int current_time = Integer.parseInt(timeFormat.format(date).split(":")[0]); // 9
 			int booking_time = Integer.parseInt(vo.getAppointment_time().split(":")[0]); // 10 10-9=1 false;
@@ -167,7 +167,7 @@ public class BookingController {
 		//--③예약인원 체크
 		try {
 			int cnt = bookingDAOTest.bookingCount(vo);
-			if(cnt >= 2) {
+			if(cnt >= 1) {
 				data = "3";
 				return data;
 			}

@@ -50,17 +50,14 @@ public class MainController {
 	private MainDaoInter main_dao;
 
 	@Autowired
+	private PatientServiceInter service;
+	@Autowired
 	private PatientDaoInter patientDAO;
 
 	@Autowired
 	private DoctorDaoInter doctor_dao;
-
-	@Autowired
-	private PatientServiceInter service;
-
 	@Autowired
 	private DoctorProfileDAO doctorProfileDAO;
-
 	@Autowired
 	private DoctorServiceInter doctor_service;
 	
@@ -552,7 +549,7 @@ public class MainController {
 			   dto.setDep_num(Integer.parseInt(rq.getParameter("DP")));
 		       dto.setAi_symptom(rq.getParameter("disease"));
 		       dto.setSymptom_photo(rq.getParameter("IMG"));
-		       
+		       patientDAO.insertAiRecord(dto);
 		       re.addFlashAttribute("predict", rq.getParameter("result"));
 		       re.addFlashAttribute("aiDTO", dto);
 		} catch (Exception e) {
@@ -568,8 +565,6 @@ public class MainController {
 	      Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(rq);
 	      try {
 	         if(redirectMap.get("predict") != null) {
-	        	 System.out.println("predict : " + redirectMap.get("predict") + " Hair 야 헤어");
-	        	 System.out.println("들어온 aiDTO : " + redirectMap.get("aiDTO"));
 	        	 mv.addObject("aiDTO", redirectMap.get("aiDTO"));
 	        	 mv.addObject("predict", redirectMap.get("predict"));
 	         }

@@ -41,7 +41,15 @@
 	        });
 			
 		}
-		
+		/*
+	      function reload(){
+	          $('#chat_box').load(window.location.href + '#chat_box');
+	       }
+	       setinterval(function(){
+	          $('#chat_box').load(window.location.href + '#chat_box');
+	       }, 1 * 1000) // setInterval
+	       //setTimeout('location.reload()',1000);
+		*/
 	});
 
 </script>
@@ -69,7 +77,7 @@
 									</div>
 								</form>
 								<div class="chat-users-list">
-									<div class="chat-scroll">
+									<div class="chat-scroll" id="chat_box">
 									<!-- start for -->
 										<c:forEach var="doctor" items="${doctor_list}" varStatus="i">										
 											<a href="javascript:void(0);" class="media">

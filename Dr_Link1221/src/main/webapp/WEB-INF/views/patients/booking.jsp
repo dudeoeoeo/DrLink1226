@@ -30,9 +30,9 @@ $(document).ready(function(){
 //            	alert(data);
             	if(data == 1){
             		alert('이미 예약되었습니다. 마이페이지에서 확인 해 주세요.');
-            	}else if(data == 2){
-            		alert('예약이 마감되었습니다. 다른 날을 이용 해 주세요.')
             	}else if(data == 3){
+            		alert('예약이 마감되었습니다. 다른 날을 이용 해 주세요.')
+            	}else if(data == 2){
             		alert('당일 예약은 한 시간 전부터 가능합니다.')
             	}else{
             		$(".timing").attr("class","timing");
