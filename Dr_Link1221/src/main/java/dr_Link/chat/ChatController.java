@@ -33,8 +33,6 @@ public class ChatController {
 			doctor_list.get(i).setChatDTO(chatDAO.getLastChat(vo));
 		}
 		
-		
-		
 		return "doctor/chat-doctor.page";
 	}
 	

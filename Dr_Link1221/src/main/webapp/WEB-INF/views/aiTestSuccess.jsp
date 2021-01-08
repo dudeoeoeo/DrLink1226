@@ -33,9 +33,8 @@
 							<h3>진단 예측 결과</h3>
 						</div>
 						<!-- 카드헤더 -->
-
 						<div class="mb-3">
-							<p class="lead text-center m-3"><mark>[${predict}]%</mark>의 확률로 <mark>[${disease}]</mark>입니다.</p>
+							<p class="lead text-center m-3"><mark>[${predict}]%</mark>의 확률로 <mark>[${aiDTO.ai_symptom}]</mark>입니다.</p>
 						</div>
 						<div class="card-body">
 							<div class="row">
@@ -44,7 +43,7 @@
 									<h3>●${patient_ai.ai_symptom }</h3>
 									<p class="">
 									<img
-								src="\\\\192.168.0.8\\share\\aiTest\\${patient_ai.symptom_photo }"
+								src="//192.168.0.8/share/aiTest/${aiDTO.symptom_photo }"
 								class="img-fluid" alt="User Image">
 										
 									</p>
