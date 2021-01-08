@@ -8,9 +8,16 @@
 	
 <!-- 2021-01-04 -->
 	<!-- ①이미 예약했는지 체크 -->
-	<select id="alreadyBookingCheck" parameterType="bookingDTO" resultMap="bookingMap">
+	<select id="alreadyBookingCheck_" parameterType="bookingDTO" resultMap="bookingMap">
 		select * from appointment 
 		where doctor_num=#{doctor_num} and patient_num=#{patient_num} 
+		and appointment_date=#{appointment_date} and appointment_time=#{appointment_time}
+	</select>
+	
+	<!-- ①이미 예약했는지 체크 (수정) -->
+	<select id="alreadyBookingCheck" parameterType="bookingDTO" resultMap="bookingMap">
+		select * from appointment 
+		where patient_num=#{patient_num} 
 		and appointment_date=#{appointment_date} and appointment_time=#{appointment_time}
 	</select>
 	

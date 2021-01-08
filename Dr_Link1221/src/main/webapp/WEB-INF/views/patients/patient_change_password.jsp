@@ -43,8 +43,8 @@
 				success : function(result) {
 					if (result.success > 0) {
 						console.log("result: "+result.success)
-						$("#d_pwd").removeAttr("disabled");
-						$("#d_pwd2").removeAttr("disabled");
+						$("#p_pwd").removeAttr("disabled");
+						$("#p_pwd2").removeAttr("disabled");
 						$("#old_pwd_check").text("");
 						$("#pwd_ch").val("비밀번호가 같습니다");
 					} else {

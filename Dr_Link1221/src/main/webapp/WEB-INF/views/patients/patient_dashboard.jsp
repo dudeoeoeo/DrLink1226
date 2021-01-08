@@ -131,9 +131,7 @@
 															<c:forEach var="bookingList" items="${bookingList}" varStatus="status">
 															
 																<c:set var="recordTimetrim" value="${fn:trim(bookingList.appointment_time)}" />
-																<c:set var="recordTimecol" value="${fn:replace(recordTimetrim,':','')}" />
-																<c:set var="recordTimeampm" value="${fn:replace(recordTimecol,'AM','')}" />
-																<c:set var="recordTime" value="${fn:replace(recordTimeampm,'PM','')}" />
+																<c:set var="recordTime" value="${fn:replace(recordTimetrim,':','')}" />
 																
 																<c:set var="booking_datetrim" value="${fn:trim(bookingList.reg_date)}" />
 																<c:set var="bookingDate" value="${fn:substring(booking_datetrim,0,10)}" />
@@ -158,7 +156,8 @@
 																	<td>${bookingDate}</td>
 																	<td><span class="badge-pill bg-info-light">예약정상</span>
 																		<a class="badge-pill bg-danger-light cancel_booking" href="cancelbooking?appointment_num=${bookingList.appointment_num}">예약취소</a>
-																	</td>										
+																	</td>		
+																									
 																	<c:choose>
 																	<c:when test="${sysdate == bookingList.appointment_date && sysdateTime <= recordTime}">  
 																	<%-- <c:when test="${sysdate == '2021-01-08' && sysdateTime <= '1600'}"> --%>

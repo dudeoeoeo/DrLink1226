@@ -56,7 +56,8 @@
 							<tbody>
 								<c:forEach var="board" items="${h_boardList}">
 									<tr>
-										<td style="text-align: center">${board.hospital_board_num}</td>
+									<c:set var="boardnum" value="${board.hospital_board_num -1}"></c:set>
+										<td style="text-align: center">${boardnum }</td>
 										<td style="text-align: left"><a
 											href="notice_detail?b_num=${board.hospital_board_num}">${board.hospital_title}</a></td>
 										<td style="text-align: center">${board.hospital_regdate}</td>
