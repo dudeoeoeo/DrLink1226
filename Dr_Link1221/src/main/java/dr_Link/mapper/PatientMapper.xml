@@ -57,6 +57,7 @@
 		<result column="appointment_date" property="appointment_date"></result>
 		<result column="appointment_time" property="appointment_time"></result>
 		<result column="reg_date" property="reg_date"></result>
+		<result column="appointment_date" property="appointment_date"></result>
 	</resultMap>
 	
 	<resultMap type="patientDTO" id="patientMap">

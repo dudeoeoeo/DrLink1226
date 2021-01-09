@@ -106,6 +106,8 @@ public class MainController {
 		@RequestMapping(value = "loginCheck")
 		public String loginfCheck(HttpSession session, HttpServletRequest request, 
 				@RequestHeader("User-Agent") String userAgent, PatientDTO dto, Model model) {
+			System.out.println("===> loginCheck");
+			session.removeAttribute("doctor");
 			PatientDTO result = patientDAO.loginCheckPatient(dto);
 			PatientDTO appointment_chk = null;
 			String p_url = "";
@@ -129,8 +131,10 @@ public class MainController {
 					if(requestSession==null) {
 						session.setAttribute("user", result);
 						return "redirect:/";
+					}else if(requestSession.toString().contains("doctor_profile")) {
+						session.setAttribute("user", result);
+						return "redirect:/search";
 					}else {
-						System.out.println(requestSession.toString()+"requestSession.toString()");
 						session.setAttribute("user", result);
 						return "redirect:"+requestSession.toString();
 					}
@@ -157,6 +161,7 @@ public class MainController {
 	@RequestMapping(value = "doctorloginCheck")
 	public String drloginCheck(DoctorDTO dto, HttpSession session, Model model) {
 		System.out.println("===> dao로 가자!");
+		session.removeAttribute("user");
 		DoctorDTO result = doctor_dao.dr_loginCheck(dto);
 		if(result == null) {
 			System.out.println("아이디나 비밀번호가 일치하지 않습니다.");
@@ -170,6 +175,9 @@ public class MainController {
 			if(requestSession==null) {
 			session.setAttribute("doctor", result);
 			return "redirect:/";
+			}else if(requestSession.toString().contains("doctor_profile")) {
+				session.setAttribute("doctor", result);
+				return "redirect:/search";
 			}else {
 				System.out.println(requestSession.toString()+"requestSession.toString()");
 				session.setAttribute("doctor", result);
