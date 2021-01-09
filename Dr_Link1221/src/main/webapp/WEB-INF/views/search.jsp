@@ -173,8 +173,10 @@
 											<div class="clinic-booking">
 												<a class="view-pro-btn"
 													href="doctor_profile?doctor_num=${list.doctor_num }">프로필보기</a>
-												<a class="apt-btn"
-													href='${path}/patients/booking?doctor_num=${list.doctor_num}'>예약하기</a>
+												<c:if test="${not empty sessionScope.user }">
+													<a class="apt-btn"
+														href='${path}/patients/booking?doctor_num=${list.doctor_num}'>예약하기</a>
+												</c:if>
 											</div>
 										</div>
 									</div>
@@ -199,13 +201,12 @@
 		$('.apt-btn').click(function() {
 			if (uid == '' || uid == null) {
 				if (confirm("로그인이 필요한 서비스 입니다. \n 지금 로그인 하시겠습니까 ?")) {
-					$(this).attr('href', 'login')
+					$(this).attr('href', 'patient_login')
 				} else {
 					$(this).attr('href', '')
 				}
 			} else if (uid != '' || uid != null) {
 			}
 		}) // click
-
 	});
 </script>

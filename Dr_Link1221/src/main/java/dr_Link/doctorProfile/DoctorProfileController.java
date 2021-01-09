@@ -78,11 +78,13 @@ public class DoctorProfileController {
 	  } catch (Exception e) {
 		  e.printStackTrace();
 	  }
-	  
-	  FavoritesDTO fvo = new FavoritesDTO();
-	  fvo.setPatient_num(((PatientDTO)session.getAttribute("user")).getPatient_num());
-	  fvo.setDoctor_num(Integer.parseInt(request.getParameter("doctor_num")));
-	  model.addAttribute("fav_num", favoritesDAO.checkFavorite(fvo));
+	  if(session.getAttribute("user") != null) {
+		  System.out.println("환자인가?");
+		  FavoritesDTO fvo = new FavoritesDTO();
+		  fvo.setPatient_num(((PatientDTO)session.getAttribute("user")).getPatient_num());
+		  fvo.setDoctor_num(Integer.parseInt(request.getParameter("doctor_num")));
+		  model.addAttribute("fav_num", favoritesDAO.checkFavorite(fvo));
+	  }
 	  
 		return "doctor_profile.page";
 	}

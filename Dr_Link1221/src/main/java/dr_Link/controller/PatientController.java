@@ -60,13 +60,13 @@ public class PatientController {
 		return "/patients/"+step+".page";
 	}
 	
-	@RequestMapping("doctor_profile")
-	public String doctor_profile(HttpServletRequest request, Model model, RedirectAttributes re) {
-		int doctor_num = Integer.parseInt(request.getParameter("doctor_num"));
-		re.addFlashAttribute("doctor_num", doctor_num);
-		System.out.println("PatientController 의사프로필");
-		return "redirect:/doctor_profile";
-	}
+//	@RequestMapping("doctor_profile")
+//	public String doctor_profile(HttpServletRequest request, Model model, RedirectAttributes re) {
+//		int doctor_num = Integer.parseInt(request.getParameter("doctor_num"));
+//		re.addFlashAttribute("doctor_num", doctor_num);
+//		System.out.println("PatientController 의사프로필");
+//		return "redirect:/doctor_profile";
+//	}
 	
 	@RequestMapping("updatePatient")
 	public String updatePatient(PatientDTO vo, HttpSession session, HttpServletRequest request) {

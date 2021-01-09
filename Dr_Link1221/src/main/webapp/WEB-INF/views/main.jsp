@@ -220,7 +220,7 @@ ul .bxslider {
 									</div>
 									<div class="pro-content">
 										<h3 class="title">
-											<a href="doctor_profile">${list.d_name}</a> <i
+											<a href="doctor_profile?doctor_num=${list.doctor_num}">${list.d_name}</a> <i
 												class="fas fa-check-circle verified"></i>
 										</h3>
 										<p class="speciality">${list.departmentDTO.dep_name}</p>
@@ -391,20 +391,24 @@ ul .bxslider {
 	<script type="text/javascript">
 		$(function() {
 
+			var did = '${sessionScope.doctor.d_name}';
 			var uid = '${sessionScope.user.p_name}';
 
 			$('.book-btn').click(function() {
-				if (uid == '' || uid == null) {
-					if (confirm("로그인이 필요한 서비스 입니다. \n 지금 로그인 하시겠습니까 ?")) {
-						$(this).attr('href', 'login')
+				if(did != null || did != ''){
+					if (confirm("일반회원 전용 서비스 입니다. \n 일반회원으로 로그인 하시겠습니까 ?")) {
+						$(this).attr('href', 'patient_login')
 					} else {
 						$(this).attr('href', '')
 					}
-				} else if (uid != '' || uid != null) {
+				}else if (uid == '' || uid == null) {
+					if (confirm("로그인이 필요한 서비스 입니다. \n 지금 로그인 하시겠습니까 ?")) {
+						$(this).attr('href', 'patient_login')
+					} else {
+						$(this).attr('href', '')
+					}
 				}
 			}) // click
-
-			
 			
 		});
 	</script>
