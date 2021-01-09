@@ -29,7 +29,6 @@
 <script type="text/javascript">
 $(function(){
 	$('.treatmentBtn').click(function() {
-		alert(2)
 		window.open('https://192.168.0.44:3100/dr_linkVideo', 'Dr.Link 진료실');
 		location.href = 'add_prescription';
 	}); // click

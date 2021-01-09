@@ -128,48 +128,62 @@
 														</thead>
 														<tbody>
 															<!-- start for -->
-															<c:forEach var="bookingList" items="${bookingList}" varStatus="status">
+															<c:forEach var="booking" items="${bookingList}" varStatus="status">
 															
-																<c:set var="recordTimetrim" value="${fn:trim(bookingList.appointment_time)}" />
+																<c:set var="recordTimetrim" value="${fn:trim(booking.appointment_time)}" />
 																<c:set var="recordTime" value="${fn:replace(recordTimetrim,':','')}" />
+																<c:set var="appointment_date" value="${fn:replace(booking.appointment_date,'/','-')}" />
 																
-																<c:set var="booking_datetrim" value="${fn:trim(bookingList.reg_date)}" />
+																<c:set var="booking_datetrim" value="${fn:trim(booking.reg_date)}" />
 																<c:set var="bookingDate" value="${fn:substring(booking_datetrim,0,10)}" />
 																
 																<tr class="text-center">
+																
 																	<td>
 																		<h2 class="table-avatar">
 																			<a
-																				href="doctor_profile?doctor_num=${bookingList.doctorDTO.doctor_num }"
+																				href="doctor_profile?doctor_num=${booking.doctorDTO.doctor_num }"
 																				class="avatar avatar-sm mr-2"> <img
 																				class="avatar-img rounded-circle"
-																				src="${path}/resources/doctor/doctorImg/${bookingList.doctorDTO.d_photo}"
+																				src="${path}/resources/doctor/doctorImg/${booking.doctorDTO.d_photo}"
 																				alt="User Image">
 																			</a> <a
-																				href="doctor_profile?doctor_num=${bookingList.doctorDTO.doctor_num}">Dr.
-																				${bookingList.doctorDTO.d_name } <span>${bookingList.departmentDTO.dep_name }</span>
+																				href="doctor_profile?doctor_num=${booking.doctorDTO.doctor_num}">Dr.
+																				${booking.doctorDTO.d_name } <span>${booking.departmentDTO.dep_name }</span>
 																			</a>
 																		</h2>
 																	</td>
-																	<td>${bookingList.appointment_date}<span
-																		class="d-block text-info">${bookingList.appointment_time}</span></td>
+																	<td>${appointment_date}<span
+																		class="d-block text-info">${booking.appointment_time}</span></td>
 																	<td>${bookingDate}</td>
-																	<td><span class="badge-pill bg-info-light">예약정상</span>
-																		<a class="badge-pill bg-danger-light cancel_booking" href="cancelbooking?appointment_num=${bookingList.appointment_num}">예약취소</a>
-																	</td>		
-																									
+																	<td>
 																	<c:choose>
-																	<c:when test="${sysdate == bookingList.appointment_date && recordTime - sysdateTime <= 15 && recordTime - sysdateTime >= 6}">																		
+																	<c:when test="${sysdate == appointment_date && recordTime - sysdateTime < 0}">																		
+																		<td>
+																	<span class="badge-pill bg-info-light">진료 종료</span></td> 
+																	</c:when>
+																	<c:otherwise>
+																	<td>	 	
+																	<span class="badge-pill bg-info-light">예약정상</span>
+																	<a class="badge-pill bg-danger-light cancel_booking" href="cancelbooking?appointment_num=${booking.appointment_num}">예약취소</a>
+																	</td>
+																	</c:otherwise>
+																	</c:choose>
+																	<c:choose>
+																	<c:when test="${sysdate == appointment_date && recordTime - sysdateTime < 0}">																		
+																		<td>오늘의 진료가 종료되었습니다</td> 
+																	</c:when> 						
+																	<c:when test="${sysdate == appointment_date && recordTime - sysdateTime >5 && recordTime - sysdateTime < 15}">																		
 																		<td>곧 진료실이 열립니다😊</td> 
 																	</c:when> 
-																	<c:when test="${sysdate == bookingList.appointment_date && recordTime - sysdateTime <= 5}">  
-																	<%-- <c:when test="${sysdate == '2021-01-08' && sysdateTime <= '1600'}"> --%>
+																	<c:when test="${sysdate == appointment_date && recordTime - sysdateTime >=0 && recordTime - sysdateTime<=5}">  
 																		<td><a href="https://192.168.0.44:3100/dr_linkVideo">
 																			<span class="badge-pill bg-info-light">진료실 입장하기</span>
 																		</a></td> 
 																	</c:when> 
 																	<c:otherwise>																		
 																		<td>예약시간 5분 전부터 진료실이 열립니다😊</td> 
+																		
 																	</c:otherwise>
 																	</c:choose>
 																</tr>

@@ -77,6 +77,7 @@ width:auto !important;
 	<!-- Main Wrapper -->
 	
 	<tiles:insertAttribute name="header"/>
+	
 	<!-- Home Banner -->
 	<div class="main-wrapper">
 	<tiles:insertAttribute name="body" />	
@@ -85,7 +86,6 @@ width:auto !important;
 	<tiles:insertAttribute name="footer" />
 	<!-- /Footer -->
    
-  
   <!-- /Main Wrapper -->
  
 <!-- jQuery -->
@@ -105,13 +105,11 @@ width:auto !important;
 <script type="text/javascript">
 $(function() {
 
-	var uid = '${sessionScope.user.p_name}';
+	var uid = '${sessionScope.user}';
+	var appointment = '${sessionScope.appointment}';
 	var todayTime = new Date();
-	var flag = false;
-	var cnt = 0;
 	setInterval(function(){			
 		var now = new Date();   //현재시간
-		
 		var year = now.getFullYear();   //현재시간 중 4자리 연도
 		var month = now.getMonth();   //현재시간 중 달. 달은 0부터 시작하기 때문에 +1 
 		if((month+"").length < 2){
@@ -125,54 +123,45 @@ $(function() {
 		if((hour+"").length < 2){
 			hour="0"+hour;      
 		}
-		var min = now.getMinutes();   //현재 시간 중 시간.
+		var min = now.getMinutes();   //현재 시간 중 분.
 		if((min+"").length < 2){
 			min="0"+min;      
 		}
 		
 		var today = new Date(Number(year),Number(month),Number(date),Number(hour),Number(min))      //오늘 날짜 완성.
 		todayTime = moment(today).format('YY-MM-DD H:mm')
-		var today1 = new Date(Number(year),Number(month),Number(date),Number(hour),Number(min)-5)   
-		var todayTime2 = moment(today1).format('YY-MM-DD H:mm')
-		var today3 = new Date(Number(year),Number(month),Number(date),Number(hour),Number(min)+5)   
-		var todayTime4 = moment(today3).format('YY-MM-DD H:mm')
 		
-		/* var today5 = new Date(Number(year),Number(month),Number(date),Number(hour),Number(min)-5)      
-		var m_today5=moment(today5).format('YY-MM-DD H:mm')
-		
-		var today10 = new Date(Number(year),Number(month),Number(date),Number(hour),Number(min)-10)      
-		var m_today10=moment(today10).format('YY-MM-DD H:mm') */
-		
-		if (uid){	
-
-			var appointment ='${sessionScope.user.appointment}';				
-		    var yyyyMMdd = String(appointment);
-		    var ap_date = new Date(Number(yyyyMMdd.substring(0,4)), Number(yyyyMMdd.substring(5,7))-1, 
-		    		Number(yyyyMMdd.substring(8,10)), Number(yyyyMMdd.substring(10,12)), Number(yyyyMMdd.substring(13,15)));
+		if (uid != null && appointment !=null){	
+			var appointment_date = '${sessionScope.appointment.appointmentDTO.appointment_date}';
+			var appointment_time = '${sessionScope.appointment.appointmentDTO.appointment_time}';
+		    var yymmdd = String(appointment_date);
+		    var hhmm = String(appointment_time);
+		    var ap_date = new Date(Number(yymmdd.substring(0,4)), Number(yymmdd.substring(5,7))-1, 
+		    		Number(yymmdd.substring(8,10)),Number(hhmm.substring(0,2)),Number(hhmm.substring(3,6)));
 			var m_ap_date=moment(ap_date).format('YY-MM-DD H:mm')
-		    
-			var ap_date5 = new Date(Number(yyyyMMdd.substring(0,4)), Number(yyyyMMdd.substring(5,7))-1, 
+		    var ap_date5 = new Date(Number(yymmdd.substring(0,4)), Number(yymmdd.substring(5,7))-1, 
+		    		Number(yymmdd.substring(8,10)),Number(hhmm.substring(0,2)),Number(hhmm.substring(3,6))-5);
+			var m_ap_date5=moment(ap_date5).format('YY-MM-DD H:mm')
+			/*alert(todayTime >= m_ap_date5 && todayTime <=m_ap_date)
+			alert('현재시간 : '+todayTime)
+			alert('예약시간 : '+m_ap_date)
+			alert('예약시간 5분전 : '+m_ap_date5)
+			 var ap_date5 = new Date(Number(yyyyMMdd.substring(0,4)), Number(yyyyMMdd.substring(5,7))-1, 
 		    		Number(yyyyMMdd.substring(8,10)), Number(yyyyMMdd.substring(10,12)), Number(yyyyMMdd.substring(13,15))-5);
 			var m_ap_date5=moment(ap_date5).format('YY-MM-DD H:mm')
 		    
 			var ap_date10 = new Date(Number(yyyyMMdd.substring(0,4)), Number(yyyyMMdd.substring(5,7))-1, 
 		    		Number(yyyyMMdd.substring(8,10)), Number(yyyyMMdd.substring(10,12)), Number(yyyyMMdd.substring(13,15))-10);
-			var m_ap_date10=moment(ap_date10).format('YY-MM-DD H:mm')
+			var m_ap_date10=moment(ap_date10).format('YY-MM-DD H:mm') */
 			
 		};//uid if문 
 		
-		/* if(todayTime2 >= today && cnt == 0) {
-			flag = true;
-			alert('곧 진료가 시작됩니다')
-		}  */ 
-		
-	},100*1000);
-	
-	
-		
-		if(flag){
+		if(todayTime >= m_ap_date5 && todayTime <=m_ap_date) {
 			notification()
-		};
+		}
+		
+	},60*1000);
+	
 	
 		function notification(){
 			window.onload = function () {
@@ -183,11 +172,11 @@ $(function() {
 			
 			notify();
 			
-		    function calculate() {
+		    /* function calculate() {
 		        setTimeout(function () {
 		            notify();
 		        }, 3000);
-		    }
+		    } */
 		    
 			function notify() {
 				if (Notification.permission !== 'granted') {
@@ -201,11 +190,11 @@ $(function() {
 					});
 		
 					notification.onclick = function() {
-						window.open('https://192.168.0.44:3100/dr_linkVideo');
+						location.replace('${path}/patients/patient_dashboard?patient_num=${sessionScope.user.patient_num}');
 					};
 		
 					  notification.onclose = function () {
-					     window.open('https://192.168.0.44:3100/dr_linkVideo');
+						location.replace('${path}/patients/patient_dashboard?patient_num=${sessionScope.user.patient_num}');
 					 };
 				}
 			}
