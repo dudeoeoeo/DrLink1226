@@ -34,6 +34,12 @@ public class PatientDaoImp implements PatientDaoInter{
 		System.out.println("===> imple에서 Mybatis mapper loginchk()로 실행");
 		return ss.selectOne("patient.loginchk", dto);
 	}
+	
+	@Override
+	public PatientDTO appointment_chk(PatientDTO dto) {
+		System.out.println("===> imple에서 Mybatis mapper appointment_chk()로 실행");
+		return ss.selectOne("patient.appointment_chk", dto);
+	}
 
 	//아이디 중복검사(비번발급용)
 	@Override

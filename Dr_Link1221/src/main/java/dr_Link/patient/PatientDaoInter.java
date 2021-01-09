@@ -65,6 +65,8 @@ public interface PatientDaoInter {
 	
 	public AiResultDTO getAiResultDTO(String symptom);
 	
+	public PatientDTO appointment_chk(PatientDTO dto); 
+	
 //	public void addTvo(PatientDTO dto);
 	
 //	// 비밀번호 변경
