@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dr_Link.doctor.DoctorDaoInter;
 import dr_Link.doctor.DoctorServiceInter;
@@ -80,11 +81,13 @@ public class DoctorController {
 		return "login";
 	}
 
-	@RequestMapping(value = "/doctor_profile")
-	public String doctor_profile() {
-		System.out.println("doctorController 의사페이지");
-		return "redirect:/doctor_profile";
-	}
+//	@RequestMapping(value = "doctor_profile")
+//	public String doctor_profile(HttpServletRequest request, Model model, RedirectAttributes re) {
+//		int doctor_num = Integer.parseInt(request.getParameter("doctor_num"));
+//		re.addFlashAttribute("doctor_num", doctor_num);
+//		System.out.println("doctorController 의사페이지");
+//		return "redirect:/doctor_profile";
+//	}
 
 	/* 김다유 : add_prescription 페이지로 이동 */
 	@RequestMapping(value = "/add_prescription")

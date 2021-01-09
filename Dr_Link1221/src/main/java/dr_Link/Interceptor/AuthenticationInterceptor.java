@@ -22,7 +22,9 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
     try {
     	if ( p_obj == null && d_obj == null){
        	String requestURI = request.getServletPath();
-       	System.out.println(requestURI+": requestURI");
+//       	String fullURI = request.getRequestURI();
+//       	System.out.println("fullURI : "+fullURI);
+//       	System.out.println(requestURI+": requestURI");
         session.setAttribute("requestSession", requestURI);
        	if(requestURI.contains("patients")) {
             response.sendRedirect("/Dr_Link1221/patient_login");
