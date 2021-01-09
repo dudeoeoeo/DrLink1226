@@ -395,7 +395,7 @@ ul .bxslider {
 			var uid = '${sessionScope.user.p_name}';
 
 			$('.book-btn').click(function() {
-				if(did != null || did != ''){
+				if(did != ''){
 					if (confirm("일반회원 전용 서비스 입니다. \n 일반회원으로 로그인 하시겠습니까 ?")) {
 						$(this).attr('href', 'patient_login')
 					} else {
