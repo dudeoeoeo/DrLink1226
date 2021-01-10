@@ -9,6 +9,7 @@ import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.dto.Pay_recordDTO;
+import dr_Link.dto.TreatmentRecordDTO;
 
 @Service
 public interface PrescriptionService {
@@ -27,5 +28,5 @@ public interface PrescriptionService {
 	public DrLinkDTO drLink_info();
 	public PrescriptionDTO payment_success(Pay_recordDTO pay);
 	public PrescriptionDTO end_prescription(PrescriptionDTO vo);
-
+	public int insertTreatRecord(TreatmentRecordDTO tr);
 }

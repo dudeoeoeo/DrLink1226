@@ -245,7 +245,8 @@ body {
 											<c:choose>
 											<c:when test="${nowDate == ap_date2 && (ap_timeFormat - now_timeFormat) <= 5 && (now_timeFormat - ap_timeFormat) < 5 }">
 												<div class="patient-details" style="float: right; padding:10px; width: auto;">
-													<a href="add_prescription?appointment_num=${ap.appointment_num}&patient_num=${ap.patients[0].patient_num}" class="dr_link">
+													<a href="" class="dr_link">
+													<!-- add_prescription?appointment_num=${ap.appointment_num}&patient_num=${ap.patients[0].patient_num} -->
 													<input type="hidden" name="ap_num" value="${ap.appointment_num}">
 													<input type="hidden" name="p_num" value="${ap.patients[0].patient_num}">
 														<span class="badge-pill bg-info-light">진료실 입장하기</span>
@@ -336,7 +337,7 @@ body {
 		  </div><!-- /.modal -->
 	</c:forEach>
 
-<form id="addForm" method="get">
+<form id="addForm" method="post">
 <input type="hidden" name="appointment_num" value="">
 <input type="hidden" name="patient_num" value="">
 </form>	
@@ -407,26 +408,21 @@ body {
 	<script type="text/javascript">
 	
  		$(function() {
- 			
  			$('.dr_link').click(function(e){
  				if(confirm("얼굴을 볼 수 있는 캠과 마이크를 준비해주세요.")) {
  					
  					ap_num = $(this).find('input[name="ap_num"]').val();
 	 				p_num = $(this).find('input[name="p_num"]').val();
-	 				alert("ap_num : " + ap_num)
-	 				alert("p_num : " + p_num)
-				    
 				    $('#addForm').find('input[name="appointment_num"]').val(ap_num);
 	 				$('#addForm').find('input[name="patient_num"]').val(p_num);
+	 				
 	 				$('#addForm').attr("action", "add_prescription");
-	 				$('#addForm').submit();
-				    //$(this).attr
+	 				$('#addForm').submit(); 
 				    window.open("https://192.168.0.44:3100/dr_linkVideo");
 				    e.preventDefault();
  				} else {
  					e.preventDefault();
  				}
- 				
  			}) // click
  			/*
  			$('.bg-info-light').click(function() {

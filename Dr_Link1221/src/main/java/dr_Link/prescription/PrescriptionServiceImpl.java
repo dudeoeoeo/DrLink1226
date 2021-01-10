@@ -11,6 +11,7 @@ import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.dto.Pay_recordDTO;
+import dr_Link.dto.TreatmentRecordDTO;
 
 @Repository("PrescriptionService")
 public class PrescriptionServiceImpl implements PrescriptionService{
@@ -77,4 +78,8 @@ public class PrescriptionServiceImpl implements PrescriptionService{
 		
 	}
 
+	public int insertTreatRecord(TreatmentRecordDTO tr) {
+		pre_dao.insertTreatRecord(tr);
+		return pre_dao.selectTreat_num();
+	}
 }

@@ -116,7 +116,7 @@
    <insert id="add_prescription" parameterType="prescriptionDTO">
    insert into prescription 
    values (prescription_num.nextval, #{patient_num},#{doctor_num},
-   #{medi_num, jdbcType=VARCHAR},default,102,
+   #{medi_num, jdbcType=VARCHAR},default, #{treatment_num},
    #{dsg, jdbcType=VARCHAR},#{qty, jdbcType=VARCHAR},
    #{tdate, jdbcType=VARCHAR},sysdate,#{price})
    </insert>
@@ -197,7 +197,13 @@
   <insert id="insertPay_record" parameterType="Pay_recordDTO">
   	insert into payment_record values(pay_record_num.nextval, #{patient_num}, #{doctor_num}, #{dep_num}, #{prescription_num}, sysdate, #{price}, #{payment_way})
   </insert>
+	<!-- #{start_treatment_time} -->
+  <insert id="insertTreatRecord" parameterType="treatmentRecordDTO">
+    insert into TREATMENT_RECORD values(treatment_num.nextval, #{patient_num}, #{doctor_num}, #{dep_num}, #{appointment_num}, sysdate, #{monitoring_time})
+  </insert>
   
-
+  <select id="selectTreat_num" resultType="int">
+  	select max(treatment_num) from treatment_record
+  </select>
   
   </mapper>

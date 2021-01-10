@@ -312,7 +312,7 @@ from appointment where doctor_num = #{doctor_num} group by doctor_num
   
 <select id="get_dashList" parameterType="int" resultMap="d_dash_board">
 
-select  p.patient_num patient_num, p.p_photo p_photo, p.p_name p_name, p.p_address1 p_address1, p.p_address2 p_address2, p.p_email p_email, p.allergy allergy,
+select  p.patient_num patient_num, p.p_photo p_photo, p.p_name p_name, p.p_address1 p_address1, p.p_address2 p_address2, p.patient_num patient_num, p.p_email p_email, p.allergy allergy,
         p.p_phone_num p_phone_num, p.p_gender p_gender, am.appointment_date appointment_date, am.appointment_time appointment_time, am.appointment_num appointment_num
 from dl_user p, appointment am
 where p.patient_num = am.patient_num and am.doctor_num = #{doctor_num} and
@@ -336,12 +336,12 @@ order by am.appointment_date, to_number(replace(am.appointment_time,':',''))
 <select id="getApList" parameterType="int" resultMap="d_dash_board">
 
 select rownum, a.* from (
-select p.p_name p_name, p.p_photo p_photo, p.p_address1 p_address1, p.p_address2 p_address2, p.p_email p_email, am.appointment_num appointment_num,
-        p.p_phone_num p_phone_num, p.patient_num p_patient_num, p.p_gender p_gender, am.appointment_date appointment_date,am.appointment_time appointment_time, 
+select p.p_name p_name, p.p_photo p_photo, p.p_address1 p_address1, p.p_address2 p_address2, p.p_email p_email, p.patient_num patient_num, am.appointment_num appointment_num,
+        p.p_phone_num p_phone_num, p.p_gender p_gender, am.appointment_date appointment_date,am.appointment_time appointment_time, 
+<![CDATA[
 ( select count(*) from appointment where doctor_num = #{doctor_num} and appointment_date >= to_char(sysdate, 'YYYY-MM-DD') ) total_cnt
 from dl_user p, appointment am
 where p.patient_num = am.patient_num and am.doctor_num = #{doctor_num} and 
-<![CDATA[
 am.appointment_date >= to_char(sysdate, 'YYYY-MM-DD')
 ]]>
 order by am.appointment_date, to_number(replace(am.appointment_time,':','')) ) a

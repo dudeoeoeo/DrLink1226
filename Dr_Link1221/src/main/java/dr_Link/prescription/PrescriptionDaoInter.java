@@ -7,6 +7,7 @@ import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.dto.Pay_recordDTO;
+import dr_Link.dto.TreatmentRecordDTO;
 
 
 public interface PrescriptionDaoInter {
@@ -26,4 +27,6 @@ public interface PrescriptionDaoInter {
 	
 	public DrLinkDTO drLink_info();
 	public Pay_recordDTO pay_record (int prescription_num);
+	public int insertTreatRecord(TreatmentRecordDTO tr);
+	public int selectTreat_num();
 }

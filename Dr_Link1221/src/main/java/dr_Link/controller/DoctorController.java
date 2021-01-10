@@ -82,6 +82,7 @@ public class DoctorController {
 
 	@RequestMapping(value = "/doctor_profile")
 	public String doctor_profile() {
+		System.out.println("doctor controller의 doctor_prefile");
 		System.out.println("doctorController 의사페이지");
 		return "redirect:/doctor_profile";
 	}
@@ -94,24 +95,13 @@ public class DoctorController {
 
 		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
 		/* 현재 환자와 진료를 해서 번호를 받아 올 수 있는 상황이 아니라 임의로 값을 넣어 테스트 하는 중 */
-		try {
-			System.out.println("try add pre문");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		if(request.getParameter("patient_num") != null) {
-			System.out.println("가져온 patient_num: " + request.getParameter("patient_num"));
-			System.out.println("가져온 ap_num: " + request.getParameter("appointment_num"));
-		} else if(patientVo.getPatient_num() != 0) {
-			System.out.println("들어온 p_num");
-		}
-		System.out.println("아무것도 안 되고 통과함");
-		int patient_num = 2;
-		PatientDTO patientinfo = pre_service.patient_info(patient_num);
+
+		PatientDTO patientinfo = pre_service.patient_info(patientVo.getPatient_num());
 		DoctorDTO doctorinfo = pre_service.doctor_info(doctor_num);
 		DrLinkDTO drlinkinfo = pre_service.drLink_info();
 		List<MedicineDTO> medicine_info = pre_service.medicine_info();
-
+		
+		model.addAttribute("appointment_num", request.getParameter("appointment_num"));
 		model.addAttribute("patientinfo", patientinfo);
 		model.addAttribute("doctorinfo", doctorinfo);
 		model.addAttribute("medicine_info", medicine_info);
@@ -119,12 +109,28 @@ public class DoctorController {
 		System.out.println("controller add_prescription 실행 완료");
 		return "/doctor/add_prescription";
 	}
-
+	
+	/* 김다유 : add_prescription 페이지로 이동 */
+	@RequestMapping(value = "/treatment_record")
+	@ResponseBody
+	public Map<String, Integer> treatment_record(HttpServletRequest request, TreatmentRecordDTO tr) {
+		System.out.println("treatment_record 요청");
+		System.out.println("들어온 번호는 : " + tr.getAppointment_num());
+		System.out.println("들어온 환자번호 : "+tr.getPatient_num());
+		int result = pre_service.insertTreatRecord(tr);
+		String msg = (result > 0) ? "진료가 완료되었습니다." : "서버의 에러가 있어 진료가 완료되지 않았습니다.";
+		System.out.println("msg : " + msg);
+		Map<String, Integer> res = new HashMap<String, Integer>();
+		res.put("result", result);
+		return res;
+	}
+	
 	/* 김다유 : end_prescription 페이지로 이동 */
 	@RequestMapping(value = "/end_prescription", method = RequestMethod.POST)
 	public String end_prescription(HttpServletRequest request, PrescriptionDTO pre_vo, MedicineDTO medi_vo,
 			DrLinkDTO drlinkVo, Model model) {
 		/* 배열로 받은 값 , 구분자를 붙여 String으로 만든 후 insert */
+		System.out.println("들어온 treat_num : " + pre_vo.getTreatment_num());
 		String pre_date = arrayJoin(",", request.getParameterValues("prescription_date"));
 		pre_vo.setPre_date(pre_date);
 		pre_vo.setPrice((int) (pre_vo.getPrice() * 0.9));

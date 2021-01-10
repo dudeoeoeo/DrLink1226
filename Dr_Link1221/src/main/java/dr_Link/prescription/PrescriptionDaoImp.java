@@ -12,6 +12,7 @@ import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.dto.Pay_recordDTO;
+import dr_Link.dto.TreatmentRecordDTO;
 
 @Repository("PrescriptionDaoInter")
 public class PrescriptionDaoImp implements PrescriptionDaoInter {
@@ -94,5 +95,13 @@ public class PrescriptionDaoImp implements PrescriptionDaoInter {
 	@Override
 	public Pay_recordDTO pay_record(int prescription_num) {
 		return ss.selectOne("prescription.patient_detail_payment",prescription_num);
+	}
+	
+	public int insertTreatRecord(TreatmentRecordDTO tr) {
+		return ss.insert("prescription.insertTreatRecord", tr);
+	}
+	
+	public int selectTreat_num() {
+		return ss.selectOne("prescription.selectTreat_num");
 	}
 }
