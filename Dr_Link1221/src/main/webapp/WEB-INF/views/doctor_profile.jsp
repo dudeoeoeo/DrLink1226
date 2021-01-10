@@ -6,6 +6,14 @@
 <!DOCTYPE html>
 <script>
 	$(document).ready(function(){
+		if($('.rev').val() == 1){
+//			alert('rev');
+			$(".nav-link").click();			
+			return false;
+		}
+		
+		
+		
 		$(".btn.btn-white.fav-btn").click(function(){
 //			alert('즐겨찾기 버튼 클릭');
 			favoriteCheck();
@@ -85,12 +93,15 @@
 	        });
 		}
 		
+
+		
+
 	});
 </script>
 <!-- Page Content -->
 <div class="content">
 	<div class="container">
-
+	<input type="hidden" class="rev" value="${rev }" />
 		<!-- Doctor Widget -->
 		<div class="card">
 			<div class="card-body">

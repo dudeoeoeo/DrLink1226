@@ -66,7 +66,7 @@
 											후기</span>
 								</a></li>
 								<li><a href="chat"> <i class="fas fa-comments"></i> <span>메세지</span>
-										<small class="unread-msg">23</small>
+										<!-- <small class="unread-msg">23</small> -->
 								</a></li>
 								<li><a href="doctor_profile_settings"> <i
 										class="fas fa-user-cog"></i> <span>프로필 수정</span>
@@ -205,19 +205,21 @@
 																			<td><i class="fas fa-mars" style="color: pink;"></i></td>
 																		</c:when>
 																	</c:choose>
-																	<td><c:choose>
+																	<td>
+																		<c:choose>
 																			<c:when test="${!empty afterTreat }">
-																				<c:forEach var="at" items="${afterTreat}">
-																					<c:if
-																						test="${at.appointment_num eq dash.appointment_num}">
-                                                                  재방문 환자
-                                                               </c:if>
+																				<c:forEach var="at" items="${afterTreat}" varStatus="st">
+																					at.appointment_num = ${at.appointment_num}<br/>
+																					dash.appointment_num = ${dash.appointment_num}
+																					<c:if test="${at.appointment_num eq dash.appointment_num}">
+					                                                                  재방문 환자
+					                                                               </c:if>
 																				</c:forEach>
 																			</c:when>
 																			<c:when
 																				test="${at.appointment_num ne dash.appointment_num}">
-                                                            새로 온 환자
-                                                         </c:when>
+					                                                            새로 온 환자
+					                                                         </c:when>
 																		</c:choose></td>
 																	<td class="text-center">
 																		<%-- <div class="appointment-action">

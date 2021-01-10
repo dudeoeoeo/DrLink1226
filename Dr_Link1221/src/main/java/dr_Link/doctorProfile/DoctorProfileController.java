@@ -34,7 +34,11 @@ public class DoctorProfileController {
 	
 	@RequestMapping(value = "doctor_profile")
 	public String doctor_profile(HttpServletRequest request, HttpSession session, DoctorDTO vo, Model model, ModelMap modelMap) {
-	  
+	  if(request.getParameter("rev") !=null) {
+		  model.addAttribute("rev", request.getParameter("rev"));
+	  }
+		
+		
 	  if(session.getAttribute("user") != null) {
 	  FavoritesDTO fvo = new FavoritesDTO();
 	  fvo.setPatient_num(((PatientDTO)session.getAttribute("user")).getPatient_num());

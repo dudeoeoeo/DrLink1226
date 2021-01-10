@@ -116,7 +116,7 @@ body {
 													후기</span>
 										</a></li>
 										<li><a href="chat"> <i class="fas fa-comments"></i> <span>메세지</span>
-												<small class="unread-msg">23</small>
+												<!-- <small class="unread-msg">23</small> -->
 										</a></li>
 										<li><a href="doctor_profile_settings"> <i
 												class="fas fa-user-cog"></i> <span>프로필 수정</span>

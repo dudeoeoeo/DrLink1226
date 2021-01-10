@@ -43,6 +43,7 @@ import dr_Link.dto.PatientDTO;
 import dr_Link.main.MainDaoInter;
 import dr_Link.patient.PatientDaoInter;
 import dr_Link.patient.PatientServiceInter;
+import dr_Link.review.Doc_ReviewDTO;
 
 @Controller
 public class MainController {
@@ -98,7 +99,7 @@ public class MainController {
 		for (int i=0;i<h_boardList.size();i++) {
 			h_boardList.get(i).setHospital_regdate(h_boardList.get(i).getHospital_regdate().substring(0,11));
 		}
-		
+
 		model.addAttribute("h_boardList", h_boardList);
 		return "main.page";
 	}

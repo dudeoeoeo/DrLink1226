@@ -123,7 +123,7 @@
                      		<input type="hidden" class="doctor_num" value="${favorite.doctor_num }">
 									<div class="profile-widget">
 										<div class="doc-img">
-											<a href="doctor_profile?doctor_num=${favorite.doctor_num }">
+											<a href="${path }/doctor_profile?doctor_num=${favorite.doctor_num }">
 												<img class="img-fluid" alt="User Image" src="${path }/resources/doctor/doctorImg/${favorite.doctorDTO.d_photo}">
 											</a>
 											<a href="javascript:void(0)" class="fav-btn">
@@ -132,7 +132,7 @@
 										</div>
 										<div class="pro-content">
 											<h3 class="title">
-												<a href="doctor_profile?doctor_num=${favorite.doctor_num }">Dr. ${favorite.doctorDTO.d_name }</a> 
+												<a href="${path }/doctor_profile?doctor_num=${favorite.doctor_num }">Dr. ${favorite.doctorDTO.d_name }</a> 
 											</h3>
 											<p class="speciality">${favorite.doctorDTO.departmentDTO.dep_name }</p>
 											<div class="rating">
@@ -146,7 +146,6 @@
 														</c:otherwise>
 													</c:choose>
 												</c:forEach>
-												<span class="d-inline-block average-rating">(17)</span>
 											</div>
 											<ul class="available-info">
 												<li>
@@ -156,7 +155,7 @@
 											</ul>
 											<div class="row row-sm">
 												<div class="col-6">
-													<a href="doctor_profile?doctor_num=${favorite.doctor_num }" class="btn view-btn">프로필보기</a>
+													<a href="${path }/doctor_profile?doctor_num=${favorite.doctor_num }" class="btn view-btn">프로필보기</a>
 												</div>
 												<div class="col-6">
 													<a href="booking?doctor_num=${favorite.doctor_num }" class="btn book-btn">예약하기</a>

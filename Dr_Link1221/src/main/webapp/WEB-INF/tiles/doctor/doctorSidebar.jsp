@@ -54,7 +54,7 @@
                  <a href="chat-doctor">
                     <i class="fas fa-comments"></i>
                     <span>메세지</span>
-                    <small class="unread-msg">23</small>
+                    <!-- <small class="unread-msg">23</small> -->
                  </a>
               </li>
               <li>

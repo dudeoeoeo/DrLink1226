@@ -143,13 +143,13 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a
-																				href="doctor_profile?doctor_num=${booking.doctorDTO.doctor_num }"
+																				href="${path }/doctor_profile?doctor_num=${booking.doctorDTO.doctor_num }"
 																				class="avatar avatar-sm mr-2"> <img
 																				class="avatar-img rounded-circle"
 																				src="${path}/resources/doctor/doctorImg/${booking.doctorDTO.d_photo}"
 																				alt="User Image">
 																			</a> 
-																			<a href="doctor_profile?doctor_num=${booking.doctorDTO.doctor_num}">Dr. ${booking.doctorDTO.d_name } 
+																			<a href="${path }/doctor_profile?doctor_num=${booking.doctorDTO.doctor_num}">Dr. ${booking.doctorDTO.d_name } 
 																			<span>${booking.departmentDTO.dep_name }</span>
 																			</a>
 																		</h2>
@@ -244,13 +244,13 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a
-																				href="doctor_profile?doctor_num=${prescriptionRecord.doctorDTO.doctor_num}"
+																				href="${path }/doctor_profile?doctor_num=${prescriptionRecord.doctorDTO.doctor_num}"
 																				class="avatar avatar-sm mr-2"> <img
 																				class="avatar-img rounded-circle"
 																				src="${path}/resources/doctor/doctorImg/${prescriptionRecord.doctorDTO.d_photo}"
 																				alt="User Image">
 																			</a> <a
-																				href="doctor_profile?doctor_num=${prescriptionRecord.doctorDTO.doctor_num}">${prescriptionRecord.doctorDTO.d_name}</a>
+																				href="${path }/doctor_profile?doctor_num=${prescriptionRecord.doctorDTO.doctor_num}">${prescriptionRecord.doctorDTO.d_name}</a>
 																		</h2>
 																	</td>
 																	<td>${prescriptionRecord.doctorDTO.departmentDTO.dep_name}</td>
@@ -309,13 +309,13 @@
 																	<td>
 																		<h2 class="table-avatar">
 																			<a
-																				href="doctor_profile?doctor_num=${payment_record.doctorDTO.doctor_num}"
+																				href="${path }/doctor_profile?doctor_num=${payment_record.doctorDTO.doctor_num}"
 																				class="avatar avatar-sm mr-2"> <img
 																				class="avatar-img rounded-circle"
 																				src="${path}/resources/doctor/doctorImg/${payment_record.doctorDTO.d_photo}"
 																				alt="User Image">
 																			</a> <a
-																				href="doctor_profile?doctor_num=${payment_record.doctorDTO.doctor_num}">${payment_record.doctorDTO.d_name}<span>${payment_record.departmentDTO.dep_name}</span></a>
+																				href="${path }/doctor_profile?doctor_num=${payment_record.doctorDTO.doctor_num}">${payment_record.doctorDTO.d_name}<span>${payment_record.departmentDTO.dep_name}</span></a>
 																		</h2>
 																	</td>
 																	<fmt:parseNumber var="down_price" value="${payment_record.price}" integerOnly="true" />

@@ -16,7 +16,7 @@
 		review_content, review_rating, to_char(review_date,'YYYY-MM-DD') as review_date, nvl(rating, 0) as ratingAvg from doc_review a, dl_user b,
 		(select doctor_num, round(avg(review_rating),0) as rating from doc_review group by doctor_num) c 
 		where a.doctor_num=#{doctor_num} and a.PATIENT_NUM=b.PATIENT_NUM and a.DOCTOR_NUM=c.doctor_num order by
-		review_date desc
+		review_num desc
 	</select>
 
 	<resultMap id="reviewInfo" type="doc_ReviewDTO">

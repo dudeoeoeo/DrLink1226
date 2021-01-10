@@ -26,9 +26,8 @@ public class ReviewController {
 		vo.setPatient_num(((PatientDTO) session.getAttribute("user")).getPatient_num());
 		reviewService.addReview(vo);
 		int rev = 1;
-		model.addAttribute("rev", rev);
 
-		return "redirect:/doctor_profile?doctor_num=" + vo.getDoctor_num();
+		return "redirect:/doctor_profile?doctor_num=" + vo.getDoctor_num()+"&rev="+rev;
 	}
 
 	@RequestMapping(value = "delete_review", method = RequestMethod.POST)
