@@ -38,7 +38,9 @@ public class DoctorProfileController {
 	  if(session.getAttribute("user") != null) {
 	  FavoritesDTO fvo = new FavoritesDTO();
 	  fvo.setPatient_num(((PatientDTO)session.getAttribute("user")).getPatient_num());
-	  }
+	  fvo.setDoctor_num(Integer.parseInt(request.getParameter("doctor_num")));
+	  model.addAttribute("fav_num", favoritesDAO.checkFavorite(fvo));
+	  };
 
 	  DoctorDTO doctor_profile = new DoctorDTO();
 //	  model.addAttribute("fav_num", favoritesDAO.checkFavorite(fvo));
