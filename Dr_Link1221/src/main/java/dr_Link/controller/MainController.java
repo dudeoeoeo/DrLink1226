@@ -411,11 +411,39 @@ public class MainController {
 		}
 
 		List<DoctorDTO> list = doctorProfileDAO.getList(map);
+		List<DoctorDTO> dlist = new ArrayList<DoctorDTO>();
+		
 
+		if (request.getParameter("d_page") != null && !request.getParameter("d_page").equals("1")) {
+			int p_num = Integer.parseInt(request.getParameter("d_page"))-1;
+			int start = 0+(5*p_num);
+			int end = 5+(5*p_num);
+			for(;start<list.size();start++) {
+				if(start==end)
+					break;
+				dlist.add(list.get(start));
+			}
+			
+		} else {
+			int cnt= 0;
+			for(int i=0;i<list.size();i++,cnt++) {
+				dlist.add(list.get(i));
+				if(cnt==4)
+					break;
+			}
+		}
+		
+
+		int page_num = (int)Math.floor((list.size() / 5))+1;
+		System.out.println(list.size());
+		System.out.println(list.size() / 5);
+		System.out.println("page_num: "+page_num);
+		
+		model.addAttribute("d_page", request.getParameter("d_page"));
 		model.addAttribute("d_genderList", d_genderList);
 		model.addAttribute("dep_numList", dep_numList);
-		model.addAttribute("paging", svo);
-		model.addAttribute("list", list);
+		model.addAttribute("p_num", page_num);
+		model.addAttribute("list", dlist);
 
 		return "search.page";
 	}

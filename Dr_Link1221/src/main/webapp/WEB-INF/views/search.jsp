@@ -25,7 +25,7 @@
 		<div class="row">
 			<div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
 
-				<form method="post" action="search">
+				<form method="post" action="search" class="searchFrm">
 
 					<!-- Search Filter -->
 					<div class="card search-filter">
@@ -85,6 +85,7 @@
 									</label>
 								</div>
 							</div>
+							<input type="hidden" class="page_num" name="d_page" value="1" />					
 							<div class="btn-search">
 								<button type="submit" class="btn btn-block">검색</button>
 							</div>
@@ -185,6 +186,39 @@
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
+			<!-- 페이징	-->	
+				<div class="row mx-auto">
+					<div class="col-md-12">
+						<div class="blog-pagination">
+							<nav>
+								<ul class="pagination justify-content-center">
+									<li class="page-item disabled"><a class="page-link"
+										href="#" tabindex="-1"><i class="fas fa-angle-double-left"></i></a>
+									</li>
+									<c:forEach begin="1" end="${p_num}" var="p">
+										<li class="page-item">
+											<input type="hidden" class="p_num" value=${p } />
+											<a class="page-link" href="#" onclick="submit()">${p}</a></li>
+									</c:forEach>
+									<li class="page-item"><a class="page-link" href="#"><i
+											class="fas fa-angle-double-right"></i></a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			  <!-- /페이징 -->
+			  
+			  <script type="text/javascript">
+			  	$(document).ready(function(){
+			  		$('.page-item').click(function(){
+			  			var index = $(this).closest('.page-item').index()-1;
+//			  			alert(index);
+			  			$('.page_num').val($(".p_num:eq("+index+")").val());
+			  			$(".searchFrm").submit();
+			  		});
+			  	});
+			  </script>
 				</div>
 			</div>
 

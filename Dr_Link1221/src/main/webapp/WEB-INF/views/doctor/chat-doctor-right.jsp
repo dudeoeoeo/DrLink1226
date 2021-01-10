@@ -11,7 +11,7 @@
 			$('.input-msg-send.form-control').val('')
 		});
 		
-		let sock = new SockJS('http://localhost:8080/Dr_Link1221/doctor/chat');
+		let sock = new SockJS('http://localhost:8000/Dr_Link1221/doctor/chat');
 		sock.onmessage = onMessage;
 		sock.onclose = onClose;
 		sock.onopen = onOpen;

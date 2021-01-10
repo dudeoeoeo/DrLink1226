@@ -8,7 +8,7 @@
 		driverClassName="oracle.jdbc.driver.OracleDriver"
 		url="jdbc:oracle:thin:@localhost:1521:orcl"
 		username="drlink"
-		password="drlink00"
+		password="123"
 		maxActive="20"
 		maxIdle="10"
 		maxWait="-1"
