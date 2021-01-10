@@ -52,8 +52,9 @@
 	            dataType : "text",
 	            contentType: "application/x-www-form-urlencoded; charset=utf-8",
 	            success : function(data) {
-//	            	alert('즐겨찾기 등록');
-	            	location.reload();
+	            	alert('즐겨찾기가 등록되었습니다.');
+//	            	location.reload();
+					$(".btn.btn-white.fav-btn").attr('class','btn btn-primary fav-btn');
 	            },
 	            error : function(error) {              
 	                alert("error : " + error);
@@ -73,8 +74,9 @@
 	            dataType : "text",
 	            contentType: "application/x-www-form-urlencoded; charset=utf-8",
 	            success : function(data) {
-//	            	alert('즐겨찾기 삭제');
-	            	location.reload();
+	            	alert('즐겨찾기가 삭제되었습니다.');
+//	            	location.reload();
+					$(".btn.btn-primary.fav-btn").attr('class','btn btn-white fav-btn');
 	            },
 	            error : function(error) {              
 	                alert("error : " + error);
