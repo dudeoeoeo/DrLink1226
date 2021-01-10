@@ -37,7 +37,7 @@
 								</c:when>
 								<c:when test="${n_board.news_photo != null }">
 									<div class="blog-image">
-										<a href="health-blog-detail?n_num=${n_board.news_board_num}"><img
+										<a href="javascript:void(0)"><img
 											class="img-fluid"
 											src="${path}/resources/assets/img/blog/${n_board.news_photo}"
 											alt="Post Image" style="height:500px"></a>

@@ -110,8 +110,14 @@
 			</div>
 			<!-- / Profile Sidebar -->
                   <div class="col-md-7 col-lg-8 col-xl-9">
-                     <div class="row row-grid">
+                     
+                     <c:if test="${empty favorites }">
+							<div class="card text-center">
+								<p style="margin: 10px; padding: 10px;">즐겨찾는 의사가 없습니다.</p>
+							</div>
+						</c:if>
                      <!-- start for -->
+                     <div class="row row-grid">
                      <c:forEach var="favorite" items="${favorites}" varStatus="i" >
                      	<div class="col-md-6 col-lg-4 col-xl-3">
                      		<input type="hidden" class="doctor_num" value="${favorite.doctor_num }">
