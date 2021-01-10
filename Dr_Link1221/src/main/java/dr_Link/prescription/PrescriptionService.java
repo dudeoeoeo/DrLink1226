@@ -16,7 +16,7 @@ public interface PrescriptionService {
 	public List<PrescriptionDTO> prescriptionRecord (int patient_num);
 	public PatientDTO patient_info(int patient_num);
 	public DoctorDTO doctor_info(int doctor_num);
-	public List<MedicineDTO> medicine_info (MedicineDTO vo) ;
+	public List<MedicineDTO> medicine_info();
 	
 	
 	public void add_prescription(PrescriptionDTO vo);
@@ -24,7 +24,7 @@ public interface PrescriptionService {
 	public List<MedicineDTO> medicine_detail_info (String [] medicine_num) ;
 	
 	
-	public DrLinkDTO drLink_info(DrLinkDTO vo);
+	public DrLinkDTO drLink_info();
 	public PrescriptionDTO payment_success(Pay_recordDTO pay);
 	public PrescriptionDTO end_prescription(PrescriptionDTO vo);
 

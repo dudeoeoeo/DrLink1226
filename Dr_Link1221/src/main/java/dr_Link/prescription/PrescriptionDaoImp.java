@@ -58,9 +58,9 @@ public class PrescriptionDaoImp implements PrescriptionDaoInter {
 
 
 	@Override
-	public List<MedicineDTO> medicine_info(MedicineDTO vo) {
+	public List<MedicineDTO> medicine_info() {
 		System.out.println("===> Mybatis medicine_info() 실행");
-		return ss.selectList("prescription.medicine_info",vo);
+		return ss.selectList("prescription.medicine_info");
 	}
 
 	@Override
@@ -87,8 +87,8 @@ public class PrescriptionDaoImp implements PrescriptionDaoInter {
 	}
 	
 	@Override
-    public DrLinkDTO drLink_info(DrLinkDTO vo) {
-       return ss.selectOne("prescription.drLink_info",vo);
+    public DrLinkDTO drLink_info() {
+       return ss.selectOne("prescription.drLink_info");
     }
 
 	@Override

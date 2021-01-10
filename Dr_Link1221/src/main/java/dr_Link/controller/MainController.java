@@ -125,7 +125,7 @@ public class MainController {
 				} else if(result.getP_retire_date() != null) {
 					model.addAttribute("message", "<p style='color:red'> 이미 탈퇴한 계정입니다. </p>");
 					p_url = "patient_login.page";
-				} else if (result != null) {
+				} else if (result != null) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 //					String time = result.getAppointmentDTO().getAppointment_time();
 //					result.getAppointmentDTO().setAppointment_time(time.substring(0,time.length()-2));
 //					String appointment = result.getAppointmentDTO().getAppointment_date()+""+result.getAppointmentDTO().getAppointment_time();

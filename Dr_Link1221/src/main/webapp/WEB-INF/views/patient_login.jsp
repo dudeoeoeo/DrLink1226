@@ -30,7 +30,7 @@
 												<label class="focus-label">아이디를 입력해주세요.</label>
 											</div>
 											<div class="form-group form-focus">
-												<input type="password" class="form-control floating" name="p_pwd" value="1234">
+												<input type="password" class="form-control floating" name="p_pwd" value="1111">
 												<label class="focus-label">비밀번호를 입력해주세요.</label>
 											</div>
 											<button class="btn btn-primary btn-block btn-lg login-btn" type="submit">로그인</button>
