@@ -137,7 +137,7 @@ function jsonpAjax(img_name){
 
     	alert("img_name: "+ img_name);
     	$.ajax({
-       	  	url : "http://192.168.0.7:9000/survey/jsonAIT?callback&&img=" + img_name +"&&model=1",
+       	  	url : "http://192.168.0.19:9000/drLink/jsonAIT?callback&&img=" + img_name +"&&model=1",
     		dataType : 'jsonp',
     		type : 'GET',
     		jsonp : 'callback',

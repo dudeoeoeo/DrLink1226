@@ -545,7 +545,7 @@ public class MainController {
 	   public String aiTest(@RequestParam("images") MultipartFile file, HttpSession session) {
 	      String oriFn = "";
 	      if(file != null) {
-	         String r_path = "\\\\192.168.0.7\\share\\aiTest\\"; //"Z:\\aiTest\\";  \\192.168.0.8\share\aiTest
+	         String r_path = "\\\\192.168.0.19\\share\\aiTest\\"; //"Z:\\aiTest\\";  \\192.168.0.8\share\aiTest
 	         String ai_path = session.getServletContext().getRealPath("resources/aiTest")+"\\";
 	         oriFn = file.getOriginalFilename();
 	         
@@ -555,8 +555,8 @@ public class MainController {
 	            newpath.append(r_path);
 	            newpath.append(oriFn);
 	            StringBuffer aipath = new StringBuffer();
-	            newpath.append(ai_path);
-	            newpath.append(oriFn);
+	            aipath.append(ai_path);
+	            aipath.append(oriFn);
 	            File f = new File(newpath.toString());
 	            File g = new File(aipath.toString());
 	            try {

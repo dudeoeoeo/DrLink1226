@@ -228,12 +228,11 @@ $(function(){
 											<c:set var="ap_timeFormat" value="${fn:replace(ap_time2, ':', '')}" />
 											<c:set var="now_timeFormat" value="${fn:replace(nowTime, ':', '')}" />
 											<!-- nowTime <= ap_time2 -->
-											${nowDate == ap_date2 }
-											${(ap_timeFormat - now_timeFormat) <= 5 } = ${ap_timeFormat - now_timeFormat }
-											${(now_timeFormat - ap_timeFormat) < 5 }
-											
 											<c:choose>
-											<c:when test="${nowDate == ap_date2 && (ap_timeFormat - now_timeFormat) <= 5 && (now_timeFormat - ap_timeFormat) < 5 }">
+											<c:when test="${nowDate >= ap_date2 && (ap_timeFormat - now_timeFormat) < -5}">
+												<span>진료시간이 지났습니다.</span>
+											</c:when>
+											<c:when test="${nowDate == ap_date2 && (ap_timeFormat - now_timeFormat) >=-5 && (ap_timeFormat - now_timeFormat) <=45 }">
 												<div class="patient-details" style="float: right; padding:10px; width: auto;">
 													<a href="" class="dr_link">
 													<!-- add_prescription?appointment_num=${ap.appointment_num}&patient_num=${ap.patients[0].patient_num} -->
@@ -244,12 +243,12 @@ $(function(){
 													<!-- <a href="#" class="dr_link"></a> -->
 												</div>
 											</c:when>
-											<c:when test="${nowDate >= ap_date2 && (now_timeFormat - ap_timeFormat) >= 6}">
-												<span>진료시간이 지났습니다.</span>
+											<c:when test="${nowDate <= ap_date2 && ap_timeFormat - now_timeFormat > 45 && ap_timeFormat - now_timeFormat < 55}">
+												<span>곧 진료실이 열립니다😊</span>
 											</c:when>
-											<c:when test="${nowDate < ap_date2}">
-												<span>예약시간이 다가오면 진료실이 열립니다😊</span>
-											</c:when>
+											<c:otherwise>
+												<td>예약시간 5분 전부터 진료실이 열립니다😊</td>
+											</c:otherwise>
 											</c:choose>
 										</div>
 									</div>

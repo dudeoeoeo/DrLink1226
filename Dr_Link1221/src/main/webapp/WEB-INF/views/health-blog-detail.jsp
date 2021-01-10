@@ -166,7 +166,8 @@
 									<li>
 										<div class="comment">
 											<div class="comment-block">
-												<span class="comment-by"> <c:choose>
+												<span class="comment-by"> 
+													<c:choose>
 														<c:when test="${!empty rrepl.patients[0].p_name}">
 															<span class="blog-author-name">${rrepl.patients[0].p_name }</span>
 															<c:set var="p_num"

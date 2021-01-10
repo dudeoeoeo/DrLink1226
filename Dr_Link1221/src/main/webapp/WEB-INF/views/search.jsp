@@ -137,7 +137,7 @@
 															</c:otherwise>
 														</c:choose>
 													</c:forEach>
-													<span class="d-inline-block average-rating">${list.doc_ReviewDTO.review_rating }</span>
+													<%-- <span class="d-inline-block average-rating">${list.doc_ReviewDTO.review_rating }</span> --%>
 												</div>
 											</div>
 											

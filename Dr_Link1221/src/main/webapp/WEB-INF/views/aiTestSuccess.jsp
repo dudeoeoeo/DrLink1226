@@ -43,7 +43,7 @@
 									<h3>●${aiResult.symptom_result }</h3>
 									<p class="">
 									<img
-								src="${path}/resources/${path}/resources/aiTest/${aiDTO.symptom_photo }"
+								src="${path}/resources/aiTest/${aiDTO.symptom_photo }"
 								class="img-fluid" alt="User Image">
 										
 									</p>

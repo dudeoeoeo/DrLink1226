@@ -34,9 +34,10 @@
 			
 			<div class="error-box">
 				<h1>500</h1>
-				<h3 class="h2 mb-3"><i class="fa fa-warning"></i> Oops! Something went wrong</h3>
-				<p class="h4 font-weight-normal">The page you requested was not found.</p>
-				<a href="index" class="btn btn-primary">Back to Home</a>
+				<h3 class="h2 mb-3"><i class="fa fa-warning"></i> 죄송합니다. 잘못된 요청입니다.</h3>
+				<p class="h4 font-weight-normal">요청을 처리할 수 없습니다.</p>
+				<p class="h5 font-weight-normal">항상 저희 사이트를 이용해 주셔서 감사합니다.</p>
+				<a href="index" class="btn btn-primary">메인 페이지로 돌아가기</a>
 			</div>
 		
         </div>
