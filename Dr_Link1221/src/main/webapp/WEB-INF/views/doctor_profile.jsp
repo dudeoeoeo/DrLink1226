@@ -150,6 +150,8 @@
 					<div class="doc-info-right">
 
 						<div class="doctor-action">
+						
+						<c:if test="${not empty sessionScope.user }">
 							<a href="javascript:void(0)" 
 							<c:choose>
 								<c:when test="${fav_num == '1' }">
@@ -161,6 +163,7 @@
 								style="margin-left: 80% !important; margin-bottom: 30% !important;">
 								<i class="far fa-bookmark"></i>
 							</a>
+							</c:if>
 						</div>
 						<c:if test="${not empty sessionScope.user }">
 						<div class="clinic-booking">

@@ -6,7 +6,7 @@
 		auth="Container"
 		type="javax.sql.DataSource"
 		driverClassName="oracle.jdbc.driver.OracleDriver"
-		url="jdbc:oracle:thin:@localhost:1521:orcl"
+		url="jdbc:oracle:thin:@192.168.0.14:1521:orcl"
 		username="drlink"
 		password="drlink00"
 		maxActive="20"

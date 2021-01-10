@@ -35,28 +35,31 @@ public class DoctorProfileController {
 	@RequestMapping(value = "doctor_profile")
 	public String doctor_profile(HttpServletRequest request, HttpSession session, DoctorDTO vo, Model model, ModelMap modelMap) {
 	  
+	  if(session.getAttribute("user") != null) {
 	  FavoritesDTO fvo = new FavoritesDTO();
 	  fvo.setPatient_num(((PatientDTO)session.getAttribute("user")).getPatient_num());
-	  
-	  model.addAttribute("fav_num", favoritesDAO.checkFavorite(fvo));
+	  }
+
+	  DoctorDTO doctor_profile = new DoctorDTO();
+//	  model.addAttribute("fav_num", favoritesDAO.checkFavorite(fvo));
 	  try {
 		  Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(request);  
-		  DoctorDTO doctor_profile = new DoctorDTO();
 		  List<Doc_ReviewDTO> reviewList = new ArrayList<Doc_ReviewDTO>();
+		  
 	 //의사번호를 던져서 가져온 값을 doctor_profile에 저장 후 model 에 담아 jsp 전송
 		  if( redirectMap  != null ){
 			  System.out.println("들어온 리다이렉트 doctor_num " + redirectMap.get("doctor_num"));
-			  fvo.setDoctor_num((int)redirectMap.get("doctor_num"));
+//			  fvo.setDoctor_num((int)redirectMap.get("doctor_num"));
 			  doctor_profile = doctorProfileDAO.doctor_info((int)redirectMap.get("doctor_num"));  // 오브젝트 타입이라 캐스팅해줌
 			  reviewList = reviewService.getReviewList((int)redirectMap.get("doctor_num"));
 		  } else if (request.getParameter("doctor_num") != null) {
 			  System.out.println("들어온 파라미터 doctor_num " + request.getParameter("doctor_num"));
-			  fvo.setDoctor_num(Integer.parseInt(request.getParameter("doctor_num")));
+//			  fvo.setDoctor_num(Integer.parseInt(request.getParameter("doctor_num")));
 			  doctor_profile = doctorProfileDAO.doctor_info(Integer.parseInt(request.getParameter("doctor_num")));
 			  reviewList = reviewService.getReviewList(Integer.parseInt(request.getParameter("doctor_num")));
 		  }
+	 
 		  
-	  model.addAttribute("doctor_profile",doctor_profile);
 	  
 	  //db에서 가져온 값이 "a,b,c,"로 되어 있어서 split 후 배열에 담아 model 로 보내는 처리
 	  List<String[]> m = new ArrayList<String[]>();
@@ -87,7 +90,8 @@ public class DoctorProfileController {
 		  e.printStackTrace();
 	  }
 	  
-	  
+
+	  model.addAttribute("doctor_profile",doctor_profile);
 	  
 		return "doctor_profile.page";
 	}
