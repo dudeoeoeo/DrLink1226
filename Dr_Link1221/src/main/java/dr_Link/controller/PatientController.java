@@ -60,13 +60,14 @@ public class PatientController {
 		return "/patients/"+step+".page";
 	}
 	
-//	@RequestMapping("doctor_profile")
-//	public String doctor_profile(HttpServletRequest request, Model model, RedirectAttributes re) {
-//		int doctor_num = Integer.parseInt(request.getParameter("doctor_num"));
-//		re.addFlashAttribute("doctor_num", doctor_num);
-//		System.out.println("PatientController 의사프로필");
-//		return "redirect:/doctor_profile";
-//	}
+	@RequestMapping("doctor_profile")
+	public String doctor_profile(HttpServletRequest request, Model model, RedirectAttributes re) {
+		System.out.println("patients controller의 doctor_prefile");
+		int doctor_num = Integer.parseInt(request.getParameter("doctor_num"));
+		re.addFlashAttribute("doctor_num", doctor_num);
+		System.out.println("PatientController 의사프로필");
+		return "redirect:/doctor_profile";
+	}
 	
 	@RequestMapping("updatePatient")
 	public String updatePatient(PatientDTO vo, HttpSession session, HttpServletRequest request) {
@@ -161,7 +162,7 @@ public class PatientController {
 		if(pay_chk.equals("0")) {
 			url="/patients/payment_form";
 		} else {
-			DrLinkDTO drlinkinfo = prescriptionService.drLink_info(drlinkVO);
+			DrLinkDTO drlinkinfo = prescriptionService.drLink_info();
 			List<MedicineDTO> medi_detail = pre_dao.medicine_detail_info(prescription.getMedicine_num());
 			model.addAttribute("medi_detail",medi_detail);
 			model.addAttribute("drlinkinfo",drlinkinfo);
@@ -178,7 +179,7 @@ public class PatientController {
 	public String invoices(PrescriptionDTO pre_vo,Model model, MedicineDTO medi_vo,HttpSession session, DrLinkDTO drlinkVO) {
 		PrescriptionDTO prescription = pre_dao.patient_detail_prescription(pre_vo.getPrescription_num());
 		Pay_recordDTO payrec = pre_dao.pay_record(pre_vo.getPrescription_num());
-		DrLinkDTO drlinkinfo = prescriptionService.drLink_info(drlinkVO);
+		DrLinkDTO drlinkinfo = prescriptionService.drLink_info();
 		List<MedicineDTO> medi_detail = pre_dao.medicine_detail_info(prescription.getMedicine_num());
 		model.addAttribute("medi_detail",medi_detail);
 		model.addAttribute("drlinkinfo",drlinkinfo);

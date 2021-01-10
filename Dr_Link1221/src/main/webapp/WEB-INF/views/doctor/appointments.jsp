@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -223,18 +224,32 @@ $(function(){
 										    <c:set var = "length" value = "${fn:length(ap.appointment_time)}"/>
 											<fmt:parseDate value="${ap.appointment_time}" pattern="HH:mm" var="ap_time" />  
 											<fmt:formatDate value="${ap_time}" pattern="HH:mm" var="ap_time2" />
-											<c:choose>
+
+											<c:set var="ap_timeFormat" value="${fn:replace(ap_time2, ':', '')}" />
+											<c:set var="now_timeFormat" value="${fn:replace(nowTime, ':', '')}" />
+											<!-- nowTime <= ap_time2 -->
+											${nowDate == ap_date2 }
+											${(ap_timeFormat - now_timeFormat) <= 5 } = ${ap_timeFormat - now_timeFormat }
+											${(now_timeFormat - ap_timeFormat) < 5 }
 											
-											<c:when test="${nowDate == ap_date2 && nowTime <= ap_time2}">
+											<c:choose>
+											<c:when test="${nowDate == ap_date2 && (ap_timeFormat - now_timeFormat) <= 5 && (now_timeFormat - ap_timeFormat) < 5 }">
 												<div class="patient-details" style="float: right; padding:10px; width: auto;">
-			      									<button type="button" class="btn badge-pill bg-info-light treatmentBtn" data-dismiss="modal">진료실 입장하기</button>
+													<a href="" class="dr_link">
+													<!-- add_prescription?appointment_num=${ap.appointment_num}&patient_num=${ap.patients[0].patient_num} -->
+													<input type="hidden" name="ap_num" value="${ap.appointment_num}">
+													<input type="hidden" name="p_num" value="${ap.patients[0].patient_num}">
+														<span class="badge-pill bg-info-light">진료실 입장하기</span>
+													</a>
+													<!-- <a href="#" class="dr_link"></a> -->
 												</div>
 											</c:when>
-											<c:otherwise>
-												<div class="patient-details" style="float: right; padding:10px; width: auto;">
+											<c:when test="${nowDate >= ap_date2 && (now_timeFormat - ap_timeFormat) >= 6}">
+												<span>진료시간이 지났습니다.</span>
+											</c:when>
+											<c:when test="${nowDate < ap_date2}">
 												<span>예약시간이 다가오면 진료실이 열립니다😊</span>
-												</div>
-											</c:otherwise>
+											</c:when>
 											</c:choose>
 										</div>
 									</div>
@@ -302,7 +317,11 @@ $(function(){
 		    </div><!-- /.modal-dialog -->
 		  </div><!-- /.modal -->
 	</c:forEach>
-	
+
+<form id="addForm" method="post">
+<input type="hidden" name="appointment_num" value="">
+<input type="hidden" name="patient_num" value="">
+</form>	
 
 <%-- 
 	<c:forEach var="ap" items="${apList}" varStatus="status">
@@ -368,14 +387,33 @@ $(function(){
 	<script src="${path}/resources/assets/js/script.js"></script>
 
 	<script type="text/javascript">
-/* 		$(function() {
-			$('.bg-info-light').click(function() {
+	
+ 		$(function() {
+ 			$('.dr_link').click(function(e){
+ 				if(confirm("얼굴을 볼 수 있는 캠과 마이크를 준비해주세요.")) {
+ 					
+ 					ap_num = $(this).find('input[name="ap_num"]').val();
+	 				p_num = $(this).find('input[name="p_num"]').val();
+				    $('#addForm').find('input[name="appointment_num"]').val(ap_num);
+	 				$('#addForm').find('input[name="patient_num"]').val(p_num);
+	 				
+	 				$('#addForm').attr("action", "add_prescription");
+	 				$('#addForm').submit(); 
+				    window.open("https://192.168.0.44:3100/dr_linkVideo");
+				    e.preventDefault();
+ 				} else {
+ 					e.preventDefault();
+ 				}
+ 			}) // click
+ 			/*
+ 			$('.bg-info-light').click(function() {
 				var idx = $(this).find('input[name="detail_num"]').val();
 				alert("idx: "+idx)
 				//$("#appt_details"+idx).modal()
 				$(this).attr('data-target', '#appt_details' + idx)
-			}) // click
-		}) // ready */
+			}) // click*/
+		}) // ready 
+		
 	</script>
 </body>
 </html>

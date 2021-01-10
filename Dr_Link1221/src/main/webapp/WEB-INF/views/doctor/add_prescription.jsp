@@ -73,6 +73,8 @@ body {
 										<div class="col-sm-6 text-sm-right">
 											<div class="billing-info">
 												<h4 class="d-block"><%= date.format(nowTime) %></h4>
+												<h4 class="d-block start_time">진료시간</h4>
+												<br/><button class="end_time">진료완료</button>
 												<input type="hidden" name="prescription_date" value="<%= date.format(nowTime)%>"/>
 												<input type="hidden" name="prescription_date" value="<%= time.format(nowTime)%>"/>
 												<input type="hidden" name="patient_num" value="${patientinfo.patient_num}"/>
@@ -187,7 +189,7 @@ body {
 										<tbody>
 											<tr>
 												<td style="width: 30%;float: right;" >
-												<input class="form-control" value="" type="text" name="price" placeholder="금액을 입력해주세요" style="width:70%;float: right;">
+												<input class="form-control" value="" type="text" name="price" readonly="readonly" placeholder="금액을 입력해주세요" style="width:70%;float: right;">
 												</td>
 											</tr>
 										</tbody>
@@ -233,8 +235,55 @@ body {
 <script src="https://unpkg.com/hangul-js" type="text/javascript"></script>
 <script>
 $(function(){
+	var cnt = 0;
+	var flag = true;
+	var dep_num = '${sessionScope.doctor.dep_num}'
+	var patient_num = '${patientinfo.patient_num}'
+	var doctor_num = '${sessionScope.doctor.doctor_num}'
+	var appointment_num = '${appointment_num}'
+	var today = new Date();
+	var start_treatment_time = today.getFullYear() +"-"+ today.getMonth()+1 +"-"+ today.getDate()+ " " +today.getHours() +":"+ today.getMinutes()
+	var treat_num = 0;
+	setInterval(function(){
+		if(flag) {
+			cnt += 1;
+			$('.start_time').text("진료시간 : " + cnt +" 초");
+		}
+	}, 1*1000) // set
 	
-			
+	$('.end_time').click(function(e){
+		flag = false;
+		alert("진료가 완료되었습니다. 진료시간은 "+cnt+" 초 입니다.");
+		$('input[name="price"]').val(3000+(parseInt(cnt/60+1)*700))
+
+		var formData = new FormData();
+		formData.append('dep_num', dep_num)
+		formData.append('patient_num', patient_num)
+		formData.append('appointment_num', appointment_num)
+		formData.append('doctor_num', doctor_num)
+		formData.append('start_treatment_time', start_treatment_time)
+		formData.append('monitoring_time', cnt)
+		
+	    $.ajax({
+	        url : "treatment_record",
+	        type: "POST",
+	        data: formData,
+	        async : true,
+	        processData: false,
+	        contentType: false,
+	        cache: false,
+	        success:function(data) {
+	        	if(data.result > 0) {
+	        		alert("처방전을 입력해주세요.");
+	        	}
+	        	treat_num = data.result;
+	        	e.preventDefault();
+	        }
+	    });
+		
+		e.preventDefault();
+	}) // click
+	
 	 $(".prescription-info").on('click','.trash', function () {
 			$(this).closest('.prescription-cont').remove();
 			 return false; 
@@ -276,6 +325,8 @@ $(function(){
 	    		console.log($(this).val());
 	    		medi_num.push($(this).val());
 	    	}) // each
+	    	$('#prescription_form').append('<input type="hidden" name="treatment_num" value="'+treat_num+'">')
+	    	$('#prescription_form').append('<input type="hidden" name="monitoring_time" value="'+cnt+'">');
 	    	$('#prescription_form').append('<input type="hidden" name="medi_num" value="'+medi_num+'">');
 	    	$('#prescription_form').attr('action', 'end_prescription').submit();
 	    }) // click

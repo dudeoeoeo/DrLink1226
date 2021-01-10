@@ -34,16 +34,24 @@ public class DoctorProfileController {
 	
 	@RequestMapping(value = "doctor_profile")
 	public String doctor_profile(HttpServletRequest request, HttpSession session, DoctorDTO vo, Model model, ModelMap modelMap) {
-	    
+	  
+	  FavoritesDTO fvo = new FavoritesDTO();
+	  fvo.setPatient_num(((PatientDTO)session.getAttribute("user")).getPatient_num());
+	  
+	  model.addAttribute("fav_num", favoritesDAO.checkFavorite(fvo));
 	  try {
 		  Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(request);  
 		  DoctorDTO doctor_profile = new DoctorDTO();
 		  List<Doc_ReviewDTO> reviewList = new ArrayList<Doc_ReviewDTO>();
 	 //의사번호를 던져서 가져온 값을 doctor_profile에 저장 후 model 에 담아 jsp 전송
 		  if( redirectMap  != null ){
+			  System.out.println("들어온 리다이렉트 doctor_num " + redirectMap.get("doctor_num"));
+			  fvo.setDoctor_num((int)redirectMap.get("doctor_num"));
 			  doctor_profile = doctorProfileDAO.doctor_info((int)redirectMap.get("doctor_num"));  // 오브젝트 타입이라 캐스팅해줌
 			  reviewList = reviewService.getReviewList((int)redirectMap.get("doctor_num"));
 		  } else if (request.getParameter("doctor_num") != null) {
+			  System.out.println("들어온 파라미터 doctor_num " + request.getParameter("doctor_num"));
+			  fvo.setDoctor_num(Integer.parseInt(request.getParameter("doctor_num")));
 			  doctor_profile = doctorProfileDAO.doctor_info(Integer.parseInt(request.getParameter("doctor_num")));
 			  reviewList = reviewService.getReviewList(Integer.parseInt(request.getParameter("doctor_num")));
 		  }
@@ -78,12 +86,8 @@ public class DoctorProfileController {
 	  } catch (Exception e) {
 		  e.printStackTrace();
 	  }
-	  if(session.getAttribute("user") != null) {
-		  FavoritesDTO fvo = new FavoritesDTO();
-		  fvo.setPatient_num(((PatientDTO)session.getAttribute("user")).getPatient_num());
-		  fvo.setDoctor_num(Integer.parseInt(request.getParameter("doctor_num")));
-		  model.addAttribute("fav_num", favoritesDAO.checkFavorite(fvo));
-	  }
+	  
+	  
 	  
 		return "doctor_profile.page";
 	}

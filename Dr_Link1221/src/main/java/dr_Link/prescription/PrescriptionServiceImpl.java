@@ -11,6 +11,7 @@ import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.dto.Pay_recordDTO;
+import dr_Link.dto.TreatmentRecordDTO;
 
 @Repository("PrescriptionService")
 public class PrescriptionServiceImpl implements PrescriptionService{
@@ -35,8 +36,8 @@ public class PrescriptionServiceImpl implements PrescriptionService{
 	}
 
 	@Override
-	public List<MedicineDTO> medicine_info(MedicineDTO vo) {
-		return pre_dao.medicine_info(vo);
+	public List<MedicineDTO> medicine_info() {
+		return pre_dao.medicine_info();
 	}
 
 	@Override
@@ -55,8 +56,8 @@ public class PrescriptionServiceImpl implements PrescriptionService{
 	}
 
 	@Override
-	public DrLinkDTO drLink_info(DrLinkDTO vo) {
-		return pre_dao.drLink_info(vo);
+	public DrLinkDTO drLink_info() {
+		return pre_dao.drLink_info();
 	}
 	
 	@Override
@@ -77,4 +78,8 @@ public class PrescriptionServiceImpl implements PrescriptionService{
 		
 	}
 
+	public int insertTreatRecord(TreatmentRecordDTO tr) {
+		pre_dao.insertTreatRecord(tr);
+		return pre_dao.selectTreat_num();
+	}
 }

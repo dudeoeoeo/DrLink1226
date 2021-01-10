@@ -12,6 +12,7 @@ import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.dto.Pay_recordDTO;
+import dr_Link.dto.TreatmentRecordDTO;
 
 @Repository("PrescriptionDaoInter")
 public class PrescriptionDaoImp implements PrescriptionDaoInter {
@@ -58,9 +59,9 @@ public class PrescriptionDaoImp implements PrescriptionDaoInter {
 
 
 	@Override
-	public List<MedicineDTO> medicine_info(MedicineDTO vo) {
+	public List<MedicineDTO> medicine_info() {
 		System.out.println("===> Mybatis medicine_info() 실행");
-		return ss.selectList("prescription.medicine_info",vo);
+		return ss.selectList("prescription.medicine_info");
 	}
 
 	@Override
@@ -87,12 +88,20 @@ public class PrescriptionDaoImp implements PrescriptionDaoInter {
 	}
 	
 	@Override
-    public DrLinkDTO drLink_info(DrLinkDTO vo) {
-       return ss.selectOne("prescription.drLink_info",vo);
+    public DrLinkDTO drLink_info() {
+       return ss.selectOne("prescription.drLink_info");
     }
 
 	@Override
 	public Pay_recordDTO pay_record(int prescription_num) {
 		return ss.selectOne("prescription.patient_detail_payment",prescription_num);
+	}
+	
+	public int insertTreatRecord(TreatmentRecordDTO tr) {
+		return ss.insert("prescription.insertTreatRecord", tr);
+	}
+	
+	public int selectTreat_num() {
+		return ss.selectOne("prescription.selectTreat_num");
 	}
 }

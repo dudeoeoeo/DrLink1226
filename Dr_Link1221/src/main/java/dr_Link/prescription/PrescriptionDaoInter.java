@@ -7,6 +7,7 @@ import dr_Link.dto.DrLinkDTO;
 import dr_Link.dto.MedicineDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.dto.Pay_recordDTO;
+import dr_Link.dto.TreatmentRecordDTO;
 
 
 public interface PrescriptionDaoInter {
@@ -17,10 +18,15 @@ public interface PrescriptionDaoInter {
 	public PrescriptionDTO patient_detail_prescription(int prescription_num) ;
 	public PatientDTO patient_info(int patient_num);
 	public DoctorDTO doctor_info(int doctor_num);
-	public List<MedicineDTO> medicine_info (MedicineDTO vo) ;
+	
+	public List<MedicineDTO> medicine_info () ;
+	
 	public List<MedicineDTO> medicine_detail_info (String [] medicine_num) ;
 	public void updatePayment_check(int prescription_num);
 	public void insertPayment_record(Pay_recordDTO pay);
-	public DrLinkDTO drLink_info(DrLinkDTO vo);
+	
+	public DrLinkDTO drLink_info();
 	public Pay_recordDTO pay_record (int prescription_num);
+	public int insertTreatRecord(TreatmentRecordDTO tr);
+	public int selectTreat_num();
 }
