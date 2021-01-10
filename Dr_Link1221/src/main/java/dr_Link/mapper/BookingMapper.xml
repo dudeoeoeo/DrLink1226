@@ -50,10 +50,8 @@
  	<select id="getPatientBookingList" parameterType="int" resultMap="bookingMap">
  		select * from appointment a, dl_doctor b, department c 
  		where a.doctor_num=b.doctor_num and b.dep_num=c.dep_num and patient_num=#{patient_num}  
- 		<![CDATA[
- 		and appointment_date >= to_char(sysdate, 'yyyy-mm-dd')
+ 		<![CDATA[ and appointment_date >= to_char(sysdate, 'yyyy-mm-dd')]]>
  		order by to_date(appointment_date,'yyyy-mm-dd'), appointment_time desc
- 		]]>
  	</select>
  	
  	<!-- 의사 예약 리스트 -->

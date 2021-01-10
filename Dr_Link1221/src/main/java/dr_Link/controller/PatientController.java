@@ -133,9 +133,6 @@ public class PatientController {
 			List<BookingDTO> bookingList = bookingService.getPatientBookingList(patient_num);
 			model.addAttribute("bookingList", bookingList);
 			System.out.println("들어온 treatmentList 사이즈 : "+bookingList.size());
-			for ( BookingDTO tr : bookingList) {
-				System.out.println("번호들 : "+tr.getAppointment_num());
-			}
 			
 			// 진료기록
 			List<TreatmentRecordDTO> treatmentList = patientDaoInter.treatmentRecordList(patient_num);

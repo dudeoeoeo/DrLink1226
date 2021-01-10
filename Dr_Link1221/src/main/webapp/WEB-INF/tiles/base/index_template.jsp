@@ -105,6 +105,11 @@ width:auto !important;
 <script type="text/javascript">
 $(function() {
 
+	window.onload = function () {
+        if (window.Notification) {
+            Notification.requestPermission();
+        }
+    }
 	var uid = '${sessionScope.user}';
 	var appointment = '${sessionScope.appointment}';
 	var todayTime = new Date();
@@ -155,48 +160,32 @@ $(function() {
 			var m_ap_date10=moment(ap_date10).format('YY-MM-DD H:mm') */
 			
 		};//uid if문 
-		
 		if(todayTime >= m_ap_date5 && todayTime <=m_ap_date) {
 			notification()
 		}
 		
-	},60*1000);
+	},30*1000);
 	
 	
 		function notification(){
-			window.onload = function () {
-		        if (window.Notification) {
-		            Notification.requestPermission();
-		        }
-		    }
-			
-			notify();
-			
-		    /* function calculate() {
-		        setTimeout(function () {
-		            notify();
-		        }, 3000);
-		    } */
-		    
-			function notify() {
-				if (Notification.permission !== 'granted') {
-					alert('notification is disabled');
-				} else {
-					var notification = new Notification('💕진료 예약 알림💕', {
-						icon : '${path}/resources/assets/img/favicon.png',
-						body : '곧 진료가 시작됩니다. 진료실에 입장해주세요',
-						requireInteraction : true
-					//timestamp: dts
-					});
-		
-					notification.onclick = function() {
-						location.replace('${path}/patients/patient_dashboard?patient_num=${sessionScope.user.patient_num}');
-					};
-		
-					  notification.onclose = function () {
-						location.replace('${path}/patients/patient_dashboard?patient_num=${sessionScope.user.patient_num}');
-					 };
-				}
+
+			if (Notification.permission !== 'granted') {
+				alert('notification is disabled');
+			} else {
+				var notification = new Notification('💕진료 예약 알림💕', {
+					icon : '${path}/resources/assets/img/favicon.png',
+					body : '곧 진료가 시작됩니다. 진료실에 입장해주세요',
+					requireInteraction : true
+				//timestamp: dts
+				});
+	
+				notification.onclick = function() {
+					location.replace('${path}/patients/patient_dashboard?patient_num=${sessionScope.user.patient_num}');
+				};
+	
+				  notification.onclose = function () {
+					location.replace('${path}/patients/patient_dashboard?patient_num=${sessionScope.user.patient_num}');
+				 };
 			}
 		}
 		

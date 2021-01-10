@@ -5,6 +5,11 @@
  "http://mybatis.org/dtd/mybatis-3-config.dtd">
  
  <configuration>
+    <settings>
+     <setting name="callSettersOnNulls" value="true"/>
+     <setting name="returnInstanceForEmptyRow" value="true"/>
+     <setting name="jdbcTypeForNull" value="NULL" />
+    </settings>
     <typeAliases>
        <typeAlias type="dr_Link.doctorProfile.DoctorDTO" alias="doctorDTO"/>
        <typeAlias type="dr_Link.dto.MedicineDTO" alias="medicineDTO"/>

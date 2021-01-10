@@ -170,11 +170,10 @@
 	<!-- 환자 예약 내역 확인  -->
 	<select id="appointment_chk" parameterType="patientDTO" resultMap="patientMap">
 	select p.*, rownum from (
-	select *  from dl_user a join appointment b on a.patient_num = b.patient_num  where p_id=#{p_id} and p_pwd=#{p_pwd} 
-	and b.appointment_date || ' ' || substr(b.appointment_time, 1 , INSTR(b.appointment_time,' ')-1)
+	select *  from dl_user a join appointment b on a.patient_num = b.patient_num  where p_id='p_test1' and p_pwd='1111'
 	<![CDATA[
-	 >= to_char(sysdate, 'yyyy-mm-dd HH:MM')  order by b.appointment_date desc ) p 
-	 ]]>  
+	and b.appointment_date >= to_char(sysdate,'yyyy-mm-dd') and b.appointment_time >= to_char(sysdate, 'HH24:MM')  ]]>  
+	order by b.appointment_date asc ) p 
 	where rownum = 1
 	</select>
 

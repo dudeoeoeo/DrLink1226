@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmtt" uri="http://java.sun.com/jstl/fmt_rt" %>  
-<jsp:useBean id="now" class="java.util.Date"/>
-<fmtt:formatDate value="${now}" pattern="yyyy-MM-dd" var="sysdate"/>
-<fmtt:formatDate value="${now}" pattern="HHmm" var="sysdateTime"/>
+<%@ taglib prefix="fmtt" uri="http://java.sun.com/jstl/fmt_rt"%>
+<jsp:useBean id="now" class="java.util.Date" />
+<fmtt:formatDate value="${now}" pattern="yyyy-MM-dd" var="sysdate" />
+<fmtt:formatDate value="${now}" pattern="HHmm" var="sysdateTime" />
 <!DOCTYPE html>
 <!-- Breadcrumb -->
 <div class="breadcrumb-bar">
@@ -15,7 +15,7 @@
 			<div class="col-md-12 col-12">
 				<nav aria-label="breadcrumb" class="page-breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="${path }">홈</a></li>
+						<li class="breadcrumb-item"><a href="${path}">홈</a></li>
 						<li class="breadcrumb-item active" aria-current="page">마이페이지</li>
 					</ol>
 				</nav>
@@ -61,8 +61,8 @@
 								<li class="active"><a href="patient_dashboard"> <i
 										class="fas fa-columns"></i> <span>진료확인</span>
 								</a></li>
-								<li><a href="favorites"> <i class="fas fa-bookmark"></i> <span>즐겨찾는
-											의사</span>
+								<li><a href="favorites"> <i class="fas fa-bookmark"></i>
+										<span>즐겨찾는 의사</span>
 								</a></li>
 								<li><a href="profile_settings"> <i
 										class="fas fa-user-cog"></i> <span>개인정보 수정</span>
@@ -128,17 +128,18 @@
 														</thead>
 														<tbody>
 															<!-- start for -->
-															<c:forEach var="booking" items="${bookingList}" varStatus="status">
-															
+															<c:forEach var="booking" items="${bookingList}"
+																varStatus="status">
 																<c:set var="recordTimetrim" value="${fn:trim(booking.appointment_time)}" />
 																<c:set var="recordTime" value="${fn:replace(recordTimetrim,':','')}" />
+																<%-- <fmt:parseDate var="recordTime" value="${recordTimetrimreplace}"  pattern="HHmm"/> --%>
 																<c:set var="appointment_date" value="${fn:replace(booking.appointment_date,'/','-')}" />
-																
+
 																<c:set var="booking_datetrim" value="${fn:trim(booking.reg_date)}" />
 																<c:set var="bookingDate" value="${fn:substring(booking_datetrim,0,10)}" />
-																
+
 																<tr class="text-center">
-																
+
 																	<td>
 																		<h2 class="table-avatar">
 																			<a
@@ -147,45 +148,51 @@
 																				class="avatar-img rounded-circle"
 																				src="${path}/resources/doctor/doctorImg/${booking.doctorDTO.d_photo}"
 																				alt="User Image">
-																			</a> <a
-																				href="doctor_profile?doctor_num=${booking.doctorDTO.doctor_num}">Dr.
-																				${booking.doctorDTO.d_name } <span>${booking.departmentDTO.dep_name }</span>
+																			</a> 
+																			<a href="doctor_profile?doctor_num=${booking.doctorDTO.doctor_num}">Dr. ${booking.doctorDTO.d_name } 
+																			<span>${booking.departmentDTO.dep_name }</span>
 																			</a>
 																		</h2>
 																	</td>
 																	<td>${appointment_date}<span
 																		class="d-block text-info">${booking.appointment_time}</span></td>
 																	<td>${bookingDate}</td>
-																	<td>
-																	<c:choose>
-																	<c:when test="${sysdate == appointment_date && recordTime - sysdateTime < 0}">																		
-																		<td>
-																	<span class="badge-pill bg-info-light">진료 종료</span></td> 
-																	</c:when>
-																	<c:otherwise>
-																	<td>	 	
-																	<span class="badge-pill bg-info-light">예약정상</span>
-																	<a class="badge-pill bg-danger-light cancel_booking" href="cancelbooking?appointment_num=${booking.appointment_num}">예약취소</a>
-																	</td>
-																	</c:otherwise>
-																	</c:choose>
-																	<c:choose>
-																	<c:when test="${sysdate == appointment_date && recordTime - sysdateTime < 0}">																		
-																		<td>오늘의 진료가 종료되었습니다</td> 
-																	</c:when> 						
-																	<c:when test="${sysdate == appointment_date && recordTime - sysdateTime >5 && recordTime - sysdateTime < 15}">																		
-																		<td>곧 진료실이 열립니다😊</td> 
-																	</c:when> 
-																	<c:when test="${sysdate == appointment_date && recordTime - sysdateTime >=0 && recordTime - sysdateTime<=5}">  
-																		<td><a href="https://192.168.0.44:3100/dr_linkVideo">
-																			<span class="badge-pill bg-info-light">진료실 입장하기</span>
-																		</a></td> 
-																	</c:when> 
-																	<c:otherwise>																		
-																		<td>예약시간 5분 전부터 진료실이 열립니다😊</td> 
-																		
-																	</c:otherwise>
-																	</c:choose>
+																	<td><c:choose>
+																			<c:when
+																				test="${sysdate == appointment_date && recordTime - sysdateTime < 0}">
+																				<td><span class="badge-pill bg-info-light">진료
+																						종료</span></td>
+																			</c:when>
+																			<c:otherwise>
+																				<td><span class="badge-pill bg-info-light">예약정상</span>
+																					<a
+																					class="badge-pill bg-danger-light cancel_booking"
+																					href="cancelbooking?appointment_num=${booking.appointment_num}">예약취소</a>
+																				</td>
+																			</c:otherwise>
+																		</c:choose> 
+																		<c:choose>
+																			<c:when
+																				test="${sysdate == appointment_date && recordTime - sysdateTime < 0}">
+																				<td>오늘의 진료가 종료되었습니다</td>
+																			</c:when>
+																			<c:when
+																				test="${sysdate == appointment_date && recordTime - sysdateTime > 45 && recordTime - sysdateTime < 55}">
+																				<td>곧 진료실이 열립니다😊</td>
+																			</c:when>
+																			<c:when
+																				test="${sysdate == appointment_date && recordTime - sysdateTime >=0 && recordTime - sysdateTime<=45}">
+																				<td><a
+																					href="https://192.168.0.44:3100/dr_linkVideo">
+																						<span class="badge-pill bg-info-light">진료실
+																							입장하기</span>
+																				</a></td>
+																			</c:when>
+																			<c:otherwise>
+																				<td>예약시간 5분 전부터 진료실이 열립니다😊</td>
+
+																			</c:otherwise>
+																		</c:choose>
 																</tr>
 																<!-- / end for -->
 															</c:forEach>
@@ -224,9 +231,9 @@
 														<tbody>
 															<c:forEach var="prescriptionRecord"
 																items="${prescriptionRecord}" varStatus="status">
-																
-																	<c:set var="prescription_datetrim" value="${fn:trim(prescriptionRecord.prescription_date)}" />
-																	<c:set var="precol" value="${fn:substring(prescription_datetrim,0,10)}" />
+
+																<c:set var="prescription_datetrim" value="${fn:trim(prescriptionRecord.prescription_date)}" />
+																<c:set var="precol" value="${fn:substring(prescription_datetrim,0,10)}" />
 																<tr>
 																	<td>${precol}</td>
 																	<td>
@@ -306,10 +313,8 @@
 																				href="doctor_profile?doctor_num=${payment_record.doctorDTO.doctor_num}">${payment_record.doctorDTO.d_name}<span>${payment_record.departmentDTO.dep_name}</span></a>
 																		</h2>
 																	</td>
-																	<fmt:parseNumber var="down_price"
-																		value="${payment_record.price}" integerOnly="true" />
-																	<fmt:formatNumber type="number" maxFractionDigits="3"
-																		value="${down_price}" var="down_price" />
+																	<fmt:parseNumber var="down_price" value="${payment_record.price}" integerOnly="true" />
+																	<fmt:formatNumber type="number" maxFractionDigits="3" value="${down_price}" var="down_price" />
 																	<td>${down_price}</td>
 																	<td>${payment_record.paydate}</td>
 																	<td class="text-right">
@@ -348,41 +353,36 @@
 <!-- /Page Content -->
 
 <script>
+	$(function() {
+		$('a.cancel_booking').click(function(e) {
+			if (confirm("정말로 예약을 취소하시겠습니까?")) {
 
-$(function(){
-	$('a.cancel_booking').click(function (e){
-		if(confirm("정말로 예약을 취소하시겠습니까?")){
-			
-		} else {
-			e.preventDefault();
-		}
+			} else {
+				e.preventDefault();
+			}
+		});
 	});
-});
+
+	/* 
+	 $.ajax({
+	 url : "/patients/cancelbooking",
+	 type : "POST",
+	 data : {
+	 p_id : $("#p_id").val(),
+	 p_email : $("#p_email").val()
+	 },
+	 success : function(result) {
+	 alert(result);
+	 },
+	 }) */
+
+	/*location.href='patients/cancelbooking?appointment_num='+appointment_num;
 
 
-/* 
-$.ajax({
-	url : "/patients/cancelbooking",
-	type : "POST",
-	data : {
-		p_id : $("#p_id").val(),
-		p_email : $("#p_email").val()
-	},
-	success : function(result) {
-		alert(result);
-	},
-}) */
-
-
-
-
-/*location.href='patients/cancelbooking?appointment_num='+appointment_num;
-
-
-function del(seq) {
-	var chk = confirm("정말 삭제하시겠습니까?");
-	if (chk) {
-		location.href='delete?seq='+seq;
-	}
-}	 */
+	 function del(seq) {
+	 var chk = confirm("정말 삭제하시겠습니까?");
+	 if (chk) {
+	 location.href='delete?seq='+seq;
+	 }
+	 }	 */
 </script>
