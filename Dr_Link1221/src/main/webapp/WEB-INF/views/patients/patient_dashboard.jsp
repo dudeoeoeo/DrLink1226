@@ -157,11 +157,17 @@
 																	<td>${appointment_date}<span
 																		class="d-block text-info">${booking.appointment_time}</span></td>
 																	<td>${bookingDate}</td>
-																	<td><c:choose>
+																	<c:choose>
 																			<c:when
-																				test="${sysdate == appointment_date && recordTime - sysdateTime < 0}">
-																				<td><span class="badge-pill bg-info-light">진료
-																						종료</span></td>
+																				test="${sysdate == appointment_date && recordTime - sysdateTime < -5}">
+																				<td>
+																				<span class="badge-pill bg-info-light">진료종료</span>
+																				</td>
+																			</c:when><c:when
+																				test="${sysdate == appointment_date && recordTime - sysdateTime < 0 }">
+																				<td>
+																				<span class="badge-pill bg-info-light">진료 시작</span>
+																				</td>
 																			</c:when>
 																			<c:otherwise>
 																				<td><span class="badge-pill bg-info-light">예약정상</span>
@@ -173,7 +179,7 @@
 																		</c:choose> 
 																		<c:choose>
 																			<c:when
-																				test="${sysdate == appointment_date && recordTime - sysdateTime < 0}">
+																				test="${sysdate == appointment_date && recordTime - sysdateTime < -5}">
 																				<td>오늘의 진료가 종료되었습니다</td>
 																			</c:when>
 																			<c:when
@@ -181,7 +187,7 @@
 																				<td>곧 진료실이 열립니다😊</td>
 																			</c:when>
 																			<c:when
-																				test="${sysdate == appointment_date && recordTime - sysdateTime >=0 && recordTime - sysdateTime<=45}">
+																				test="${sysdate == appointment_date && recordTime - sysdateTime >=-5 && recordTime - sysdateTime<=45}">
 																				<td><a
 																					href="https://192.168.0.44:3100/dr_linkVideo">
 																						<span class="badge-pill bg-info-light">진료실
@@ -190,7 +196,6 @@
 																			</c:when>
 																			<c:otherwise>
 																				<td>예약시간 5분 전부터 진료실이 열립니다😊</td>
-
 																			</c:otherwise>
 																		</c:choose>
 																</tr>
