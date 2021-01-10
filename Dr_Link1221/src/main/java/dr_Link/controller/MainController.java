@@ -34,6 +34,7 @@ import dr_Link.doctor.DoctorServiceInter;
 import dr_Link.doctorProfile.DoctorDTO;
 import dr_Link.doctorProfile.DoctorProfileDAO;
 import dr_Link.dto.AiRecordDTO;
+import dr_Link.dto.AiResultDTO;
 import dr_Link.dto.Hospital_boardDTO;
 import dr_Link.dto.NewsDTO;
 import dr_Link.dto.NewsReplDTO;
@@ -125,10 +126,10 @@ public class MainController {
 					model.addAttribute("message", "<p style='color:red'> 이미 탈퇴한 계정입니다. </p>");
 					p_url = "patient_login.page";
 				} else if (result != null) {
-					String time = result.getAppointmentDTO().getAppointment_time();
-					result.getAppointmentDTO().setAppointment_time(time.substring(0,time.length()-2));
-					String appointment = result.getAppointmentDTO().getAppointment_date()+""+result.getAppointmentDTO().getAppointment_time();
-					result.setAppointment(appointment);
+//					String time = result.getAppointmentDTO().getAppointment_time();
+//					result.getAppointmentDTO().setAppointment_time(time.substring(0,time.length()-2));
+//					String appointment = result.getAppointmentDTO().getAppointment_date()+""+result.getAppointmentDTO().getAppointment_time();
+//					result.setAppointment(appointment);
 					p_url = "main.page";
 					Object requestSession = session.getAttribute("requestSession");
 					if(requestSession==null) {
@@ -510,10 +511,11 @@ public class MainController {
 	   //ai 진료
 	   @ResponseBody
 	   @RequestMapping(value = "aiTest")
-	   public String aiTest(@RequestParam("images") MultipartFile file, MultipartHttpServletRequest mtf) {
+	   public String aiTest(@RequestParam("images") MultipartFile file, HttpSession session) {
 	      String oriFn = "";
 	      if(file != null) {
-	         String r_path = "\\\\192.168.0.8\\share\\aiTest\\"; //"Z:\\aiTest\\";  \\192.168.0.8\share\aiTest
+	         String r_path = "\\\\192.168.0.7\\share\\aiTest\\"; //"Z:\\aiTest\\";  \\192.168.0.8\share\aiTest
+	         String ai_path = session.getServletContext().getRealPath("resources/aiTest")+"\\";
 	         oriFn = file.getOriginalFilename();
 	         
 	         if(oriFn != null && oriFn != "") {
@@ -521,9 +523,14 @@ public class MainController {
 	            StringBuffer newpath = new StringBuffer();
 	            newpath.append(r_path);
 	            newpath.append(oriFn);
+	            StringBuffer aipath = new StringBuffer();
+	            newpath.append(ai_path);
+	            newpath.append(oriFn);
 	            File f = new File(newpath.toString());
+	            File g = new File(aipath.toString());
 	            try {
 	               file.transferTo(f);
+	               file.transferTo(g);
 	            } catch (IllegalStateException e) {
 	               e.printStackTrace();
 	            } catch (IOException e) {
@@ -565,7 +572,10 @@ public class MainController {
 	      Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(rq);
 	      try {
 	         if(redirectMap.get("predict") != null) {
+	        	 AiRecordDTO at = (AiRecordDTO) redirectMap.get("aiDTO");
+	        	 AiResultDTO ai_result = patientDAO.getAiResultDTO(at.getAi_symptom());
 	        	 mv.addObject("aiDTO", redirectMap.get("aiDTO"));
+	        	 mv.addObject("aiResult", ai_result);
 	        	 mv.addObject("predict", redirectMap.get("predict"));
 	         }
 	      } catch (Exception e) {

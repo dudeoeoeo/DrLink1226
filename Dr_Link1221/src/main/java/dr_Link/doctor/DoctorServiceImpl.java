@@ -62,12 +62,12 @@ public class DoctorServiceImpl implements DoctorServiceInter{
 	public void doctor_send_mail(DoctorDTO dto, String div) throws Exception {
 		// Mail Server 설정
 		String charSet = "utf-8";
-		String hostSMTP = "smtp.naver.com";
-		String hostSMTPid = "sungminkimpro@naver.com";
-		String hostSMTPpwd = "kosmoTEST123";
+		String hostSMTP = "smtp.gmail.com";
+		String hostSMTPid = "ksungmin10@gmail.com";
+		String hostSMTPpwd = "kosmoTEST1234";
 
 		// 보내는 사람 EMail, 제목, 내용
-		String fromEmail = "sungminkimpro@naver.com";
+		String fromEmail = "ksungmin10@gmail.com";
 		String fromName = "닥터링크";
 		String subject = "";
 		String msg = "";

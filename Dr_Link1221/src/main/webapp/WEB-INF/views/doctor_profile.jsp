@@ -4,6 +4,87 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
+<script>
+	$(document).ready(function(){
+		$(".btn.btn-white.fav-btn").click(function(){
+//			alert('즐겨찾기 버튼 클릭');
+			favoriteCheck();
+		});
+		
+		$(".btn.btn-primary.fav-btn").click(function(){
+//			alert('즐겨찾기 버튼 클릭');
+			favoriteCheck();
+		});
+		
+		function favoriteCheck(){
+//			alert($("#doctor_num").val());
+			$.ajax({
+	            async: true,
+	            type : 'POST',
+	            data : { 
+	            	'doctor_num' : $("#doctor_num").val()
+	            },
+	            url : "checkFavorite.do",
+	            dataType : "text",
+	            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+	            success : function(data) {
+	            	if(data == 0){
+	            		addFavorite();
+	            	}else{
+	            		deleteFavorite();
+	            	}
+	            },
+	            error : function(error) {              
+	                alert("error : " + error);
+	            }
+	            
+	        });
+		}
+		
+		function addFavorite(){
+			$.ajax({
+	            async: true,
+	            type : 'POST',
+	            data : { 
+	            	'doctor_num' : $("#doctor_num").val()
+	            },
+	            url : "addFavorite.do",
+	            dataType : "text",
+	            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+	            success : function(data) {
+//	            	alert('즐겨찾기 등록');
+	            	location.reload();
+	            },
+	            error : function(error) {              
+	                alert("error : " + error);
+	            }
+	            
+	        });
+		}
+		
+		function deleteFavorite(){
+			$.ajax({
+	            async: true,
+	            type : 'POST',
+	            data : { 
+	            	'doctor_num' : $("#doctor_num").val()
+	            },
+	            url : "deleteFavorite.do",
+	            dataType : "text",
+	            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+	            success : function(data) {
+//	            	alert('즐겨찾기 삭제');
+	            	location.reload();
+	            },
+	            error : function(error) {              
+	                alert("error : " + error);
+	            }
+	            
+	        });
+		}
+		
+	});
+</script>
 <!-- Page Content -->
 <div class="content">
 	<div class="container">
@@ -24,6 +105,7 @@
 											</a> 
 										</div> -->
 						</div>
+						<input type="hidden" id="doctor_num" value="${doctor_profile.doctor_num }" >
 						<div class="doc-info-cont">
 							<h4 class="doc-name">${doctor_profile.d_name}</h4>
 							<p class="doc-speciality">${doctor_profile.departmentDTO.dep_name}</p>
@@ -68,7 +150,14 @@
 					<div class="doc-info-right">
 
 						<div class="doctor-action">
-							<a href="javascript:void(0)" class="btn btn-white fav-btn"
+							<a href="javascript:void(0)" 
+							<c:choose>
+								<c:when test="${fav_num == '1' }">
+									class="btn btn-primary fav-btn"
+								</c:when>
+								<c:otherwise>class="btn btn-white fav-btn"</c:otherwise>
+							</c:choose>
+							
 								style="margin-left: 80% !important; margin-bottom: 30% !important;">
 								<i class="far fa-bookmark"></i>
 							</a>
@@ -268,7 +357,7 @@
 												<p class="comment-content">${review.review_content}</p>
 												<div class="comment-reply">
 												<input type="hidden" name="review_num" value="${review.review_num}">
-												<input type="hidden" name="doctor_num" value="${review.doctor_num}">
+												<input type="hidden" name="doctor_num" class="doctor_num" value="${review.doctor_num}">
 												<input type="hidden" name="review_rating" value="${review.review_rating}">
 													<p class="recommend-btn">
 														<span>도움이 되는 후기였나요?</span> <a href="#" class="like-btn">

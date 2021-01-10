@@ -336,7 +336,7 @@ ul .bxslider {
 								</c:when>
 								<c:when test="${news.news_photo != null }">
 									<div class="blog-image">
-										<a href="health-blog-detail?n_num=${news.news_board_num}"><img
+										<a href="health-blog-detail?b_num=${news.news_board_num}"><img
 											class="img-fluid"
 											src="${path}/resources/assets/img/blog/${news.news_photo}"
 											alt="Post Image" style="height:250px"></a>
@@ -344,7 +344,7 @@ ul .bxslider {
 								</c:when>
 								<c:otherwise>
 									<div class="blog-image">
-										<a href="health-blog-detail?n_num=${news.news_board_num}"><img
+										<a href="health-blog-detail?b_num=${news.news_board_num}"><img
 											class="img-fluid"
 											src="${path}/resources/assets/img/blog/blog-02.jpg"
 											alt="Post Image"></a>

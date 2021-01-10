@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import dr_Link.dto.PatientDTO;
+import dr_Link.favorites.FavoritesDAO;
+import dr_Link.favorites.FavoritesDTO;
 import dr_Link.review.Doc_ReviewDTO;
 import dr_Link.review.ReviewService;
 
@@ -25,8 +29,11 @@ public class DoctorProfileController {
 	@Autowired
 	private ReviewService reviewService;
 	
+	@Autowired
+	private FavoritesDAO favoritesDAO;
+	
 	@RequestMapping(value = "doctor_profile")
-	public String doctor_profile(HttpServletRequest request, DoctorDTO vo, Model model, ModelMap modelMap) {
+	public String doctor_profile(HttpServletRequest request, HttpSession session, DoctorDTO vo, Model model, ModelMap modelMap) {
 	    
 	  try {
 		  Map<String, ?> redirectMap = RequestContextUtils.getInputFlashMap(request);  
@@ -71,7 +78,12 @@ public class DoctorProfileController {
 	  } catch (Exception e) {
 		  e.printStackTrace();
 	  }
-		 
+	  
+	  FavoritesDTO fvo = new FavoritesDTO();
+	  fvo.setPatient_num(((PatientDTO)session.getAttribute("user")).getPatient_num());
+	  fvo.setDoctor_num(Integer.parseInt(request.getParameter("doctor_num")));
+	  model.addAttribute("fav_num", favoritesDAO.checkFavorite(fvo));
+	  
 		return "doctor_profile.page";
 	}
 	

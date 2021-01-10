@@ -83,6 +83,8 @@
     <!-- Interceptor 설정 -->
     <interceptors>
         <interceptor>
+            <mapping path="/doctor_profile*"/>
+            <mapping path="/search"/>
             <mapping path="/AI_medical_eye"/>
             <mapping path="/AI_medical_hair"/>
             <mapping path="/AI_medical_skin"/>

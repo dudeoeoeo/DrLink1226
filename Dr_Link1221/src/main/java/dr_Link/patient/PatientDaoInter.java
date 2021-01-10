@@ -3,6 +3,7 @@ package dr_Link.patient;
 import java.util.List;
 
 import dr_Link.dto.AiRecordDTO;
+import dr_Link.dto.AiResultDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.dto.Pay_recordDTO;
 import dr_Link.dto.TreatmentRecordDTO;
@@ -62,6 +63,7 @@ public interface PatientDaoInter {
 	
 	public AiRecordDTO getAiRecordDTO(int patient_num);
 	
+	public AiResultDTO getAiResultDTO(String symptom);
 	
 //	public void addTvo(PatientDTO dto);
 	

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dr_Link.dto.AiRecordDTO;
+import dr_Link.dto.AiResultDTO;
 import dr_Link.dto.PatientDTO;
 import dr_Link.dto.Pay_recordDTO;
 import dr_Link.dto.TreatmentRecordDTO;
@@ -138,5 +139,8 @@ public class PatientDaoImp implements PatientDaoInter{
 	public void insertAiRecord(AiRecordDTO dto) {
 		ss.insert("patient.insertAiRecord",dto);
 	}
-
+	
+	public AiResultDTO getAiResultDTO(String symptom) {
+		return ss.selectOne("patient.getAIResult", symptom);
+	};
 }

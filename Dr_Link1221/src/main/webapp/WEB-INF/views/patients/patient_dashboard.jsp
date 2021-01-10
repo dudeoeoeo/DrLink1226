@@ -61,8 +61,8 @@
 								<li class="active"><a href="patient_dashboard"> <i
 										class="fas fa-columns"></i> <span>진료확인</span>
 								</a></li>
-								<li><a href="#"> <i class="fas fa-bookmark"></i> <span>즐겨찾는
-											의사(준비중)</span>
+								<li><a href="favorites"> <i class="fas fa-bookmark"></i> <span>즐겨찾는
+											의사</span>
 								</a></li>
 								<li><a href="profile_settings"> <i
 										class="fas fa-user-cog"></i> <span>개인정보 수정</span>
@@ -159,14 +159,17 @@
 																	</td>		
 																									
 																	<c:choose>
-																	<c:when test="${sysdate == bookingList.appointment_date && sysdateTime <= recordTime}">  
+																	<c:when test="${sysdate == bookingList.appointment_date && recordTime - sysdateTime <= 15 && recordTime - sysdateTime >= 6}">																		
+																		<td>곧 진료실이 열립니다😊</td> 
+																	</c:when> 
+																	<c:when test="${sysdate == bookingList.appointment_date && recordTime - sysdateTime <= 5}">  
 																	<%-- <c:when test="${sysdate == '2021-01-08' && sysdateTime <= '1600'}"> --%>
 																		<td><a href="https://192.168.0.44:3100/dr_linkVideo">
 																			<span class="badge-pill bg-info-light">진료실 입장하기</span>
 																		</a></td> 
 																	</c:when> 
 																	<c:otherwise>																		
-																		<td>예약시간이 다가오면 진료실이 열립니다😊</td> 
+																		<td>예약시간 5분 전부터 진료실이 열립니다😊</td> 
 																	</c:otherwise>
 																	</c:choose>
 																</tr>

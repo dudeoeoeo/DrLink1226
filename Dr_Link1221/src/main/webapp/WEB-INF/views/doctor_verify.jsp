@@ -25,7 +25,7 @@
 									</div>
 									<div class="col-md-12 col-lg-6 login-right">
 										<div class="login-header">
-											<h3>Dr.Link <span>로그인</span></h3>
+											<h3>Dr.Link <span>인증</span></h3>
 											<input type="hidden" class="flag" value="${message }">
 										</div>
 										<form action="verifyCheck" name="verifyCheck" id="verifyCheck" class="verifyCheck" method="post">

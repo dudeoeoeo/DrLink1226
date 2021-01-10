@@ -26,6 +26,8 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
         session.setAttribute("requestSession", requestURI);
        	if(requestURI.contains("patients")) {
             response.sendRedirect("/Dr_Link1221/patient_login");
+       	}else if(requestURI.contains("doctor_profile")){
+            response.sendRedirect("/Dr_Link1221/login");
        	}else if(requestURI.contains("doctor")){
             response.sendRedirect("/Dr_Link1221/doctor_login");
        	}else {

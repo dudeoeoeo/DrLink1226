@@ -106,7 +106,7 @@ function promise_function(formData){
 function jsonpAjax(img_name){
     	alert("img_name: "+ img_name);
     	$.ajax({
-       	  	url : "http://192.168.0.8:9000/survey/jsonAIT?callback&&img=" + img_name+"&&model=2",
+       	  	url : "http://192.168.0.7:9000/survey/jsonAIT?callback&&img=" + img_name+"&&model=2",
     		dataType : 'jsonp',
     		type : 'GET',
     		jsonp : 'callback',

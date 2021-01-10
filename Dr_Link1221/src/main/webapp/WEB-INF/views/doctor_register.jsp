@@ -67,7 +67,7 @@
 					$('#id_check').css('color', 'red');
 					$("#submit-btn").attr("disabled", "disabled");
 			        $("#d_id").val("");
-			        $("#d_id").focus();
+			     //   $("#d_id").focus();
 			        return false;
 			      }else{					
 			    	  $.ajax({
@@ -101,7 +101,7 @@
 						$('#email_check').css('color', 'red');
 						$("#submit-btn").attr("disabled", "disabled");
 				        $("#d_email").val("");
-				        $("#d_email").focus();
+				    //    $("#d_email").focus();
 				        return false;
 				      } else {					
 				    	  $.ajax({
@@ -137,7 +137,7 @@
 						$("#submit-btn").attr("disabled", "disabled");
 				        $("#d_pwd").val("");
 				        $("#d_pwd2").val("");
-				        $("#d_pwd").focus();
+				   //     $("#d_pwd").focus();
 				        return false;
 				      } else {
 				   if($('#d_pwd').val() != $('#d_pwd2').val()){
@@ -146,7 +146,7 @@
 							$('#pwd_check').css('color', 'red');
 							$("#submit-btn").attr("disabled", true);
 				    	    $('#d_pwd2').val('');
-				         	$('#d_pwd2').focus();
+				      //   	$('#d_pwd2').focus();
 				      	}
 				   }else{
 						$("#submit-btn").removeAttr("disabled");
@@ -165,7 +165,7 @@
 							$('#pwd_check').css('color', 'red');
 							$("#submit-btn").attr("disabled", true);
 				    	    $('#d_pwd2').val('');
-				         	$('#d_pwd2').focus();
+				       //  	$('#d_pwd2').focus();
 				      	}
 				   }else{
 						$("#submit-btn").removeAttr("disabled");
@@ -207,7 +207,7 @@
 						$("#jumin_check").text("주민등록번호 형식에 맞게 입력해주세요.");
 						$('#jumin_check').css('color', 'red');
 			    	    $('#d_jumin_num').val('');
-				        $("#d_jumin_num").focus();
+				   //     $("#d_jumin_num").focus();
 				        
 				        //남 여 구분
 				      }else if(juminGender == '1' || juminGender == '3') {
@@ -252,18 +252,18 @@
 					if(!regPhone.test($("#d_phone_num").val())){
 						$("#phone_check").text("휴대폰번호를 정확히 입력해 주세요.");
 						$('#phone_check').css('color', 'red');
-				        $("#d_phone_num").focus();
+				   //     $("#d_phone_num").focus();
 					}
 					else if ($("#d_phone_num").val() == "" || $("#d_phone_num").val().length != 11 || isNaN($("#d_phone_num").val())) {
 						$("#phone_check").text("휴대폰번호를 정확히 입력해 주세요.");
 						$('#phone_check').css('color', 'red');
-				        $("#d_phone_num").focus();
+				    //    $("#d_phone_num").focus();
 					     return;
 					}
 					else if (isNaN($("#d_phone_num").val())) {
 						$("#phone_check").text("휴대폰번호를 숫자로만 입력해 주세요.");
 						$('#phone_check').css('color', 'red');
-				        $("#d_phone_num").focus();
+				   //     $("#d_phone_num").focus();
 					     return;
 					}else{
 						$("#phone_check").text("");
@@ -273,7 +273,7 @@
 					     if(chk == " "){
 							$("#phone_check").text("휴대폰번호를 정확히 입력해주세요.");
 							$('#phone_check').css('color', 'red');
-					        $("#d_phone_num").focus();
+					//        $("#d_phone_num").focus();
 					          return;
 					     }
 					}
