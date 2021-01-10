@@ -146,6 +146,20 @@
 	        });
 			
 		}
+		
+	      $('.input-msg-send.form-control').keypress(function(event){
+	           if ( event.which == 13 ) {
+//	              alert('');
+	               $('.btn.msg-send-btn').click();
+	               return false;
+	           }
+	      });
+		
+		setInterval(function(){
+			var divdiv = document.getElementById("chat-scroll");
+			divdiv.scrollTop = divdiv.scrollHeight;
+	    }, 0.01*1000)
+		
 	});
 </script>
 
@@ -166,18 +180,18 @@
 				<div class="user-name">${doctor.d_name }</div>
 			</div>
 		</div>
-		<div class="chat-options">
+		<!-- <div class="chat-options">
 			<a href="javascript:void(0)" data-toggle="modal"
 				data-target="#voice_call"> <i class="material-icons">local_phone</i>
 			</a> <a href="javascript:void(0)" data-toggle="modal"
 				data-target="#video_call"> <i class="material-icons">videocam</i>
 			</a> <a href="javascript:void(0)"> <i class="material-icons">more_vert</i>
 			</a>
-		</div>
+		</div> -->
 	</div>
 	<div class="chat-body">
 		<input type="hidden" class="receiverNum" value="${doctor.doctor_num }" />
-		<div class="chat-scroll">
+		<div class="chat-scroll" id="chat-scroll" style="overflow: auto !important; height:100% !important;">
 			<ul class="list-unstyled">
 			<!-- 비교할 이전값 -->
 			<c:set var = "preSender" value=""/>
