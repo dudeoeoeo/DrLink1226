@@ -147,6 +147,7 @@ public class PatientDaoImp implements PatientDaoInter{
 	}
 	
 	public AiResultDTO getAiResultDTO(String symptom) {
+		System.out.println("들어온 symtom : " + symptom);
 		return ss.selectOne("patient.getAIResult", symptom);
 	};
 }

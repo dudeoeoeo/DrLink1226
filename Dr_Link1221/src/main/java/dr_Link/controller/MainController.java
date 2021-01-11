@@ -546,7 +546,7 @@ public class MainController {
 	      String oriFn = "";
 	      if(file != null) {
 	         String r_path = "\\\\192.168.0.19\\share\\aiTest\\"; //"Z:\\aiTest\\";  \\192.168.0.8\share\aiTest
-	         String ai_path = session.getServletContext().getRealPath("resources/aiTest")+"\\";
+	         //String ai_path = session.getServletContext().getRealPath("resources/aiTest")+"\\";
 	         oriFn = file.getOriginalFilename();
 	         
 	         if(oriFn != null && oriFn != "") {
@@ -554,14 +554,16 @@ public class MainController {
 	            StringBuffer newpath = new StringBuffer();
 	            newpath.append(r_path);
 	            newpath.append(oriFn);
-	            StringBuffer aipath = new StringBuffer();
-	            aipath.append(ai_path);
-	            aipath.append(oriFn);
+	            //StringBuffer aipath = new StringBuffer();
+	            //aipath.append(ai_path);
+	            //aipath.append(oriFn);
+	            //System.out.println("aipath : "+ai_path);
+	            
 	            File f = new File(newpath.toString());
-	            File g = new File(aipath.toString());
+	            //File g = new File(aipath.toString());
 	            try {
 	               file.transferTo(f);
-	               file.transferTo(g);
+	               //file.transferTo(g);
 	            } catch (IllegalStateException e) {
 	               e.printStackTrace();
 	            } catch (IOException e) {
@@ -585,6 +587,7 @@ public class MainController {
 			       dto.setDoctor_num(d_num.getDoctor_num());
 			   }
 			   dto.setDep_num(Integer.parseInt(rq.getParameter("DP")));
+			   dto.setAi_model(rq.getParameter("DP"));
 		       dto.setAi_symptom(rq.getParameter("disease"));
 		       dto.setSymptom_photo(rq.getParameter("IMG"));
 		       patientDAO.insertAiRecord(dto);
@@ -604,6 +607,7 @@ public class MainController {
 	      try {
 	         if(redirectMap.get("predict") != null) {
 	        	 AiRecordDTO at = (AiRecordDTO) redirectMap.get("aiDTO");
+	        	 System.out.println("들어온 질병 : " + at.getAi_symptom());
 	        	 AiResultDTO ai_result = patientDAO.getAiResultDTO(at.getAi_symptom());
 	        	 mv.addObject("aiDTO", redirectMap.get("aiDTO"));
 	        	 mv.addObject("aiResult", ai_result);

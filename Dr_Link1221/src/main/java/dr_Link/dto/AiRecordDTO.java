@@ -10,9 +10,16 @@ public class AiRecordDTO {
 	private String ai_symptom;
 	private String use_time;
 	private String symptom_photo;
+	private String ai_model;
 	private MultipartFile file;
 	
 	
+	public String getAi_model() {
+		return ai_model;
+	}
+	public void setAi_model(String ai_model) {
+		this.ai_model = ai_model;
+	}
 	public int getPatient_num() {
 		return patient_num;
 	}

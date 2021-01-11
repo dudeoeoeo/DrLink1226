@@ -228,7 +228,14 @@ $(function(){
 											<c:set var="ap_timeFormat" value="${fn:replace(ap_time2, ':', '')}" />
 											<c:set var="now_timeFormat" value="${fn:replace(nowTime, ':', '')}" />
 											<!-- nowTime <= ap_time2 -->
+											<c:forEach var="treat" items="${treatList}">
+											<c:set var="cnt" value="0"/>
+											<c:if test="${treat.appointment_num eq ap.appointment_num }">
+											<c:set var="cnt" value="1"/>
+											</c:if>
+											</c:forEach>
 											<c:choose>
+											<c:when test="${cnt gt 0}"><span>진료가 완료되었습니다.</span></c:when>
 											<c:when test="${nowDate >= ap_date2 && (ap_timeFormat - now_timeFormat) < -5}">
 												<span>진료시간이 지났습니다.</span>
 											</c:when>
@@ -250,6 +257,7 @@ $(function(){
 												<td>예약시간 5분 전부터 진료실이 열립니다😊</td>
 											</c:otherwise>
 											</c:choose>
+											
 										</div>
 									</div>
 									

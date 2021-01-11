@@ -367,7 +367,7 @@ public class DoctorController {
 //		}
 //		System.out.println("aiList : "+aiList.size());
 //		mv.addObject("aiList", ar);
-		System.out.println("바뀐 ap리스트 요청");
+		List<TreatmentRecordDTO> tr_dto = doc_dao.getAP_num();
 		List<AppointmentDTO> ap = doc_dao.getApList(doctor.getDoctor_num(), p_num);
 		ModelAndView mv = new ModelAndView("/doctor/appointments.page");
 		mv.addObject("apList", ap);
@@ -381,14 +381,11 @@ public class DoctorController {
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
 		}
-		
-		for(AppointmentDTO a : ap) {
-			System.out.println("가져온 환자번호들 : " + a.getPatients().get(0).getPatient_num());
-		}
 		DoctorDTO doctorinfo = new DoctorDTO();
 		int doctor_num = ((DoctorDTO) session.getAttribute("doctor")).getDoctor_num();
 		doctorinfo = doc_service.getDoctorDTO(doctor_num);
 		model.addAttribute("doctorinfo", doctorinfo);
+		model.addAttribute("treatList", tr_dto);
 		/*
 		 * try { Date today = new Date(); SimpleDateFormat format6, format7; format6 =
 		 * new SimpleDateFormat("오늘은 yyyy년의 w주차이며 D번째 날입니다."); format7 = new

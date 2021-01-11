@@ -157,7 +157,15 @@
 																	<td>${appointment_date}<span
 																		class="d-block text-info">${booking.appointment_time}</span></td>
 																	<td>${bookingDate}</td>
+																	
+																	<c:forEach var="treat" items="${treatmentList}">
+																			<c:set var="cnt" value="0"/>
+																		<c:if test="${treat.appointment_num eq booking.appointment_num }">
+																			<c:set var="cnt" value="1"/>
+																		</c:if>
+																	</c:forEach>
 																	<c:choose>
+																	<c:when test="${cnt gt 0}"><span>진료가 완료되었습니다.</span></c:when>
 																			<c:when
 																				test="${sysdate == appointment_date && recordTime - sysdateTime < -5}">
 																				<td>

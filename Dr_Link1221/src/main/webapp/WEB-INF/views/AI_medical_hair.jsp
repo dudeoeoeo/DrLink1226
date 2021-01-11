@@ -106,14 +106,14 @@ function promise_function(formData){
 function jsonpAjax(img_name){
     	alert("img_name: "+ img_name);
     	$.ajax({
-       	  	url : "http://192.168.0.7:9000/drLink/jsonAIT?callback&&img=" + img_name+"&&model=2",
+       	  	url : "http://192.168.0.19:9000/drLink/jsonAIT?callback&&img=" + img_name+"&&model=2",
     		dataType : 'jsonp',
     		type : 'GET',
     		jsonp : 'callback',
             success : function(result){
             	alert("성공 ??");
             	alert( "성공: " + result.predict+ " 병명 : "+result.disease);
-            	var url = "aiSuccess?result="+result.predict+"&&disease="+result.disease+"&&IMG="+img_name+"&&DP=20"
+            	var url = "aiSuccess?result="+result.predict+"&&disease="+result.disease+"&&IMG="+img_name+"&&DP=30"
             	location.href = url 
                  },
             error : function(e) {
